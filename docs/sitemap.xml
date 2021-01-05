@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://github.com/jeksterslab/ram//index.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ram//reference/M.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ram//reference/Sigmatheta.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ram//reference/mutheta.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ram//articles/ram.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ram//articles/tests/test.M.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ram//articles/tests/test.Sigmatheta.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ram//articles/tests/test.mutheta.html</loc>
+  </url>
+</urlset>
