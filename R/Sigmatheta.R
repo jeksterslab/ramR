@@ -15,15 +15,20 @@
 #'   \deqn{
 #'     \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
 #'     =
-#'     \mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \boldsymbol{\Omega}
-#'     \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \mathbf{F}^{\mathsf{T}}
+#'     \mathbf{F}
+#'     \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+#'     \boldsymbol{\Omega}
+#'     \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}}
+#'     \mathbf{F}^{\mathsf{T}}
 #'   }
 #'
 #'   where
 #'
-#'   - \eqn{\mathbf{A}_{t \times t}} represents asymmetric paths (single-headed arrows),
+#'   - \eqn{\mathbf{A}_{t \times t}} represents asymmetric paths
+#'     (single-headed arrows),
 #'     such as regression coefficients and factor loadings,
-#'   - \eqn{\boldsymbol{\Omega}_{t \times t}} represents symmetric paths (double-headed arrows),
+#'   - \eqn{\boldsymbol{\Omega}_{t \times t}} represents symmetric paths
+#'     (double-headed arrows),
 #'     such as variances and covariances,
 #'   - \eqn{\mathbf{F}_{j \times t}} represents the filter matrix
 #'     used to select the observed variables,
@@ -50,14 +55,18 @@
 #'   derived from the `A`, `Omega`, and `filter` matrices.
 #' @references
 #'   McArdle, J. J. (2013).
-#'   The development of the RAM rules for latent variable structural equation modeling.
+#'   The development of the RAM rules
+#'   for latent variable structural equation modeling.
 #'   In A. Maydeu-Olivares & J. J. McArdle (Eds.),
-#'   *Contemporary Psychometrics: A festschrift for Roderick P. McDonald* (pp. 225--273).
+#'   *Contemporary Psychometrics: A festschrift for Roderick P. McDonald*
+#'   (pp. 225--273).
 #'   Lawrence Erlbaum Associates.
 #'
 #'   McArdle, J. J., & McDonald, R. P. (1984).
-#'   Some algebraic properties of the Reticular Action Model for moment structures.
-#'   *British Journal of Mathematical and Statistical Psychology*, *37* (2), 234--251.
+#'   Some algebraic properties
+#'   of the Reticular Action Model for moment structures.
+#'   *British Journal of Mathematical and Statistical Psychology*, *37* (2),
+#'   234--251.
 #' @export
 Sigmatheta <- function(A,
                        Omega,

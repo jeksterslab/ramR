@@ -19,7 +19,8 @@
 #'
 #'   where
 #'
-#'   - \eqn{\mathbf{A}_{t \times t}} represents asymmetric paths (single-headed arrows),
+#'   - \eqn{\mathbf{A}_{t \times t}} represents asymmetric paths
+#'     (single-headed arrows),
 #'     such as regression coefficients and factor loadings,
 #'   - \eqn{\mathbf{F}_{j \times t}} represents the filter matrix
 #'     used to select the observed variables,

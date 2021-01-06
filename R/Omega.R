@@ -1,6 +1,7 @@
 #' @author Ivan Jacob Agaloos Pesigan
 #'
-#' @title Matrix of symmetric paths (double-headed arrows) \eqn{\boldsymbol{\Omega}}
+#' @title Matrix of symmetric paths (double-headed arrows)
+#'   \eqn{\boldsymbol{\Omega}}
 #'
 #' @description Derives the matrix of symmetric paths (double-headed arrows)
 #'   \eqn{\boldsymbol{\Omega}}
@@ -21,9 +22,11 @@
 #'
 #'   where
 #'
-#'   - \eqn{\mathbf{A}_{t \times t}} represents asymmetric paths (single-headed arrows),
+#'   - \eqn{\mathbf{A}_{t \times t}} represents asymmetric paths
+#'     (single-headed arrows),
 #'     such as regression coefficients and factor loadings,
-#'   - \eqn{\boldsymbol{\Sigma}_{t \times t}} represents the model-implied variance-covariance matrix,
+#'   - \eqn{\boldsymbol{\Sigma}_{t \times t}} represents
+#'     the model-implied variance-covariance matrix,
 #'   - \eqn{\mathbf{I}_{t \times t}} represents an identity matrix,
 #'   - \eqn{j} number of observed variables,
 #'   - \eqn{k} number of latent variables, and
