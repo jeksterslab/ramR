@@ -16,3 +16,4 @@
 ^README\.md$
 ^README\.html$
 ^Makefile$
+^\.github$
