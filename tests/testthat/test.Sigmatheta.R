@@ -40,7 +40,7 @@ parameter_mu <- c(
   m = mum,
   y = muy
 )
-parameter_M <- c(
+parameter_m <- c(
   x = mux,
   m = deltam,
   y = deltay
@@ -61,7 +61,7 @@ parameter_A <- matrix(
 )
 colnames(parameter_A) <- c("x", "m", "y")
 rownames(parameter_A) <- c("x", "m", "y")
-parameter_S <- matrix(
+parameter_Omega <- matrix(
   data = c(
     sigma2x,
     0,
@@ -75,12 +75,12 @@ parameter_S <- matrix(
   ),
   ncol = 3
 )
-colnames(parameter_S) <- c("x", "m", "y")
-rownames(parameter_S) <- c("x", "m", "y")
+colnames(parameter_Omega) <- c("x", "m", "y")
+rownames(parameter_Omega) <- c("x", "m", "y")
 parameter_filter <- diag(nrow(parameter_A))
 colnames(parameter_filter) <- c("x", "m", "y")
 rownames(parameter_filter) <- c("x", "m", "y")
-parameter_Sigmatheta <- matrix(
+parameter_Sigma <- matrix(
   data = c(
     225,
     160.6667,
@@ -139,24 +139,24 @@ parameter_Sigmatheta <- matrix(
 #' ### Column Vector of Means and Intercepts
 #'
 #' \begin{equation}
-#'   \mathbf{M}
+#'   \mathbf{m}
 #'   =
 #'   \begin{bmatrix}
-#'     `r parameter_M[1]` \\
-#'     `r parameter_M[2]` \\
-#'     `r parameter_M[3]`
+#'     `r parameter_m[1]` \\
+#'     `r parameter_m[2]` \\
+#'     `r parameter_m[3]`
 #'   \end{bmatrix}
 #' \end{equation}
 #'
 #' ### Matrix of Variances
 #'
 #' \begin{equation}
-#'   \mathbf{S}
+#'   \boldsymbol{\Omega}
 #'   =
 #'   \begin{bmatrix}
-#'     `r parameter_S[1, 1]` & `r parameter_S[1, 2]` & `r parameter_S[1, 3]` \\
-#'     `r parameter_S[2, 1]` & `r parameter_S[2, 2]` & `r parameter_S[2, 3]` \\
-#'     `r parameter_S[3, 1]` & `r parameter_S[3, 2]` & `r parameter_S[3, 3]`
+#'     `r parameter_Omega[1, 1]` & `r parameter_Omega[1, 2]` & `r parameter_Omega[1, 3]` \\
+#'     `r parameter_Omega[2, 1]` & `r parameter_Omega[2, 2]` & `r parameter_Omega[2, 3]` \\
+#'     `r parameter_Omega[3, 1]` & `r parameter_Omega[3, 2]` & `r parameter_Omega[3, 3]`
 #'   \end{bmatrix}
 #' \end{equation}
 #'
@@ -178,9 +178,9 @@ parameter_Sigmatheta <- matrix(
 #'   \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
 #'   =
 #'   \begin{bmatrix}
-#'     `r parameter_Sigmatheta[1, 1]` & `r parameter_Sigmatheta[1, 2]` & `r parameter_Sigmatheta[1, 3]` \\
-#'     `r parameter_Sigmatheta[2, 1]` & `r parameter_Sigmatheta[2, 2]` & `r parameter_Sigmatheta[2, 3]` \\
-#'     `r parameter_Sigmatheta[3, 1]` & `r parameter_Sigmatheta[3, 2]` & `r parameter_Sigmatheta[3, 3]`
+#'     `r parameter_Sigma[1, 1]` & `r parameter_Sigma[1, 2]` & `r parameter_Sigma[1, 3]` \\
+#'     `r parameter_Sigma[2, 1]` & `r parameter_Sigma[2, 2]` & `r parameter_Sigma[2, 3]` \\
+#'     `r parameter_Sigma[3, 1]` & `r parameter_Sigma[3, 2]` & `r parameter_Sigma[3, 3]`
 #'   \end{bmatrix}
 #' \end{equation}
 #'
@@ -189,7 +189,7 @@ parameter_Sigmatheta <- matrix(
 #+
 result_Sigmatheta <- Sigmatheta(
   A = parameter_A,
-  S = parameter_S,
+  Omega = parameter_Omega,
   filter = parameter_filter
 )
 #'
@@ -209,10 +209,10 @@ result_Sigmatheta <- Sigmatheta(
 #'
 #+
 test_that("Sigmatheta.", {
-  for (i in 1:nrow(parameter_Sigmatheta)) {
-    for (j in 1:ncol(parameter_Sigmatheta)) {
+  for (i in 1:nrow(parameter_Sigma)) {
+    for (j in 1:ncol(parameter_Sigma)) {
       expect_equal(
-        parameter_Sigmatheta[i, j],
+        parameter_Sigma[i, j],
         result_Sigmatheta[i, j],
         check.attributes = FALSE,
         tolerance = 0.001

@@ -1,10 +1,10 @@
 ---
-title: "Test: mutheta"
+title: "Test: M"
 author: "Ivan Jacob Agaloos Pesigan"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Test: mutheta}
+  %\VignetteIndexEntry{Test: M}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -197,23 +197,23 @@ and
 
 
 ```{r }
-result_mutheta <- mutheta(
-  m = parameter_m,
+result_m <- m(
+  mutheta = parameter_mu,
   A = parameter_A,
   filter = parameter_filter
 )
 ```
 
 
-### Model-Implied Mean Vector
+### Column Vector of Means and Intercepts
 
 \begin{equation}
-  \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
+  \mathbf{m}
   =
   \begin{bmatrix}
-    `r result_mutheta[1]` \\
-    `r result_mutheta[2]` \\
-    `r result_mutheta[3]`
+    `r result_m[1, 1]` \\
+    `r result_m[2, 1]` \\
+    `r result_m[3, 1]`
   \end{bmatrix}
 \end{equation}
 
@@ -221,11 +221,11 @@ result_mutheta <- mutheta(
 
 
 ```{r }
-test_that("mutheta.", {
-  for (i in seq_along(parameter_mu)) {
+test_that("M.", {
+  for (i in seq_along(parameter_m)) {
     expect_equal(
-      parameter_mu[i],
-      result_mutheta[i],
+      parameter_m[i],
+      result_m[i, 1],
       check.attributes = FALSE,
       tolerance = 0.001
     )

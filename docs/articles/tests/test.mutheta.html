@@ -57,10 +57,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../../articles/tests/test.M.html">Test: M</a>
+      <a href="../../articles/tests/test.Omega.html">Test: Omega</a>
     </li>
     <li>
       <a href="../../articles/tests/test.Sigmatheta.html">Test: Sigmatheta</a>
+    </li>
+    <li>
+      <a href="../../articles/tests/test.m.html">Test: M</a>
     </li>
     <li>
       <a href="../../articles/tests/test.mutheta.html">Test: mutheta</a>
@@ -125,7 +128,7 @@
   m <span class="op">=</span> <span class="va">mum</span>,
   y <span class="op">=</span> <span class="va">muy</span>
 <span class="op">)</span>
-<span class="va">parameter_M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+<span class="va">parameter_m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
   x <span class="op">=</span> <span class="va">mux</span>,
   m <span class="op">=</span> <span class="va">deltam</span>,
   y <span class="op">=</span> <span class="va">deltay</span>
@@ -146,7 +149,7 @@
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">parameter_A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"m"</span>, <span class="st">"y"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">parameter_A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"m"</span>, <span class="st">"y"</span><span class="op">)</span>
-<span class="va">parameter_S</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
+<span class="va">parameter_Omega</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
   data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
     <span class="va">sigma2x</span>,
     <span class="fl">0</span>,
@@ -160,12 +163,12 @@
   <span class="op">)</span>,
   ncol <span class="op">=</span> <span class="fl">3</span>
 <span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">parameter_S</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"m"</span>, <span class="st">"y"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">parameter_S</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"m"</span>, <span class="st">"y"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">parameter_Omega</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"m"</span>, <span class="st">"y"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">parameter_Omega</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"m"</span>, <span class="st">"y"</span><span class="op">)</span>
 <span class="va">parameter_filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">parameter_A</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">parameter_filter</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"m"</span>, <span class="st">"y"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">parameter_filter</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"m"</span>, <span class="st">"y"</span><span class="op">)</span>
-<span class="va">parameter_Sigmatheta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
+<span class="va">parameter_Sigma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
   data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
     <span class="fl">225</span>,
     <span class="fl">160.6667</span>,
@@ -202,7 +205,7 @@
 <h3 class="hasAnchor">
 <a href="#column-vector-of-means-and-intercepts" class="anchor"></a>Column Vector of Means and Intercepts</h3>
 <p><span class="math display">\[\begin{equation}
-  \mathbf{M}
+  \mathbf{m}
   =
   \begin{bmatrix}
     100 \\
@@ -228,7 +231,7 @@
 <h3 class="hasAnchor">
 <a href="#matrix-of-variances" class="anchor"></a>Matrix of Variances</h3>
 <p><span class="math display">\[\begin{equation}
-  \mathbf{S}
+  \boldsymbol{\Omega}
   =
   \begin{bmatrix}
     225 &amp; 0 &amp; 0 \\
@@ -270,7 +273,7 @@
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">result_mutheta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/mutheta.html">mutheta</a></span><span class="op">(</span>
-  M <span class="op">=</span> <span class="va">parameter_M</span>,
+  m <span class="op">=</span> <span class="va">parameter_m</span>,
   A <span class="op">=</span> <span class="va">parameter_A</span>,
   filter <span class="op">=</span> <span class="va">parameter_filter</span>
 <span class="op">)</span></code></pre></div>
@@ -302,7 +305,7 @@
     <span class="op">)</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 😸</span></code></pre></div>
+<span class="co">#&gt; Test passed 🎊</span></code></pre></div>
 </div>
   </div>
 

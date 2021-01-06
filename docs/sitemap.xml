@@ -4,10 +4,13 @@
     <loc>https://github.com/jeksterslab/ram//index.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ram//reference/M.html</loc>
+    <loc>https://github.com/jeksterslab/ram//reference/Omega.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ram//reference/Sigmatheta.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ram//reference/m.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ram//reference/mutheta.html</loc>
@@ -16,10 +19,13 @@
     <loc>https://github.com/jeksterslab/ram//articles/ram.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ram//articles/tests/test.M.html</loc>
+    <loc>https://github.com/jeksterslab/ram//articles/tests/test.Omega.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ram//articles/tests/test.Sigmatheta.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ram//articles/tests/test.m.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ram//articles/tests/test.mutheta.html</loc>

@@ -1,10 +1,10 @@
 #' ---
-#' title: "Test: mutheta"
+#' title: "Test: Omega"
 #' author: "Ivan Jacob Agaloos Pesigan"
 #' date: "`r Sys.Date()`"
 #' output: rmarkdown::html_vignette
 #' vignette: >
-#'   %\VignetteIndexEntry{Test: mutheta}
+#'   %\VignetteIndexEntry{Test: Omega}
 #'   %\VignetteEngine{knitr::rmarkdown}
 #'   %\VignetteEncoding{UTF-8}
 #' ---
@@ -187,34 +187,35 @@ parameter_Sigma <- matrix(
 #' ## `mutheta()`
 #'
 #+
-result_mutheta <- mutheta(
-  m = parameter_m,
+result_Omega <- Omega(
   A = parameter_A,
-  filter = parameter_filter
+  Sigmatheta = parameter_Sigma
 )
 #'
-#' ### Model-Implied Mean Vector
+#' ### Matrix of Variances
 #'
 #' \begin{equation}
-#'   \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
+#'   \boldsymbol{\Omega}
 #'   =
 #'   \begin{bmatrix}
-#'     `r result_mutheta[1]` \\
-#'     `r result_mutheta[2]` \\
-#'     `r result_mutheta[3]`
+#'     `r result_Omega[1, 1]` & `r result_Omega[1, 2]` & `r result_Omega[1, 3]` \\
+#'     `r result_Omega[2, 1]` & `r result_Omega[2, 2]` & `r result_Omega[2, 3]` \\
+#'     `r result_Omega[3, 1]` & `r result_Omega[3, 2]` & `r result_Omega[3, 3]`
 #'   \end{bmatrix}
 #' \end{equation}
 #'
 #' ## testthat
 #'
 #+
-test_that("mutheta.", {
-  for (i in seq_along(parameter_mu)) {
-    expect_equal(
-      parameter_mu[i],
-      result_mutheta[i],
-      check.attributes = FALSE,
-      tolerance = 0.001
-    )
+test_that("Omega.", {
+  for (i in 1:nrow(parameter_Omega)) {
+    for (j in 1:ncol(parameter_Omega)) {
+      expect_equal(
+        parameter_Omega[i, j],
+        result_Omega[i, j],
+        check.attributes = FALSE,
+        tolerance = 0.001
+      )
+    }
   }
 })

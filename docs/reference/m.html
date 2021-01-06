@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mean Structure Vector \(\mathbf{M}\) — M • ram</title>
+<title>Mean Structure Vector \(\mathbf{m}\) — m • ram</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Mean Structure Vector \(\mathbf{M}\) — M" />
-<meta property="og:description" content="Derives the mean structure vector \(\mathbf{M}\)
+<meta property="og:title" content="Mean Structure Vector \(\mathbf{m}\) — m" />
+<meta property="og:description" content="Derives the mean structure vector \(\mathbf{m}\)
 using the Reticular Action Model (RAM) notation." />
 
 
@@ -99,10 +99,13 @@ using the Reticular Action Model (RAM) notation." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/tests/test.M.html">Test: M</a>
+      <a href="../articles/tests/test.Omega.html">Test: Omega</a>
     </li>
     <li>
       <a href="../articles/tests/test.Sigmatheta.html">Test: Sigmatheta</a>
+    </li>
+    <li>
+      <a href="../articles/tests/test.m.html">Test: M</a>
     </li>
     <li>
       <a href="../articles/tests/test.mutheta.html">Test: mutheta</a>
@@ -133,55 +136,52 @@ using the Reticular Action Model (RAM) notation." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Mean Structure Vector \(\mathbf{M}\)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ram/blob/master/R/M.R'><code>R/M.R</code></a></small>
-    <div class="hidden name"><code>M.Rd</code></div>
+    <h1>Mean Structure Vector \(\mathbf{m}\)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ram/blob/master/R/m.R'><code>R/m.R</code></a></small>
+    <div class="hidden name"><code>m.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Derives the mean structure vector \(\mathbf{M}\)
+    <p>Derives the mean structure vector \(\mathbf{m}\)
 using the Reticular Action Model (RAM) notation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>M</span><span class='op'>(</span><span class='va'>mutheta</span>, <span class='va'>A</span>, <span class='va'>filter</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>m</span><span class='op'>(</span><span class='va'>mutheta</span>, <span class='va'>A</span>, <span class='va'>filter</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mutheta</th>
-      <td><p><code>k x 1</code> numeric vector
-\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)_{k \times 1}\) .
+      <td><p><code>t x 1</code> numeric vector
+\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)_{t \times 1}\) .
 Model-implied mean vector.</p></td>
     </tr>
     <tr>
       <th>A</th>
-      <td><p><code>m x m</code> numeric matrix
-\(\mathbf{A}_{m \times m}\).
+      <td><p><code>t x t</code> numeric matrix
+\(\mathbf{A}_{t \times t}\).
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.</p></td>
     </tr>
     <tr>
       <th>filter</th>
-      <td><p><code>k x m</code> numeric matrix
-\(\mathbf{F}_{k \times m}\).
+      <td><p><code>j x t</code> numeric matrix
+\(\mathbf{F}_{j \times t}\).
 Filter matrix used to select variables.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns the mean structure vector \(\mathbf{M}\)
-derived from the \(\mathbf{A}\), \(\mathbf{F}\),
-\( \mathbf{I}\), matrices and
-\( \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)
-vector.</p>
+    <p>Returns the mean structure vector \(\mathbf{m}\)
+derived from the <code>mutheta</code>, <code>A</code>, and <code>filter</code> matrices.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The mean structure vector \(\mathbf{M}\)
+    <p>The mean structure vector \(\mathbf{m}\)
 as a function of Reticular Action Model (RAM) matrices is given by</p>
 <p>$$
-    \mathbf{M}
+    \mathbf{m}
     =
     \mathbf{F}
     \left( \mathbf{I} - \mathbf{A} \right)
@@ -189,16 +189,16 @@ as a function of Reticular Action Model (RAM) matrices is given by</p>
     \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
   $$</p>
 <p>where</p><ul>
-<li><p>\(\mathbf{A}_{m \times m}\) represents asymmetric paths (single-headed arrows),
+<li><p>\(\mathbf{A}_{t \times t}\) represents asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings,</p></li>
-<li><p>\(\mathbf{I}_{m \times m}\) represents an identity matrix,</p></li>
-<li><p>\(\mathbf{F}_{k \times m}\) represents the filter matrix
+<li><p>\(\mathbf{F}_{j \times t}\) represents the filter matrix
 used to select the observed variables,</p></li>
+<li><p>\(\mathbf{I}_{t \times t}\) represents an identity matrix,</p></li>
 <li><p>\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)
-is the \(k \times 1\) model-implied mean vector</p></li>
-<li><p>\(k\) number of observed variables,</p></li>
-<li><p>\(q\) number of latent variables, and</p></li>
-<li><p>\(m\) number of observed and latent variables, that is \(k + q\) .</p></li>
+is the \(t \times 1\) model-implied mean vector</p></li>
+<li><p>\(j\) number of observed variables,</p></li>
+<li><p>\(k\) number of latent variables, and</p></li>
+<li><p>\(t\) number of observed and latent variables, that is \(j + k\) .</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
@@ -214,6 +214,7 @@ Some algebraic properties of the Reticular Action Model for moment structures.
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other SEM notation functions: 
+<code><a href='Omega.html'>Omega</a>()</code>,
 <code><a href='Sigmatheta.html'>Sigmatheta</a>()</code>,
 <code><a href='mutheta.html'>mutheta</a>()</code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>

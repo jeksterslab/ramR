@@ -57,10 +57,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../../articles/tests/test.M.html">Test: M</a>
+      <a href="../../articles/tests/test.Omega.html">Test: Omega</a>
     </li>
     <li>
       <a href="../../articles/tests/test.Sigmatheta.html">Test: Sigmatheta</a>
+    </li>
+    <li>
+      <a href="../../articles/tests/test.m.html">Test: M</a>
     </li>
     <li>
       <a href="../../articles/tests/test.mutheta.html">Test: mutheta</a>
@@ -88,7 +91,7 @@
 
       
 
-      </header><script src="test.M_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><script src="test.m_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Test: M</h1>
@@ -96,8 +99,8 @@
             
             <h4 class="date">2021-01-06</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/jeksterslab/ram/blob/master/vignettes/tests/test.M.Rmd"><code>vignettes/tests/test.M.Rmd</code></a></small>
-      <div class="hidden name"><code>test.M.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/jeksterslab/ram/blob/master/vignettes/tests/test.m.Rmd"><code>vignettes/tests/test.m.Rmd</code></a></small>
+      <div class="hidden name"><code>test.m.Rmd</code></div>
 
     </div>
 
@@ -125,7 +128,7 @@
   m <span class="op">=</span> <span class="va">mum</span>,
   y <span class="op">=</span> <span class="va">muy</span>
 <span class="op">)</span>
-<span class="va">parameter_M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+<span class="va">parameter_m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
   x <span class="op">=</span> <span class="va">mux</span>,
   m <span class="op">=</span> <span class="va">deltam</span>,
   y <span class="op">=</span> <span class="va">deltay</span>
@@ -146,7 +149,7 @@
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">parameter_A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"m"</span>, <span class="st">"y"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">parameter_A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"m"</span>, <span class="st">"y"</span><span class="op">)</span>
-<span class="va">parameter_S</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
+<span class="va">parameter_Omega</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
   data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
     <span class="va">sigma2x</span>,
     <span class="fl">0</span>,
@@ -160,12 +163,12 @@
   <span class="op">)</span>,
   ncol <span class="op">=</span> <span class="fl">3</span>
 <span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">parameter_S</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"m"</span>, <span class="st">"y"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">parameter_S</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"m"</span>, <span class="st">"y"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">parameter_Omega</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"m"</span>, <span class="st">"y"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">parameter_Omega</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"m"</span>, <span class="st">"y"</span><span class="op">)</span>
 <span class="va">parameter_filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">parameter_A</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">parameter_filter</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"m"</span>, <span class="st">"y"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">parameter_filter</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"m"</span>, <span class="st">"y"</span><span class="op">)</span>
-<span class="va">parameter_Sigmatheta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
+<span class="va">parameter_Sigma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
   data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
     <span class="fl">225</span>,
     <span class="fl">160.6667</span>,
@@ -202,7 +205,7 @@
 <h3 class="hasAnchor">
 <a href="#column-vector-of-means-and-intercepts" class="anchor"></a>Column Vector of Means and Intercepts</h3>
 <p><span class="math display">\[\begin{equation}
-  \mathbf{M}
+  \mathbf{m}
   =
   \begin{bmatrix}
     100 \\
@@ -228,7 +231,7 @@
 <h3 class="hasAnchor">
 <a href="#matrix-of-variances" class="anchor"></a>Matrix of Variances</h3>
 <p><span class="math display">\[\begin{equation}
-  \mathbf{S}
+  \boldsymbol{\Omega}
   =
   \begin{bmatrix}
     225 &amp; 0 &amp; 0 \\
@@ -269,7 +272,7 @@
 <a href="#mutheta" class="anchor"></a><code>mutheta()</code>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">result_M</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/M.html">M</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">result_m</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/m.html">m</a></span><span class="op">(</span>
   mutheta <span class="op">=</span> <span class="va">parameter_mu</span>,
   A <span class="op">=</span> <span class="va">parameter_A</span>,
   filter <span class="op">=</span> <span class="va">parameter_filter</span>
@@ -278,7 +281,7 @@
 <h3 class="hasAnchor">
 <a href="#column-vector-of-means-and-intercepts-1" class="anchor"></a>Column Vector of Means and Intercepts</h3>
 <p><span class="math display">\[\begin{equation}
-  \mathbf{M}
+  \mathbf{m}
   =
   \begin{bmatrix}
     100 \\
@@ -293,16 +296,16 @@
 <a href="#testthat" class="anchor"></a>testthat</h2>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"M."</span>, <span class="op">{</span>
-  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">parameter_M</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">parameter_m</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
-      <span class="va">parameter_M</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,
-      <span class="va">result_M</span><span class="op">[</span><span class="va">i</span>, <span class="fl">1</span><span class="op">]</span>,
+      <span class="va">parameter_m</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,
+      <span class="va">result_m</span><span class="op">[</span><span class="va">i</span>, <span class="fl">1</span><span class="op">]</span>,
       check.attributes <span class="op">=</span> <span class="cn">FALSE</span>,
       tolerance <span class="op">=</span> <span class="fl">0.001</span>
     <span class="op">)</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🌈</span></code></pre></div>
+<span class="co">#&gt; Test passed 🎊</span></code></pre></div>
 </div>
   </div>
 

@@ -5,24 +5,24 @@
 \title{Model-Implied Mean Vector
 \eqn{\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)}}
 \usage{
-mutheta(M, A, filter)
+mutheta(m, A, filter)
 }
 \arguments{
-\item{M}{\verb{m x 1} numeric vector \eqn{\mathbf{M}_{m \times 1}}.
+\item{m}{\verb{t x 1} numeric vector \eqn{\mathbf{m}_{t \times 1}}.
 Mean structure. Vector of means and intercepts.}
 
-\item{A}{\verb{m x m} numeric matrix
-\eqn{\mathbf{A}_{m \times m}}.
+\item{A}{\verb{t x t} numeric matrix
+\eqn{\mathbf{A}_{t \times t}}.
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.}
 
-\item{filter}{\verb{k x m} numeric matrix
-\eqn{\mathbf{F}_{k \times m}}.
+\item{filter}{\verb{j x t} numeric matrix
+\eqn{\mathbf{F}_{j \times t}}.
 Filter matrix used to select variables.}
 }
 \value{
 Returns the model-implied mean vector
-\eqn{\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)}
+\eqn{\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)}
 derived from the \code{M}, \code{A}, and \code{filter} matrices.
 }
 \description{
@@ -42,21 +42,21 @@ is given by
     \mathbf{F}
     \left( \mathbf{I} - \mathbf{A} \right)^{-1}
     \mathbf{F}^{\mathsf{T}}
-    \mathbf{M}
+    \mathbf{m}
   }
 
 where
 \itemize{
-\item \eqn{\mathbf{A}_{m \times m}} represents asymmetric paths (single-headed arrows),
+\item \eqn{\mathbf{A}_{t \times t}} represents asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings,
-\item \eqn{\mathbf{I}_{m \times m}} represents an identity matrix,
-\item \eqn{\mathbf{F}_{k \times m}} represents the filter matrix
+\item \eqn{\mathbf{F}_{j \times t}} represents the filter matrix
 used to select the observed variables,
-\item \eqn{\mathbf{M}_{m \times 1}} represents the mean structure,
+\item \eqn{\mathbf{I}_{t \times t}} represents an identity matrix,
+\item \eqn{\mathbf{m}_{t \times 1}} represents the mean structure,
 that is, a vector of means and intercepts,
-\item \eqn{k} number of observed variables,
-\item \eqn{q} number of latent variables, and
-\item \eqn{m} number of observed and latent variables, that is \eqn{k + q} .
+\item \eqn{j} number of observed variables,
+\item \eqn{k} number of latent variables, and
+\item \eqn{t} number of observed and latent variables, that is \eqn{j + k} .
 }
 }
 \references{
@@ -72,8 +72,9 @@ Some algebraic properties of the Reticular Action Model for moment structures.
 }
 \seealso{
 Other SEM notation functions: 
-\code{\link{M}()},
-\code{\link{Sigmatheta}()}
+\code{\link{Omega}()},
+\code{\link{Sigmatheta}()},
+\code{\link{m}()}
 }
 \author{
 Ivan Jacob Agaloos Pesigan
