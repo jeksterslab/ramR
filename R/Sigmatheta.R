@@ -15,39 +15,39 @@
 #'   \deqn{
 #'     \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
 #'     =
-#'     \mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \mathbf{S}
+#'     \mathbf{F} \left( \mathbf{I} - \mathbf{A} \right)^{-1} \boldsymbol{\Omega}
 #'     \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}} \mathbf{F}^{\mathsf{T}}
 #'   }
 #'
 #'   where
 #'
-#'   - \eqn{\mathbf{A}_{m \times m}} represents asymmetric paths (single-headed arrows),
+#'   - \eqn{\mathbf{A}_{t \times t}} represents asymmetric paths (single-headed arrows),
 #'     such as regression coefficients and factor loadings,
-#'   - \eqn{\mathbf{S}_{m \times m}} represents symmetric paths (double-headed arrows),
+#'   - \eqn{\boldsymbol{\Omega}_{t \times t}} represents symmetric paths (double-headed arrows),
 #'     such as variances and covariances,
-#'   - \eqn{\mathbf{F}_{k \times m}} represents the filter matrix
+#'   - \eqn{\mathbf{F}_{j \times t}} represents the filter matrix
 #'     used to select the observed variables,
-#'   - \eqn{\mathbf{I}_{m \times m}} represents an identity matrix,
-#'   - \eqn{k} number of observed variables,
-#'   - \eqn{q} number of latent variables, and
-#'   - \eqn{m} number of observed and latent variables, that is \eqn{k + q} .
+#'   - \eqn{\mathbf{I}_{t \times t}} represents an identity matrix,
+#'   - \eqn{j} number of observed variables,
+#'   - \eqn{k} number of latent variables, and
+#'   - \eqn{t} number of observed and latent variables, that is \eqn{j + k} .
 #'
 #' @family SEM notation functions
 #' @keywords matrix ram
-#' @param A `m x m` numeric matrix
-#'   \eqn{\mathbf{A}_{m \times m}}.
+#' @param A `t x t` numeric matrix
+#'   \eqn{\mathbf{A}_{t \times t}}.
 #'   Asymmetric paths (single-headed arrows),
 #'   such as regression coefficients and factor loadings.
-#' @param S `m x m` numeric matrix
-#'   \eqn{\mathbf{S}_{m \times m}}.
+#' @param Omega `t x t` numeric matrix
+#'   \eqn{\boldsymbol{\Omega}_{t \times t}}.
 #'   Symmetric paths (double-headed arrows),
 #'   such as variances and covariances.
-#' @param filter `k x m` numeric matrix
-#'   \eqn{\mathbf{F}_{k \times m}}.
+#' @param filter `j x t` numeric matrix
+#'   \eqn{\mathbf{F}_{j \times t}}.
 #'   Filter matrix used to select variables.
 #' @return Returns the model-implied variance-covariance matrix
 #'   \eqn{\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)}
-#'   derived from the `A`, `S`, and `filter` matrices.
+#'   derived from the `A`, `Omega`, and `filter` matrices.
 #' @references
 #'   McArdle, J. J. (2013).
 #'   The development of the RAM rules for latent variable structural equation modeling.
@@ -60,19 +60,19 @@
 #'   *British Journal of Mathematical and Statistical Psychology*, *37* (2), 234--251.
 #' @export
 Sigmatheta <- function(A,
-                       S,
+                       Omega,
                        filter) {
   # (I - A)^{-1}
   invIminusA <- solve(
     diag(nrow(A)) - A
   )
-  # S * ((I - A)^{-1})^T
-  STinvIminusA <- tcrossprod(
-    x = S,
+  # Omega * ((I - A)^{-1})^T
+  OmegaTinvIminusA <- tcrossprod(
+    x = Omega,
     y = invIminusA
   )
-  # (I - A)^{-1} * S * ((I - A)^{-1})^T
-  inner <- invIminusA %*% STinvIminusA
+  # (I - A)^{-1} * Omega * ((I - A)^{-1})^T
+  inner <- invIminusA %*% OmegaTinvIminusA
   return(
     # F * (I - A)^{-1} * S * ((I - A)^{-1})^T * F^T
     filter %*% crossprod(
