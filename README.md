@@ -8,8 +8,6 @@ Ivan Jacob Agaloos Pesigan
 
 [![Travis build
 status](https://travis-ci.com/jeksterslab/ram.svg?branch=master)](https://travis-ci.com/jeksterslab/ram)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/jeksterslab/ram?branch=master&svg=true)](https://ci.appveyor.com/project/jeksterslab/ram)
 [![codecov](https://codecov.io/github/jeksterslab/ram/branch/master/graphs/badge.svg)](https://codecov.io/github/jeksterslab/ram)
 <!-- badges: end -->
 
