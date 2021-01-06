@@ -17,7 +17,6 @@
 #'     =
 #'     \mathbf{F}
 #'     \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-#'     \mathbf{F}^{\mathsf{T}}
 #'     \mathbf{m}
 #'   }
 #'
@@ -48,17 +47,8 @@
 mutheta <- function(m,
                     A,
                     filter) {
-  # (I - A)^{-1}
-  invIminusA <- solve(
-    diag(nrow(A)) - A
-  )
-  # F^{T} * M
-  Ftm <- crossprod(
-    x = filter,
-    y = m
-  )
   return(
-    # F * (I - A)^{-1} * F^{T} * m
-    filter %*% invIminusA %*% Ftm
+    filter %*% solve(diag(nrow(A)) - A) %*% m
   )
 }
+

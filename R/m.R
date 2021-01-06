@@ -11,9 +11,10 @@
 #'   \deqn{
 #'     \mathbf{m}
 #'     =
-#'     \mathbf{F}
-#'     \left( \mathbf{I} - \mathbf{A} \right)
-#'     \mathbf{F}^{\mathsf{T}}
+#'     \left(
+#'       \mathbf{F}
+#'       \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+#'     \right)^{-1}
 #'     \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
 #'   }
 #'
@@ -44,15 +45,8 @@
 m <- function(mutheta,
               A,
               filter) {
-  # I - A
-  IminusA <- diag(nrow(A)) - A
-  # F^T * mu(theta)
-  Ftmutheta <- crossprod(
-    x = filter,
-    y = mutheta
-  )
   return(
-    # F * (I - A) * F^T * mu(theta)
-    filter %*% IminusA %*% Ftmutheta
+    solve(filter %*% solve(diag(nrow(A)) - A)) %*% mutheta
   )
 }
+

@@ -83,10 +83,7 @@ Sigmatheta <- function(A,
   # (I - A)^{-1} * Omega * ((I - A)^{-1})^T
   inner <- invIminusA %*% OmegaTinvIminusA
   return(
-    # F * (I - A)^{-1} * S * ((I - A)^{-1})^T * F^T
-    filter %*% crossprod(
-      x = inner,
-      y = filter
-    )
+    # F * (I - A)^{-1} * Omega * ((I - A)^{-1})^T * F^T
+    filter %*% inner %*% t(filter)
   )
 }
