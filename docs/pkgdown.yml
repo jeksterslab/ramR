@@ -7,7 +7,7 @@ articles:
   tests/test.Sigmatheta: test.Sigmatheta.html
   tests/test.m: test.m.html
   tests/test.mutheta: test.mutheta.html
-last_built: 2021-01-06T04:14Z
+last_built: 2021-01-06T23:40Z
 urls:
   reference: https://github.com/jeksterslab/ram//reference
   article: https://github.com/jeksterslab/ram//articles

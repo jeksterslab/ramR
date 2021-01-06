@@ -35,9 +35,10 @@ as a function of Reticular Action Model (RAM) matrices is given by
 \deqn{
     \mathbf{m}
     =
-    \mathbf{F}
-    \left( \mathbf{I} - \mathbf{A} \right)
-    \mathbf{F}^{\mathsf{T}}
+    \left(
+      \mathbf{F}
+      \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+    \right)^{-1}
     \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
   }
 

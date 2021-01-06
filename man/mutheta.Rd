@@ -41,7 +41,6 @@ is given by
     =
     \mathbf{F}
     \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-    \mathbf{F}^{\mathsf{T}}
     \mathbf{m}
   }
 
