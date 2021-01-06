@@ -3,6 +3,7 @@
 ^.*\.yml$
 ^LICENSE\.md$
 ^data_raw$
+^references$
 ^.notes$
 ^ram.Rproj$
 ^NEWS.md$
