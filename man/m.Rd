@@ -43,7 +43,8 @@ as a function of Reticular Action Model (RAM) matrices is given by
 
 where
 \itemize{
-\item \eqn{\mathbf{A}_{t \times t}} represents asymmetric paths (single-headed arrows),
+\item \eqn{\mathbf{A}_{t \times t}} represents asymmetric paths
+(single-headed arrows),
 such as regression coefficients and factor loadings,
 \item \eqn{\mathbf{F}_{j \times t}} represents the filter matrix
 used to select the observed variables,
@@ -57,14 +58,18 @@ is the \eqn{t \times 1} model-implied mean vector
 }
 \references{
 McArdle, J. J. (2013).
-The development of the RAM rules for latent variable structural equation modeling.
+The development of the RAM rules
+for latent variable structural equation modeling.
 In A. Maydeu-Olivares & J. J. McArdle (Eds.),
-\emph{Contemporary Psychometrics: A festschrift for Roderick P. McDonald} (pp. 225--273).
+\emph{Contemporary Psychometrics: A festschrift for Roderick P. McDonald}
+(pp. 225--273).
 Lawrence Erlbaum Associates.
 
 McArdle, J. J., & McDonald, R. P. (1984).
-Some algebraic properties of the Reticular Action Model for moment structures.
-\emph{British Journal of Mathematical and Statistical Psychology}, \emph{37} (2), 234--251.
+Some algebraic properties
+of the Reticular Action Model for moment structures.
+\emph{British Journal of Mathematical and Statistical Psychology}, \emph{37} (2),
+234--251.
 }
 \seealso{
 Other SEM notation functions: 
