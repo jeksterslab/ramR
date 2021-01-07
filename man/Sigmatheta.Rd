@@ -5,7 +5,7 @@
 \title{Model-Implied Variance-Covariance Matrix
 \eqn{\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)}}
 \usage{
-Sigmatheta(A, Omega, filter)
+Sigmatheta(A, Omega, filter = NULL)
 }
 \arguments{
 \item{A}{\verb{t x t} numeric matrix
@@ -20,7 +20,10 @@ such as variances and covariances.}
 
 \item{filter}{\verb{j x t} numeric matrix
 \eqn{\mathbf{F}_{j \times t}}.
-Filter matrix used to select variables.}
+Filter matrix used to select variables.
+If \code{filter = NULL},
+the filter matrix \eqn{\mathbf{F}} is assumed to be
+a \eqn{t \times t} identity matrix.}
 }
 \value{
 Returns the model-implied variance-covariance matrix

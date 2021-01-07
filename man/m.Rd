@@ -4,7 +4,7 @@
 \alias{m}
 \title{Mean Structure Vector \eqn{\mathbf{m}}}
 \usage{
-m(mutheta, A, filter)
+m(mutheta, A, filter = NULL)
 }
 \arguments{
 \item{mutheta}{\verb{t x 1} numeric vector
@@ -18,7 +18,10 @@ such as regression coefficients and factor loadings.}
 
 \item{filter}{\verb{j x t} numeric matrix
 \eqn{\mathbf{F}_{j \times t}}.
-Filter matrix used to select variables.}
+Filter matrix used to select variables.
+If \code{filter = NULL},
+the filter matrix \eqn{\mathbf{F}} is assumed to be
+a \eqn{t \times t} identity matrix.}
 }
 \value{
 Returns the mean structure vector \eqn{\mathbf{m}}

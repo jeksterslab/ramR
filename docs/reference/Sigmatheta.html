@@ -102,16 +102,7 @@ using the Reticular Action Model (RAM) notation." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/tests/test.Omega.html">Test: Omega</a>
-    </li>
-    <li>
-      <a href="../articles/tests/test.Sigmatheta.html">Test: Sigmatheta</a>
-    </li>
-    <li>
-      <a href="../articles/tests/test.m.html">Test: m</a>
-    </li>
-    <li>
-      <a href="../articles/tests/test.mutheta.html">Test: mutheta</a>
+      <a href="../articles/tests/test.simple-regression.html">Test: Simple Regression</a>
     </li>
   </ul>
 </li>
@@ -151,7 +142,7 @@ using the Reticular Action Model (RAM) notation." />
 using the Reticular Action Model (RAM) notation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Sigmatheta</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>Omega</span>, <span class='va'>filter</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>Sigmatheta</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>Omega</span>, filter <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -174,7 +165,10 @@ such as variances and covariances.</p></td>
       <th>filter</th>
       <td><p><code>j x t</code> numeric matrix
 \(\mathbf{F}_{j \times t}\).
-Filter matrix used to select variables.</p></td>
+Filter matrix used to select variables.
+If <code>filter = NULL</code>,
+the filter matrix \(\mathbf{F}\) is assumed to be
+a \(t \times t\) identity matrix.</p></td>
     </tr>
     </table>
 
