@@ -93,11 +93,11 @@ Cov <- matrix(
 #'     &=
 #'     m_1 + a_{1, 2} v_2 + u \\
 #'     &=
-#'     `r m1` + `r a12` \cdot v_2 + u
+#'     `r m1` + `r a12` \cdot v_2 + u .
 #'   \end{split}
 #' \end{equation}
 #'
-#' \noindent where $v_1$ and $v_2$ are observed variables and
+#' \noindent $v_1$ and $v_2$ are observed variables and
 #' $u$ is a stochastic error term which is normally distributed around zero
 #' with constant variance across values of $v_2$
 #'
