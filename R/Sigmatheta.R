@@ -50,6 +50,9 @@
 #' @param filter `j x t` numeric matrix
 #'   \eqn{\mathbf{F}_{j \times t}}.
 #'   Filter matrix used to select variables.
+#'   If `filter = NULL`,
+#'   the filter matrix \eqn{\mathbf{F}} is assumed to be
+#'   a \eqn{t \times t} identity matrix.
 #' @return Returns the model-implied variance-covariance matrix
 #'   \eqn{\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)}
 #'   derived from the `A`, `Omega`, and `filter` matrices.
@@ -70,7 +73,7 @@
 #' @export
 Sigmatheta <- function(A,
                        Omega,
-                       filter) {
+                       filter = NULL) {
   # (I - A)^{-1}
   invIminusA <- solve(
     diag(nrow(A)) - A
@@ -82,8 +85,16 @@ Sigmatheta <- function(A,
   )
   # (I - A)^{-1} * Omega * ((I - A)^{-1})^T
   inner <- invIminusA %*% OmegaTinvIminusA
-  return(
-    # F * (I - A)^{-1} * Omega * ((I - A)^{-1})^T * F^T
-    filter %*% inner %*% t(filter)
-  )
+  if (is.null(filter)) {
+    return(inner)
+  } else {
+    return(
+      # F * (I - A)^{-1} * Omega * ((I - A)^{-1})^T * F^T
+      # filter %*% inner %*% t(filter)
+      filter %*% tcrossprod(
+        x = inner,
+        y = filter
+      )
+    )
+  }
 }

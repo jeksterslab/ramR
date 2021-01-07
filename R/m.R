@@ -44,9 +44,20 @@
 #' @export
 m <- function(mutheta,
               A,
-              filter) {
+              filter = NULL) {
+  if (is.vector(mutheta)) {
+    rowlabels <- names(mutheta)
+    mutheta <- matrix(
+      data = mutheta,
+      ncol = 1
+    )
+    rownames(mutheta) <- rowlabels
+  }
+  if (is.null(filter)) {
+    filter <- diag(nrow(A))
+    colnames(filter) <- colnames(A)
+  }
   return(
     solve(filter %*% solve(diag(nrow(A)) - A)) %*% mutheta
   )
 }
-
