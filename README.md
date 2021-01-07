@@ -6,6 +6,7 @@ Ivan Jacob Agaloos Pesigan
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
+![R-CMD-check](https://github.com/jeksterslab/ram/workflows/R-CMD-check/badge.svg?branch=master)
 [![Travis build
 status](https://travis-ci.com/jeksterslab/ram.svg?branch=master)](https://travis-ci.com/jeksterslab/ram)
 [![codecov](https://codecov.io/github/jeksterslab/ram/branch/master/graphs/badge.svg)](https://codecov.io/github/jeksterslab/ram)
