@@ -1,10 +1,10 @@
 #' ---
-#' title: "Test: M"
+#' title: "Test: m"
 #' author: "Ivan Jacob Agaloos Pesigan"
 #' date: "`r Sys.Date()`"
 #' output: rmarkdown::html_vignette
 #' vignette: >
-#'   %\VignetteIndexEntry{Test: M}
+#'   %\VignetteIndexEntry{Test: m}
 #'   %\VignetteEngine{knitr::rmarkdown}
 #'   %\VignetteEncoding{UTF-8}
 #' ---
