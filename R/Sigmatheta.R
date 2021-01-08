@@ -57,7 +57,7 @@
 #'   \eqn{\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)}
 #'   derived from the `A`, `Omega`, and `filter` matrices.
 #' @references
-#'   McArdle, J. J. (2013).
+#'   McArdle, J. J. (2005).
 #'   The development of the RAM rules
 #'   for latent variable structural equation modeling.
 #'   In A. Maydeu-Olivares & J. J. McArdle (Eds.),
