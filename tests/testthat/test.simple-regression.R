@@ -274,3 +274,39 @@ test_that("Omega-02.", {
     }
   }
 })
+#'
+#+ coverage
+m <- as.vector(m)
+result_mutheta_03 <- as.vector(
+  ram::mutheta(
+    m = m,
+    A = A
+  )
+)
+mu <- as.vector(mu)
+result_m_03 <- as.vector(
+  ram::m(
+    mutheta = mu,
+    A = A
+  )
+)
+test_that("mutheta-03.", {
+  for (i in seq_along(mu)) {
+    expect_equal(
+      mu[i],
+      result_mutheta_03[i],
+      check.attributes = FALSE,
+      tolerance = 0.001
+    )
+  }
+})
+test_that("m-03.", {
+  for (i in seq_along(m)) {
+    expect_equal(
+      m[i],
+      result_m_03[i],
+      check.attributes = FALSE,
+      tolerance = 0.001
+    )
+  }
+})
