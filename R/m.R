@@ -11,10 +11,10 @@
 #'   \deqn{
 #'     \mathbf{m}
 #'     =
-#'     \left(
+#'     \left[
 #'       \mathbf{F}
 #'       \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-#'     \right)^{-1}
+#'     \right]^{-1}
 #'     \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
 #'   }
 #'
