@@ -38,10 +38,10 @@ as a function of Reticular Action Model (RAM) matrices is given by
 \deqn{
     \mathbf{m}
     =
-    \left(
+    \left[
       \mathbf{F}
       \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-    \right)^{-1}
+    \right]^{-1}
     \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
   }
 
@@ -61,7 +61,7 @@ is the \eqn{t \times 1} model-implied mean vector
 }
 }
 \references{
-McArdle, J. J. (2013).
+McArdle, J. J. (2005).
 The development of the RAM rules
 for latent variable structural equation modeling.
 In A. Maydeu-Olivares & J. J. McArdle (Eds.),

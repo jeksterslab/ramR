@@ -63,7 +63,7 @@ that is, a vector of means and intercepts,
 }
 }
 \references{
-McArdle, J. J. (2013).
+McArdle, J. J. (2005).
 The development of the RAM rules
 for latent variable structural equation modeling.
 In A. Maydeu-Olivares & J. J. McArdle (Eds.),
