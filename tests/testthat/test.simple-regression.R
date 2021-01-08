@@ -85,24 +85,24 @@ Cov <- matrix(
   ncol = 3
 )
 #'
-#' Let $v_1$, $v_2$, and $u$ be random variables whose associations are given by the regression equation
+#' Let $v_1$, $v_2$, and $v_3$ be random variables whose associations are given by the regression equation
 #'
 #' \begin{equation}
 #'   \begin{split}
 #'     v_1
 #'     &=
-#'     m_1 + a_{1, 2} v_2 + u \\
+#'     m_1 + a_{1, 2} v_2 + v_3 \\
 #'     &=
-#'     `r m1` + `r a12` \cdot v_2 + u .
+#'     `r m1` + `r a12` \cdot v_2 + v_3 .
 #'   \end{split}
 #' \end{equation}
 #'
 #' \noindent $v_1$ and $v_2$ are observed variables and
-#' $u$ is a stochastic error term which is normally distributed around zero
+#' $v_3$ is a stochastic error term which is normally distributed around zero
 #' with constant variance across values of $v_2$
 #'
 #' \begin{equation}
-#'   u
+#'   v_3
 #'   \sim
 #'   \mathcal{N} \left( m_3 = 0, \omega_{3, 3} = `r omega33` \right) .
 #' \end{equation}
@@ -110,7 +110,7 @@ Cov <- matrix(
 #' \noindent $v_2$ has a mean of $m_2 = `r m2`$ and a variance of $\omega_{2, 2} = `r omega22`$.
 #'
 #' Below are two ways of specifying this model.
-#' The first specification includes the error term $u$ as a latent variable.
+#' The first specification includes the error term $v_3$ as a latent variable.
 #' The second specification only includes the observed variables.
 #'
 #+ specification-01
@@ -275,7 +275,9 @@ test_that("Omega-02.", {
   }
 })
 #'
-#+ coverage
+#' ## m and/or mutheta as vector
+#'
+#+ vector
 m <- as.vector(m)
 result_mutheta_03 <- as.vector(
   ram::mutheta(
