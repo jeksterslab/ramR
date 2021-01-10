@@ -24,9 +24,13 @@ Depends:
 Imports:
     base,
     utils,
-    stats
+    stats,
+    matrixR
+Remotes:
+    jeksterslab/matrixR
 Suggests:
     knitr,
     rmarkdown,
     testthat
 RoxygenNote: 7.1.1
+
