@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Model-Implied Mean Vector
-\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\) — mutheta • ramR</title>
+<title>Mean Structure Vector \(\mathbf{M}\) — M • ramR</title>
 
 
 <!-- jquery -->
@@ -40,10 +39,8 @@
 
 
 
-<meta property="og:title" content="Model-Implied Mean Vector
-\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\) — mutheta" />
-<meta property="og:description" content="Derives the model-implied mean vector
-\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)
+<meta property="og:title" content="Mean Structure Vector \(\mathbf{M}\) — M" />
+<meta property="og:description" content="Derives the mean structure vector \(\mathbf{M}\)
 using the Reticular Action Model (RAM) notation." />
 
 
@@ -133,27 +130,26 @@ using the Reticular Action Model (RAM) notation." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Model-Implied Mean Vector
-\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/mutheta.R'><code>R/mutheta.R</code></a></small>
-    <div class="hidden name"><code>mutheta.Rd</code></div>
+    <h1>Mean Structure Vector \(\mathbf{M}\)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/M.R'><code>R/M.R</code></a></small>
+    <div class="hidden name"><code>M.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Derives the model-implied mean vector
-\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)
+    <p>Derives the mean structure vector \(\mathbf{M}\)
 using the Reticular Action Model (RAM) notation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mutheta</span><span class='op'>(</span><span class='va'>M</span>, <span class='va'>A</span>, filter <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>M</span><span class='op'>(</span><span class='va'>mutheta</span>, <span class='va'>A</span>, filter <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>M</th>
-      <td><p><code>t x 1</code> numeric vector \(\mathbf{M}_{t \times 1}\).
-Mean structure. Vector of means and intercepts.</p></td>
+      <th>mutheta</th>
+      <td><p><code>t x 1</code> numeric vector
+\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)_{t \times 1}\) .
+Model-implied mean vector.</p></td>
     </tr>
     <tr>
       <th>A</th>
@@ -175,21 +171,20 @@ a \(t \times t\) identity matrix.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns the model-implied mean vector
-\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)
-derived from the <code>M</code>, <code>A</code>, and <code>filter</code> matrices.</p>
+    <p>Returns the mean structure vector \(\mathbf{M}\)
+derived from the <code>mutheta</code>, <code>A</code>, and <code>filter</code> matrices.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The model-implied mean vector
-\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)
-as a function of Reticular Action Model (RAM) matrices
-is given by</p>
+    <p>The mean structure vector \(\mathbf{M}\)
+as a function of Reticular Action Model (RAM) matrices is given by</p>
 <p>$$
-    \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
-    =
-    \mathbf{F}
-    \left( \mathbf{I} - \mathbf{A} \right)^{-1}
     \mathbf{M}
+    =
+    \left[
+      \mathbf{F}
+      \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+    \right]^{-1}
+    \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
   $$</p>
 <p>where</p><ul>
 <li><p>\(\mathbf{A}_{t \times t}\) represents asymmetric paths
@@ -198,8 +193,8 @@ such as regression coefficients and factor loadings,</p></li>
 <li><p>\(\mathbf{F}_{j \times t}\) represents the filter matrix
 used to select the observed variables,</p></li>
 <li><p>\(\mathbf{I}_{t \times t}\) represents an identity matrix,</p></li>
-<li><p>\(\mathbf{M}_{t \times 1}\) represents the mean structure,
-that is, a vector of means and intercepts,</p></li>
+<li><p>\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)
+is the \(t \times 1\) model-implied mean vector</p></li>
 <li><p>\(j\) number of observed variables,</p></li>
 <li><p>\(k\) number of latent variables, and</p></li>
 <li><p>\(t\) number of observed and latent variables, that is \(j + k\) .</p></li>
@@ -223,9 +218,9 @@ of the Reticular Action Model for moment structures.
 
     <div class='dont-index'><p>Other SEM notation functions: 
 <code><a href='E.html'>E</a>()</code>,
-<code><a href='M.html'>M</a>()</code>,
 <code><a href='Omega.html'>Omega</a>()</code>,
-<code><a href='Sigmatheta.html'>Sigmatheta</a>()</code></p></div>
+<code><a href='Sigmatheta.html'>Sigmatheta</a>()</code>,
+<code><a href='mutheta.html'>mutheta</a>()</code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Ivan Jacob Agaloos Pesigan</p>

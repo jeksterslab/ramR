@@ -84,9 +84,10 @@ of the Reticular Action Model for moment structures.
 }
 \seealso{
 Other SEM notation functions: 
+\code{\link{E}()},
+\code{\link{M}()},
 \code{\link{Omega}()},
-\code{\link{mutheta}()},
-\code{\link{m}()}
+\code{\link{mutheta}()}
 }
 \author{
 Ivan Jacob Agaloos Pesigan

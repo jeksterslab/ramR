@@ -4,13 +4,16 @@
     <loc>https://github.com/jeksterslab/ramR//index.html</loc>
   </url>
   <url>
+    <loc>https://github.com/jeksterslab/ramR//reference/E.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//reference/M.html</loc>
+  </url>
+  <url>
     <loc>https://github.com/jeksterslab/ramR//reference/Omega.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ramR//reference/Sigmatheta.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/m.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ramR//reference/mutheta.html</loc>
@@ -22,6 +25,9 @@
     <loc>https://github.com/jeksterslab/ramR//articles/ramR.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//articles/tests/test.simple-regression.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_coverage.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_simple-regression.html</loc>
   </url>
 </urlset>

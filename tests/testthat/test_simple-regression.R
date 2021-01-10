@@ -1,37 +1,30 @@
----
-title: "Test: Simple Regression"
-author: "Ivan Jacob Agaloos Pesigan"
-date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Test: Simple Regression}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
-
-
-```{r include = FALSE}
+#' ---
+#' title: "Test: Simple Regression"
+#' author: "Ivan Jacob Agaloos Pesigan"
+#' date: "`r Sys.Date()`"
+#' output: rmarkdown::html_vignette
+#' vignette: >
+#'   %\VignetteIndexEntry{Test: Simple Regression}
+#'   %\VignetteEngine{knitr::rmarkdown}
+#'   %\VignetteEncoding{UTF-8}
+#' ---
+#'
+#+ include = FALSE
 knitr::opts_chunk$set(
   error = TRUE,
   collapse = TRUE,
   comment = "#>",
   out.width = "100%"
 )
-```
-
-
-
-
-```{r }
+#'
+#'
+#+
 library(testthat)
 library(ramR)
-```
-
-
-## Specification 1 - Includes Error Term as a Latent Variable
-
-
-```{r parameters-01, echo = FALSE}
+#'
+#' ## Specification 1 - Includes Error Term as a Latent Variable
+#'
+#+ parameters-01, echo = FALSE
 m1 <- -3.951208
 m2 <- 13.038328
 m3 <- 0
@@ -48,7 +41,7 @@ A[1, 2] <- a12
 A[1, 3] <- a13
 Omega[2, 2] <- omega22
 Omega[3, 3] <- omega33
-m <- matrix(
+M <- matrix(
   data = c(
     m1,
     m2,
@@ -91,61 +84,58 @@ Cov <- matrix(
   ),
   ncol = 3
 )
-```
-
-
-Let $v_1$, $v_2$, and $v_3$ be random variables whose associations are given by the regression equation
-
-\begin{equation}
-  \begin{split}
-    v_1
-    &=
-    m_1 + a_{1, 2} v_2 + v_3 \\
-    &=
-    `r m1` + `r a12` \cdot v_2 + v_3 .
-  \end{split}
-\end{equation}
-
-\noindent $v_1$ and $v_2$ are observed variables and
-$v_3$ is a stochastic error term which is normally distributed around zero
-with constant variance across values of $v_2$
-
-\begin{equation}
-  v_3
-  \sim
-  \mathcal{N} \left( m_3 = 0, \omega_{3, 3} = `r omega33` \right) .
-\end{equation}
-
-\noindent $v_2$ has a mean of $m_2 = `r m2`$ and a variance of $\omega_{2, 2} = `r omega22`$.
-
-Below are two ways of specifying this model.
-The first specification includes the error term $v_3$ as a latent variable.
-The second specification only includes the observed variables.
-
-
-```{r specification-01}
-m
+#'
+#' Let $v_1$, $v_2$, and $v_3$ be random variables whose associations are given by the regression equation
+#'
+#' \begin{equation}
+#'   \begin{split}
+#'     v_1
+#'     &=
+#'     m_1 + a_{1, 2} v_2 + v_3 \\
+#'     &=
+#'     `r m1` + `r a12` \cdot v_2 + v_3 .
+#'   \end{split}
+#' \end{equation}
+#'
+#' \noindent $v_1$ and $v_2$ are observed variables and
+#' $v_3$ is a stochastic error term which is normally distributed around zero
+#' with constant variance across values of $v_2$
+#'
+#' \begin{equation}
+#'   v_3
+#'   \sim
+#'   \mathcal{N} \left( m_3 = 0, \omega_{3, 3} = `r omega33` \right) .
+#' \end{equation}
+#'
+#' \noindent $v_2$ has a mean of $m_2 = `r m2`$ and a variance of $\omega_{2, 2} = `r omega22`$.
+#'
+#' Below are two ways of specifying this model.
+#' The first specification includes the error term $v_3$ as a latent variable.
+#' The second specification only includes the observed variables.
+#'
+#+ specification-01
+M
 A
 Omega
 filter
-result_mutheta_01 <- ramR::mutheta(
-  m,
+result_mutheta_01 <- mutheta(
+  M = M,
   A = A,
   filter = filter
 )
 result_mutheta_01
-result_Sigmatheta_01 <- ramR::Sigmatheta(
+result_Sigmatheta_01 <- Sigmatheta(
   A = A,
   Omega = Omega,
   filter = filter
 )
 result_Sigmatheta_01
-result_m_01 <- m(
+result_M_01 <- M(
   mutheta = mu,
   A = A,
   filter = filter
 )
-result_m_01
+result_M_01
 result_Omega_01 <- Omega(
   A = A,
   Sigmatheta = Cov
@@ -175,12 +165,12 @@ test_that("Sigmatheta-01.", {
     }
   }
 })
-test_that("m-01.", {
-  for (i in 1:nrow(m)) {
-    for (j in 1:ncol(m)) {
+test_that("M-01.", {
+  for (i in 1:nrow(M)) {
+    for (j in 1:ncol(M)) {
       expect_equal(
-        m[i, j],
-        result_m_01[i, j],
+        M[i, j],
+        result_M_01[i, j],
         check.attributes = FALSE,
         tolerance = 0.001
       )
@@ -199,44 +189,38 @@ test_that("Omega-01.", {
     }
   }
 })
-```
-
-
-## Specification 2 - Observed Variables
-
-
-```{r parameters-02, echo = FALSE}
+#'
+#' ## Specification 2 - Observed Variables
+#'
+#+ parameters-02, echo = FALSE
 A <- A[1:2, 1:2]
 Omega <- Omega[1:2, 1:2]
 Omega[1, 1] <- omega33
 omega11 <- Omega[1, 1]
-m <- m[1:2, , drop = FALSE]
+M <- M[1:2, , drop = FALSE]
 Cov <- Cov[1:2, 1:2]
 mu <- mu[1:2, , drop = FALSE]
 filter <- filter[1:2, 1:2]
-```
-
-
-
-```{r specification-02}
-m
+#'
+#+ specification-02
+M
 A
 Omega
-result_mutheta_02 <- ramR::mutheta(
-  m,
+result_mutheta_02 <- mutheta(
+  M = M,
   A = A
 )
 result_mutheta_02
-result_Sigmatheta_02 <- ramR::Sigmatheta(
+result_Sigmatheta_02 <- Sigmatheta(
   A = A,
   Omega = Omega
 )
 result_Sigmatheta_02
-result_m_02 <- m(
+result_M_02 <- M(
   mutheta = mu,
   A = A
 )
-result_m_02
+result_M_02
 result_Omega_02 <- Omega(
   A = A,
   Sigmatheta = Cov
@@ -266,12 +250,12 @@ test_that("Sigmatheta-02.", {
     }
   }
 })
-test_that("m-02.", {
-  for (i in 1:nrow(m)) {
-    for (j in 1:ncol(m)) {
+test_that("M-02.", {
+  for (i in 1:nrow(M)) {
+    for (j in 1:ncol(M)) {
       expect_equal(
-        m[i, j],
-        result_m_02[i, j],
+        M[i, j],
+        result_M_02[i, j],
         check.attributes = FALSE,
         tolerance = 0.001
       )
@@ -290,23 +274,20 @@ test_that("Omega-02.", {
     }
   }
 })
-```
-
-
-## m and/or mutheta as vector
-
-
-```{r vector}
-m <- as.vector(m)
+#'
+#' ## M and/or mutheta as vector
+#'
+#+ vector
+M <- as.vector(M)
 result_mutheta_03 <- as.vector(
-  ramR::mutheta(
-    m = m,
+  mutheta(
+    M = M,
     A = A
   )
 )
 mu <- as.vector(mu)
-result_m_03 <- as.vector(
-  ramR::m(
+result_M_03 <- as.vector(
+  M(
     mutheta = mu,
     A = A
   )
@@ -321,15 +302,13 @@ test_that("mutheta-03.", {
     )
   }
 })
-test_that("m-03.", {
-  for (i in seq_along(m)) {
+test_that("M-03.", {
+  for (i in seq_along(M)) {
     expect_equal(
-      m[i],
-      result_m_03[i],
+      M[i],
+      result_M_03[i],
       check.attributes = FALSE,
       tolerance = 0.001
     )
   }
 })
-```
-

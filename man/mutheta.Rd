@@ -5,10 +5,10 @@
 \title{Model-Implied Mean Vector
 \eqn{\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)}}
 \usage{
-mutheta(m, A, filter = NULL)
+mutheta(M, A, filter = NULL)
 }
 \arguments{
-\item{m}{\verb{t x 1} numeric vector \eqn{\mathbf{m}_{t \times 1}}.
+\item{M}{\verb{t x 1} numeric vector \eqn{\mathbf{M}_{t \times 1}}.
 Mean structure. Vector of means and intercepts.}
 
 \item{A}{\verb{t x t} numeric matrix
@@ -44,7 +44,7 @@ is given by
     =
     \mathbf{F}
     \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-    \mathbf{m}
+    \mathbf{M}
   }
 
 where
@@ -55,7 +55,7 @@ such as regression coefficients and factor loadings,
 \item \eqn{\mathbf{F}_{j \times t}} represents the filter matrix
 used to select the observed variables,
 \item \eqn{\mathbf{I}_{t \times t}} represents an identity matrix,
-\item \eqn{\mathbf{m}_{t \times 1}} represents the mean structure,
+\item \eqn{\mathbf{M}_{t \times 1}} represents the mean structure,
 that is, a vector of means and intercepts,
 \item \eqn{j} number of observed variables,
 \item \eqn{k} number of latent variables, and
@@ -79,9 +79,10 @@ of the Reticular Action Model for moment structures.
 }
 \seealso{
 Other SEM notation functions: 
+\code{\link{E}()},
+\code{\link{M}()},
 \code{\link{Omega}()},
-\code{\link{Sigmatheta}()},
-\code{\link{m}()}
+\code{\link{Sigmatheta}()}
 }
 \author{
 Ivan Jacob Agaloos Pesigan
