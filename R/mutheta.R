@@ -17,7 +17,7 @@
 #'     =
 #'     \mathbf{F}
 #'     \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-#'     \mathbf{m}
+#'     \mathbf{M}
 #'   }
 #'
 #'   where
@@ -28,7 +28,7 @@
 #'   - \eqn{\mathbf{F}_{j \times t}} represents the filter matrix
 #'     used to select the observed variables,
 #'   - \eqn{\mathbf{I}_{t \times t}} represents an identity matrix,
-#'   - \eqn{\mathbf{m}_{t \times 1}} represents the mean structure,
+#'   - \eqn{\mathbf{M}_{t \times 1}} represents the mean structure,
 #'     that is, a vector of means and intercepts,
 #'   - \eqn{j} number of observed variables,
 #'   - \eqn{k} number of latent variables, and
@@ -38,28 +38,31 @@
 #' @keywords matrix ram
 #' @inheritParams Sigmatheta
 #' @inherit Sigmatheta references
-#' @param m `t x 1` numeric vector \eqn{\mathbf{m}_{t \times 1}}.
+#' @param M `t x 1` numeric vector \eqn{\mathbf{M}_{t \times 1}}.
 #'   Mean structure. Vector of means and intercepts.
 #' @return Returns the model-implied mean vector
 #'   \eqn{\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)}
 #'   derived from the `M`, `A`, and `filter` matrices.
 #' @export
-mutheta <- function(m,
+mutheta <- function(M,
                     A,
                     filter = NULL) {
-  if (is.vector(m)) {
-    rowlabels <- names(m)
-    m <- matrix(
-      data = m,
+  if (is.vector(M)) {
+    rowlabels <- names(M)
+    M <- matrix(
+      data = M,
       ncol = 1
     )
-    rownames(m) <- rowlabels
+    rownames(M) <- rowlabels
   }
   if (is.null(filter)) {
     filter <- diag(nrow(A))
     colnames(filter) <- colnames(A)
   }
+  E <- E(
+    A = A
+  )
   return(
-    filter %*% solve(diag(nrow(A)) - A) %*% m
+    filter %*% E %*% M
   )
 }

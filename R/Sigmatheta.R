@@ -39,10 +39,7 @@
 #'
 #' @family SEM notation functions
 #' @keywords matrix ram
-#' @param A `t x t` numeric matrix
-#'   \eqn{\mathbf{A}_{t \times t}}.
-#'   Asymmetric paths (single-headed arrows),
-#'   such as regression coefficients and factor loadings.
+#' @inheritParams E
 #' @param Omega `t x t` numeric matrix
 #'   \eqn{\boldsymbol{\Omega}_{t \times t}}.
 #'   Symmetric paths (double-headed arrows),
@@ -74,17 +71,26 @@
 Sigmatheta <- function(A,
                        Omega,
                        filter = NULL) {
-  # (I - A)^{-1}
-  invIminusA <- solve(
-    diag(nrow(A)) - A
+  if (!matrixR::is_sqr(X = Omega)) {
+    stop(
+      "`Omega` should be a square matrix."
+    )
+  }
+  if (!identical(dim(A), dim(Omega))) {
+    stop(
+      "`A` and `Omega` should have the same dimensions."
+    )
+  }
+  E <- E(
+    A = A
   )
   # Omega * ((I - A)^{-1})^T
   OmegaTinvIminusA <- tcrossprod(
     x = Omega,
-    y = invIminusA
+    y = E
   )
   # (I - A)^{-1} * Omega * ((I - A)^{-1})^T
-  inner <- invIminusA %*% OmegaTinvIminusA
+  inner <- E %*% OmegaTinvIminusA
   if (is.null(filter)) {
     return(inner)
   } else {
