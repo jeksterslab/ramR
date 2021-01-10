@@ -6,7 +6,7 @@
 \title{ramR: Reticular Action Model (RAM) Notation}
 \description{
 A collection of functions I use in studying
-the Reticular Action Model (RAM) Notation.
+the Reticular Action Model (RAM) notation.
 }
 \section{ramR functions}{
 
