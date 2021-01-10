@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 #'
 #+
 library(testthat)
-library(ram)
+library(ramR)
 #'
 #' ## Specification 1 - Includes Error Term as a Latent Variable
 #'
@@ -118,13 +118,13 @@ m
 A
 Omega
 filter
-result_mutheta_01 <- ram::mutheta(
+result_mutheta_01 <- ramR::mutheta(
   m,
   A = A,
   filter = filter
 )
 result_mutheta_01
-result_Sigmatheta_01 <- ram::Sigmatheta(
+result_Sigmatheta_01 <- ramR::Sigmatheta(
   A = A,
   Omega = Omega,
   filter = filter
@@ -206,12 +206,12 @@ filter <- filter[1:2, 1:2]
 m
 A
 Omega
-result_mutheta_02 <- ram::mutheta(
+result_mutheta_02 <- ramR::mutheta(
   m,
   A = A
 )
 result_mutheta_02
-result_Sigmatheta_02 <- ram::Sigmatheta(
+result_Sigmatheta_02 <- ramR::Sigmatheta(
   A = A,
   Omega = Omega
 )
@@ -280,14 +280,14 @@ test_that("Omega-02.", {
 #+ vector
 m <- as.vector(m)
 result_mutheta_03 <- as.vector(
-  ram::mutheta(
+  ramR::mutheta(
     m = m,
     A = A
   )
 )
 mu <- as.vector(mu)
 result_m_03 <- as.vector(
-  ram::m(
+  ramR::m(
     mutheta = mu,
     A = A
   )

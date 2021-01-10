@@ -2,17 +2,21 @@
 title: "Reticular Action Model (RAM) Notation"
 author: "Ivan Jacob Agaloos Pesigan"
 date: "`r Sys.Date()`"
-output: github_document
+description: >
+  Learn how to get started with the basics of `ramR`.
+output:
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Reticular Action Model (RAM) Notation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
+  comment = "#>"
 )
 ```
 

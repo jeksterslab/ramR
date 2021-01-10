@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://github.com/jeksterslab/ram//index.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//index.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ram//reference/Omega.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/Omega.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ram//reference/Sigmatheta.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/Sigmatheta.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ram//reference/m.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/m.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ram//reference/mutheta.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/mutheta.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ram//reference/ram.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/ramR.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ram//articles/ram.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//articles/ramR.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ram//articles/tests/test.simple-regression.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//articles/tests/test.simple-regression.html</loc>
   </url>
 </urlset>

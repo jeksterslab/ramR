@@ -1,28 +1,28 @@
 Reticular Action Model (RAM) Notation
 ================
 Ivan Jacob Agaloos Pesigan
-2021-01-08
+2021-01-10
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
 [![R build
-status](https://github.com/jeksterslab/ram/workflows/R-CMD-check/badge.svg?branch=master)](https://github.com/jeksterslab/ram/actions?workflow=R-CMD-check)
+status](https://github.com/jeksterslab/ramR/workflows/R-CMD-check/badge.svg?branch=master)](https://github.com/jeksterslab/ramR/actions?workflow=R-CMD-check)
 [![Travis build
-status](https://travis-ci.com/jeksterslab/ram.svg?branch=master)](https://travis-ci.com/jeksterslab/ram)
-[![codecov](https://codecov.io/github/jeksterslab/ram/branch/master/graphs/badge.svg)](https://codecov.io/github/jeksterslab/ram)
+status](https://travis-ci.com/jeksterslab/ramR.svg?branch=master)](https://travis-ci.com/jeksterslab/ramR)
+[![codecov](https://codecov.io/github/jeksterslab/ramR/branch/master/graphs/badge.svg)](https://codecov.io/github/jeksterslab/ramR)
 <!-- badges: end -->
 
 ## Installation
 
-You can install the released version of `ram` from
-[GitHub](https://github.com/jeksterslab/ram) with:
+You can install the released version of `ramR` from
+[GitHub](https://github.com/jeksterslab/ramR) with:
 
 ``` r
-remotes::install_github("jeksterslab/ram")
+remotes::install_github("jeksterslab/ramR")
 ```
 
 ## More Information
 
-See [GitHub Pages](https://jeksterslab.github.io/ram/index.html) for
+See [GitHub Pages](https://jeksterslab.github.io/ramR/index.html) for
 package documentation.

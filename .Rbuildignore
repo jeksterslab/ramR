@@ -15,6 +15,5 @@
 ^appveyor\.yml$
 ^data_raw$
 ^docs$
-^ram.Rproj$
+^ramR.Rproj$
 ^references$
-

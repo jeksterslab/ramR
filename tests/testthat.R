@@ -1,4 +1,4 @@
 library(testthat)
-library(ram)
+library(ramR)
 
-test_check("ram")
+test_check("ramR")

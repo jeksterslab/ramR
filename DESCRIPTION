@@ -1,4 +1,4 @@
-Package: ram
+Package: ramR
 Version: 0.9.0
 Title: Reticular Action Model (RAM) Notation
 Authors@R:
@@ -17,8 +17,8 @@ Language: en-US
 LazyData: true
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-URL: https://github.com/jeksterslab/ram
-BugReports: https://github.com/jeksterslab/ram/issues
+URL: https://github.com/jeksterslab/ramR
+BugReports: https://github.com/jeksterslab/ramR/issues
 Depends:
     R (>= 3.0.0)
 Imports:
@@ -30,4 +30,3 @@ Suggests:
     rmarkdown,
     testthat
 RoxygenNote: 7.1.1
-
