@@ -25,6 +25,7 @@ Imports:
     base,
     utils,
     stats,
+    MASS,
     matrixR
 Remotes:
     jeksterslab/matrixR
