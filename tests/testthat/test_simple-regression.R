@@ -312,3 +312,39 @@ test_that("M-03.", {
     )
   }
 })
+#'
+#' ## Generate Data
+#'
+#+ mvn
+X <- mvn(
+  n = 1000,
+  A = A,
+  Omega = Omega,
+  M = M,
+  filter = NULL,
+  empirical = TRUE
+)
+result_mutheta_04 <- colMeans(X)
+result_Sigmatheta_04 <- cov(X)
+test_that("mutheta-04.", {
+  for (i in seq_along(mu)) {
+    expect_equal(
+      mu[i],
+      result_mutheta_04[i],
+      check.attributes = FALSE,
+      tolerance = 0.001
+    )
+  }
+})
+test_that("Sigmatheta-04.", {
+  for (i in 1:nrow(Cov)) {
+    for (j in 1:ncol(Cov)) {
+      expect_equal(
+        Cov[i, j],
+        result_Sigmatheta_04[i, j],
+        check.attributes = FALSE,
+        tolerance = 0.001
+      )
+    }
+  }
+})
