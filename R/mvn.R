@@ -15,13 +15,13 @@
 #'   with location parameter
 #'
 #'   \deqn{
-#'     \boldsymbol{\mu} \in \mathbb{R}^{k}
+#'     \boldsymbol{\mu} \in \mathbf{R}^{k}
 #'   }
 #'
 #'   and a positive definite covariance matrix
 #'
 #'   \deqn{
-#'     \boldsymbol{\Sigma} \in \mathbb{R}^{k \times k} .
+#'     \boldsymbol{\Sigma} \in \mathbf{R}^{k \times k} .
 #'   }
 #'
 #'   The probability density function is given by
