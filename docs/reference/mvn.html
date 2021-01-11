@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • ramR</title>
+<title>Generate Data from a Multivariate Normal Distribution
+Using the Reticular Action Model (RAM) Notation — mvn • ramR</title>
 
 
 <!-- jquery -->
@@ -39,7 +40,11 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Generate Data from a Multivariate Normal Distribution
+Using the Reticular Action Model (RAM) Notation — mvn" />
+<meta property="og:description" content="Generates data from a multivariate normal distribution
+using the Reticular Action Model (RAM) notation
+with the MASS::mvrnorm() function." />
 
 
 
@@ -58,7 +63,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -126,82 +131,125 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Generate Data from a Multivariate Normal Distribution
+Using the Reticular Action Model (RAM) Notation</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/mvn.R'><code>R/mvn.R</code></a></small>
+    <div class="hidden name"><code>mvn.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Generates data from a multivariate normal distribution
+using the Reticular Action Model (RAM) notation
+with the <code><a href='https://rdrr.io/pkg/MASS/man/mvrnorm.html'>MASS::mvrnorm()</a></code> function.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>mvn</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>A</span>, <span class='va'>Omega</span>, <span class='va'>M</span>, filter <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="E.html">E()</a></code> </p>
-        </td>
-        <td><p>Matrix of Total Effects \(\mathbf{E}\)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="M.html">M()</a></code> </p>
-        </td>
-        <td><p>Mean Structure Vector \(\mathbf{M}\)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="Omega.html">Omega()</a></code> </p>
-        </td>
-        <td><p>Matrix of symmetric paths (double-headed arrows)
-\(\boldsymbol{\Omega}\)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="Sigmatheta.html">Sigmatheta()</a></code> </p>
-        </td>
-        <td><p>Model-Implied Variance-Covariance Matrix
-\(\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)\)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="mutheta.html">mutheta()</a></code> </p>
-        </td>
-        <td><p>Model-Implied Mean Vector
-\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="mvn.html">mvn()</a></code> </p>
-        </td>
-        <td><p>Generate Data from a Multivariate Normal Distribution
-Using the Reticular Action Model (RAM) Notation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ramR.html">ramR</a></code> </p>
-        </td>
-        <td><p>ramR: Reticular Action Model (RAM) Notation</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>n</th>
+      <td><p>Integer.
+Sample size.</p></td>
+    </tr>
+    <tr>
+      <th>A</th>
+      <td><p><code>t x t</code> numeric matrix
+\(\mathbf{A}_{t \times t}\).
+Asymmetric paths (single-headed arrows),
+such as regression coefficients and factor loadings.</p></td>
+    </tr>
+    <tr>
+      <th>Omega</th>
+      <td><p><code>t x t</code> numeric matrix
+\(\boldsymbol{\Omega}_{t \times t}\).
+Symmetric paths (double-headed arrows),
+such as variances and covariances.</p></td>
+    </tr>
+    <tr>
+      <th>M</th>
+      <td><p><code>t x 1</code> numeric vector \(\mathbf{M}_{t \times 1}\).
+Mean structure. Vector of means and intercepts.</p></td>
+    </tr>
+    <tr>
+      <th>filter</th>
+      <td><p><code>j x t</code> numeric matrix
+\(\mathbf{F}_{j \times t}\).
+Filter matrix used to select variables.
+If <code>filter = NULL</code>,
+the filter matrix \(\mathbf{F}\) is assumed to be
+a \(t \times t\) identity matrix.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments to pass to <code><a href='https://rdrr.io/pkg/MASS/man/mvrnorm.html'>MASS::mvrnorm()</a></code>.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The Multivariate Normal Distribution is given by
+$$
+    \mathbf{X} \sim \mathcal{N}_{k} \left( \boldsymbol{\mu}, \boldsymbol{\Sigma} \right)
+  $$</p>
+<p>with location parameter</p>
+<p>$$
+    \boldsymbol{\mu} \in \mathbb{R}^{k}
+  $$</p>
+<p>and a positive definite covariance matrix</p>
+<p>$$
+    \boldsymbol{\Sigma} \in \mathbb{R}^{k \times k} .
+  $$</p>
+<p>The probability density function is given by</p>
+<p>$$
+    f_{\mathbf{X}} \left( x_1, \cdots, x_k \right)
+    =
+    \frac{
+      \exp
+      \left[
+        - \frac{1}{2}
+        \left(
+          \mathbf{x} - \boldsymbol{\mu}
+        \right)^{\mathsf{T}}
+        \boldsymbol{\Sigma}^{-1}
+        \left(
+          \mathbf{x} - \boldsymbol{\mu}
+        \right)
+      \right]
+      }{
+        \sqrt{
+          \left( 2 \pi \right)^k
+          | \boldsymbol{\Sigma} |
+        }
+      }
+    $$</p>
+<p>In this function,
+the model-implied mean vector and variance-covariance matrix
+are used as parameters to generate the data.</p>
+<p>$$
+    \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
+    =
+    \mathbf{F}
+    \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+    \mathbf{M}
+  $$
+$$
+    \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
+    =
+    \mathbf{F}
+    \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+    \boldsymbol{\Omega}
+    \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}}
+    \mathbf{F}^{\mathsf{T}}
+  $$</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Ivan Jacob Agaloos Pesigan</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

@@ -1,7 +1,7 @@
 Reticular Action Model (RAM) Notation
 ================
 Ivan Jacob Agaloos Pesigan
-2021-01-10
+2021-01-11
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
