@@ -348,3 +348,59 @@ test_that("Sigmatheta-04.", {
     }
   }
 })
+#'
+#' ## linreg functions
+#'
+#+ linreg
+beta <- c(
+  m1,
+  a12
+)
+sigma2 <- omega33
+SigmaX <- omega22
+muX <- m2
+result_A_01 <- A_linreg(
+  beta = beta
+)
+test_that("A-01.", {
+  for (i in 1:nrow(A)) {
+    for (j in 1:ncol(A)) {
+      expect_equal(
+        A[i, j],
+        result_A_01[i, j],
+        check.attributes = FALSE,
+        tolerance = 0.001
+      )
+    }
+  }
+})
+result_Omega <- Omega_linreg(
+  sigma2 = sigma2,
+  SigmaX = SigmaX
+)
+test_that("Omega.", {
+  for (i in 1:nrow(Omega)) {
+    for (j in 1:ncol(Omega)) {
+      expect_equal(
+        Omega[i, j],
+        result_Omega[i, j],
+        check.attributes = FALSE,
+        tolerance = 0.001
+      )
+    }
+  }
+})
+result_ram_01 <- ramR::ram_linreg(
+  beta = beta,
+  sigma2 = sigma2,
+  SigmaX = SigmaX,
+  muX = NULL
+)
+result_ram_01
+result_ram_02 <- ramR::ram_linreg(
+  beta = beta,
+  sigma2 = sigma2,
+  SigmaX = SigmaX,
+  muX = muX
+)
+result_ram_02

@@ -78,3 +78,53 @@ test_that("E: inverse.", {
     )
   )
 })
+test_that("Omega_linreg: symmetric SigmaX.", {
+  expect_error(
+    Omega_linreg(
+      sigma2 = 0,
+      SigmaX = matrix(
+        data = 0,
+        ncol = 3,
+        nrow = 2
+      )
+    )
+  )
+})
+beta <- c(
+  1
+)
+sigma2 <- 1
+SigmaX <- 1
+muX <- 1
+test_that("ram_linreg: wrong dimensions beta.", {
+  expect_error(
+    ramR::ram_linreg(
+      beta = beta,
+      sigma2 = sigma2,
+      SigmaX = SigmaX,
+      muX = muX
+    )
+  )
+})
+beta <- c(
+  1,
+  1,
+  1
+)
+sigma2 <- 1
+SigmaX <- matrix(
+  data = 1,
+  nrow = 2,
+  ncol = 2
+)
+muX <- 1
+test_that("ram_linreg: wrong dimensions mux.", {
+  expect_error(
+    ramR::ram_linreg(
+      beta = beta,
+      sigma2 = sigma2,
+      SigmaX = SigmaX,
+      muX = muX
+    )
+  )
+})
