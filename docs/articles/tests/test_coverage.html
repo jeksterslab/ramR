@@ -91,7 +91,7 @@
       <h1 data-toc-skip>Test: Coverage</h1>
                         <h4 class="author">Ivan Jacob Agaloos Pesigan</h4>
             
-            <h4 class="date">2021-01-11</h4>
+            <h4 class="date">2021-01-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jeksterslab/ramR/blob/master/vignettes/tests/test_coverage.Rmd"><code>vignettes/tests/test_coverage.Rmd</code></a></small>
       <div class="hidden name"><code>test_coverage.Rmd</code></div>
@@ -116,7 +116,7 @@
     <span class="op">)</span>
   <span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🎉</span>
+<span class="co">#&gt; Test passed 😀</span>
 <span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"Sigmatheta: Omega is a square matrix."</span>, <span class="op">{</span>
   <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
     <span class="fu"><a href="../../reference/Sigmatheta.html">Sigmatheta</a></span><span class="op">(</span>
@@ -125,7 +125,7 @@
     <span class="op">)</span>
   <span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🎊</span>
+<span class="co">#&gt; Test passed 🥳</span>
 <span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
   <span class="fl">0</span>,
   ncol <span class="op">=</span> <span class="fl">3</span>,
@@ -144,7 +144,7 @@
     <span class="op">)</span>
   <span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🥳</span>
+<span class="co">#&gt; Test passed 🌈</span>
 <span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
   data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
     <span class="fl">0</span>,
@@ -162,7 +162,60 @@
     <span class="op">)</span>
   <span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 😸</span></code></pre></div>
+<span class="co">#&gt; Test passed 🎉</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"Omega_linreg: symmetric SigmaX."</span>, <span class="op">{</span>
+  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
+    <span class="fu"><a href="../../reference/Omega_linreg.html">Omega_linreg</a></span><span class="op">(</span>
+      sigma2 <span class="op">=</span> <span class="fl">0</span>,
+      SigmaX <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
+        data <span class="op">=</span> <span class="fl">0</span>,
+        ncol <span class="op">=</span> <span class="fl">3</span>,
+        nrow <span class="op">=</span> <span class="fl">2</span>
+      <span class="op">)</span>
+    <span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🎊</span>
+<span class="va">beta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+  <span class="fl">1</span>
+<span class="op">)</span>
+<span class="va">sigma2</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="va">SigmaX</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="va">muX</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"ram_linreg: wrong dimensions beta."</span>, <span class="op">{</span>
+  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
+    <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/ram_linreg.html">ram_linreg</a></span><span class="op">(</span>
+      beta <span class="op">=</span> <span class="va">beta</span>,
+      sigma2 <span class="op">=</span> <span class="va">sigma2</span>,
+      SigmaX <span class="op">=</span> <span class="va">SigmaX</span>,
+      muX <span class="op">=</span> <span class="va">muX</span>
+    <span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🥳</span>
+<span class="va">beta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+  <span class="fl">1</span>,
+  <span class="fl">1</span>,
+  <span class="fl">1</span>
+<span class="op">)</span>
+<span class="va">sigma2</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="va">SigmaX</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
+  data <span class="op">=</span> <span class="fl">1</span>,
+  nrow <span class="op">=</span> <span class="fl">2</span>,
+  ncol <span class="op">=</span> <span class="fl">2</span>
+<span class="op">)</span>
+<span class="va">muX</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"ram_linreg: wrong dimensions mux."</span>, <span class="op">{</span>
+  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
+    <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/ram_linreg.html">ram_linreg</a></span><span class="op">(</span>
+      beta <span class="op">=</span> <span class="va">beta</span>,
+      sigma2 <span class="op">=</span> <span class="va">sigma2</span>,
+      SigmaX <span class="op">=</span> <span class="va">SigmaX</span>,
+      muX <span class="op">=</span> <span class="va">muX</span>
+    <span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🥳</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
