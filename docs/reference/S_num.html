@@ -6,8 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Model-Implied Mean Vector
-\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\) — mutheta • ramR</title>
+<title>Matrix of Symmetric Paths
+\(\mathbf{S}\) - Numeric — S_num • ramR</title>
 
 
 <!-- jquery -->
@@ -40,10 +40,10 @@
 
 
 
-<meta property="og:title" content="Model-Implied Mean Vector
-\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\) — mutheta" />
-<meta property="og:description" content="Derives the model-implied mean vector
-\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)
+<meta property="og:title" content="Matrix of Symmetric Paths
+\(\mathbf{S}\) - Numeric — S_num" />
+<meta property="og:description" content="Derives the matrix of symmetric paths (double-headed arrows)
+\(\mathbf{S}\)
 using the Reticular Action Model (RAM) notation." />
 
 
@@ -104,9 +104,6 @@ using the Reticular Action Model (RAM) notation." />
     <li>
       <a href="../articles/tests/test_coverage.html">Test: Coverage</a>
     </li>
-    <li>
-      <a href="../articles/tests/test_simple-regression.html">Test: Simple Regression</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -133,103 +130,115 @@ using the Reticular Action Model (RAM) notation." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Model-Implied Mean Vector
-\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/mutheta.R'><code>R/mutheta.R</code></a></small>
-    <div class="hidden name"><code>mutheta.Rd</code></div>
+    <h1>Matrix of Symmetric Paths
+\(\mathbf{S}\) - Numeric</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/S.R'><code>R/S.R</code></a></small>
+    <div class="hidden name"><code>S_num.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Derives the model-implied mean vector
-\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)
+    <p>Derives the matrix of symmetric paths (double-headed arrows)
+\(\mathbf{S}\)
 using the Reticular Action Model (RAM) notation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mutheta</span><span class='op'>(</span><span class='va'>M</span>, <span class='va'>A</span>, filter <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>S_num</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>C</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>M</th>
-      <td><p><code>t x 1</code> numeric vector \(\mathbf{M}_{t \times 1}\).
-Mean structure. Vector of means and intercepts.</p></td>
-    </tr>
-    <tr>
       <th>A</th>
-      <td><p><code>t x t</code> numeric matrix
-\(\mathbf{A}_{t \times t}\).
+      <td><p><code>t x t</code> matrix \(\mathbf{A}\).
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.</p></td>
     </tr>
     <tr>
-      <th>filter</th>
-      <td><p><code>j x t</code> numeric matrix
-\(\mathbf{F}_{j \times t}\).
-Filter matrix used to select variables.
-If <code>filter = NULL</code>,
-the filter matrix \(\mathbf{F}\) is assumed to be
-a \(t \times t\) identity matrix.</p></td>
+      <th>C</th>
+      <td><p><code>t x t</code> numeric matrix \(\mathbf{C}\).
+Model-implied variance-covariance matrix.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns the model-implied mean vector
-\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)
-derived from the <code>M</code>, <code>A</code>, and <code>filter</code> matrices.</p>
+    <p>Returns the matrix of symmetric paths (double-headed arrows)
+\(\mathbf{S}\)
+derived from the <code>A</code> and <code>C</code> matrices.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The model-implied mean vector
-\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)
+    <p>The matrix of symmetric paths (double-headed arrows)
+\(\mathbf{S}\)
 as a function of Reticular Action Model (RAM) matrices
 is given by</p>
 <p>$$
-    \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
+    \mathbf{S}
     =
-    \mathbf{F}
-    \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-    \mathbf{M}
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)
+    \mathbf{C}
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{\mathsf{T}} \\
+    =
+    \mathbf{E}^{-1}
+    \mathbf{C}
+    \left(
+      \mathbf{E}^{-1}
+    \right)^{\mathsf{T}}
   $$</p>
 <p>where</p><ul>
 <li><p>\(\mathbf{A}_{t \times t}\) represents asymmetric paths
 (single-headed arrows),
 such as regression coefficients and factor loadings,</p></li>
-<li><p>\(\mathbf{F}_{j \times t}\) represents the filter matrix
-used to select the observed variables,</p></li>
-<li><p>\(\mathbf{I}_{t \times t}\) represents an identity matrix,</p></li>
-<li><p>\(\mathbf{M}_{t \times 1}\) represents the mean structure,
-that is, a vector of means and intercepts,</p></li>
-<li><p>\(j\) number of observed variables,</p></li>
-<li><p>\(k\) number of latent variables, and</p></li>
-<li><p>\(t\) number of observed and latent variables, that is \(j + k\) .</p></li>
+<li><p>\(\mathbf{C}_{t \times t}\) represents
+the model-implied variance-covariance matrix, and</p></li>
+<li><p>\(\mathbf{I}_{t \times t}\) represents an identity matrix.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>McArdle, J. J. (2005).
-The development of the RAM rules
-for latent variable structural equation modeling.
-In A. Maydeu-Olivares &amp; J. J. McArdle (Eds.),
-<em>Contemporary Psychometrics: A festschrift for Roderick P. McDonald</em>
-(pp. 225--273).
-Lawrence Erlbaum Associates.</p>
-<p>McArdle, J. J., &amp; McDonald, R. P. (1984).
+    <p>McArdle, J. J., &amp; McDonald, R. P. (1984).
 Some algebraic properties
 of the Reticular Action Model for moment structures.
 <em>British Journal of Mathematical and Statistical Psychology</em>, <em>37</em> (2),
-234--251.</p>
+234--251.
+<a href='https://doi.org/10.1111/j.2044-8317.1984.tb00802.x'>https://doi.org/10.1111/j.2044-8317.1984.tb00802.x</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other SEM notation functions: 
-<code><a href='E.html'>E</a>()</code>,
-<code><a href='M.html'>M</a>()</code>,
-<code><a href='Omega.html'>Omega</a>()</code>,
-<code><a href='Sigmatheta.html'>Sigmatheta</a>()</code></p></div>
+    <div class='dont-index'><p>Other S functions: 
+<code><a href='S_sym.html'>S_sym</a>()</code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Ivan Jacob Agaloos Pesigan</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># This is a numerical example for the model</span>
+<span class='co'># y = alpha + beta * x + e</span>
+<span class='co'># y = -0.5 + 1 * x + e</span>
+
+<span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='fl'>0</span>,
+  nrow <span class='op'>=</span> <span class='fl'>3</span>,
+  ncol <span class='op'>=</span> <span class='fl'>3</span>
+<span class='op'>)</span>
+<span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
+<span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>3</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
+<span class='va'>C</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+    <span class='fl'>0.50</span>, <span class='fl'>0.25</span>, <span class='fl'>0.25</span>,
+    <span class='fl'>0.25</span>, <span class='fl'>0.25</span>, <span class='fl'>0.00</span>,
+    <span class='fl'>0.25</span>, <span class='fl'>0.00</span>, <span class='fl'>0.25</span>
+  <span class='op'>)</span>,
+  nrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
+<span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"y"</span>, <span class='st'>"x"</span>, <span class='st'>"e"</span><span class='op'>)</span>
+<span class='fu'>S_num</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>C</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   y    x    e
+#&gt; y 0 0.00 0.00
+#&gt; x 0 0.25 0.00
+#&gt; e 0 0.00 0.25</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

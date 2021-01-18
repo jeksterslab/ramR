@@ -21,26 +21,199 @@ knitr::opts_chunk$set(
 #+
 library(testthat)
 library(ramR)
+library(Ryacas)
 #'
-#+ E
-A <- Omega <- matrix(
+#+ numerical
+A <- S <- matrix(
+  data = 0,
+  nrow = 3,
+  ncol = 3
+)
+A[1, 2] <- 1
+A[1, 3] <- 1
+diag(S) <- c(0, 0.25, 0.25)
+colnames(A) <- rownames(A) <- c("y", "x", "e")
+filter <- diag(2)
+filter <- cbind(filter, 0)
+colnames(filter) <- c("y", "x", "e")
+rownames(filter) <- c("y", "x")
+u <- as.matrix(c(0.00, 0.50, 0.00))
+v <- as.matrix(c(0.50, 0.50, 0.00))
+C <- matrix(
+  data = c(
+    0.50, 0.25, 0.25,
+    0.25, 0.25, 0.00,
+    0.25, 0.00, 0.25
+  ),
+  nrow = dim(A)[1]
+)
+E <- solve(diag(dim(A)[1]) - A)
+M <- filter %*% C %*% t(filter)
+g <- filter %*% v
+results_C_num <- C_num(A, S)
+results_E_num <- E_num(A)
+results_M_num <- M_num(A, S, filter)
+results_S_num <- S_num(A, C)
+results_v_num <- v_num(A, u)
+results_u_num <- u_num(A, v)
+results_g_num <- g_num(A, u, filter)
+data <- mvn(n = 1000, A, S, u, filter, empirical = TRUE)
+Sigma <- cov(data)
+mu <- as.matrix(colMeans(data))
+#'
+#+ symbolic
+results_C_sym <- as_r(C_sym(A, S))
+results_E_sym <- as_r(E_sym(A))
+results_M_sym <- as_r(M_sym(A, S, filter))
+results_S_sym <- as_r(S_sym(A, C))
+results_v_sym <- as_r(v_sym(A, u))
+results_u_sym <- as_r(u_sym(A, v))
+results_g_sym <- as_r(g_sym(A, u, filter))
+#'
+#+ testthat
+test_that("C.", {
+  for (i in 1:nrow(C)) {
+    for (j in 1:ncol(C)) {
+      expect_equal(
+        C[i, j],
+        results_C_num[i, j],
+        results_C_sym[i, j],
+        check.attributes = FALSE,
+        tolerance = 0.001
+      )
+    }
+  }
+})
+test_that("E.", {
+  for (i in 1:nrow(E)) {
+    for (j in 1:ncol(E)) {
+      expect_equal(
+        E[i, j],
+        results_E_num[i, j],
+        results_E_sym[i, j],
+        check.attributes = FALSE,
+        tolerance = 0.001
+      )
+    }
+  }
+})
+test_that("M.", {
+  for (i in 1:nrow(M)) {
+    for (j in 1:ncol(M)) {
+      expect_equal(
+        M[i, j],
+        Sigma[i, j],
+        results_M_num[i, j],
+        results_M_sym[i, j],
+        check.attributes = FALSE,
+        tolerance = 0.001
+      )
+    }
+  }
+})
+test_that("S.", {
+  for (i in 1:nrow(S)) {
+    for (j in 1:ncol(S)) {
+      expect_equal(
+        S[i, j],
+        results_S_num[i, j],
+        results_S_sym[i, j],
+        check.attributes = FALSE,
+        tolerance = 0.001
+      )
+    }
+  }
+})
+test_that("v.", {
+  for (i in 1:nrow(v)) {
+    for (j in 1:ncol(v)) {
+      expect_equal(
+        v[i, j],
+        results_v_num[i, j],
+        results_v_sym[i, j],
+        check.attributes = FALSE,
+        tolerance = 0.001
+      )
+    }
+  }
+})
+test_that("u.", {
+  for (i in 1:nrow(u)) {
+    for (j in 1:ncol(u)) {
+      expect_equal(
+        u[i, j],
+        results_u_num[i, j],
+        results_u_sym[i, j],
+        check.attributes = FALSE,
+        tolerance = 0.001
+      )
+    }
+  }
+})
+test_that("g.", {
+  for (i in 1:nrow(g)) {
+    for (j in 1:ncol(g)) {
+      expect_equal(
+        g[i, j],
+        mu[i, j],
+        results_g_num[i, j],
+        results_g_sym[i, j],
+        check.attributes = FALSE,
+        tolerance = 0.001
+      )
+    }
+  }
+})
+#'
+#+ errors
+A <- S <- matrix(
   0,
   ncol = 3,
   nrow = 2
 )
-test_that("E: square.", {
+test_that("E_num: square.", {
   expect_error(
-    E(
-      A = A
-    )
+    E_num(A)
   )
 })
-test_that("Sigmatheta: Omega is a square matrix.", {
+test_that("E_sym: square.", {
   expect_error(
-    Sigmatheta(
-      A = A,
-      Omega = Omega
-    )
+    E_sym(A)
+  )
+})
+test_that("C_num: S is a square matrix.", {
+  expect_error(
+    C_num(A, S)
+  )
+})
+test_that("C_sym: S is a square matrix.", {
+  expect_error(
+    C_sym(A, S)
+  )
+})
+test_that("S_num: A is a square matrix.", {
+  expect_error(
+    S_num(A, C)
+  )
+})
+test_that("S_sym: A is a square matrix.", {
+  expect_error(
+    S_sym(A, C)
+  )
+})
+S <- matrix(
+  0,
+  ncol = 3,
+  nrow = 3
+)
+test_that("C_num: A and S have the same dimensions.", {
+  expect_error(
+    C_num(A, S)
+  )
+})
+test_that("C_sym: A and S have the same dimensions.", {
+  expect_error(
+    C_sym(A, S)
   )
 })
 A <- matrix(
@@ -48,83 +221,28 @@ A <- matrix(
   ncol = 3,
   nrow = 3
 )
-Omega <- matrix(
+C <- matrix(
   0,
-  ncol = 2,
+  ncol = 3,
   nrow = 2
 )
-test_that("Sigmatheta: A and Omega have identical dimensions.", {
+test_that("S_num: A and C have the same dimensions.", {
   expect_error(
-    Sigmatheta(
-      A = A,
-      Omega = Omega
-    )
+    S_num(A, C)
+  )
+})
+test_that("S_sym: A and C have the same dimensions.", {
+  expect_error(
+    S_sym(A, C)
   )
 })
 A <- matrix(
-  data = c(
-    0,
-    -1,
-    -1,
-    0
-  ),
+  data = c(0, -1, -1, 0),
   nrow = 2,
   ncol = 2
 )
-test_that("E: inverse.", {
+test_that("E_num: singular.", {
   expect_error(
-    E(
-      A = A
-    )
-  )
-})
-test_that("Omega_linreg: symmetric SigmaX.", {
-  expect_error(
-    Omega_linreg(
-      sigma2 = 0,
-      SigmaX = matrix(
-        data = 0,
-        ncol = 3,
-        nrow = 2
-      )
-    )
-  )
-})
-beta <- c(
-  1
-)
-sigma2 <- 1
-SigmaX <- 1
-muX <- 1
-test_that("ram_linreg: wrong dimensions beta.", {
-  expect_error(
-    ramR::ram_linreg(
-      beta = beta,
-      sigma2 = sigma2,
-      SigmaX = SigmaX,
-      muX = muX
-    )
-  )
-})
-beta <- c(
-  1,
-  1,
-  1
-)
-sigma2 <- 1
-SigmaX <- matrix(
-  data = 1,
-  nrow = 2,
-  ncol = 2
-)
-muX <- 1
-test_that("ram_linreg: wrong dimensions mux.", {
-  expect_error(
-    ramR::ram_linreg(
-      beta = beta,
-      sigma2 = sigma2,
-      SigmaX = SigmaX,
-      muX = muX
-    )
+    E_num(A)
   )
 })

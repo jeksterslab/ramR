@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mean Structure Vector \(\mathbf{M}\) — M • ramR</title>
+<title>Matrix of Covariance Expectations
+\(\mathbf{C}\) - Symbolic — C_sym • ramR</title>
 
 
 <!-- jquery -->
@@ -39,9 +40,10 @@
 
 
 
-<meta property="og:title" content="Mean Structure Vector \(\mathbf{M}\) — M" />
-<meta property="og:description" content="Derives the mean structure vector \(\mathbf{M}\)
-using the Reticular Action Model (RAM) notation." />
+<meta property="og:title" content="Matrix of Covariance Expectations
+\(\mathbf{C}\) - Symbolic — C_sym" />
+<meta property="og:description" content="Derives the matrix of covariance expectations
+\(\mathbf{C}\)." />
 
 
 
@@ -101,9 +103,6 @@ using the Reticular Action Model (RAM) notation." />
     <li>
       <a href="../articles/tests/test_coverage.html">Test: Coverage</a>
     </li>
-    <li>
-      <a href="../articles/tests/test_simple-regression.html">Test: Simple Regression</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -130,101 +129,102 @@ using the Reticular Action Model (RAM) notation." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Mean Structure Vector \(\mathbf{M}\)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/M.R'><code>R/M.R</code></a></small>
-    <div class="hidden name"><code>M.Rd</code></div>
+    <h1>Matrix of Covariance Expectations
+\(\mathbf{C}\) - Symbolic</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/C.R'><code>R/C.R</code></a></small>
+    <div class="hidden name"><code>C_sym.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Derives the mean structure vector \(\mathbf{M}\)
-using the Reticular Action Model (RAM) notation.</p>
+    <p>Derives the matrix of covariance expectations
+\(\mathbf{C}\).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>M</span><span class='op'>(</span><span class='va'>mutheta</span>, <span class='va'>A</span>, filter <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>C_sym</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>S</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>mutheta</th>
-      <td><p><code>t x 1</code> numeric vector
-\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)_{t \times 1}\) .
-Model-implied mean vector.</p></td>
-    </tr>
-    <tr>
       <th>A</th>
-      <td><p><code>t x t</code> numeric matrix
-\(\mathbf{A}_{t \times t}\).
+      <td><p><code>t x t</code> matrix \(\mathbf{A}\).
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.</p></td>
     </tr>
     <tr>
-      <th>filter</th>
-      <td><p><code>j x t</code> numeric matrix
-\(\mathbf{F}_{j \times t}\).
-Filter matrix used to select variables.
-If <code>filter = NULL</code>,
-the filter matrix \(\mathbf{F}\) is assumed to be
-a \(t \times t\) identity matrix.</p></td>
+      <th>S</th>
+      <td><p><code>t x t</code> numeric matrix
+\(\mathbf{S}\).
+Symmetric paths (double-headed arrows),
+such as variances and covariances.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Returns the mean structure vector \(\mathbf{M}\)
-derived from the <code>mutheta</code>, <code>A</code>, and <code>filter</code> matrices.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The mean structure vector \(\mathbf{M}\)
-as a function of Reticular Action Model (RAM) matrices is given by</p>
+    <p>The matrix of covariance expectations
+\(\mathbf{C}\)
+as a function of Reticular Action Model (RAM) matrices
+is given by</p>
 <p>$$
-    \mathbf{M}
+    \mathbf{C}
     =
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{-1}
+    \mathbf{S}
     \left[
-      \mathbf{F}
-      \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-    \right]^{-1}
-    \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
+      \left(
+        \mathbf{I} - \mathbf{A}
+      \right)^{-1}
+    \right]^{\mathsf{T}} \\
+    =
+    \mathbf{E}
+    \mathbf{S}
+    \mathbf{E}^{\mathsf{T}}
   $$</p>
 <p>where</p><ul>
 <li><p>\(\mathbf{A}_{t \times t}\) represents asymmetric paths
 (single-headed arrows),
 such as regression coefficients and factor loadings,</p></li>
-<li><p>\(\mathbf{F}_{j \times t}\) represents the filter matrix
-used to select the observed variables,</p></li>
-<li><p>\(\mathbf{I}_{t \times t}\) represents an identity matrix,</p></li>
-<li><p>\(\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)\)
-is the \(t \times 1\) model-implied mean vector</p></li>
-<li><p>\(j\) number of observed variables,</p></li>
-<li><p>\(k\) number of latent variables, and</p></li>
-<li><p>\(t\) number of observed and latent variables, that is \(j + k\) .</p></li>
+<li><p>\(\mathbf{S}_{t \times t}\) represents symmetric paths
+(double-headed arrows),
+such as variances and covariances, and</p></li>
+<li><p>\(\mathbf{I}_{t \times t}\) represents an identity matrix.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>McArdle, J. J. (2005).
-The development of the RAM rules
-for latent variable structural equation modeling.
-In A. Maydeu-Olivares &amp; J. J. McArdle (Eds.),
-<em>Contemporary Psychometrics: A festschrift for Roderick P. McDonald</em>
-(pp. 225--273).
-Lawrence Erlbaum Associates.</p>
-<p>McArdle, J. J., &amp; McDonald, R. P. (1984).
+    <p>McArdle, J. J., &amp; McDonald, R. P. (1984).
 Some algebraic properties
 of the Reticular Action Model for moment structures.
 <em>British Journal of Mathematical and Statistical Psychology</em>, <em>37</em> (2),
-234--251.</p>
+234--251.
+<a href='https://doi.org/10.1111/j.2044-8317.1984.tb00802.x'>https://doi.org/10.1111/j.2044-8317.1984.tb00802.x</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other SEM notation functions: 
-<code><a href='E.html'>E</a>()</code>,
-<code><a href='Omega.html'>Omega</a>()</code>,
-<code><a href='Sigmatheta.html'>Sigmatheta</a>()</code>,
-<code><a href='mutheta.html'>mutheta</a>()</code></p></div>
+    <div class='dont-index'><p>Other C functions: 
+<code><a href='C_num.html'>C_num</a>()</code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Ivan Jacob Agaloos Pesigan</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># This is a symbolic example for the model</span>
+<span class='co'># y = alpha + beta * x + e</span>
+
+<span class='va'>A</span> <span class='op'>&lt;-</span> <span class='va'>S</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='fl'>0</span>,
+  nrow <span class='op'>=</span> <span class='fl'>3</span>,
+  ncol <span class='op'>=</span> <span class='fl'>3</span>
+<span class='op'>)</span>
+<span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"beta"</span>
+<span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>3</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
+<span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='va'>S</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='st'>"sigma2x"</span>, <span class='st'>"sigma2e"</span><span class='op'>)</span>
+<span class='fu'>C_sym</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>S</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; {{sigma2x*beta^2+sigma2e,           beta*sigma2x,                sigma2e},
+#&gt;  {          sigma2x*beta,                sigma2x,                      0},
+#&gt;  {               sigma2e,                      0,                sigma2e}} </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

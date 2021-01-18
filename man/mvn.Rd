@@ -5,31 +5,27 @@
 \title{Generate Data from a Multivariate Normal Distribution
 Using the Reticular Action Model (RAM) Notation}
 \usage{
-mvn(n, A, Omega, M, filter = NULL, ...)
+mvn(n, A, S, u, filter, ...)
 }
 \arguments{
 \item{n}{Integer.
 Sample size.}
 
-\item{A}{\verb{t x t} numeric matrix
-\eqn{\mathbf{A}_{t \times t}}.
+\item{A}{\verb{t x t} matrix \eqn{\mathbf{A}}.
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.}
 
-\item{Omega}{\verb{t x t} numeric matrix
-\eqn{\boldsymbol{\Omega}_{t \times t}}.
+\item{S}{\verb{t x t} numeric matrix
+\eqn{\mathbf{S}}.
 Symmetric paths (double-headed arrows),
 such as variances and covariances.}
 
-\item{M}{\verb{t x 1} numeric vector \eqn{\mathbf{M}_{t \times 1}}.
-Mean structure. Vector of means and intercepts.}
+\item{u}{vector of length \code{t} or \verb{t by 1} matrix.
+Mean structure parameters.}
 
-\item{filter}{\verb{j x t} numeric matrix
-\eqn{\mathbf{F}_{j \times t}}.
-Filter matrix used to select variables.
-If \code{filter = NULL},
-the filter matrix \eqn{\mathbf{F}} is assumed to be
-a \eqn{t \times t} identity matrix.}
+\item{filter}{\verb{p x t} numeric matrix
+\eqn{\mathbf{F}}.
+Filter matrix used to select observed variables.}
 
 \item{...}{Additional arguments to pass to \code{\link[MASS:mvrnorm]{MASS::mvrnorm()}}.}
 }
@@ -88,19 +84,66 @@ are used as parameters to generate the data.
 \deqn{
     \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
     =
+    \mathbf{g}
+    =
     \mathbf{F}
-    \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-    \mathbf{M}
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{\mathsf{T}}
+    \mathbf{u}
+    =
+    \mathbf{F}
+    \mathbf{E}
+    \mathbf{u}
   }
 \deqn{
     \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
     =
+    \mathbf{M}
+    =
     \mathbf{F}
-    \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-    \boldsymbol{\Omega}
-    \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}}
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{-1}
+    \mathbf{S}
+    \left[
+      \left(
+        \mathbf{I} - \mathbf{A}
+      \right)^{-1}
+    \right]^{\mathsf{T}}
+    \mathbf{F}^{\mathsf{T}} \\
+    =
+    \mathbf{F}
+    \mathbf{E}
+    \mathbf{S}
+    \mathbf{E}^{\mathsf{T}}
+    \mathbf{F}^{\mathsf{T}} \\
+    =
+    \mathbf{F}
+    \mathbf{C}
     \mathbf{F}^{\mathsf{T}}
   }
+}
+\examples{
+# This is an example for the model
+# y = alpha + beta * x + e
+# y = -0.5 + 1 * x + e
+
+n <- 1000
+A <- S <- matrix(
+  data = 0,
+  nrow = 3,
+  ncol = 3
+)
+A[1, 2] <- 1
+A[1, 3] <- 1
+diag(S) <- c(0, 0.25, 0.25)
+u <- c(-0.50, 0.50, 0.00)
+filter <- diag(2)
+filter <- cbind(filter, 0)
+colnames(filter) <- c("y", "x", "e")
+rownames(filter) <- c("y", "x")
+mvn(n, A, S, u, filter)
 }
 \author{
 Ivan Jacob Agaloos Pesigan

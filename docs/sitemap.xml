@@ -4,25 +4,34 @@
     <loc>https://github.com/jeksterslab/ramR//index.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/A_linreg.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/C_num.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/E.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/C_sym.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/M.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/E_num.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/Omega.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/E_sym.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/Omega_linreg.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/M_num.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/Sigmatheta.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/M_sym.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/mutheta.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/S_num.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//reference/S_sym.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//reference/g_num.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//reference/g_sym.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ramR//reference/mvn.html</loc>
@@ -31,15 +40,21 @@
     <loc>https://github.com/jeksterslab/ramR//reference/ramR.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/ram_linreg.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/u_num.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//reference/u_sym.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//reference/v_num.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//reference/v_sym.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ramR//articles/ramR.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ramR//articles/tests/test_coverage.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_simple-regression.html</loc>
   </url>
 </urlset>

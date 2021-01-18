@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ramR: Reticular Action Model (RAM) Notation — ramR • ramR</title>
+<title>Matrix of Covariance Expectations
+\(\mathbf{C}\) - Numeric — C_num • ramR</title>
 
 
 <!-- jquery -->
@@ -39,9 +40,10 @@
 
 
 
-<meta property="og:title" content="ramR: Reticular Action Model (RAM) Notation — ramR" />
-<meta property="og:description" content="A collection of utility functions using
-the Reticular Action Model (RAM) notation." />
+<meta property="og:title" content="Matrix of Covariance Expectations
+\(\mathbf{C}\) - Numeric — C_num" />
+<meta property="og:description" content="Derives the matrix of covariance expectations
+\(\mathbf{C}\)." />
 
 
 
@@ -127,17 +129,69 @@ the Reticular Action Model (RAM) notation." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>ramR: Reticular Action Model (RAM) Notation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/ramR.R'><code>R/ramR.R</code></a></small>
-    <div class="hidden name"><code>ramR.Rd</code></div>
+    <h1>Matrix of Covariance Expectations
+\(\mathbf{C}\) - Numeric</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/C.R'><code>R/C.R</code></a></small>
+    <div class="hidden name"><code>C_num.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A collection of utility functions using
-the Reticular Action Model (RAM) notation.</p>
+    <p>Derives the matrix of covariance expectations
+\(\mathbf{C}\).</p>
     </div>
 
+    <pre class="usage"><span class='fu'>C_num</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>S</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>A</th>
+      <td><p><code>t x t</code> matrix \(\mathbf{A}\).
+Asymmetric paths (single-headed arrows),
+such as regression coefficients and factor loadings.</p></td>
+    </tr>
+    <tr>
+      <th>S</th>
+      <td><p><code>t x t</code> numeric matrix
+\(\mathbf{S}\).
+Symmetric paths (double-headed arrows),
+such as variances and covariances.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The matrix of covariance expectations
+\(\mathbf{C}\)
+as a function of Reticular Action Model (RAM) matrices
+is given by</p>
+<p>$$
+    \mathbf{C}
+    =
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{-1}
+    \mathbf{S}
+    \left[
+      \left(
+        \mathbf{I} - \mathbf{A}
+      \right)^{-1}
+    \right]^{\mathsf{T}} \\
+    =
+    \mathbf{E}
+    \mathbf{S}
+    \mathbf{E}^{\mathsf{T}}
+  $$</p>
+<p>where</p><ul>
+<li><p>\(\mathbf{A}_{t \times t}\) represents asymmetric paths
+(single-headed arrows),
+such as regression coefficients and factor loadings,</p></li>
+<li><p>\(\mathbf{S}_{t \times t}\) represents symmetric paths
+(double-headed arrows),
+such as variances and covariances, and</p></li>
+<li><p>\(\mathbf{I}_{t \times t}\) represents an identity matrix.</p></li>
+</ul>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -147,10 +201,33 @@ of the Reticular Action Model for moment structures.
 <em>British Journal of Mathematical and Statistical Psychology</em>, <em>37</em> (2),
 234--251.
 <a href='https://doi.org/10.1111/j.2044-8317.1984.tb00802.x'>https://doi.org/10.1111/j.2044-8317.1984.tb00802.x</a></p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other C functions: 
+<code><a href='C_sym.html'>C_sym</a>()</code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Ivan Jacob Agaloos Pesigan</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># This is a numerical example for the model</span>
+<span class='co'># y = alpha + beta * x + e</span>
+<span class='co'># y = -0.5 + 1 * x + e</span>
+
+<span class='va'>A</span> <span class='op'>&lt;-</span> <span class='va'>S</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='fl'>0</span>,
+  nrow <span class='op'>=</span> <span class='fl'>3</span>,
+  ncol <span class='op'>=</span> <span class='fl'>3</span>
+<span class='op'>)</span>
+<span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
+<span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>3</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
+<span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='va'>S</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.25</span>, <span class='fl'>0.25</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"y"</span>, <span class='st'>"x"</span>, <span class='st'>"e"</span><span class='op'>)</span>
+<span class='fu'>C_num</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>S</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      y    x    e
+#&gt; y 0.50 0.25 0.25
+#&gt; x 0.25 0.25 0.00
+#&gt; e 0.25 0.00 0.25</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Matrix of Total Effects \(\mathbf{E}\) — E • ramR</title>
+<title>Matrix of Total Effects
+\(\mathbf{E}\) - Symbolic — E_sym • ramR</title>
 
 
 <!-- jquery -->
@@ -39,8 +40,10 @@
 
 
 
-<meta property="og:title" content="Matrix of Total Effects \(\mathbf{E}\) — E" />
-<meta property="og:description" content="Derives the matrix of total effects \(\mathbf{E}\)." />
+<meta property="og:title" content="Matrix of Total Effects
+\(\mathbf{E}\) - Symbolic — E_sym" />
+<meta property="og:description" content="Derives the matrix of total effects
+\(\mathbf{E}\)." />
 
 
 
@@ -100,9 +103,6 @@
     <li>
       <a href="../articles/tests/test_coverage.html">Test: Coverage</a>
     </li>
-    <li>
-      <a href="../articles/tests/test_simple-regression.html">Test: Simple Regression</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -129,50 +129,88 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Matrix of Total Effects \(\mathbf{E}\)</h1>
+    <h1>Matrix of Total Effects
+\(\mathbf{E}\) - Symbolic</h1>
     <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/E.R'><code>R/E.R</code></a></small>
-    <div class="hidden name"><code>E.Rd</code></div>
+    <div class="hidden name"><code>E_sym.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Derives the matrix of total effects \(\mathbf{E}\).</p>
+    <p>Derives the matrix of total effects
+\(\mathbf{E}\).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>E</span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>E_sym</span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>A</th>
-      <td><p><code>t x t</code> numeric matrix
-\(\mathbf{A}_{t \times t}\).
+      <td><p><code>t x t</code> matrix \(\mathbf{A}\).
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Returns the matrix of total effects
+\(\mathbf{E}\).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The matrix of total effects \(\mathbf{E}\) is given by
-$$
+    <p>The matrix of total effects
+\(\mathbf{E}\)
+as a function of Reticular Action Model (RAM) matrices
+is given by</p>
+<p>$$
     \mathbf{E}
     =
     \left(
       \mathbf{I} - \mathbf{A}
     \right)^{-1}
   $$</p>
+<p>where</p><ul>
+<li><p>\(\mathbf{A}_{t \times t}\) represents asymmetric paths
+(single-headed arrows),
+such as regression coefficients and factor loadings, and</p></li>
+<li><p>\(\mathbf{I}_{t \times t}\) represents an identity matrix.</p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>McArdle, J. J., &amp; McDonald, R. P. (1984).
+Some algebraic properties
+of the Reticular Action Model for moment structures.
+<em>British Journal of Mathematical and Statistical Psychology</em>, <em>37</em> (2),
+234--251.
+<a href='https://doi.org/10.1111/j.2044-8317.1984.tb00802.x'>https://doi.org/10.1111/j.2044-8317.1984.tb00802.x</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other SEM notation functions: 
-<code><a href='M.html'>M</a>()</code>,
-<code><a href='Omega.html'>Omega</a>()</code>,
-<code><a href='Sigmatheta.html'>Sigmatheta</a>()</code>,
-<code><a href='mutheta.html'>mutheta</a>()</code></p></div>
+    <div class='dont-index'><p>Other E functions: 
+<code><a href='E_num.html'>E_num</a>()</code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Ivan Jacob Agaloos Pesigan</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># This is a symbolic example for the model</span>
+<span class='co'># y = alpha + beta * x + e</span>
+
+<span class='co'># This is a symbolic example for the model</span>
+<span class='co'># y = alpha + beta * x + e</span>
+
+<span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='fl'>0</span>,
+  nrow <span class='op'>=</span> <span class='fl'>3</span>,
+  ncol <span class='op'>=</span> <span class='fl'>3</span>
+<span class='op'>)</span>
+<span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"beta"</span>
+<span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>3</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
+<span class='fu'>E_sym</span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; {{   1, beta,    1},
+#&gt;  {   0,    1,    0},
+#&gt;  {   0,    0,    1}} </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

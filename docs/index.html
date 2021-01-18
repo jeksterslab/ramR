@@ -12,8 +12,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Reticular Action Model (RAM) Notation">
-<meta property="og:description" content="A collection of functions I use in studying
-    the Reticular Action Model (RAM) Notation.">
+<meta property="og:description" content="A collection of utility functions using
+    the Reticular Action Model (RAM) notation.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -60,9 +60,6 @@
 <li>
       <a href="articles/tests/test_coverage.html">Test: Coverage</a>
     </li>
-    <li>
-      <a href="articles/tests/test_simple-regression.html">Test: Simple Regression</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -91,7 +88,7 @@
 <div id="reticular-action-model-ram-notation" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#reticular-action-model-ram-notation" class="anchor"></a>Reticular Action Model (RAM) Notation</h1></div>
-<p>Ivan Jacob Agaloos Pesigan 2021-01-12</p>
+<p>Ivan Jacob Agaloos Pesigan 2021-01-18</p>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 <p><a href="https://github.com/jeksterslab/ramR/actions?workflow=R-CMD-check"><img src="https://github.com/jeksterslab/ramR/workflows/R-CMD-check/badge.svg?branch=master" alt="R build status"></a> <a href="https://travis-ci.com/jeksterslab/ramR"><img src="https://travis-ci.com/jeksterslab/ramR.svg?branch=master" alt="Travis build status"></a> <a href="https://codecov.io/github/jeksterslab/ramR"><img src="https://codecov.io/github/jeksterslab/ramR/branch/master/graphs/badge.svg" alt="codecov"></a> <!-- badges: end --></p>
@@ -101,6 +98,92 @@
 <p>You can install the released version of <code>ramR</code> from <a href="https://github.com/jeksterslab/ramR">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"jeksterslab/ramR"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="numerical-example" class="section level2">
+<h2 class="hasAnchor">
+<a href="#numerical-example" class="anchor"></a>Numerical Example</h2>
+<p>This is a numerical example for the model</p>
+<p><em>y</em> = <em>α</em> + <em>β</em> * <em>x</em> + <em>ε</em></p>
+<p><em>y</em> =  − 0.50 + 1<em>x</em> + <em>ε</em></p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">A</span> <span class="op">&lt;-</span> <span class="va">S</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
+  data <span class="op">=</span> <span class="fl">0</span>,
+  nrow <span class="op">=</span> <span class="fl">3</span>,
+  ncol <span class="op">=</span> <span class="fl">3</span>
+<span class="op">)</span>
+<span class="va">A</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="va">A</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.25</span>, <span class="fl">0.25</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"x"</span>, <span class="st">"e"</span><span class="op">)</span>
+<span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
+<span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">filter</span>, <span class="fl">0</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">filter</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"x"</span>, <span class="st">"e"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">filter</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"x"</span><span class="op">)</span>
+<span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.50</span>, <span class="fl">0.50</span>, <span class="fl">0.00</span><span class="op">)</span></code></pre></div>
+<p>The covariance expectations can be numerically derived using the <code><a href="reference/C_num.html">ramR::C_num()</a></code> function.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/C_num.html">C_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span><span class="op">)</span>
+<span class="co">#&gt;      y    x    e</span>
+<span class="co">#&gt; y 0.50 0.25 0.25</span>
+<span class="co">#&gt; x 0.25 0.25 0.00</span>
+<span class="co">#&gt; e 0.25 0.00 0.25</span></code></pre></div>
+<p>The covariance expectations for the observed variables can be numerically derived using the <code><a href="reference/M_num.html">ramR::M_num()</a></code> function.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/M_num.html">M_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span>, <span class="va">filter</span><span class="op">)</span>
+<span class="co">#&gt;      y    x</span>
+<span class="co">#&gt; y 0.50 0.25</span>
+<span class="co">#&gt; x 0.25 0.25</span></code></pre></div>
+<p>The mean expectations can be numerically derived using the <code><a href="reference/v_num.html">ramR::v_num()</a></code> function.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/v_num.html">v_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">u</span><span class="op">)</span>
+<span class="co">#&gt;     v</span>
+<span class="co">#&gt; y 0.0</span>
+<span class="co">#&gt; x 0.5</span>
+<span class="co">#&gt; e 0.0</span></code></pre></div>
+<p>The mean expectations for the observed variables can be numerically derived using the <code><a href="reference/v_num.html">ramR::v_num()</a></code> function.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/g_num.html">g_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">u</span>, <span class="va">filter</span><span class="op">)</span>
+<span class="co">#&gt;     g</span>
+<span class="co">#&gt; y 0.0</span>
+<span class="co">#&gt; x 0.5</span></code></pre></div>
+</div>
+<div id="symbolic-example" class="section level2">
+<h2 class="hasAnchor">
+<a href="#symbolic-example" class="anchor"></a>Symbolic Example</h2>
+<p>Below is a symbolic example of the same model.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">A</span> <span class="op">&lt;-</span> <span class="va">S</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
+  data <span class="op">=</span> <span class="fl">0</span>,
+  nrow <span class="op">=</span> <span class="fl">3</span>,
+  ncol <span class="op">=</span> <span class="fl">3</span>
+<span class="op">)</span>
+<span class="va">A</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"beta"</span>
+<span class="va">A</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="st">"sigma[x]^2"</span>, <span class="st">"sigma[varepsilon]^2"</span><span class="op">)</span>
+<span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
+<span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">filter</span>, <span class="fl">0</span><span class="op">)</span></code></pre></div>
+<p>The covariance expectations can be symbolically derived using the <code><a href="reference/C_sym.html">ramR::C_sym()</a></code> function.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/C_sym.html">C_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span><span class="op">)</span>
+<span class="co">#&gt; {{sigma[x]^2*beta^2+sigma[varepsilon]^2,                       beta*sigma[x]^2,                   sigma[varepsilon]^2},</span>
+<span class="co">#&gt;  {                      sigma[x]^2*beta,                            sigma[x]^2,                                     0},</span>
+<span class="co">#&gt;  {                  sigma[varepsilon]^2,                                     0,                   sigma[varepsilon]^2}}</span></code></pre></div>
+<p>The covariance expectations for the observed variables can be symbolically derived using the <code><a href="reference/M_sym.html">ramR::M_sym()</a></code> function.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/M_sym.html">M_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span>, <span class="va">filter</span><span class="op">)</span>
+<span class="co">#&gt; {{sigma[x]^2*beta^2+sigma[varepsilon]^2,                       beta*sigma[x]^2},</span>
+<span class="co">#&gt;  {                      sigma[x]^2*beta,                            sigma[x]^2}}</span></code></pre></div>
+<p>The mean expectations can be symbolically derived using the <code><a href="reference/v_sym.html">ramR::v_sym()</a></code> function.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/v_sym.html">v_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">u</span><span class="op">)</span>
+<span class="co">#&gt; {{0.5*beta-0.5},</span>
+<span class="co">#&gt;  {         0.5},</span>
+<span class="co">#&gt;  {           0}}</span></code></pre></div>
+<p>The mean expectations for the observed variables can be symbolically derived using the <code><a href="reference/g_sym.html">ramR::g_sym()</a></code> function.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/g_sym.html">g_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">u</span>, <span class="va">filter</span><span class="op">)</span>
+<span class="co">#&gt; {{0.5*beta-0.5},</span>
+<span class="co">#&gt;  {         0.5}}</span></code></pre></div>
 </div>
 <div id="more-information" class="section level2">
 <h2 class="hasAnchor">

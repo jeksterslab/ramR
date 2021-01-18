@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Reticular Action Model (RAM) Matrices from Linear Regression Model Parameters — ram_linreg • ramR</title>
+<title>Matrix of Total Effects
+\(\mathbf{E}\) - Numeric — E_num • ramR</title>
 
 
 <!-- jquery -->
@@ -39,8 +40,10 @@
 
 
 
-<meta property="og:title" content="Reticular Action Model (RAM) Matrices from Linear Regression Model Parameters — ram_linreg" />
-<meta property="og:description" content="Derives the Reticular Action Model (RAM) matrices from linear regression model parameters." />
+<meta property="og:title" content="Matrix of Total Effects
+\(\mathbf{E}\) - Numeric — E_num" />
+<meta property="og:description" content="Derives the matrix of total effects
+\(\mathbf{E}\)." />
 
 
 
@@ -100,9 +103,6 @@
     <li>
       <a href="../articles/tests/test_coverage.html">Test: Coverage</a>
     </li>
-    <li>
-      <a href="../articles/tests/test_simple-regression.html">Test: Simple Regression</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -129,72 +129,88 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Reticular Action Model (RAM) Matrices from Linear Regression Model Parameters</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/linreg.R'><code>R/linreg.R</code></a></small>
-    <div class="hidden name"><code>ram_linreg.Rd</code></div>
+    <h1>Matrix of Total Effects
+\(\mathbf{E}\) - Numeric</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/E.R'><code>R/E.R</code></a></small>
+    <div class="hidden name"><code>E_num.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Derives the Reticular Action Model (RAM) matrices from linear regression model parameters.</p>
+    <p>Derives the matrix of total effects
+\(\mathbf{E}\).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ram_linreg</span><span class='op'>(</span><span class='va'>beta</span>, <span class='va'>sigma2</span>, <span class='va'>SigmaX</span>, muX <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>E_num</span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>beta</th>
-      <td><p>Numeric vector or \(k \times 1\) matrix.
-Regression coefficients.</p></td>
-    </tr>
-    <tr>
-      <th>sigma2</th>
-      <td><p>Numeric.
-\(\sigma^2\) is the variance of the stochastic error term
-\(\boldsymbol{\varepsilon}\).</p></td>
-    </tr>
-    <tr>
-      <th>SigmaX</th>
-      <td><p>Numeric matrix.
-Covariances of \(\mathbf{X}_{n \times 2, \cdots, k}\).</p></td>
-    </tr>
-    <tr>
-      <th>muX</th>
-      <td><p>Numeric vector of \(k \times 1\) matrix.
-Column means of \(\mathbf{X}_{n \times 2, \cdots, k}\).</p></td>
+      <th>A</th>
+      <td><p><code>t x t</code> matrix \(\mathbf{A}\).
+Asymmetric paths (single-headed arrows),
+such as regression coefficients and factor loadings.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Returns the matrix of total effects
+\(\mathbf{E}\).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The linear regression model is given by
-$$
-    \mathbf{y}
+    <p>The matrix of total effects
+\(\mathbf{E}\)
+as a function of Reticular Action Model (RAM) matrices
+is given by</p>
+<p>$$
+    \mathbf{E}
     =
-    \mathbf{X} \boldsymbol{\beta} + \boldsymbol{\varepsilon}
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{-1}
   $$</p>
 <p>where</p><ul>
-<li><p>\(\mathbf{y}\) is an \(n \times 1\) vector of observations
-on the regressand variable</p></li>
-<li><p>the data matrix \(\mathbf{X}\)
-(also known as design matrix, model matrix or regressor matrix)
-is an \(n \times k\) matrix of \(n\) observations of \(k\) regressors,
-which includes a regressor whose value is 1 for each observation on the first column</p></li>
-<li><p>\(\boldsymbol{\beta}\) is a \(k \times 1\) vector regression coefficients</p></li>
-<li><p>\(\boldsymbol{\varepsilon}\) is the stochastic error term distributed around 0
-with constant variance \(\left( \sigma^2 \right)\) across values of \(\mathbf{X}\)</p></li>
+<li><p>\(\mathbf{A}_{t \times t}\) represents asymmetric paths
+(single-headed arrows),
+such as regression coefficients and factor loadings, and</p></li>
+<li><p>\(\mathbf{I}_{t \times t}\) represents an identity matrix.</p></li>
 </ul>
 
-<p>Parameters of the linear regression model include</p><ul>
-<li><p>\(\boldsymbol{\beta}\) and</p></li>
-<li><p>\(\sigma^2\)</p></li>
-</ul>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
+    <p>McArdle, J. J., &amp; McDonald, R. P. (1984).
+Some algebraic properties
+of the Reticular Action Model for moment structures.
+<em>British Journal of Mathematical and Statistical Psychology</em>, <em>37</em> (2),
+234--251.
+<a href='https://doi.org/10.1111/j.2044-8317.1984.tb00802.x'>https://doi.org/10.1111/j.2044-8317.1984.tb00802.x</a></p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other E functions: 
+<code><a href='E_sym.html'>E_sym</a>()</code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Ivan Jacob Agaloos Pesigan</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># This is a numerical example for the model</span>
+<span class='co'># y = alpha + beta * x + e</span>
+<span class='co'># y = -0.5 + 1 * x + e</span>
+
+<span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='fl'>0</span>,
+  nrow <span class='op'>=</span> <span class='fl'>3</span>,
+  ncol <span class='op'>=</span> <span class='fl'>3</span>
+<span class='op'>)</span>
+<span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
+<span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>3</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"y"</span>, <span class='st'>"x"</span>, <span class='st'>"e"</span><span class='op'>)</span>
+<span class='fu'>E_num</span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   y x e
+#&gt; y 1 1 1
+#&gt; x 0 1 0
+#&gt; e 0 0 1</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

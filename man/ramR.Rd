@@ -5,17 +5,17 @@
 \alias{ramR}
 \title{ramR: Reticular Action Model (RAM) Notation}
 \description{
-A collection of functions I use in studying
+A collection of utility functions using
 the Reticular Action Model (RAM) notation.
 }
-\section{ramR functions}{
-
-\itemize{
-\item \code{\link[=mutheta]{mutheta()}} - used to derive the model-implied mean vector
-\item \code{\link[=Sigmatheta]{Sigmatheta()}} - used to derive the model0implied variance-covariance
+\references{
+McArdle, J. J., & McDonald, R. P. (1984).
+Some algebraic properties
+of the Reticular Action Model for moment structures.
+\emph{British Journal of Mathematical and Statistical Psychology}, \emph{37} (2),
+234--251.
+\url{https://doi.org/10.1111/j.2044-8317.1984.tb00802.x}
 }
-}
-
 \author{
 Ivan Jacob Agaloos Pesigan
 }

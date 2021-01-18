@@ -6,8 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Matrix of symmetric paths (double-headed arrows)
-\(\boldsymbol{\Omega}\) — Omega • ramR</title>
+<title>Vector of Expected Values
+\(\mathbf{v}\) - Symbolic — v_sym • ramR</title>
 
 
 <!-- jquery -->
@@ -40,10 +40,10 @@
 
 
 
-<meta property="og:title" content="Matrix of symmetric paths (double-headed arrows)
-\(\boldsymbol{\Omega}\) — Omega" />
-<meta property="og:description" content="Derives the matrix of symmetric paths (double-headed arrows)
-\(\boldsymbol{\Omega}\)
+<meta property="og:title" content="Vector of Expected Values
+\(\mathbf{v}\) - Symbolic — v_sym" />
+<meta property="og:description" content="Derives the vector of expected values
+\(\mathbf{v}\)
 using the Reticular Action Model (RAM) notation." />
 
 
@@ -104,9 +104,6 @@ using the Reticular Action Model (RAM) notation." />
     <li>
       <a href="../articles/tests/test_coverage.html">Test: Coverage</a>
     </li>
-    <li>
-      <a href="../articles/tests/test_simple-regression.html">Test: Simple Regression</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -133,93 +130,89 @@ using the Reticular Action Model (RAM) notation." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Matrix of symmetric paths (double-headed arrows)
-\(\boldsymbol{\Omega}\)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/Omega.R'><code>R/Omega.R</code></a></small>
-    <div class="hidden name"><code>Omega.Rd</code></div>
+    <h1>Vector of Expected Values
+\(\mathbf{v}\) - Symbolic</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/v.R'><code>R/v.R</code></a></small>
+    <div class="hidden name"><code>v_sym.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Derives the matrix of symmetric paths (double-headed arrows)
-\(\boldsymbol{\Omega}\)
+    <p>Derives the vector of expected values
+\(\mathbf{v}\)
 using the Reticular Action Model (RAM) notation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Omega</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>Sigmatheta</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>v_sym</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>u</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>A</th>
-      <td><p><code>t x t</code> numeric matrix
-\(\mathbf{A}_{t \times t}\).
+      <td><p><code>t x t</code> matrix \(\mathbf{A}\).
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.</p></td>
     </tr>
     <tr>
-      <th>Sigmatheta</th>
-      <td><p><code>t x t</code> numeric matrix
-\(\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)\).
-Model-implied variance-covariance matrix.</p></td>
+      <th>u</th>
+      <td><p>vector of length <code>t</code> or <code>t by 1</code> matrix.
+Mean structure parameters.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns the matrix of symmetric paths (double-headed arrows)
-\(\boldsymbol{\Omega}\)
-derived from the <code>A</code> and <code>Sigmatheta</code> matrices.</p>
+    <p>Returns the vector of expected values
+\(\mathbf{v}\).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The matrix of symmetric paths (double-headed arrows)
-\(\boldsymbol{\Omega}\)
+    <p>The vector of expected values
+\(\mathbf{v}\)
 as a function of Reticular Action Model (RAM) matrices
 is given by</p>
 <p>$$
-    \boldsymbol{\Omega}
+    \mathbf{v}
     =
-    \left( \mathbf{I} - \mathbf{A} \right)
-    \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
-    \left( \mathbf{I} - \mathbf{A} \right)^{\mathsf{T}}
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{\mathsf{T}}
+    \mathbf{u} \\
+    =
+    \mathbf{E}
+    \mathbf{u}
   $$</p>
 <p>where</p><ul>
 <li><p>\(\mathbf{A}_{t \times t}\) represents asymmetric paths
 (single-headed arrows),
 such as regression coefficients and factor loadings,</p></li>
-<li><p>\(\boldsymbol{\Sigma}_{t \times t}\) represents
-the model-implied variance-covariance matrix,</p></li>
-<li><p>\(\mathbf{I}_{t \times t}\) represents an identity matrix,</p></li>
-<li><p>\(j\) number of observed variables,</p></li>
-<li><p>\(k\) number of latent variables, and</p></li>
-<li><p>\(t\) number of observed and latent variables, that is \(j + k\) .</p></li>
+<li><p>\(\mathbf{I}_{t \times t}\) represents an identity matrix, and</p></li>
+<li><p>\(\mathbf{u}_{t \times 1}\) vector of parameters for the mean structure.</p></li>
 </ul>
 
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>McArdle, J. J. (2005).
-The development of the RAM rules
-for latent variable structural equation modeling.
-In A. Maydeu-Olivares &amp; J. J. McArdle (Eds.),
-<em>Contemporary Psychometrics: A festschrift for Roderick P. McDonald</em>
-(pp. 225--273).
-Lawrence Erlbaum Associates.</p>
-<p>McArdle, J. J., &amp; McDonald, R. P. (1984).
-Some algebraic properties
-of the Reticular Action Model for moment structures.
-<em>British Journal of Mathematical and Statistical Psychology</em>, <em>37</em> (2),
-234--251.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other SEM notation functions: 
-<code><a href='E.html'>E</a>()</code>,
-<code><a href='M.html'>M</a>()</code>,
-<code><a href='Sigmatheta.html'>Sigmatheta</a>()</code>,
-<code><a href='mutheta.html'>mutheta</a>()</code></p></div>
+    <div class='dont-index'><p>Other v functions: 
+<code><a href='v_num.html'>v_num</a>()</code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Ivan Jacob Agaloos Pesigan</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># This is a symbolic example for the model</span>
+<span class='co'># y = alpha + beta * x + e</span>
+
+<span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='fl'>0</span>,
+  nrow <span class='op'>=</span> <span class='fl'>3</span>,
+  ncol <span class='op'>=</span> <span class='fl'>3</span>
+<span class='op'>)</span>
+<span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"beta"</span>
+<span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>3</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
+<span class='va'>u</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"alpha"</span>, <span class='st'>"mux"</span>, <span class='fl'>0</span><span class='op'>)</span>
+<span class='fu'>v_sym</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>u</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; {{alpha+beta*mux},
+#&gt;  {           mux},
+#&gt;  {             0}} </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

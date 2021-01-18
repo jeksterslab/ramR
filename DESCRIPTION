@@ -9,8 +9,8 @@ Authors@R:
         email = "i.j.a.pesigan@connect.um.edu.mo",
         comment = c(ORCID = "0000-0003-4818-8420")
     )
-Description: A collection of functions I use in studying
-    the Reticular Action Model (RAM) Notation.
+Description: A collection of utility functions using
+    the Reticular Action Model (RAM) notation.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Language: en-US
@@ -26,6 +26,7 @@ Imports:
     utils,
     stats,
     MASS,
+    Ryacas,
     matrixR
 Remotes:
     jeksterslab/matrixR
@@ -34,4 +35,3 @@ Suggests:
     rmarkdown,
     testthat
 RoxygenNote: 7.1.1
-

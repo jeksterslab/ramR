@@ -59,9 +59,6 @@
 <li>
       <a href="../../articles/tests/test_coverage.html">Test: Coverage</a>
     </li>
-    <li>
-      <a href="../../articles/tests/test_simple-regression.html">Test: Simple Regression</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -91,7 +88,7 @@
       <h1 data-toc-skip>Test: Coverage</h1>
                         <h4 class="author">Ivan Jacob Agaloos Pesigan</h4>
             
-            <h4 class="date">2021-01-12</h4>
+            <h4 class="date">2021-01-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jeksterslab/ramR/blob/master/vignettes/tests/test_coverage.Rmd"><code>vignettes/tests/test_coverage.Rmd</code></a></small>
       <div class="hidden name"><code>test_coverage.Rmd</code></div>
@@ -102,27 +99,218 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://testthat.r-lib.org">testthat</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jeksterslab/ramR">ramR</a></span><span class="op">)</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jeksterslab/ramR">ramR</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-cas/ryacas">Ryacas</a></span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'Ryacas'</span>
+<span class="co">#&gt; The following object is masked from 'package:stats':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     integrate</span>
+<span class="co">#&gt; The following objects are masked from 'package:base':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     %*%, diag, diag&lt;-, lower.tri, upper.tri</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">A</span> <span class="op">&lt;-</span> <span class="va">Omega</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">A</span> <span class="op">&lt;-</span> <span class="va">S</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
+  data <span class="op">=</span> <span class="fl">0</span>,
+  nrow <span class="op">=</span> <span class="fl">3</span>,
+  ncol <span class="op">=</span> <span class="fl">3</span>
+<span class="op">)</span>
+<span class="va">A</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="va">A</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/diag.html">diag</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.25</span>, <span class="fl">0.25</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"x"</span>, <span class="st">"e"</span><span class="op">)</span>
+<span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/diag.html">diag</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
+<span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">filter</span>, <span class="fl">0</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">filter</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"x"</span>, <span class="st">"e"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">filter</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"x"</span><span class="op">)</span>
+<span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.00</span>, <span class="fl">0.50</span>, <span class="fl">0.00</span><span class="op">)</span><span class="op">)</span>
+<span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.50</span>, <span class="fl">0.50</span>, <span class="fl">0.00</span><span class="op">)</span><span class="op">)</span>
+<span class="va">C</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
+  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    <span class="fl">0.50</span>, <span class="fl">0.25</span>, <span class="fl">0.25</span>,
+    <span class="fl">0.25</span>, <span class="fl">0.25</span>, <span class="fl">0.00</span>,
+    <span class="fl">0.25</span>, <span class="fl">0.00</span>, <span class="fl">0.25</span>
+  <span class="op">)</span>,
+  nrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
+<span class="op">)</span>
+<span class="va">E</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html">solve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/diag.html">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">-</span> <span class="va">A</span><span class="op">)</span>
+<span class="va">M</span> <span class="op">&lt;-</span> <span class="va">filter</span> <span class="op">%*%</span> <span class="va">C</span> <span class="op">%*%</span> <span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/t.html">t</a></span><span class="op">(</span><span class="va">filter</span><span class="op">)</span>
+<span class="va">g</span> <span class="op">&lt;-</span> <span class="va">filter</span> <span class="op">%*%</span> <span class="va">v</span>
+<span class="va">results_C_num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/C_num.html">C_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span><span class="op">)</span>
+<span class="va">results_E_num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/E_num.html">E_num</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>
+<span class="va">results_M_num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/M_num.html">M_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span>, <span class="va">filter</span><span class="op">)</span>
+<span class="va">results_S_num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/S_num.html">S_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">C</span><span class="op">)</span>
+<span class="va">results_v_num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/v_num.html">v_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">u</span><span class="op">)</span>
+<span class="va">results_u_num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/u_num.html">u_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">v</span><span class="op">)</span>
+<span class="va">results_g_num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/g_num.html">g_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">u</span>, <span class="va">filter</span><span class="op">)</span>
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/mvn.html">mvn</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1000</span>, <span class="va">A</span>, <span class="va">S</span>, <span class="va">u</span>, <span class="va">filter</span>, empirical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">Sigma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
+<span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html">colMeans</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">results_C_sym</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="fu"><a href="../../reference/C_sym.html">C_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span><span class="op">)</span><span class="op">)</span>
+<span class="va">results_E_sym</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="fu"><a href="../../reference/E_sym.html">E_sym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span><span class="op">)</span>
+<span class="va">results_M_sym</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="fu"><a href="../../reference/M_sym.html">M_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span>, <span class="va">filter</span><span class="op">)</span><span class="op">)</span>
+<span class="va">results_S_sym</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="fu"><a href="../../reference/S_sym.html">S_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">C</span><span class="op">)</span><span class="op">)</span>
+<span class="va">results_v_sym</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="fu"><a href="../../reference/v_sym.html">v_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">u</span><span class="op">)</span><span class="op">)</span>
+<span class="va">results_u_sym</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="fu"><a href="../../reference/u_sym.html">u_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">v</span><span class="op">)</span><span class="op">)</span>
+<span class="va">results_g_sym</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="fu"><a href="../../reference/g_sym.html">g_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">u</span>, <span class="va">filter</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"C."</span>, <span class="op">{</span>
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">C</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">C</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
+        <span class="va">C</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_C_num</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_C_sym</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        check.attributes <span class="op">=</span> <span class="cn">FALSE</span>,
+        tolerance <span class="op">=</span> <span class="fl">0.001</span>
+      <span class="op">)</span>
+    <span class="op">}</span>
+  <span class="op">}</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🌈</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"E."</span>, <span class="op">{</span>
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">E</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">E</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
+        <span class="va">E</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_E_num</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_E_sym</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        check.attributes <span class="op">=</span> <span class="cn">FALSE</span>,
+        tolerance <span class="op">=</span> <span class="fl">0.001</span>
+      <span class="op">)</span>
+    <span class="op">}</span>
+  <span class="op">}</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🥳</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"M."</span>, <span class="op">{</span>
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">M</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">M</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
+        <span class="va">M</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">Sigma</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_M_num</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_M_sym</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        check.attributes <span class="op">=</span> <span class="cn">FALSE</span>,
+        tolerance <span class="op">=</span> <span class="fl">0.001</span>
+      <span class="op">)</span>
+    <span class="op">}</span>
+  <span class="op">}</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🎉</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"S."</span>, <span class="op">{</span>
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
+        <span class="va">S</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_S_num</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_S_sym</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        check.attributes <span class="op">=</span> <span class="cn">FALSE</span>,
+        tolerance <span class="op">=</span> <span class="fl">0.001</span>
+      <span class="op">)</span>
+    <span class="op">}</span>
+  <span class="op">}</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🌈</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"v."</span>, <span class="op">{</span>
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
+        <span class="va">v</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_v_num</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_v_sym</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        check.attributes <span class="op">=</span> <span class="cn">FALSE</span>,
+        tolerance <span class="op">=</span> <span class="fl">0.001</span>
+      <span class="op">)</span>
+    <span class="op">}</span>
+  <span class="op">}</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🎉</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"u."</span>, <span class="op">{</span>
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
+        <span class="va">u</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_u_num</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_u_sym</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        check.attributes <span class="op">=</span> <span class="cn">FALSE</span>,
+        tolerance <span class="op">=</span> <span class="fl">0.001</span>
+      <span class="op">)</span>
+    <span class="op">}</span>
+  <span class="op">}</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 😸</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"g."</span>, <span class="op">{</span>
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
+        <span class="va">g</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">mu</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_g_num</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_g_sym</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        check.attributes <span class="op">=</span> <span class="cn">FALSE</span>,
+        tolerance <span class="op">=</span> <span class="fl">0.001</span>
+      <span class="op">)</span>
+    <span class="op">}</span>
+  <span class="op">}</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🎊</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">A</span> <span class="op">&lt;-</span> <span class="va">S</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
   <span class="fl">0</span>,
   ncol <span class="op">=</span> <span class="fl">3</span>,
   nrow <span class="op">=</span> <span class="fl">2</span>
 <span class="op">)</span>
-<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"E: square."</span>, <span class="op">{</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"E_num: square."</span>, <span class="op">{</span>
   <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
-    <span class="fu"><a href="../../reference/E.html">E</a></span><span class="op">(</span>
-      A <span class="op">=</span> <span class="va">A</span>
-    <span class="op">)</span>
+    <span class="fu"><a href="../../reference/E_num.html">E_num</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 😀</span>
-<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"Sigmatheta: Omega is a square matrix."</span>, <span class="op">{</span>
+<span class="co">#&gt; Test passed 🥇</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"E_sym: square."</span>, <span class="op">{</span>
   <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
-    <span class="fu"><a href="../../reference/Sigmatheta.html">Sigmatheta</a></span><span class="op">(</span>
-      A <span class="op">=</span> <span class="va">A</span>,
-      Omega <span class="op">=</span> <span class="va">Omega</span>
-    <span class="op">)</span>
+    <span class="fu"><a href="../../reference/E_sym.html">E_sym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 😸</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"C_num: S is a square matrix."</span>, <span class="op">{</span>
+  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
+    <span class="fu"><a href="../../reference/C_num.html">C_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🥳</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"C_sym: S is a square matrix."</span>, <span class="op">{</span>
+  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
+    <span class="fu"><a href="../../reference/C_sym.html">C_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 😸</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"S_num: A is a square matrix."</span>, <span class="op">{</span>
+  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
+    <span class="fu"><a href="../../reference/S_num.html">S_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">C</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🥳</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"S_sym: A is a square matrix."</span>, <span class="op">{</span>
+  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
+    <span class="fu"><a href="../../reference/S_sym.html">S_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">C</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🎉</span>
+<span class="va">S</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
+  <span class="fl">0</span>,
+  ncol <span class="op">=</span> <span class="fl">3</span>,
+  nrow <span class="op">=</span> <span class="fl">3</span>
+<span class="op">)</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"C_num: A and S have the same dimensions."</span>, <span class="op">{</span>
+  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
+    <span class="fu"><a href="../../reference/C_num.html">C_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🥇</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"C_sym: A and S have the same dimensions."</span>, <span class="op">{</span>
+  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
+    <span class="fu"><a href="../../reference/C_sym.html">C_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
 <span class="co">#&gt; Test passed 🥳</span>
@@ -131,91 +319,34 @@
   ncol <span class="op">=</span> <span class="fl">3</span>,
   nrow <span class="op">=</span> <span class="fl">3</span>
 <span class="op">)</span>
-<span class="va">Omega</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
+<span class="va">C</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
   <span class="fl">0</span>,
-  ncol <span class="op">=</span> <span class="fl">2</span>,
+  ncol <span class="op">=</span> <span class="fl">3</span>,
   nrow <span class="op">=</span> <span class="fl">2</span>
 <span class="op">)</span>
-<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"Sigmatheta: A and Omega have identical dimensions."</span>, <span class="op">{</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"S_num: A and C have the same dimensions."</span>, <span class="op">{</span>
   <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
-    <span class="fu"><a href="../../reference/Sigmatheta.html">Sigmatheta</a></span><span class="op">(</span>
-      A <span class="op">=</span> <span class="va">A</span>,
-      Omega <span class="op">=</span> <span class="va">Omega</span>
-    <span class="op">)</span>
+    <span class="fu"><a href="../../reference/S_num.html">S_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">C</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
 <span class="co">#&gt; Test passed 🌈</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"S_sym: A and C have the same dimensions."</span>, <span class="op">{</span>
+  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
+    <span class="fu"><a href="../../reference/S_sym.html">S_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">C</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 😀</span>
 <span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
-  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
-    <span class="fl">0</span>,
-    <span class="op">-</span><span class="fl">1</span>,
-    <span class="op">-</span><span class="fl">1</span>,
-    <span class="fl">0</span>
-  <span class="op">)</span>,
+  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,
   nrow <span class="op">=</span> <span class="fl">2</span>,
   ncol <span class="op">=</span> <span class="fl">2</span>
 <span class="op">)</span>
-<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"E: inverse."</span>, <span class="op">{</span>
+<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"E_num: singular."</span>, <span class="op">{</span>
   <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
-    <span class="fu"><a href="../../reference/E.html">E</a></span><span class="op">(</span>
-      A <span class="op">=</span> <span class="va">A</span>
-    <span class="op">)</span>
+    <span class="fu"><a href="../../reference/E_num.html">E_num</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🎉</span>
-<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"Omega_linreg: symmetric SigmaX."</span>, <span class="op">{</span>
-  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
-    <span class="fu"><a href="../../reference/Omega_linreg.html">Omega_linreg</a></span><span class="op">(</span>
-      sigma2 <span class="op">=</span> <span class="fl">0</span>,
-      SigmaX <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
-        data <span class="op">=</span> <span class="fl">0</span>,
-        ncol <span class="op">=</span> <span class="fl">3</span>,
-        nrow <span class="op">=</span> <span class="fl">2</span>
-      <span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🎊</span>
-<span class="va">beta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
-  <span class="fl">1</span>
-<span class="op">)</span>
-<span class="va">sigma2</span> <span class="op">&lt;-</span> <span class="fl">1</span>
-<span class="va">SigmaX</span> <span class="op">&lt;-</span> <span class="fl">1</span>
-<span class="va">muX</span> <span class="op">&lt;-</span> <span class="fl">1</span>
-<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"ram_linreg: wrong dimensions beta."</span>, <span class="op">{</span>
-  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
-    <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/ram_linreg.html">ram_linreg</a></span><span class="op">(</span>
-      beta <span class="op">=</span> <span class="va">beta</span>,
-      sigma2 <span class="op">=</span> <span class="va">sigma2</span>,
-      SigmaX <span class="op">=</span> <span class="va">SigmaX</span>,
-      muX <span class="op">=</span> <span class="va">muX</span>
-    <span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🥳</span>
-<span class="va">beta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
-  <span class="fl">1</span>,
-  <span class="fl">1</span>,
-  <span class="fl">1</span>
-<span class="op">)</span>
-<span class="va">sigma2</span> <span class="op">&lt;-</span> <span class="fl">1</span>
-<span class="va">SigmaX</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
-  data <span class="op">=</span> <span class="fl">1</span>,
-  nrow <span class="op">=</span> <span class="fl">2</span>,
-  ncol <span class="op">=</span> <span class="fl">2</span>
-<span class="op">)</span>
-<span class="va">muX</span> <span class="op">&lt;-</span> <span class="fl">1</span>
-<span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"ram_linreg: wrong dimensions mux."</span>, <span class="op">{</span>
-  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
-    <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/ram_linreg.html">ram_linreg</a></span><span class="op">(</span>
-      beta <span class="op">=</span> <span class="va">beta</span>,
-      sigma2 <span class="op">=</span> <span class="va">sigma2</span>,
-      SigmaX <span class="op">=</span> <span class="va">SigmaX</span>,
-      muX <span class="op">=</span> <span class="va">muX</span>
-    <span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🥳</span></code></pre></div>
+<span class="co">#&gt; Test passed 🌈</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
