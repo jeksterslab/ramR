@@ -56,48 +56,104 @@
 #'   \deqn{
 #'     \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
 #'     =
+#'     \mathbf{g}
+#'     =
 #'     \mathbf{F}
-#'     \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-#'     \mathbf{M}
+#'     \left(
+#'       \mathbf{I} - \mathbf{A}
+#'     \right)^{\mathsf{T}}
+#'     \mathbf{u}
+#'     =
+#'     \mathbf{F}
+#'     \mathbf{E}
+#'     \mathbf{u}
 #'   }
 #'   \deqn{
 #'     \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
 #'     =
+#'     \mathbf{M}
+#'     =
 #'     \mathbf{F}
-#'     \left( \mathbf{I} - \mathbf{A} \right)^{-1}
-#'     \boldsymbol{\Omega}
-#'     \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{\mathsf{T}}
+#'     \left(
+#'       \mathbf{I} - \mathbf{A}
+#'     \right)^{-1}
+#'     \mathbf{S}
+#'     \left[
+#'       \left(
+#'         \mathbf{I} - \mathbf{A}
+#'       \right)^{-1}
+#'     \right]^{\mathsf{T}}
+#'     \mathbf{F}^{\mathsf{T}} \\
+#'     =
+#'     \mathbf{F}
+#'     \mathbf{E}
+#'     \mathbf{S}
+#'     \mathbf{E}^{\mathsf{T}}
+#'     \mathbf{F}^{\mathsf{T}} \\
+#'     =
+#'     \mathbf{F}
+#'     \mathbf{C}
 #'     \mathbf{F}^{\mathsf{T}}
 #'   }
 #'
-#' @inheritParams Sigmatheta
-#' @inheritParams mutheta
+#' @inheritParams M_num
+#' @inheritParams g_num
 #' @param n Integer.
 #'   Sample size.
 #' @param ... Additional arguments to pass to [MASS::mvrnorm()].
+#' @examples
+#' # This is an example for the model
+#' # y = alpha + beta * x + e
+#' # y = -0.5 + 1 * x + e
+#'
+#' n <- 1000
+#' A <- S <- matrix(
+#'   data = 0,
+#'   nrow = 3,
+#'   ncol = 3
+#' )
+#' A[1, 2] <- 1
+#' A[1, 3] <- 1
+#' diag(S) <- c(0, 0.25, 0.25)
+#' u <- c(-0.50, 0.50, 0.00)
+#' filter <- diag(2)
+#' filter <- cbind(filter, 0)
+#' colnames(filter) <- c("y", "x", "e")
+#' rownames(filter) <- c("y", "x")
+#' mvn(n, A, S, u, filter)
 #' @export
 mvn <- function(n,
                 A,
-                Omega,
-                M,
-                filter = NULL,
+                S,
+                u,
+                filter,
                 ...) {
-  mu <- mutheta(
-    M = M,
-    A = A,
-    filter = filter
+  v <- v_num(
+    A,
+    u
   )
-  Sigma <- Sigmatheta(
-    A = A,
-    Omega = Omega,
-    filter = filter
+  g <- filter %*% v
+  C <- C_num(
+    A,
+    S
   )
+  M <- filter %*% C %*% t(filter)
+  out <- MASS::mvrnorm(
+    n = n,
+    mu = g,
+    Sigma = M,
+    ...
+  )
+  attributes(out)$n <- n
+  attributes(out)$A <- A
+  attributes(out)$S <- S
+  attributes(out)$u <- u
+  attributes(out)$filter <- filter
+  attributes(out)$v <- v
+  attributes(out)$g <- g
+  attributes(out)$C <- C
+  attributes(out)$M <- M
   return(
-    MASS::mvrnorm(
-      n = n,
-      mu = mu,
-      Sigma = Sigma,
-      ...
-    )
+    out
   )
 }
