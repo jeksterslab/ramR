@@ -127,7 +127,7 @@ are used as parameters to generate the data.
 \examples{
 # This is an example for the model
 # y = alpha + beta * x + e
-# y = -0.5 + 1 * x + e
+# y = 0 + 1 * x + e
 
 n <- 1000
 A <- S <- matrix(

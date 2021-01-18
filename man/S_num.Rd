@@ -62,7 +62,7 @@ the model-implied variance-covariance matrix, and
 \examples{
 # This is a numerical example for the model
 # y = alpha + beta * x + e
-# y = -0.5 + 1 * x + e
+# y = 0 + 1 * x + e
 
 A <- matrix(
   data = 0,
