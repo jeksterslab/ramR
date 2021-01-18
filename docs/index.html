@@ -103,8 +103,8 @@
 <h2 class="hasAnchor">
 <a href="#numerical-example" class="anchor"></a>Numerical Example</h2>
 <p>This is a numerical example for the model</p>
-<p><em>y</em> = <em>α</em> + <em>β</em> * <em>x</em> + <em>ε</em></p>
-<p><em>y</em> =  − 0.50 + 1<em>x</em> + <em>ε</em></p>
+<p><em>y</em> = <em>α</em> + *β**x<em> + </em>ε*</p>
+<p><em>y</em> = 0 + 0.50<em>x</em> + <em>ε</em></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">A</span> <span class="op">&lt;-</span> <span class="va">S</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
   data <span class="op">=</span> <span class="fl">0</span>,
@@ -119,7 +119,7 @@
 <span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">filter</span>, <span class="fl">0</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">filter</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"x"</span>, <span class="st">"e"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">filter</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"x"</span><span class="op">)</span>
-<span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.50</span>, <span class="fl">0.50</span>, <span class="fl">0.00</span><span class="op">)</span></code></pre></div>
+<span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.00</span>, <span class="fl">0.50</span>, <span class="fl">0.00</span><span class="op">)</span></code></pre></div>
 <p>The covariance expectations can be numerically derived using the <code><a href="reference/C_num.html">ramR::C_num()</a></code> function.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/C_num.html">C_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span><span class="op">)</span>
@@ -137,14 +137,14 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/v_num.html">v_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">u</span><span class="op">)</span>
 <span class="co">#&gt;     v</span>
-<span class="co">#&gt; y 0.0</span>
+<span class="co">#&gt; y 0.5</span>
 <span class="co">#&gt; x 0.5</span>
 <span class="co">#&gt; e 0.0</span></code></pre></div>
 <p>The mean expectations for the observed variables can be numerically derived using the <code><a href="reference/v_num.html">ramR::v_num()</a></code> function.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/g_num.html">g_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">u</span>, <span class="va">filter</span><span class="op">)</span>
 <span class="co">#&gt;     g</span>
-<span class="co">#&gt; y 0.0</span>
+<span class="co">#&gt; y 0.5</span>
 <span class="co">#&gt; x 0.5</span></code></pre></div>
 </div>
 <div id="symbolic-example" class="section level2">
@@ -176,14 +176,14 @@
 <p>The mean expectations can be symbolically derived using the <code><a href="reference/v_sym.html">ramR::v_sym()</a></code> function.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/v_sym.html">v_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">u</span><span class="op">)</span>
-<span class="co">#&gt; {{0.5*beta-0.5},</span>
-<span class="co">#&gt;  {         0.5},</span>
-<span class="co">#&gt;  {           0}}</span></code></pre></div>
+<span class="co">#&gt; {{0.5*beta},</span>
+<span class="co">#&gt;  {     0.5},</span>
+<span class="co">#&gt;  {       0}}</span></code></pre></div>
 <p>The mean expectations for the observed variables can be symbolically derived using the <code><a href="reference/g_sym.html">ramR::g_sym()</a></code> function.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/g_sym.html">g_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">u</span>, <span class="va">filter</span><span class="op">)</span>
-<span class="co">#&gt; {{0.5*beta-0.5},</span>
-<span class="co">#&gt;  {         0.5}}</span></code></pre></div>
+<span class="co">#&gt; {{0.5*beta},</span>
+<span class="co">#&gt;  {     0.5}}</span></code></pre></div>
 </div>
 <div id="more-information" class="section level2">
 <h2 class="hasAnchor">

@@ -26,9 +26,9 @@ remotes::install_github("jeksterslab/ramR")
 
 This is a numerical example for the model
 
-*y* = *α* + *β* \* *x* + *ε*
+*y* = *α* + *β**x* + *ε*
 
-*y* =  − 0.50 + 1*x* + *ε*
+*y* = 0 + 0.50*x* + *ε*
 
 ``` r
 A <- S <- matrix(
@@ -44,7 +44,7 @@ filter <- diag(2)
 filter <- cbind(filter, 0)
 colnames(filter) <- c("y", "x", "e")
 rownames(filter) <- c("y", "x")
-u <- c(-0.50, 0.50, 0.00)
+u <- c(0.00, 0.50, 0.00)
 ```
 
 The covariance expectations can be numerically derived using the
@@ -74,7 +74,7 @@ The mean expectations can be numerically derived using the
 ``` r
 ramR::v_num(A, u)
 #>     v
-#> y 0.0
+#> y 0.5
 #> x 0.5
 #> e 0.0
 ```
@@ -85,7 +85,7 @@ derived using the `ramR::v_num()` function.
 ``` r
 ramR::g_num(A, u, filter)
 #>     g
-#> y 0.0
+#> y 0.5
 #> x 0.5
 ```
 
@@ -130,9 +130,9 @@ The mean expectations can be symbolically derived using the
 
 ``` r
 ramR::v_sym(A, u)
-#> {{0.5*beta-0.5},
-#>  {         0.5},
-#>  {           0}}
+#> {{0.5*beta},
+#>  {     0.5},
+#>  {       0}}
 ```
 
 The mean expectations for the observed variables can be symbolically
@@ -140,8 +140,8 @@ derived using the `ramR::g_sym()` function.
 
 ``` r
 ramR::g_sym(A, u, filter)
-#> {{0.5*beta-0.5},
-#>  {         0.5}}
+#> {{0.5*beta},
+#>  {     0.5}}
 ```
 
 ## More Information

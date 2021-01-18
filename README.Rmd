@@ -34,9 +34,9 @@ remotes::install_github("jeksterslab/ramR")
 
 This is a numerical example for the model
 
-$$y = \alpha + \beta * x + \varepsilon$$
+$$y = \alpha + \beta x + \varepsilon$$
 
-$$y = -0.50 + 1 x + \varepsilon$$
+$$y = 0 + 0.50 x + \varepsilon$$
 
 ```{r}
 A <- S <- matrix(
@@ -52,7 +52,7 @@ filter <- diag(2)
 filter <- cbind(filter, 0)
 colnames(filter) <- c("y", "x", "e")
 rownames(filter) <- c("y", "x")
-u <- c(-0.50, 0.50, 0.00)
+u <- c(0.00, 0.50, 0.00)
 ```
 
 The covariance expectations
