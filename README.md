@@ -1,7 +1,7 @@
 Reticular Action Model (RAM) Notation
 ================
 Ivan Jacob Agaloos Pesigan
-2021-01-18
+2021-01-19
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
@@ -13,6 +13,11 @@ status](https://travis-ci.com/jeksterslab/ramR.svg?branch=master)](https://travi
 [![codecov](https://codecov.io/github/jeksterslab/ramR/branch/master/graphs/badge.svg)](https://codecov.io/github/jeksterslab/ramR)
 <!-- badges: end -->
 
+## Description
+
+A collection of utility functions using the Reticular Action Model (RAM)
+notation.
+
 ## Installation
 
 You can install the released version of `ramR` from
@@ -22,13 +27,71 @@ You can install the released version of `ramR` from
 remotes::install_github("jeksterslab/ramR")
 ```
 
+## Symbolic Example
+
+This is a symbolic example for the model
+
+*y* = *α* + *β* ⋅ *x* + *ε*.
+
+``` r
+A <- S <- matrix(
+  data = 0,
+  nrow = 3,
+  ncol = 3
+)
+A[1, 2] <- "beta"
+A[1, 3] <- 1
+diag(S) <- c(0, "sigma[x]^2", "sigma[varepsilon]^2")
+filter <- diag(2)
+filter <- cbind(filter, 0)
+u <- c("alpha", "mu[x]", 0)
+```
+
+The covariance expectations can be symbolically derived using the
+`ramR::C_sym()` function.
+
+``` r
+ramR::C_sym(A, S)
+#> {{sigma[x]^2*beta^2+sigma[varepsilon]^2,                       beta*sigma[x]^2,                   sigma[varepsilon]^2},
+#>  {                      sigma[x]^2*beta,                            sigma[x]^2,                                     0},
+#>  {                  sigma[varepsilon]^2,                                     0,                   sigma[varepsilon]^2}}
+```
+
+The covariance expectations for the observed variables can be
+symbolically derived using the `ramR::M_sym()` function.
+
+``` r
+ramR::M_sym(A, S, filter)
+#> {{sigma[x]^2*beta^2+sigma[varepsilon]^2,                       beta*sigma[x]^2},
+#>  {                      sigma[x]^2*beta,                            sigma[x]^2}}
+```
+
+The mean expectations can be symbolically derived using the
+`ramR::v_sym()` function.
+
+``` r
+ramR::v_sym(A, u)
+#> {{alpha+beta*mu[x]},
+#>  {           mu[x]},
+#>  {               0}}
+```
+
+The mean expectations for the observed variables can be symbolically
+derived using the `ramR::g_sym()` function.
+
+``` r
+ramR::g_sym(A, u, filter)
+#> {{alpha+beta*mu[x]},
+#>  {           mu[x]}}
+```
+
 ## Numerical Example
 
 This is a numerical example for the model
 
-*y* = *α* + *β**x* + *ε*
+*y* = *α* + *β* ⋅ *x* + *ε*
 
-*y* = 0 + 0.50*x* + *ε*
+*y* = 0 + 0.50*x* + *ε*.
 
 ``` r
 A <- S <- matrix(
@@ -87,61 +150,6 @@ ramR::g_num(A, u, filter)
 #>     g
 #> y 0.5
 #> x 0.5
-```
-
-## Symbolic Example
-
-Below is a symbolic example of the same model.
-
-``` r
-A <- S <- matrix(
-  data = 0,
-  nrow = 3,
-  ncol = 3
-)
-A[1, 2] <- "beta"
-A[1, 3] <- 1
-diag(S) <- c(0, "sigma[x]^2", "sigma[varepsilon]^2")
-filter <- diag(2)
-filter <- cbind(filter, 0)
-```
-
-The covariance expectations can be symbolically derived using the
-`ramR::C_sym()` function.
-
-``` r
-ramR::C_sym(A, S)
-#> {{sigma[x]^2*beta^2+sigma[varepsilon]^2,                       beta*sigma[x]^2,                   sigma[varepsilon]^2},
-#>  {                      sigma[x]^2*beta,                            sigma[x]^2,                                     0},
-#>  {                  sigma[varepsilon]^2,                                     0,                   sigma[varepsilon]^2}}
-```
-
-The covariance expectations for the observed variables can be
-symbolically derived using the `ramR::M_sym()` function.
-
-``` r
-ramR::M_sym(A, S, filter)
-#> {{sigma[x]^2*beta^2+sigma[varepsilon]^2,                       beta*sigma[x]^2},
-#>  {                      sigma[x]^2*beta,                            sigma[x]^2}}
-```
-
-The mean expectations can be symbolically derived using the
-`ramR::v_sym()` function.
-
-``` r
-ramR::v_sym(A, u)
-#> {{0.5*beta},
-#>  {     0.5},
-#>  {       0}}
-```
-
-The mean expectations for the observed variables can be symbolically
-derived using the `ramR::g_sym()` function.
-
-``` r
-ramR::g_sym(A, u, filter)
-#> {{0.5*beta},
-#>  {     0.5}}
 ```
 
 ## More Information

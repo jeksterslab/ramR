@@ -46,9 +46,6 @@ such as regression coefficients and factor loadings, and
 # This is a symbolic example for the model
 # y = alpha + beta * x + e
 
-# This is a symbolic example for the model
-# y = alpha + beta * x + e
-
 A <- matrix(
   data = 0,
   nrow = 3,
