@@ -178,3 +178,74 @@ test_that("g.", {
     }
   }
 })
+#'
+#+ eq2ram
+A <- S <- matrix(
+  data = 0,
+  nrow = 3,
+  ncol = 3
+)
+A[1, 2] <- "beta"
+A[1, 3] <- 1
+diag(S) <- c(0, "sigma[x]^2", "sigma[varepsilon]^2")
+filter <- diag(2)
+filter <- cbind(filter, 0)
+u <- as.matrix(c("alpha", "mu[x]", 0))
+model <- "
+  # VARIABLE1 OPERATION VARIABLE2 LABEL
+  e           by        y         1;
+  y           on        x         beta;
+  e           with      e         sigma[varepsilon]^2;
+  x           with      x         sigma[x]^2;
+  y           on        1         alpha;
+  x           on        1         mu[x]
+"
+RAM <- eq2ram(model)
+results_A <- RAM$A
+results_S <- RAM$S
+results_filter <- RAM$filter
+results_u <- RAM$u
+test_that("A.", {
+  for (i in seq_len(nrow(A))) {
+    for (j in seq_len(ncol(A))) {
+      expect_equal(
+        A[i, j],
+        results_A[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+test_that("S.", {
+  for (i in seq_len(nrow(S))) {
+    for (j in seq_len(ncol(S))) {
+      expect_equal(
+        S[i, j],
+        results_S[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+test_that("filter.", {
+  for (i in seq_len(nrow(filter))) {
+    for (j in seq_len(ncol(filter))) {
+      expect_equal(
+        filter[i, j],
+        results_filter[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+test_that("u.", {
+  for (i in seq_len(nrow(u))) {
+    for (j in seq_len(ncol(u))) {
+      expect_equal(
+        u[i, j],
+        results_u[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
