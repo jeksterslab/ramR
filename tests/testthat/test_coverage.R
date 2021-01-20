@@ -103,3 +103,13 @@ test_that("E_num: singular.", {
     E_num(A)
   )
 })
+#'
+#+ eq2ram
+model <- "
+  # VARIABLE1 OPERATION VARIABLE2 LABEL
+  e           by        y         1;
+  y           on        x         beta;
+  e           with      e         sigma[varepsilon]^2;
+  x           with      x         sigma[x]^2;
+"
+eq2ram(model)
