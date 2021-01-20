@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • ramR</title>
+<title>Equations to RAM Matrices — eq2ram • ramR</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Equations to RAM Matrices — eq2ram" />
+<meta property="og:description" content="Converts model equations to RAM matrices." />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -126,153 +127,102 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Equations to RAM Matrices</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/eq2ram.R'><code>R/eq2ram.R</code></a></small>
+    <div class="hidden name"><code>eq2ram.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Converts model equations to RAM matrices.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>eq2ram</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="C_num.html">C_num()</a></code> </p>
-        </td>
-        <td><p>Matrix of Covariance Expectations
-\(\mathbf{C}\) - Numeric</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="C_sym.html">C_sym()</a></code> </p>
-        </td>
-        <td><p>Matrix of Covariance Expectations
-\(\mathbf{C}\) - Symbolic</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="E_num.html">E_num()</a></code> </p>
-        </td>
-        <td><p>Matrix of Total Effects
-\(\mathbf{E}\) - Numeric</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="E_sym.html">E_sym()</a></code> </p>
-        </td>
-        <td><p>Matrix of Total Effects
-\(\mathbf{E}\) - Symbolic</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="M_num.html">M_num()</a></code> </p>
-        </td>
-        <td><p>Matrix of Covariance Expectations of Observed Variables
-\(\mathbf{M}\) - Numeric</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="M_sym.html">M_sym()</a></code> </p>
-        </td>
-        <td><p>Matrix of Covariance Expectations of Observed Variables
-\(\mathbf{M}\) - Symbolic</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="S_num.html">S_num()</a></code> </p>
-        </td>
-        <td><p>Matrix of Symmetric Paths
-\(\mathbf{S}\) - Numeric</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="S_sym.html">S_sym()</a></code> </p>
-        </td>
-        <td><p>Matrix of Symmetric Paths
-\(\mathbf{S}\) - Symmetric</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="eq2ram.html">eq2ram()</a></code> </p>
-        </td>
-        <td><p>Equations to RAM Matrices</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="g_num.html">g_num()</a></code> </p>
-        </td>
-        <td><p>Vector of Expected Values of Observed Variables
-\(\mathbf{g}\) - Numeric</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="g_sym.html">g_sym()</a></code> </p>
-        </td>
-        <td><p>Vector of Expected Values of Observed Variables
-\(\mathbf{g}\) - Symbolic</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="mvn.html">mvn()</a></code> </p>
-        </td>
-        <td><p>Generate Data from a Multivariate Normal Distribution
-Using the Reticular Action Model (RAM) Notation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ramR.html">ramR</a></code> </p>
-        </td>
-        <td><p>ramR: Reticular Action Model (RAM) Notation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="u_num.html">u_num()</a></code> </p>
-        </td>
-        <td><p>Vector of Mean Structure Parameters
-\(\mathbf{u}\) - Numeric</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="u_sym.html">u_sym()</a></code> </p>
-        </td>
-        <td><p>Vector of Mean Structure Parameters
-\(\mathbf{u}\) - Symbolic</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="v_num.html">v_num()</a></code> </p>
-        </td>
-        <td><p>Vector of Expected Values
-\(\mathbf{v}\) - Numeric</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="v_sym.html">v_sym()</a></code> </p>
-        </td>
-        <td><p>Vector of Expected Values
-\(\mathbf{v}\) - Symbolic</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>model</th>
+      <td><p>Character string. Input model. See Details.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The input model is a character string
+that specifies the associations between the variables.</p>
+    <h2 class="hasAnchor" id="syntax"><a class="anchor" href="#syntax"></a>Syntax</h2>
+
+    
+
+<p>Each line should follow the syntax below</p>
+<p><code>VARIABLE1 OPERATION VARIABLE2 LABEL</code></p>
+<p>The associations are defined by the following operations</p>
+<dl>
+<dt>by</dt><dd><p><code>VARIABLE1</code> measured <strong>by</strong> <code>VARIABLE2</code></p></dd>
+<dt>on</dt><dd><p><code>VARIABLE1</code> regressed <strong>on</strong> <code>VARIABLE2</code></p></dd>
+<dt>with</dt><dd><p><code>VARIABLE1</code> covarying <strong>with</strong> <code>VARIABLE2</code></p></dd>
+<dt>on 1</dt><dd><p><code>VARIABLE1</code> regressed <strong>on 1</strong> for mean structure</p></dd>
+
+</dl>
+
+<p><strong>Each line should end with a semicolon (<code>;</code>).</strong></p>
+    <h2 class="hasAnchor" id="label"><a class="anchor" href="#label"></a>Label</h2>
+
+    
+
+<p>Each parameter should be labeled.
+The <code>LABEL</code> should be a number for fixed parameters
+and a variable name for free parameters.
+Equality contraints can be imposed by using the same variable name.
+Variable names can be written
+following the <code>R</code> mathematical notation <code><a href='https://rdrr.io/r/grDevices/plotmath.html'>grDevices::plotmath()</a></code>.</p>
+    <h2 class="hasAnchor" id="comments"><a class="anchor" href="#comments"></a>Comments</h2>
+
+    
+
+<p>Comments can be written after a hash (<code>#</code>) sign.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Ivan Jacob Agaloos Pesigan</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='st'>"
+  # VARIABLE1 OPERATION VARIABLE2 LABEL
+  e           by        y         1;
+  y           on        x         beta;
+  e           with      e         sigma[varepsilon]^2;
+  x           with      x         sigma[x]^2;
+  y           on        1         alpha;
+  x           on        1         mu[x]
+"</span>
+<span class='fu'>eq2ram</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $A
+#&gt;   y   x      e  
+#&gt; y "0" "beta" "1"
+#&gt; x "0" "0"    "0"
+#&gt; e "0" "0"    "0"
+#&gt; 
+#&gt; $S
+#&gt;   y   x            e                    
+#&gt; y "0" "0"          "0"                  
+#&gt; x "0" "sigma[x]^2" "0"                  
+#&gt; e "0" "0"          "sigma[varepsilon]^2"
+#&gt; 
+#&gt; $filter
+#&gt;   y x e
+#&gt; y 1 0 0
+#&gt; x 0 1 0
+#&gt; 
+#&gt; $u
+#&gt;   u      
+#&gt; y "alpha"
+#&gt; x "mu[x]"
+#&gt; e "0"    
+#&gt; </div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
