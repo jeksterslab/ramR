@@ -34,7 +34,10 @@
 #' @section Comments:
 #'   Comments can be written after a hash (`#`) sign.
 #'
+#' @inherit ramR references
 #' @param model Character string. Input model. See Details.
+#' @return Returns the input model
+#'   and the `A`, `S`, `filter`, and `u` RAM matrices.
 #' @examples
 #' model <- "
 #'   # VARIABLE1 OPERATION VARIABLE2 LABEL
@@ -54,18 +57,18 @@ eq2ram <- function(model) {
   model <- trimws(x = gsub(pattern = "\\s+", replacement = " ", x = model))
   model <- do.call(what = "rbind", args = strsplit(x = model, split = " "))
   colnames(model) <- c("var1", "op", "var2", "label")
+  by <- model[which(model[, "op"] == "by"), , drop = FALSE]
+  with <- model[which(model[, "op"] == "with"), , drop = FALSE]
+  on <- model[which(model[, "op"] == "on" & model[, "var2"] != "1"), , drop = FALSE]
+  one <- model[which(model[, "op"] == "on" & model[, "var2"] == "1"), , drop = FALSE]
   v <- unique(c(model[, "var1"], model[, "var2"]))
   v <- v[which(v != "1")]
   t <- length(v)
-  by <- model[which(model[, "op"] == "by"), , drop = FALSE]
-  h <- unique(by[, 1])
+  h <- unique(by[, "var1"])
   g <- v[!v %in% h]
   v <- c(g, h)
   q <- length(h)
   p <- t - q
-  with <- model[which(model[, "op"] == "with"), , drop = FALSE]
-  on <- model[which(model[, "op"] == "on" & model[, "var2"] != "1"), , drop = FALSE]
-  one <- model[which(model[, "op"] == "on" & model[, "var2"] == "1"), , drop = FALSE]
   A <- S <- matrix(
     data = 0,
     nrow = t,
@@ -113,6 +116,7 @@ eq2ram <- function(model) {
   }
   return(
     list(
+      model = model,
       A = A,
       S = S,
       filter = filter,
