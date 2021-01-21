@@ -85,18 +85,18 @@ eq2ram <- function(model) {
   # loadings
   for (i in seq_len(dim(by)[1])) {
     loadings <- by[i, , drop = FALSE]
-    A[loadings[, "var2"], loadings[, "var1"]] <- loadings[, "label"]
+    A[loadings[, "var2"], loadings[, "var1"]] <- to.numeric(loadings[, "label"])
   }
   # regressions
   for (i in seq_len(dim(on)[1])) {
     regressions <- on[i, , drop = FALSE]
-    A[regressions[, "var1"], regressions[, "var2"]] <- regressions[, "label"]
+    A[regressions[, "var1"], regressions[, "var2"]] <- to.numeric(regressions[, "label"])
   }
   # variances
   for (i in seq_len(dim(with)[1])) {
     variances <- with[i, , drop = FALSE]
-    S[variances[, "var1"], variances[, "var2"]] <- variances[, "label"]
-    S[variances[, "var2"], variances[, "var1"]] <- variances[, "label"]
+    S[variances[, "var1"], variances[, "var2"]] <- to.numeric(variances[, "label"])
+    S[variances[, "var2"], variances[, "var1"]] <- to.numeric(variances[, "label"])
   }
   # means
   if (dim(one)[1] > 0) {
@@ -109,11 +109,17 @@ eq2ram <- function(model) {
     colnames(u) <- "u"
     for (i in seq_len(dim(one)[1])) {
       means <- one[i, , drop = FALSE]
-      u[means[, "var1"], 1] <- means[, "label"]
+      u[means[, "var1"], 1] <- to.numeric(means[, "label"])
     }
   } else {
     u <- NULL
   }
+  model <- as.data.frame(model)
+  label <- sapply(
+    X = model$label,
+    FUN = to.numeric
+  )
+  model$label <- label
   return(
     list(
       model = model,
@@ -123,4 +129,13 @@ eq2ram <- function(model) {
       u = u
     )
   )
+}
+
+to.numeric <- function(x) {
+  out <- suppressWarnings(as.numeric(x))
+  if (is.na(out)) {
+    return(x)
+  } else {
+    return(out)
+  }
 }
