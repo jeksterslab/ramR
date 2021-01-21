@@ -79,9 +79,21 @@ results_S_num <- round(S_num(A, C), digits = 4)
 results_v_num <- round(v_num(A, u), digits = 4)
 results_u_num <- round(u_num(A, v), digits = 4)
 results_g_num <- round(g_num(A, u, filter), digits = 4)
-data <- mvn(n = 1000, A, S, u, filter, empirical = TRUE)
-Sigma <- round(cov(data), digits = 4)
-mu <- as.matrix(round(colMeans(data), digits = 4))
+mvn <- mvn(n = 1000, A, S, u, filter, empirical = TRUE)
+Sigma.mvn <- round(cov(mvn), digits = 4)
+mu.mvn <- as.matrix(round(colMeans(mvn), digits = 4))
+model <- "
+  # VARIABLE1 OPERATION VARIABLE2 VALUE
+  e           by        y         1.00;
+  y           on        x         1.00;
+  e           with      e         0.25;
+  x           with      x         0.25;
+  y           on        1         0.00;
+  x           on        1         0.50
+"
+data <- eq2data(model, n = 1000, empirical = TRUE)
+Sigma.data <- round(cov(data), digits = 4)
+mu.data <- as.matrix(round(colMeans(data), digits = 4))
 ```
 
 
@@ -140,7 +152,8 @@ test_that("M.", {
     for (j in seq_len(ncol(M))) {
       expect_equal(
         M[i, j],
-        Sigma[i, j],
+        Sigma.mvn[i, j],
+        Sigma.data[i, j],
         results_M_num[i, j],
         results_M_sym[i, j],
         check.attributes = FALSE
@@ -189,7 +202,8 @@ test_that("g.", {
     for (j in seq_len(ncol(g))) {
       expect_equal(
         g[i, j],
-        mu[i, j],
+        mu.mvn[i, j],
+        mu.data[i, j],
         results_g_num[i, j],
         results_g_sym[i, j],
         check.attributes = FALSE

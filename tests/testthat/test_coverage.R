@@ -113,3 +113,22 @@ model <- "
   x           with      x         sigma[x]^2;
 "
 eq2ram(model)
+#'
+#+ eq2data
+test_that("eq2data: nonnumeric labels", {
+  expect_error(
+    eq2data(model)
+  )
+})
+model <- "
+  # VARIABLE1 OPERATION VARIABLE2 VALUE
+  e           by        y         1.00;
+  y           on        x         1.00;
+  e           with      e         0.25;
+  x           with      x         0.25;
+"
+test_that("eq2data: no mean structure", {
+  expect_error(
+    eq2data(model)
+  )
+})
