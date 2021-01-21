@@ -133,6 +133,7 @@ mvn <- function(n,
     u
   )
   g <- filter %*% v
+  colnames(g) <- "g"
   C <- C_num(
     A,
     S
