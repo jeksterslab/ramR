@@ -149,6 +149,10 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Returns the input model
+and the <code>A</code>, <code>S</code>, <code>filter</code>, and <code>u</code> RAM matrices.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The input model is a character string
@@ -184,6 +188,14 @@ following the <code>R</code> mathematical notation <code><a href='https://rdrr.i
     
 
 <p>Comments can be written after a hash (<code>#</code>) sign.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>McArdle, J. J., &amp; McDonald, R. P. (1984).
+Some algebraic properties
+of the Reticular Action Model for moment structures.
+<em>British Journal of Mathematical and Statistical Psychology</em>, <em>37</em> (2),
+234--251.
+<a href='https://doi.org/10.1111/j.2044-8317.1984.tb00802.x'>https://doi.org/10.1111/j.2044-8317.1984.tb00802.x</a></p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Ivan Jacob Agaloos Pesigan</p>
@@ -199,7 +211,16 @@ following the <code>R</code> mathematical notation <code><a href='https://rdrr.i
   x           on        1         mu[x]
 "</span>
 <span class='fu'>eq2ram</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $A
+</div><div class='output co'>#&gt; $model
+#&gt;      var1 op     var2 label                
+#&gt; [1,] "e"  "by"   "y"  "1"                  
+#&gt; [2,] "y"  "on"   "x"  "beta"               
+#&gt; [3,] "e"  "with" "e"  "sigma[varepsilon]^2"
+#&gt; [4,] "x"  "with" "x"  "sigma[x]^2"         
+#&gt; [5,] "y"  "on"   "1"  "alpha"              
+#&gt; [6,] "x"  "on"   "1"  "mu[x]"              
+#&gt; 
+#&gt; $A
 #&gt;   y   x      e  
 #&gt; y "0" "beta" "1"
 #&gt; x "0" "0"    "0"

@@ -1,7 +1,7 @@
 Reticular Action Model (RAM) Notation
 ================
 Ivan Jacob Agaloos Pesigan
-2021-01-20
+2021-01-21
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
@@ -155,4 +155,6 @@ ramR::g_num(A, u, filter)
 ## More Information
 
 See [GitHub Pages](https://jeksterslab.github.io/ramR/index.html) for
-package documentation.
+package documentation. See
+[ramR\_notes](https://jeksterslab.github.io/ramR_notes/index.html) for
+notes and more examples.

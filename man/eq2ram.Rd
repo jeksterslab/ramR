@@ -9,6 +9,10 @@ eq2ram(model)
 \arguments{
 \item{model}{Character string. Input model. See Details.}
 }
+\value{
+Returns the input model
+and the \code{A}, \code{S}, \code{filter}, and \code{u} RAM matrices.
+}
 \description{
 Converts model equations to RAM matrices.
 }
@@ -60,6 +64,14 @@ model <- "
   x           on        1         mu[x]
 "
 eq2ram(model)
+}
+\references{
+McArdle, J. J., & McDonald, R. P. (1984).
+Some algebraic properties
+of the Reticular Action Model for moment structures.
+\emph{British Journal of Mathematical and Statistical Psychology}, \emph{37} (2),
+234--251.
+\url{https://doi.org/10.1111/j.2044-8317.1984.tb00802.x}
 }
 \author{
 Ivan Jacob Agaloos Pesigan
