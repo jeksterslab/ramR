@@ -4,7 +4,7 @@
 #'
 #' @description Converts model equations to RAM matrices.
 #'
-#' @details The input model is a character string
+#' @details The input is a character string
 #'   that specifies the associations between the variables.
 #'
 #' @section Syntax:
@@ -35,11 +35,9 @@
 #'   Comments can be written after a hash (`#`) sign.
 #'
 #' @inherit ramR references
-#' @param model Character string. Input model. See Details.
-#' @return Returns the input model
-#'   and the `A`, `S`, `filter`, and `u` RAM matrices.
+#' @param eq Character string. Equations. See Details.
 #' @examples
-#' model <- "
+#' eq <- "
 #'   # VARIABLE1 OPERATION VARIABLE2 LABEL
 #'   e           by        y         1;
 #'   y           on        x         beta;
@@ -48,20 +46,20 @@
 #'   y           on        1         alpha;
 #'   x           on        1         mu[x]
 #' "
-#' eq2ram(model)
+#' eq2ram(eq)
 #' @export
-eq2ram <- function(model) {
-  model <- gsub(pattern = "#[^\\\n]*", replacement = "", x = model)
-  model <- gsub(pattern = "\n", replacement = "", model)
-  model <- unlist(strsplit(x = model, split = ";"))
-  model <- trimws(x = gsub(pattern = "\\s+", replacement = " ", x = model))
-  model <- do.call(what = "rbind", args = strsplit(x = model, split = " "))
-  colnames(model) <- c("var1", "op", "var2", "label")
-  by <- model[which(model[, "op"] == "by"), , drop = FALSE]
-  with <- model[which(model[, "op"] == "with"), , drop = FALSE]
-  on <- model[which(model[, "op"] == "on" & model[, "var2"] != "1"), , drop = FALSE]
-  one <- model[which(model[, "op"] == "on" & model[, "var2"] == "1"), , drop = FALSE]
-  v <- unique(c(model[, "var1"], model[, "var2"]))
+eq2ram <- function(eq) {
+  eq <- gsub(pattern = "#[^\\\n]*", replacement = "", x = eq)
+  eq <- gsub(pattern = "\n", replacement = "", eq)
+  eq <- unlist(strsplit(x = eq, split = ";"))
+  eq <- trimws(x = gsub(pattern = "\\s+", replacement = " ", x = eq))
+  eq <- do.call(what = "rbind", args = strsplit(x = eq, split = " "))
+  colnames(eq) <- c("var1", "op", "var2", "label")
+  by <- eq[which(eq[, "op"] == "by"), , drop = FALSE]
+  with <- eq[which(eq[, "op"] == "with"), , drop = FALSE]
+  on <- eq[which(eq[, "op"] == "on" & eq[, "var2"] != "1"), , drop = FALSE]
+  one <- eq[which(eq[, "op"] == "on" & eq[, "var2"] == "1"), , drop = FALSE]
+  v <- unique(c(eq[, "var1"], eq[, "var2"]))
   v <- v[which(v != "1")]
   t <- length(v)
   h <- unique(by[, "var1"])
@@ -114,15 +112,16 @@ eq2ram <- function(model) {
   } else {
     u <- NULL
   }
-  model <- as.data.frame(model)
+  eq <- as.data.frame(eq)
   label <- sapply(
-    X = model$label,
+    X = eq$label,
     FUN = to.numeric
   )
-  model$label <- label
+  eq$label <- label
   return(
     list(
-      model = model,
+      eq = eq,
+      variables = v,
       A = A,
       S = S,
       filter = filter,

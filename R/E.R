@@ -44,8 +44,7 @@
 #'   nrow = 3,
 #'   ncol = 3
 #' )
-#' A[1, 2] <- 1
-#' A[1, 3] <- 1
+#' A[1, ] <- c(0, 1, 1)
 #' colnames(A) <- rownames(A) <- c("y", "x", "e")
 #' E_num(A)
 #' @export
@@ -84,8 +83,7 @@ E_num <- function(A) {
 #'   nrow = 3,
 #'   ncol = 3
 #' )
-#' A[1, 2] <- "beta"
-#' A[1, 3] <- 1
+#' A[1, ] <- c(0, "beta", 1)
 #' E_sym(A)
 #' @export
 E_sym <- function(A) {

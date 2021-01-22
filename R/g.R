@@ -59,8 +59,7 @@
 #'   nrow = 3,
 #'   ncol = 3
 #' )
-#' A[1, 2] <- 1
-#' A[1, 3] <- 1
+#' A[1, ] <- c(0, 1, 1)
 #' u <- c(0.00, 0.50, 0.00)
 #' filter <- diag(2)
 #' filter <- cbind(filter, 0)
@@ -101,8 +100,7 @@ g_num <- function(A,
 #'   nrow = 3,
 #'   ncol = 3
 #' )
-#' A[1, 2] <- "beta"
-#' A[1, 3] <- 1
+#' A[1, ] <- c(0, "beta", 1)
 #' u <- c("alpha", "mux", 0)
 #' filter <- diag(2)
 #' filter <- cbind(filter, 0)

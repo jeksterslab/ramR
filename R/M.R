@@ -64,9 +64,8 @@
 #'   nrow = 3,
 #'   ncol = 3
 #' )
-#' A[1, 2] <- 1
-#' A[1, 3] <- 1
-#' diag(S) <- c(0, 0.25, 0.25)
+#' A[1, ] <- c(0, 1, 1)
+#' diag(S) <- c(0, 0.25, 1)
 #' filter <- diag(2)
 #' filter <- cbind(filter, 0)
 #' colnames(filter) <- c("y", "x", "e")
@@ -106,8 +105,7 @@ M_num <- function(A,
 #'   nrow = 3,
 #'   ncol = 3
 #' )
-#' A[1, 2] <- "beta"
-#' A[1, 3] <- 1
+#' A[1, ] <- c(0, "beta", 1)
 #' diag(S) <- c(0, "sigma2x", "sigma2e")
 #' filter <- diag(2)
 #' filter <- cbind(filter, 0)
