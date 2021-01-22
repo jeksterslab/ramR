@@ -28,7 +28,13 @@
     <loc>https://github.com/jeksterslab/ramR//reference/S_sym.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/eq2data.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/eq2dat.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//reference/eq2exp_num.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//reference/eq2exp_sym.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ramR//reference/eq2ram.html</loc>
@@ -40,10 +46,16 @@
     <loc>https://github.com/jeksterslab/ramR//reference/g_sym.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/mvn.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/ram2dat.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ramR//reference/ramR.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//reference/ram_num.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//reference/ram_sym.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ramR//reference/u_num.html</loc>

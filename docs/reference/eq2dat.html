@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Equations to RAM Matrices — eq2ram • ramR</title>
+<title>Equations to Sample Data — eq2dat • ramR</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Equations to RAM Matrices — eq2ram" />
-<meta property="og:description" content="Converts model equations to RAM matrices." />
+<meta property="og:title" content="Equations to Sample Data — eq2dat" />
+<meta property="og:description" content="Generates data from a multivariate normal distribution
+from model equations." />
 
 
 
@@ -129,16 +130,17 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Equations to RAM Matrices</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/eq2ram.R'><code>R/eq2ram.R</code></a></small>
-    <div class="hidden name"><code>eq2ram.Rd</code></div>
+    <h1>Equations to Sample Data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/eq2dat.R'><code>R/eq2dat.R</code></a></small>
+    <div class="hidden name"><code>eq2dat.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Converts model equations to RAM matrices.</p>
+    <p>Generates data from a multivariate normal distribution
+from model equations.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>eq2ram</span><span class='op'>(</span><span class='va'>eq</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>eq2dat</span><span class='op'>(</span><span class='va'>eq</span>, <span class='va'>n</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,6 +148,15 @@
     <tr>
       <th>eq</th>
       <td><p>Character string. Equations. See Details.</p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p>Integer.
+Sample size.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments to pass to <code><a href='https://rdrr.io/pkg/MASS/man/mvrnorm.html'>MASS::mvrnorm()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -158,7 +169,7 @@ that specifies the associations between the variables.</p>
     
 
 <p>Each line should follow the syntax below</p>
-<p><code>VARIABLE1 OPERATION VARIABLE2 LABEL</code></p>
+<p><code>VARIABLE1 OPERATION VARIABLE2 VALUE</code></p>
 <p>The associations are defined by the following operations</p>
 <dl>
 <dt>by</dt><dd><p><code>VARIABLE1</code> measured <strong>by</strong> <code>VARIABLE2</code></p></dd>
@@ -169,16 +180,11 @@ that specifies the associations between the variables.</p>
 </dl>
 
 <p><strong>Each line should end with a semicolon (<code>;</code>).</strong></p>
-    <h2 class="hasAnchor" id="label"><a class="anchor" href="#label"></a>Label</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     
 
-<p>Each parameter should be labeled.
-The <code>LABEL</code> should be a number for fixed parameters
-and a variable name for free parameters.
-Equality contraints can be imposed by using the same variable name.
-Variable names can be written
-following the <code>R</code> mathematical notation <code><a href='https://rdrr.io/r/grDevices/plotmath.html'>grDevices::plotmath()</a></code>.</p>
+<p>Each parameter should have a numeric value.</p>
     <h2 class="hasAnchor" id="comments"><a class="anchor" href="#comments"></a>Comments</h2>
 
     
@@ -198,50 +204,116 @@ of the Reticular Action Model for moment structures.
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>eq</span> <span class='op'>&lt;-</span> <span class='st'>"
-  # VARIABLE1 OPERATION VARIABLE2 LABEL
-  e           by        y         1;
-  y           on        x         beta;
-  e           with      e         sigma[varepsilon]^2;
-  x           with      x         sigma[x]^2;
-  y           on        1         alpha;
-  x           on        1         mu[x]
+  # VARIABLE1 OPERATION VARIABLE2 VALUE
+  e           by        y         1.00;
+  y           on        x         1.00;
+  e           with      e         0.25;
+  x           with      x         0.25;
+  y           on        1         0.00;
+  x           on        1         0.50
 "</span>
-<span class='fu'>eq2ram</span><span class='op'>(</span><span class='va'>eq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $eq
-#&gt;   var1   op var2               label
-#&gt; 1    e   by    y                   1
-#&gt; 2    y   on    x                beta
-#&gt; 3    e with    e sigma[varepsilon]^2
-#&gt; 4    x with    x          sigma[x]^2
-#&gt; 5    y   on    1               alpha
-#&gt; 6    x   on    1               mu[x]
-#&gt; 
-#&gt; $variables
-#&gt; [1] "y" "x" "e"
-#&gt; 
-#&gt; $A
-#&gt;   y   x      e  
-#&gt; y "0" "beta" "1"
-#&gt; x "0" "0"    "0"
-#&gt; e "0" "0"    "0"
-#&gt; 
-#&gt; $S
-#&gt;   y   x            e                    
-#&gt; y "0" "0"          "0"                  
-#&gt; x "0" "sigma[x]^2" "0"                  
-#&gt; e "0" "0"          "sigma[varepsilon]^2"
-#&gt; 
-#&gt; $filter
-#&gt;   y x e
-#&gt; y 1 0 0
-#&gt; x 0 1 0
-#&gt; 
-#&gt; $u
-#&gt;   u      
-#&gt; y "alpha"
-#&gt; x "mu[x]"
-#&gt; e "0"    
-#&gt; </div></pre>
+<span class='fu'>eq2dat</span><span class='op'>(</span><span class='va'>eq</span>, n <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                   y           x
+#&gt;   [1,]  1.400590634  1.19725919
+#&gt;   [2,]  0.196691841  0.59787036
+#&gt;   [3,]  2.005625474  1.81440985
+#&gt;   [4,]  0.374590569  0.71149005
+#&gt;   [5,] -0.213071203  0.69730215
+#&gt;   [6,] -0.402511168  0.19307000
+#&gt;   [7,]  1.663017798  1.42168678
+#&gt;   [8,]  0.583020795  0.74626404
+#&gt;   [9,]  0.704955001  0.54416040
+#&gt;  [10,]  0.853514972  0.36303971
+#&gt;  [11,]  0.847115867  0.79041047
+#&gt;  [12,] -0.160207766  0.60033477
+#&gt;  [13,] -0.879129537 -0.44626810
+#&gt;  [14,]  1.550657491  1.30983509
+#&gt;  [15,]  0.239727052  0.13258648
+#&gt;  [16,]  2.127635470  0.73331039
+#&gt;  [17,]  0.928266732  0.61034453
+#&gt;  [18,]  0.262572037  0.96511253
+#&gt;  [19,]  0.166832601  0.20349072
+#&gt;  [20,]  1.303351173  0.60676702
+#&gt;  [21,]  0.509135980 -0.23519790
+#&gt;  [22,]  0.323238419  0.22748169
+#&gt;  [23,]  1.623888973  0.68899554
+#&gt;  [24,]  0.061568941  0.07407534
+#&gt;  [25,] -0.782173942 -0.33150925
+#&gt;  [26,]  0.570682839  0.53558536
+#&gt;  [27,]  1.242104242  0.73937111
+#&gt;  [28,]  0.468306688  0.57582586
+#&gt;  [29,]  0.983166981  0.99051678
+#&gt;  [30,]  1.572036334  1.09275253
+#&gt;  [31,] -0.329919916  0.40346269
+#&gt;  [32,]  0.516013166  0.20250211
+#&gt;  [33,]  0.345574025  0.37487311
+#&gt;  [34,] -0.829340776  0.15253372
+#&gt;  [35,]  0.269386134  0.70073219
+#&gt;  [36,]  0.666027799  0.43756158
+#&gt;  [37,]  1.675568860  1.53721201
+#&gt;  [38,]  0.645559592  0.69418156
+#&gt;  [39,]  0.861106019  0.39806195
+#&gt;  [40,] -0.223577365  0.02835483
+#&gt;  [41,]  0.425374276  0.51297440
+#&gt;  [42,]  0.805434210  0.98930673
+#&gt;  [43,]  0.839242210  0.02798265
+#&gt;  [44,]  0.797584391  0.40549157
+#&gt;  [45,]  0.353098262  0.05321963
+#&gt;  [46,] -1.181517128 -1.01939979
+#&gt;  [47,]  0.286069473  0.77454243
+#&gt;  [48,]  0.186027649  0.11901509
+#&gt;  [49,]  0.173491226  0.84641908
+#&gt;  [50,]  2.064637709  0.91019835
+#&gt;  [51,] -0.023560907  0.02052466
+#&gt;  [52,]  0.687230228  0.57135798
+#&gt;  [53,]  0.456946023  0.88679838
+#&gt;  [54,]  0.396147101  0.63852624
+#&gt;  [55,]  0.650651807  0.21075093
+#&gt;  [56,]  0.231710038  0.08800469
+#&gt;  [57,]  2.071279918  1.45711862
+#&gt;  [58,] -1.404009238 -0.54727938
+#&gt;  [59,]  0.875769937  0.44785383
+#&gt;  [60,]  0.483855091  0.19780227
+#&gt;  [61,] -0.548038717  0.54251395
+#&gt;  [62,]  1.109735093  0.53689347
+#&gt;  [63,] -0.316820445  0.10744673
+#&gt;  [64,]  0.711961460  0.53543482
+#&gt;  [65,]  1.019489143  1.47153251
+#&gt;  [66,]  1.043511160  1.12226016
+#&gt;  [67,] -0.417033348  0.34483644
+#&gt;  [68,]  0.468464400  0.34840540
+#&gt;  [69,]  0.117284763  0.36732384
+#&gt;  [70,]  1.753646967  1.08674211
+#&gt;  [71,]  1.495428904  1.15259266
+#&gt;  [72,]  0.146203104  0.63519299
+#&gt;  [73,] -0.213898590 -0.40281233
+#&gt;  [74,]  0.493209705  0.14674880
+#&gt;  [75,] -0.282351233 -0.26277404
+#&gt;  [76,]  0.307747176  0.00485734
+#&gt;  [77,]  0.005453857  0.36650323
+#&gt;  [78,]  0.368466026  0.88200005
+#&gt;  [79,]  0.331855012  0.50710389
+#&gt;  [80,]  0.921486157 -0.04297953
+#&gt;  [81,] -0.993544979 -0.04465337
+#&gt;  [82,] -0.579806250  0.24914220
+#&gt;  [83,] -0.287484801  0.62190589
+#&gt;  [84,]  0.365115207 -0.13769305
+#&gt;  [85,]  0.967338587  0.58751146
+#&gt;  [86,]  0.059540317 -0.49625874
+#&gt;  [87,]  2.272746441  1.65160519
+#&gt;  [88,]  1.023760438 -0.10787411
+#&gt;  [89,]  0.373933189  0.03629265
+#&gt;  [90,]  0.948497339  0.36207839
+#&gt;  [91,]  0.390656634  0.02416373
+#&gt;  [92,] -0.296113986  0.15219373
+#&gt;  [93,] -0.355461426  0.27036288
+#&gt;  [94,]  0.432176560  0.66837496
+#&gt;  [95,]  0.451981663 -0.17041096
+#&gt;  [96,] -0.629656806 -0.24647853
+#&gt;  [97,]  0.805034173  0.55175010
+#&gt;  [98,]  0.033726212 -0.20183282
+#&gt;  [99,] -0.204572584 -0.38636501
+#&gt; [100,]  0.803585185  0.46527091</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

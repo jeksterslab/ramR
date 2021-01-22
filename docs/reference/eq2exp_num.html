@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Matrix of Symmetric Paths
-\(\mathbf{S}\) - Symmetric — S_sym • ramR</title>
+<title>Equations to Expectations - Numeric — eq2exp_num • ramR</title>
 
 
 <!-- jquery -->
@@ -40,11 +39,8 @@
 
 
 
-<meta property="og:title" content="Matrix of Symmetric Paths
-\(\mathbf{S}\) - Symmetric — S_sym" />
-<meta property="og:description" content="Derives the matrix of symmetric paths (double-headed arrows)
-\(\mathbf{S}\)
-using the Reticular Action Model (RAM) notation." />
+<meta property="og:title" content="Equations to Expectations - Numeric — eq2exp_num" />
+<meta property="og:description" content="Converts equations to expectations." />
 
 
 
@@ -133,73 +129,56 @@ using the Reticular Action Model (RAM) notation." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Matrix of Symmetric Paths
-\(\mathbf{S}\) - Symmetric</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/S.R'><code>R/S.R</code></a></small>
-    <div class="hidden name"><code>S_sym.Rd</code></div>
+    <h1>Equations to Expectations - Numeric</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/eq2exp.R'><code>R/eq2exp.R</code></a></small>
+    <div class="hidden name"><code>eq2exp_num.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Derives the matrix of symmetric paths (double-headed arrows)
-\(\mathbf{S}\)
-using the Reticular Action Model (RAM) notation.</p>
+    <p>Converts equations to expectations.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>S_sym</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>C</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>eq2exp_num</span><span class='op'>(</span><span class='va'>eq</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>A</th>
-      <td><p><code>t x t</code> matrix \(\mathbf{A}\).
-Asymmetric paths (single-headed arrows),
-such as regression coefficients and factor loadings.</p></td>
-    </tr>
-    <tr>
-      <th>C</th>
-      <td><p><code>t x t</code> numeric matrix \(\mathbf{C}\).
-Model-implied variance-covariance matrix.</p></td>
+      <th>eq</th>
+      <td><p>Character string. Equations. See Details.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Returns the matrix of symmetric paths (double-headed arrows)
-\(\mathbf{S}\)
-derived from the <code>A</code> and <code>C</code> matrices.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The matrix of symmetric paths (double-headed arrows)
-\(\mathbf{S}\)
-as a function of Reticular Action Model (RAM) matrices
-is given by</p>
-<p>$$
-    \mathbf{S}
-    =
-    \left(
-      \mathbf{I} - \mathbf{A}
-    \right)
-    \mathbf{C}
-    \left(
-      \mathbf{I} - \mathbf{A}
-    \right)^{\mathsf{T}} \\
-    =
-    \mathbf{E}^{-1}
-    \mathbf{C}
-    \left(
-      \mathbf{E}^{-1}
-    \right)^{\mathsf{T}}
-  $$</p>
-<p>where</p><ul>
-<li><p>\(\mathbf{A}_{t \times t}\) represents asymmetric paths
-(single-headed arrows),
-such as regression coefficients and factor loadings,</p></li>
-<li><p>\(\mathbf{C}_{t \times t}\) represents
-the model-implied variance-covariance matrix, and</p></li>
-<li><p>\(\mathbf{I}_{t \times t}\) represents an identity matrix.</p></li>
-</ul>
+    <p>The input is a character string
+that specifies the associations between the variables.</p>
+    <h2 class="hasAnchor" id="syntax"><a class="anchor" href="#syntax"></a>Syntax</h2>
 
+    
+
+<p>Each line should follow the syntax below</p>
+<p><code>VARIABLE1 OPERATION VARIABLE2 VALUE</code></p>
+<p>The associations are defined by the following operations</p>
+<dl>
+<dt>by</dt><dd><p><code>VARIABLE1</code> measured <strong>by</strong> <code>VARIABLE2</code></p></dd>
+<dt>on</dt><dd><p><code>VARIABLE1</code> regressed <strong>on</strong> <code>VARIABLE2</code></p></dd>
+<dt>with</dt><dd><p><code>VARIABLE1</code> covarying <strong>with</strong> <code>VARIABLE2</code></p></dd>
+<dt>on 1</dt><dd><p><code>VARIABLE1</code> regressed <strong>on 1</strong> for mean structure</p></dd>
+
+</dl>
+
+<p><strong>Each line should end with a semicolon (<code>;</code>).</strong></p>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    
+
+<p>Each parameter should have a numeric value.</p>
+    <h2 class="hasAnchor" id="comments"><a class="anchor" href="#comments"></a>Comments</h2>
+
+    
+
+<p>Comments can be written after a hash (<code>#</code>) sign.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>McArdle, J. J., &amp; McDonald, R. P. (1984).
@@ -208,36 +187,69 @@ of the Reticular Action Model for moment structures.
 <em>British Journal of Mathematical and Statistical Psychology</em>, <em>37</em> (2),
 234--251.
 <a href='https://doi.org/10.1111/j.2044-8317.1984.tb00802.x'>https://doi.org/10.1111/j.2044-8317.1984.tb00802.x</a></p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other S functions: 
-<code><a href='S_num.html'>S_num</a>()</code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Ivan Jacob Agaloos Pesigan</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># This is a symbolic example for the model</span>
-<span class='co'># y = alpha + beta * x + e</span>
-
-<span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span>
-  data <span class='op'>=</span> <span class='fl'>0</span>,
-  nrow <span class='op'>=</span> <span class='fl'>3</span>,
-  ncol <span class='op'>=</span> <span class='fl'>3</span>
-<span class='op'>)</span>
-<span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='st'>"beta"</span>, <span class='fl'>1</span><span class='op'>)</span>
-<span class='va'>C</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span>
-  data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-    <span class='st'>"sigma2x*beta^2+sigma2e"</span>, <span class='st'>"sigma2x*beta"</span>, <span class='st'>"sigma2e"</span>,
-    <span class='st'>"beta*sigma2x"</span>, <span class='st'>"sigma2x"</span>, <span class='fl'>0</span>,
-    <span class='st'>"sigma2e"</span>, <span class='fl'>0</span>, <span class='st'>"sigma2e"</span>
-  <span class='op'>)</span>,
-  nrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
-<span class='op'>)</span>
-<span class='fu'>S_sym</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>C</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {{      0,       0,       0},
-#&gt;  {      0, sigma2x,       0},
-#&gt;  {      0,       0, sigma2e}} </div></pre>
+    <pre class="examples"><div class='input'><span class='va'>eq</span> <span class='op'>&lt;-</span> <span class='st'>"
+  # VARIABLE1 OPERATION VARIABLE2 VALUE
+  e           by        y         1.00;
+  y           on        x         1.00;
+  e           with      e         0.25;
+  x           with      x         0.25;
+  y           on        1         0.00;
+  x           on        1         0.50
+"</span>
+<span class='fu'>eq2exp_num</span><span class='op'>(</span><span class='va'>eq</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $variables
+#&gt; [1] "y" "x" "e"
+#&gt; 
+#&gt; $A
+#&gt;   y x e
+#&gt; y 0 1 1
+#&gt; x 0 0 0
+#&gt; e 0 0 0
+#&gt; 
+#&gt; $S
+#&gt;   y    x    e
+#&gt; y 0 0.00 0.00
+#&gt; x 0 0.25 0.00
+#&gt; e 0 0.00 0.25
+#&gt; 
+#&gt; $u
+#&gt;     u
+#&gt; y 0.0
+#&gt; x 0.5
+#&gt; e 0.0
+#&gt; 
+#&gt; $filter
+#&gt;   y x e
+#&gt; y 1 0 0
+#&gt; x 0 1 0
+#&gt; 
+#&gt; $v
+#&gt;     v
+#&gt; y 0.5
+#&gt; x 0.5
+#&gt; e 0.0
+#&gt; 
+#&gt; $g
+#&gt;     g
+#&gt; y 0.5
+#&gt; x 0.5
+#&gt; 
+#&gt; $C
+#&gt;      y    x    e
+#&gt; y 0.50 0.25 0.25
+#&gt; x 0.25 0.25 0.00
+#&gt; e 0.25 0.00 0.25
+#&gt; 
+#&gt; $M
+#&gt;      y    x
+#&gt; y 0.50 0.25
+#&gt; x 0.25 0.25
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

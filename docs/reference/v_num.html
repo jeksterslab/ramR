@@ -210,8 +210,7 @@ such as regression coefficients and factor loadings,</p></li>
   nrow <span class='op'>=</span> <span class='fl'>3</span>,
   ncol <span class='op'>=</span> <span class='fl'>3</span>
 <span class='op'>)</span>
-<span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
-<span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>3</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
+<span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>
 <span class='va'>u</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.00</span>, <span class='fl'>0.50</span>, <span class='fl'>0.00</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"y"</span>, <span class='st'>"x"</span>, <span class='st'>"e"</span><span class='op'>)</span>
 <span class='fu'>v_num</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>u</span><span class='op'>)</span>

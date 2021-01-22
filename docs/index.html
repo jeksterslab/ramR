@@ -91,7 +91,7 @@
 <div id="reticular-action-model-ram-notation" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#reticular-action-model-ram-notation" class="anchor"></a>Reticular Action Model (RAM) Notation</h1></div>
-<p>Ivan Jacob Agaloos Pesigan 2021-01-21</p>
+<p>Ivan Jacob Agaloos Pesigan 2021-01-22</p>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 <p><a href="https://github.com/jeksterslab/ramR/actions?workflow=R-CMD-check"><img src="https://github.com/jeksterslab/ramR/workflows/R-CMD-check/badge.svg?branch=master" alt="R build status"></a> <a href="https://travis-ci.com/jeksterslab/ramR"><img src="https://travis-ci.com/jeksterslab/ramR.svg?branch=master" alt="Travis build status"></a> <a href="https://codecov.io/github/jeksterslab/ramR"><img src="https://codecov.io/github/jeksterslab/ramR/branch/master/graphs/badge.svg" alt="codecov"></a> <!-- badges: end --></p>
@@ -118,8 +118,7 @@
   nrow <span class="op">=</span> <span class="fl">3</span>,
   ncol <span class="op">=</span> <span class="fl">3</span>
 <span class="op">)</span>
-<span class="va">A</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"beta"</span>
-<span class="va">A</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="va">A</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="st">"beta"</span>, <span class="fl">1</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="st">"sigma[x]^2"</span>, <span class="st">"sigma[varepsilon]^2"</span><span class="op">)</span>
 <span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
 <span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">filter</span>, <span class="fl">0</span><span class="op">)</span>
@@ -159,9 +158,8 @@
   nrow <span class="op">=</span> <span class="fl">3</span>,
   ncol <span class="op">=</span> <span class="fl">3</span>
 <span class="op">)</span>
-<span class="va">A</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span>
-<span class="va">A</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span>
-<span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.25</span>, <span class="fl">0.25</span><span class="op">)</span>
+<span class="va">A</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.25</span>, <span class="fl">1</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"x"</span>, <span class="st">"e"</span><span class="op">)</span>
 <span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
 <span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">filter</span>, <span class="fl">0</span><span class="op">)</span>
@@ -171,15 +169,15 @@
 <p>The covariance expectations can be numerically derived using the <code><a href="reference/C_num.html">ramR::C_num()</a></code> function.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/C_num.html">C_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span><span class="op">)</span>
-<span class="co">#&gt;      y    x    e</span>
-<span class="co">#&gt; y 0.50 0.25 0.25</span>
-<span class="co">#&gt; x 0.25 0.25 0.00</span>
-<span class="co">#&gt; e 0.25 0.00 0.25</span></code></pre></div>
+<span class="co">#&gt;      y    x e</span>
+<span class="co">#&gt; y 1.25 0.25 1</span>
+<span class="co">#&gt; x 0.25 0.25 0</span>
+<span class="co">#&gt; e 1.00 0.00 1</span></code></pre></div>
 <p>The covariance expectations for the observed variables can be numerically derived using the <code><a href="reference/M_num.html">ramR::M_num()</a></code> function.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/M_num.html">M_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span>, <span class="va">filter</span><span class="op">)</span>
 <span class="co">#&gt;      y    x</span>
-<span class="co">#&gt; y 0.50 0.25</span>
+<span class="co">#&gt; y 1.25 0.25</span>
 <span class="co">#&gt; x 0.25 0.25</span></code></pre></div>
 <p>The mean expectations can be numerically derived using the <code><a href="reference/v_num.html">ramR::v_num()</a></code> function.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">

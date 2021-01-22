@@ -91,7 +91,7 @@
       <h1 data-toc-skip>Test: Two-Variable Linear Regression</h1>
                         <h4 class="author">Ivan Jacob Agaloos Pesigan</h4>
             
-            <h4 class="date">2021-01-21</h4>
+            <h4 class="date">2021-01-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jeksterslab/ramR/blob/master/vignettes/tests/test_two-variable-regression.Rmd"><code>vignettes/tests/test_two-variable-regression.Rmd</code></a></small>
       <div class="hidden name"><code>test_two-variable-regression.Rmd</code></div>
@@ -145,34 +145,43 @@
 <p><span class="math display">\[\begin{equation}
   \begin{split}
     y &amp;= \alpha + \beta x + \varepsilon \\
-    y &amp;= 0.5466617 + -0.3973113 x + \varepsilon
+    y &amp;= -0.0385322 + 0.4983221 x + \varepsilon
   \end{split}
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results_C_num</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="../../reference/C_num.html">C_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">ram_num</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/ram_num.html">ram_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span>, <span class="va">u</span>, <span class="va">filter</span><span class="op">)</span>
+<span class="va">results_ram_num_C</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">ram_num</span><span class="op">$</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<span class="va">results_ram_num_M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">ram_num</span><span class="op">$</span><span class="va">M</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<span class="va">results_ram_num_v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">ram_num</span><span class="op">$</span><span class="va">v</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<span class="va">results_ram_num_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">ram_num</span><span class="op">$</span><span class="va">g</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<span class="va">results_C_num</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="../../reference/C_num.html">C_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">results_E_num</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="../../reference/E_num.html">E_num</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">results_M_num</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="../../reference/M_num.html">M_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span>, <span class="va">filter</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">results_S_num</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="../../reference/S_num.html">S_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">C</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">results_v_num</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="../../reference/v_num.html">v_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">u</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">results_u_num</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="../../reference/u_num.html">u_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">v</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">results_g_num</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="../../reference/g_num.html">g_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">u</span>, <span class="va">filter</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">mvn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/mvn.html">mvn</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1000</span>, <span class="va">A</span>, <span class="va">S</span>, <span class="va">u</span>, <span class="va">filter</span>, empirical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">Sigma.mvn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">mvn</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">mu.mvn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html">colMeans</a></span><span class="op">(</span><span class="va">mvn</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
-<span class="va">model</span> <span class="op">&lt;-</span> <span class="st">"
-  # VARIABLE1 OPERATION VARIABLE2 VALUE
-  e           by        y         1.00;
-  y           on        x         1.00;
-  e           with      e         0.25;
-  x           with      x         0.25;
-  y           on        1         0.00;
-  x           on        1         0.50
-"</span>
-<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/eq2data.html">eq2data</a></span><span class="op">(</span><span class="va">model</span>, n <span class="op">=</span> <span class="fl">1000</span>, empirical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">Sigma.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">mu.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html">colMeans</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="va">ram2dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/ram2dat.html">ram2dat</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1000</span>, <span class="va">A</span>, <span class="va">S</span>, <span class="va">u</span>, <span class="va">filter</span>, empirical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">Sigma.ram2dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">ram2dat</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<span class="va">mu.ram2dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html">colMeans</a></span><span class="op">(</span><span class="va">ram2dat</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
+<span class="va">eq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span>
+  <span class="st">"e by y"</span>, <span class="fl">1</span>, <span class="st">";"</span>,
+  <span class="st">"y on x"</span>, <span class="va">beta</span>, <span class="st">";"</span>,
+  <span class="st">"e with e"</span>, <span class="va">sigma2epsilon</span>, <span class="st">";"</span>,
+  <span class="st">"x with x"</span>, <span class="va">sigma2x</span>, <span class="st">";"</span>,
+  <span class="st">"y on 1"</span>, <span class="va">alpha</span>, <span class="st">";"</span>,
+  <span class="st">"x on 1"</span>, <span class="va">mux</span>, <span class="st">";"</span>
+<span class="op">)</span>
+<span class="va">eq2dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/eq2dat.html">eq2dat</a></span><span class="op">(</span><span class="va">eq</span>, n <span class="op">=</span> <span class="fl">1000</span>, empirical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">Sigma.eq2dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">eq2dat</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<span class="va">mu.eq2dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html">colMeans</a></span><span class="op">(</span><span class="va">eq2dat</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results_C_sym</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="fu"><a href="../../reference/C_sym.html">C_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span><span class="op">)</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">ram_sym</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/ram_sym.html">ram_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span>, <span class="va">u</span>, <span class="va">filter</span><span class="op">)</span>
+<span class="va">results_ram_sym_C</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="va">ram_sym</span><span class="op">$</span><span class="va">C</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<span class="va">results_ram_sym_M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="va">ram_sym</span><span class="op">$</span><span class="va">M</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<span class="va">results_ram_sym_v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="va">ram_sym</span><span class="op">$</span><span class="va">v</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<span class="va">results_ram_sym_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="va">ram_sym</span><span class="op">$</span><span class="va">g</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<span class="va">results_C_sym</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="fu"><a href="../../reference/C_sym.html">C_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span><span class="op">)</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">results_E_sym</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="fu"><a href="../../reference/E_sym.html">E_sym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">results_M_sym</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="fu"><a href="../../reference/M_sym.html">M_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span>, <span class="va">filter</span><span class="op">)</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">results_S_sym</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="fu"><a href="../../reference/S_sym.html">S_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">C</span><span class="op">)</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
@@ -195,12 +204,14 @@
         <span class="va">C</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
         <span class="va">results_C_num</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
         <span class="va">results_C_sym</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_ram_num_C</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_ram_sym_C</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
         check.attributes <span class="op">=</span> <span class="cn">FALSE</span>
       <span class="op">)</span>
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🎊</span>
+<span class="co">#&gt; Test passed 🌈</span>
 <span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"E."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">E</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">E</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -213,22 +224,24 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🥳</span>
+<span class="co">#&gt; Test passed 😸</span>
 <span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"M."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">M</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">M</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
       <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
         <span class="va">M</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">Sigma.mvn</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">Sigma.data</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">Sigma.ram2dat</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">Sigma.eq2dat</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
         <span class="va">results_M_num</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
         <span class="va">results_M_sym</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_ram_num_M</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_ram_sym_M</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
         check.attributes <span class="op">=</span> <span class="cn">FALSE</span>
       <span class="op">)</span>
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 😀</span>
+<span class="co">#&gt; Test passed 🥳</span>
 <span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"S."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -241,7 +254,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🎊</span>
+<span class="co">#&gt; Test passed 😸</span>
 <span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"v."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -249,12 +262,14 @@
         <span class="va">v</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
         <span class="va">results_v_num</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
         <span class="va">results_v_sym</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_ram_num_v</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_ram_sym_v</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
         check.attributes <span class="op">=</span> <span class="cn">FALSE</span>
       <span class="op">)</span>
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🎊</span>
+<span class="co">#&gt; Test passed 😀</span>
 <span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"u."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -267,23 +282,95 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🥇</span>
+<span class="co">#&gt; Test passed 😀</span>
 <span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"g."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
       <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
         <span class="va">g</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">mu.mvn</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">mu.data</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">mu.ram2dat</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">mu.eq2dat</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
         <span class="va">results_g_num</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
         <span class="va">results_g_sym</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_ram_num_g</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
+        <span class="va">results_ram_sym_g</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
         check.attributes <span class="op">=</span> <span class="cn">FALSE</span>
       <span class="op">)</span>
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 😸</span></code></pre></div>
+<span class="co">#&gt; Test passed 😀</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../../reference/ram_num.html">ram_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span>, u <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">filter</span><span class="op">)</span>
+<span class="co">#&gt; $A</span>
+<span class="co">#&gt;   y         x e</span>
+<span class="co">#&gt; y 0 0.4983221 1</span>
+<span class="co">#&gt; x 0 0.0000000 0</span>
+<span class="co">#&gt; e 0 0.0000000 0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $S</span>
+<span class="co">#&gt;      [,1]   [,2]  [,3]</span>
+<span class="co">#&gt; [1,]    0 0.0000 0.000</span>
+<span class="co">#&gt; [2,]    0 0.9339 0.000</span>
+<span class="co">#&gt; [3,]    0 0.0000 0.943</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $u</span>
+<span class="co">#&gt; NULL</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $filter</span>
+<span class="co">#&gt;   y x e</span>
+<span class="co">#&gt; y 1 0 0</span>
+<span class="co">#&gt; x 0 1 0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $v</span>
+<span class="co">#&gt; NULL</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $g</span>
+<span class="co">#&gt; NULL</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $C</span>
+<span class="co">#&gt;          y        x     e</span>
+<span class="co">#&gt; y 1.174911 0.465383 0.943</span>
+<span class="co">#&gt; x 0.465383 0.933900 0.000</span>
+<span class="co">#&gt; e 0.943000 0.000000 0.943</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $M</span>
+<span class="co">#&gt;          y        x</span>
+<span class="co">#&gt; y 1.174911 0.465383</span>
+<span class="co">#&gt; x 0.465383 0.933900</span>
+<span class="fu"><a href="../../reference/ram_sym.html">ram_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span>, u <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">filter</span><span class="op">)</span>
+<span class="co">#&gt; $A</span>
+<span class="co">#&gt; {{                0, 0.498322091531008,                 1},</span>
+<span class="co">#&gt;  {                0,                 0,                 0},</span>
+<span class="co">#&gt;  {                0,                 0,                 0}} </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $S</span>
+<span class="co">#&gt; {{     0,      0,      0},</span>
+<span class="co">#&gt;  {     0, 0.9339,      0},</span>
+<span class="co">#&gt;  {     0,      0,  0.943}} </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $u</span>
+<span class="co">#&gt; NULL</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $filter</span>
+<span class="co">#&gt; {{1, 0, 0},</span>
+<span class="co">#&gt;  {0, 1, 0}} </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $v</span>
+<span class="co">#&gt; NULL</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $g</span>
+<span class="co">#&gt; NULL</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $C</span>
+<span class="co">#&gt; {{1.1749106305, 0.4653830012,        0.943},</span>
+<span class="co">#&gt;  {0.4653830012,       0.9339,            0},</span>
+<span class="co">#&gt;  {       0.943,            0,        0.943}} </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $M</span>
+<span class="co">#&gt; {{1.1749106305, 0.4653830012},</span>
+<span class="co">#&gt;  {0.4653830012,       0.9339}}</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">A</span> <span class="op">&lt;-</span> <span class="va">S</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
   data <span class="op">=</span> <span class="fl">0</span>,
   nrow <span class="op">=</span> <span class="fl">3</span>,
@@ -295,7 +382,7 @@
 <span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/diag.html">diag</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
 <span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">filter</span>, <span class="fl">0</span><span class="op">)</span>
 <span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"alpha"</span>, <span class="st">"mu[x]"</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>
-<span class="va">model</span> <span class="op">&lt;-</span> <span class="st">"
+<span class="va">eq</span> <span class="op">&lt;-</span> <span class="st">"
   # VARIABLE1 OPERATION VARIABLE2 LABEL
   e           by        y         1;
   y           on        x         beta;
@@ -304,7 +391,7 @@
   y           on        1         alpha;
   x           on        1         mu[x]
 "</span>
-<span class="va">RAM</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/eq2ram.html">eq2ram</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
+<span class="va">RAM</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/eq2ram.html">eq2ram</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span>
 <span class="va">results_A</span> <span class="op">&lt;-</span> <span class="va">RAM</span><span class="op">$</span><span class="va">A</span>
 <span class="va">results_S</span> <span class="op">&lt;-</span> <span class="va">RAM</span><span class="op">$</span><span class="va">S</span>
 <span class="va">results_filter</span> <span class="op">&lt;-</span> <span class="va">RAM</span><span class="op">$</span><span class="va">filter</span>
@@ -320,7 +407,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🌈</span>
+<span class="co">#&gt; Test passed 🥇</span>
 <span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"S."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -332,7 +419,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 😀</span>
+<span class="co">#&gt; Test passed 🌈</span>
 <span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"filter."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">filter</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">filter</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -344,7 +431,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 😀</span>
+<span class="co">#&gt; Test passed 🌈</span>
 <span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"u."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -356,7 +443,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 😀</span></code></pre></div>
+<span class="co">#&gt; Test passed 🥳</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

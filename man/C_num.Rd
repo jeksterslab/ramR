@@ -66,9 +66,8 @@ A <- S <- matrix(
   nrow = 3,
   ncol = 3
 )
-A[1, 2] <- 1
-A[1, 3] <- 1
-diag(S) <- c(0, 0.25, 0.25)
+A[1, ] <- c(0, 1, 1)
+diag(S) <- c(0, 0.25, 1)
 colnames(A) <- rownames(A) <- c("y", "x", "e")
 C_num(A, S)
 }

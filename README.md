@@ -1,7 +1,7 @@
 Reticular Action Model (RAM) Notation
 ================
 Ivan Jacob Agaloos Pesigan
-2021-01-21
+2021-01-22
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
@@ -39,8 +39,7 @@ A <- S <- matrix(
   nrow = 3,
   ncol = 3
 )
-A[1, 2] <- "beta"
-A[1, 3] <- 1
+A[1, ] <- c(0, "beta", 1)
 diag(S) <- c(0, "sigma[x]^2", "sigma[varepsilon]^2")
 filter <- diag(2)
 filter <- cbind(filter, 0)
@@ -99,9 +98,8 @@ A <- S <- matrix(
   nrow = 3,
   ncol = 3
 )
-A[1, 2] <- 1
-A[1, 3] <- 1
-diag(S) <- c(0, 0.25, 0.25)
+A[1, ] <- c(0, 1, 1)
+diag(S) <- c(0, 0.25, 1)
 colnames(A) <- rownames(A) <- c("y", "x", "e")
 filter <- diag(2)
 filter <- cbind(filter, 0)
@@ -115,10 +113,10 @@ The covariance expectations can be numerically derived using the
 
 ``` r
 ramR::C_num(A, S)
-#>      y    x    e
-#> y 0.50 0.25 0.25
-#> x 0.25 0.25 0.00
-#> e 0.25 0.00 0.25
+#>      y    x e
+#> y 1.25 0.25 1
+#> x 0.25 0.25 0
+#> e 1.00 0.00 1
 ```
 
 The covariance expectations for the observed variables can be
@@ -127,7 +125,7 @@ numerically derived using the `ramR::M_num()` function.
 ``` r
 ramR::M_num(A, S, filter)
 #>      y    x
-#> y 0.50 0.25
+#> y 1.25 0.25
 #> x 0.25 0.25
 ```
 

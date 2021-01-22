@@ -52,8 +52,7 @@ A <- matrix(
   nrow = 3,
   ncol = 3
 )
-A[1, 2] <- 1
-A[1, 3] <- 1
+A[1, ] <- c(0, 1, 1)
 colnames(A) <- rownames(A) <- c("y", "x", "e")
 E_num(A)
 }

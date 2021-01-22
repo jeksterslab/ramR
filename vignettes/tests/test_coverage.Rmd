@@ -115,34 +115,34 @@ test_that("E_num: singular.", {
 
 
 ```{r eq2ram}
-model <- "
+eq <- "
   # VARIABLE1 OPERATION VARIABLE2 LABEL
   e           by        y         1;
   y           on        x         beta;
   e           with      e         sigma[varepsilon]^2;
   x           with      x         sigma[x]^2;
 "
-eq2ram(model)
+eq2ram(eq)
 ```
 
 
 
-```{r eq2data}
-test_that("eq2data: nonnumeric labels", {
+```{r eq2dat}
+test_that("eq2dat: nonnumeric labels", {
   expect_error(
-    eq2data(model)
+    eq2dat(eq)
   )
 })
-model <- "
+eq <- "
   # VARIABLE1 OPERATION VARIABLE2 VALUE
   e           by        y         1.00;
   y           on        x         1.00;
   e           with      e         0.25;
   x           with      x         0.25;
 "
-test_that("eq2data: no mean structure", {
+test_that("eq2dat: no mean structure", {
   expect_error(
-    eq2data(model)
+    eq2dat(eq)
   )
 })
 ```
