@@ -21,8 +21,6 @@
 #'     \item{on 1}{`VARIABLE1` regressed **on 1** for mean structure}
 #'   }
 #'
-#'   **Each line should end with a semicolon (`;`).**
-#'
 #' @section Label:
 #'   Each parameter should be labeled.
 #'   The `LABEL` should be a number for fixed parameters
@@ -39,18 +37,18 @@
 #' @examples
 #' eq <- "
 #'   # VARIABLE1 OPERATION VARIABLE2 LABEL
-#'   e           by        y         1;
-#'   y           on        x         beta;
-#'   e           with      e         sigma[varepsilon]^2;
-#'   x           with      x         sigma[x]^2;
-#'   y           on        1         alpha;
+#'   e           by        y         1
+#'   y           on        x         beta
+#'   e           with      e         sigma[varepsilon]^2
+#'   x           with      x         sigma[x]^2
+#'   y           on        1         alpha
 #'   x           on        1         mu[x]
 #' "
 #' eq2ram(eq)
 #' @export
 eq2ram <- function(eq) {
   eq <- gsub(pattern = "#[^\\\n]*", replacement = "", x = eq)
-  eq <- gsub(pattern = "\n", replacement = "", eq)
+  eq <- unlist(strsplit(x = eq, split = "\n"))
   eq <- unlist(strsplit(x = eq, split = ";"))
   eq <- trimws(x = gsub(pattern = "\\s+", replacement = " ", x = eq))
   eq <- do.call(what = "rbind", args = strsplit(x = eq, split = " "))
