@@ -30,8 +30,6 @@ The associations are defined by the following operations
 \item{with}{\code{VARIABLE1} covarying \strong{with} \code{VARIABLE2}}
 \item{on 1}{\code{VARIABLE1} regressed \strong{on 1} for mean structure}
 }
-
-\strong{Each line should end with a semicolon (\verb{;}).}
 }
 
 \section{Value}{
@@ -47,11 +45,11 @@ Comments can be written after a hash (\verb{#}) sign.
 \examples{
 eq <- "
   # VARIABLE1 OPERATION VARIABLE2 VALUE
-  e           by        y         1.00;
-  y           on        x         1.00;
-  e           with      e         0.25;
-  x           with      x         0.25;
-  y           on        1         0.00;
+  e           by        y         1.00
+  y           on        x         1.00
+  e           with      e         0.25
+  x           with      x         0.25
+  y           on        1         0.00
   x           on        1         0.50
 "
 eq2exp_num(eq)

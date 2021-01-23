@@ -21,8 +21,6 @@
 #'     \item{on 1}{`VARIABLE1` regressed **on 1** for mean structure}
 #'   }
 #'
-#'   **Each line should end with a semicolon (`;`).**
-#'
 #' @section Value:
 #'   Each parameter should have a numeric value.
 #'
@@ -34,11 +32,11 @@
 #' @examples
 #' eq <- "
 #'   # VARIABLE1 OPERATION VARIABLE2 VALUE
-#'   e           by        y         1.00;
-#'   y           on        x         1.00;
-#'   e           with      e         0.25;
-#'   x           with      x         0.25;
-#'   y           on        1         0.00;
+#'   e           by        y         1.00
+#'   y           on        x         1.00
+#'   e           with      e         0.25
+#'   x           with      x         0.25
+#'   y           on        1         0.00
 #'   x           on        1         0.50
 #' "
 #' eq2exp_num(eq)
@@ -85,8 +83,6 @@ eq2exp_num <- function(eq) {
 #'     \item{on 1}{`VARIABLE1` regressed **on 1** for mean structure}
 #'   }
 #'
-#'   **Each line should end with a semicolon (`;`).**
-#'
 #' @section Label:
 #'   Each parameter should be labeled.
 #'   The `LABEL` should be a number for fixed parameters
@@ -103,11 +99,11 @@ eq2exp_num <- function(eq) {
 #' @examples
 #' eq <- "
 #'   # VARIABLE1 OPERATION VARIABLE2 LABEL/VALUE
-#'   e           by        y         1;
-#'   y           on        x         beta;
-#'   e           with      e         sigma[varepsilon]^2;
-#'   x           with      x         sigma[x]^2;
-#'   y           on        1         alpha;
+#'   e           by        y         1
+#'   y           on        x         beta
+#'   e           with      e         sigma[varepsilon]^2
+#'   x           with      x         sigma[x]^2
+#'   y           on        1         alpha
 #'   x           on        1         mu[x]
 #' "
 #' eq2exp_sym(eq)
