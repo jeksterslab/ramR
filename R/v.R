@@ -76,6 +76,7 @@ v_num <- function(A,
 #' @family v functions
 #' @inherit v_num description details references return
 #' @inheritParams v_num
+#' @inheritParams E_sym
 #' @examples
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
@@ -90,9 +91,14 @@ v_num <- function(A,
 #' v_sym(A, u)
 #' @export
 v_sym <- function(A,
-                  u) {
+                  u,
+                  simplify = FALSE) {
   u <- as.matrix(u)
+  out <- E_sym(A) * Ryacas::ysym(u)
+  if (simplify) {
+    out <- Ryacas::simplify(out)
+  }
   return(
-    E_sym(A) * Ryacas::ysym(u)
+    out
   )
 }

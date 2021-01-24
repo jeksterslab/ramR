@@ -105,6 +105,7 @@ S_num <- function(A,
 #' @family S functions
 #' @inherit S_num description details references return
 #' @inheritParams S_num
+#' @inheritParams E_sym
 #' @examples
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
@@ -126,7 +127,8 @@ S_num <- function(A,
 #' S_sym(A, C)
 #' @export
 S_sym <- function(A,
-                  C) {
+                  C,
+                  simplify = FALSE) {
   if (!matrixR::is_sqr(A, chk.num = FALSE)) {
     stop(
       "`A` should be a square matrix."
@@ -138,7 +140,11 @@ S_sym <- function(A,
     )
   }
   IminusA <- Ryacas::ysym(diag(dim(A)[1])) - Ryacas::ysym(A)
+  out <- IminusA * Ryacas::ysym(C) * t(IminusA)
+  if (simplify) {
+    out <- Ryacas::simplify(out)
+  }
   return(
-    IminusA * Ryacas::ysym(C) * t(IminusA)
+    out
   )
 }

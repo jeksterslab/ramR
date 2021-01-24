@@ -75,6 +75,7 @@ u_num <- function(A,
 #' @family u functions
 #' @inherit u_num description details references return
 #' @inheritParams u_num
+#' @inheritParams E_sym
 #' @examples
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
@@ -89,9 +90,14 @@ u_num <- function(A,
 #' u_sym(A, v)
 #' @export
 u_sym <- function(A,
-                  v) {
+                  v,
+                  simplify = FALSE) {
   v <- as.matrix(v)
+  out <- (Ryacas::ysym(diag(dim(A)[1])) - Ryacas::ysym(A)) * Ryacas::ysym(v)
+  if (simplify) {
+    out <- Ryacas::simplify(out)
+  }
   return(
-    (Ryacas::ysym(diag(dim(A)[1])) - Ryacas::ysym(A)) * Ryacas::ysym(v)
+    out
   )
 }

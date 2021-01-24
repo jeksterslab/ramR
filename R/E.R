@@ -74,6 +74,8 @@ E_num <- function(A) {
 #' @family E functions
 #' @inherit E_num description details references return
 #' @inheritParams E_num
+#' @param simplify Logical.
+#'   Simplify the results.
 #' @examples
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
@@ -86,13 +88,18 @@ E_num <- function(A) {
 #' A[1, ] <- c(0, "beta", 1)
 #' E_sym(A)
 #' @export
-E_sym <- function(A) {
+E_sym <- function(A,
+                  simplify = FALSE) {
   if (!matrixR::is_sqr(A, chk.num = FALSE)) {
     stop(
       "`A` should be a square matrix."
     )
   }
+  out <- solve(Ryacas::ysym(diag(dim(A)[1])) - Ryacas::ysym(A))
+  if (simplify) {
+    out <- Ryacas::simplify(out)
+  }
   return(
-    solve(Ryacas::ysym(diag(dim(A)[1])) - Ryacas::ysym(A))
+    out
   )
 }

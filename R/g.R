@@ -91,6 +91,7 @@ g_num <- function(A,
 #' @family g functions
 #' @inherit g_num description details references return
 #' @inheritParams g_num
+#' @inheritParams E_sym
 #' @examples
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
@@ -108,11 +109,16 @@ g_num <- function(A,
 #' @export
 g_sym <- function(A,
                   u,
-                  filter) {
+                  filter,
+                  simplify = FALSE) {
+  out <- Ryacas::ysym(filter) * v_sym(
+    A,
+    u
+  )
+  if (simplify) {
+    out <- Ryacas::simplify(out)
+  }
   return(
-    Ryacas::ysym(filter) * v_sym(
-      A,
-      u
-    )
+    out
   )
 }

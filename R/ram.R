@@ -65,6 +65,7 @@ ram_num <- function(A,
 #' @export
 #' @inheritParams M_sym
 #' @inheritParams g_sym
+#' @inheritParams E_sym
 #' @examples
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
@@ -84,25 +85,35 @@ ram_num <- function(A,
 ram_sym <- function(A,
                     S,
                     u = NULL,
-                    filter) {
+                    filter,
+                    simplify = FALSE) {
   filter <- Ryacas::ysym(filter)
   if (!is.null(u)) {
     u <- as.matrix(u)
     v <- v_sym(
       A,
-      u
+      u,
+      simplify
     )
     g <- filter * v
     u <- Ryacas::ysym(u)
+    if (simplify) {
+      g <- Ryacas::simplify(g)
+      u <- Ryacas::simplify(u)
+    }
   } else {
     v <- NULL
     g <- NULL
   }
   C <- C_sym(
     A,
-    S
+    S,
+    simplify
   )
   M <- filter * C * t(filter)
+  if (simplify) {
+    M <- Ryacas::simplify(M)
+  }
   return(
     list(
       A = Ryacas::ysym(A),

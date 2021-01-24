@@ -96,6 +96,7 @@ M_num <- function(A,
 #' @family M functions
 #' @inherit M_num description details references return
 #' @inheritParams M_num
+#' @inheritParams E_sym
 #' @examples
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
@@ -113,9 +114,14 @@ M_num <- function(A,
 #' @export
 M_sym <- function(A,
                   S,
-                  filter) {
+                  filter,
+                  simplify = FALSE) {
   filter <- Ryacas::ysym(filter)
+  out <- filter * C_sym(A, S) * t(filter)
+  if (simplify) {
+    out <- Ryacas::simplify(out)
+  }
   return(
-    filter * C_sym(A, S) * t(filter)
+    out
   )
 }

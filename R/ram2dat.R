@@ -127,7 +127,7 @@ ram2dat <- function(n,
                     u,
                     filter,
                     ...) {
-  ram <- ram_sym(A, S, u, filter)
+  ram <- ram_sym(A, S, u, filter, simplify = FALSE)
   g <- as.vector(Ryacas::as_r(ram$g))
   names(g) <- rownames(filter)
   out <- MASS::mvrnorm(

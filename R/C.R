@@ -97,6 +97,7 @@ C_num <- function(A,
 #' @family C functions
 #' @inherit C_num description details references return
 #' @inheritParams C_num
+#' @inheritParams E_sym
 #' @examples
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
@@ -111,7 +112,8 @@ C_num <- function(A,
 #' C_sym(A, S)
 #' @export
 C_sym <- function(A,
-                  S) {
+                  S,
+                  simplify = FALSE) {
   if (!matrixR::is_sqr(S, chk.num = FALSE)) {
     stop(
       "`S` should be a square matrix."
@@ -123,7 +125,11 @@ C_sym <- function(A,
     )
   }
   E <- E_sym(A)
+  out <- E * Ryacas::ysym(S) * t(E)
+  if (simplify) {
+    out <- Ryacas::simplify(out)
+  }
   return(
-    E * Ryacas::ysym(S) * t(E)
+    out
   )
 }
