@@ -5,7 +5,7 @@
 \title{Matrix of Symmetric Paths
 \eqn{\mathbf{S}} - Symmetric}
 \usage{
-S_sym(A, C)
+S_sym(A, C, simplify = FALSE)
 }
 \arguments{
 \item{A}{\verb{t x t} matrix \eqn{\mathbf{A}}.
@@ -14,6 +14,9 @@ such as regression coefficients and factor loadings.}
 
 \item{C}{\verb{t x t} numeric matrix \eqn{\mathbf{C}}.
 Model-implied variance-covariance matrix.}
+
+\item{simplify}{Logical.
+Simplify the results.}
 }
 \value{
 Returns the matrix of symmetric paths (double-headed arrows)

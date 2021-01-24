@@ -5,7 +5,7 @@
 \title{Vector of Expected Values of Observed Variables
 \eqn{\mathbf{g}} - Symbolic}
 \usage{
-g_sym(A, u, filter)
+g_sym(A, u, filter, simplify = FALSE)
 }
 \arguments{
 \item{A}{\verb{t x t} matrix \eqn{\mathbf{A}}.
@@ -18,6 +18,9 @@ Mean structure parameters.}
 \item{filter}{\verb{p x t} numeric matrix
 \eqn{\mathbf{F}}.
 Filter matrix used to select observed variables.}
+
+\item{simplify}{Logical.
+Simplify the results.}
 }
 \value{
 Returns the vector of expected values of observed variables

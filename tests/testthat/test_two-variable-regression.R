@@ -88,20 +88,30 @@ eq <- paste(
 eq2dat <- eq2dat(eq, n = 1000, empirical = TRUE)
 Sigma.eq2dat <- round(cov(eq2dat), digits = 4)
 mu.eq2dat <- as.matrix(round(colMeans(eq2dat), digits = 4))
+eq2exp_num <- eq2exp_num(eq)
+results_eq2exp_num_C <- round(eq2exp_num$C, digits = 4)
+results_eq2exp_num_M <- round(eq2exp_num$M, digits = 4)
+results_eq2exp_num_v <- round(eq2exp_num$v, digits = 4)
+results_eq2exp_num_g <- round(eq2exp_num$g, digits = 4)
 #'
 #+ symbolic
-ram_sym <- ram_sym(A, S, u, filter)
+ram_sym <- ram_sym(A, S, u, filter, simplify = TRUE)
 results_ram_sym_C <- round(as_r(ram_sym$C), digits = 4)
 results_ram_sym_M <- round(as_r(ram_sym$M), digits = 4)
 results_ram_sym_v <- round(as_r(ram_sym$v), digits = 4)
 results_ram_sym_g <- round(as_r(ram_sym$g), digits = 4)
-results_C_sym <- round(as_r(C_sym(A, S)), digits = 4)
-results_E_sym <- round(as_r(E_sym(A)), digits = 4)
-results_M_sym <- round(as_r(M_sym(A, S, filter)), digits = 4)
-results_S_sym <- round(as_r(S_sym(A, C)), digits = 4)
-results_v_sym <- round(as_r(v_sym(A, u)), digits = 4)
-results_u_sym <- round(as_r(u_sym(A, v)), digits = 4)
-results_g_sym <- round(as_r(g_sym(A, u, filter)), digits = 4)
+results_C_sym <- round(as_r(C_sym(A, S, simplify = TRUE)), digits = 4)
+results_E_sym <- round(as_r(E_sym(A, simplify = TRUE)), digits = 4)
+results_M_sym <- round(as_r(M_sym(A, S, filter, simplify = TRUE)), digits = 4)
+results_S_sym <- round(as_r(S_sym(A, C, simplify = TRUE)), digits = 4)
+results_v_sym <- round(as_r(v_sym(A, u, simplify = TRUE)), digits = 4)
+results_u_sym <- round(as_r(u_sym(A, v, simplify = TRUE)), digits = 4)
+results_g_sym <- round(as_r(g_sym(A, u, filter, simplify = TRUE)), digits = 4)
+eq2exp_sym <- eq2exp_sym(eq, simplify = TRUE)
+results_eq2exp_sym_C <- round(as_r(eq2exp_sym$C), digits = 4)
+results_eq2exp_sym_M <- round(as_r(eq2exp_sym$M), digits = 4)
+results_eq2exp_sym_v <- round(as_r(eq2exp_sym$v), digits = 4)
+results_eq2exp_sym_g <- round(as_r(eq2exp_sym$g), digits = 4)
 #'
 #+ round_source
 C <- round(C, digits = 4)
@@ -122,6 +132,8 @@ test_that("C.", {
         results_C_sym[i, j],
         results_ram_num_C[i, j],
         results_ram_sym_C[i, j],
+        results_eq2exp_num_C[i, j],
+        results_eq2exp_sym_C[i, j],
         check.attributes = FALSE
       )
     }
@@ -150,6 +162,8 @@ test_that("M.", {
         results_M_sym[i, j],
         results_ram_num_M[i, j],
         results_ram_sym_M[i, j],
+        results_eq2exp_num_M[i, j],
+        results_eq2exp_sym_M[i, j],
         check.attributes = FALSE
       )
     }
@@ -176,6 +190,8 @@ test_that("v.", {
         results_v_sym[i, j],
         results_ram_num_v[i, j],
         results_ram_sym_v[i, j],
+        results_eq2exp_num_v[i, j],
+        results_eq2exp_sym_v[i, j],
         check.attributes = FALSE
       )
     }
@@ -204,6 +220,8 @@ test_that("g.", {
         results_g_sym[i, j],
         results_ram_num_g[i, j],
         results_ram_sym_g[i, j],
+        results_eq2exp_num_g[i, j],
+        results_eq2exp_sym_g[i, j],
         check.attributes = FALSE
       )
     }

@@ -5,7 +5,7 @@
 \title{Vector of Expected Values
 \eqn{\mathbf{v}} - Symbolic}
 \usage{
-v_sym(A, u)
+v_sym(A, u, simplify = FALSE)
 }
 \arguments{
 \item{A}{\verb{t x t} matrix \eqn{\mathbf{A}}.
@@ -14,6 +14,9 @@ such as regression coefficients and factor loadings.}
 
 \item{u}{vector of length \code{t} or \verb{t by 1} matrix.
 Mean structure parameters.}
+
+\item{simplify}{Logical.
+Simplify the results.}
 }
 \value{
 Returns the vector of expected values

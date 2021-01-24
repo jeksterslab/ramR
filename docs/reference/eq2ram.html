@@ -175,9 +175,7 @@ that specifies the associations between the variables.</p>
 <p>Each parameter should be labeled.
 The <code>LABEL</code> should be a number for fixed parameters
 and a variable name for free parameters.
-Equality contraints can be imposed by using the same variable name.
-Variable names can be written
-following the <code>R</code> mathematical notation <code><a href='https://rdrr.io/r/grDevices/plotmath.html'>grDevices::plotmath()</a></code>.</p>
+Equality contraints can be imposed by using the same variable name.</p>
     <h2 class="hasAnchor" id="comments"><a class="anchor" href="#comments"></a>Comments</h2>
 
     
@@ -200,20 +198,20 @@ of the Reticular Action Model for moment structures.
   # VARIABLE1 OPERATION VARIABLE2 LABEL
   e           by        y         1
   y           on        x         beta
-  e           with      e         sigma[varepsilon]^2
-  x           with      x         sigma[x]^2
+  e           with      e         varofe
+  x           with      x         varofx
   y           on        1         alpha
-  x           on        1         mu[x]
+  x           on        1         meanofx
 "</span>
 <span class='fu'>eq2ram</span><span class='op'>(</span><span class='va'>eq</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $eq
-#&gt;   var1   op var2               label
-#&gt; 1    e   by    y                   1
-#&gt; 2    y   on    x                beta
-#&gt; 3    e with    e sigma[varepsilon]^2
-#&gt; 4    x with    x          sigma[x]^2
-#&gt; 5    y   on    1               alpha
-#&gt; 6    x   on    1               mu[x]
+#&gt;   var1   op var2   label
+#&gt; 1    e   by    y       1
+#&gt; 2    y   on    x    beta
+#&gt; 3    e with    e  varofe
+#&gt; 4    x with    x  varofx
+#&gt; 5    y   on    1   alpha
+#&gt; 6    x   on    1 meanofx
 #&gt; 
 #&gt; $variables
 #&gt; [1] "y" "x" "e"
@@ -225,10 +223,10 @@ of the Reticular Action Model for moment structures.
 #&gt; e "0" "0"    "0"
 #&gt; 
 #&gt; $S
-#&gt;   y   x            e                    
-#&gt; y "0" "0"          "0"                  
-#&gt; x "0" "sigma[x]^2" "0"                  
-#&gt; e "0" "0"          "sigma[varepsilon]^2"
+#&gt;   y   x        e       
+#&gt; y "0" "0"      "0"     
+#&gt; x "0" "varofx" "0"     
+#&gt; e "0" "0"      "varofe"
 #&gt; 
 #&gt; $filter
 #&gt;   y x e
@@ -236,10 +234,10 @@ of the Reticular Action Model for moment structures.
 #&gt; x 0 1 0
 #&gt; 
 #&gt; $u
-#&gt;   u      
-#&gt; y "alpha"
-#&gt; x "mu[x]"
-#&gt; e "0"    
+#&gt;   u        
+#&gt; y "alpha"  
+#&gt; x "meanofx"
+#&gt; e "0"      
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

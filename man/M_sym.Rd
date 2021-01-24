@@ -5,7 +5,7 @@
 \title{Matrix of Covariance Expectations of Observed Variables
 \eqn{\mathbf{M}} - Symbolic}
 \usage{
-M_sym(A, S, filter)
+M_sym(A, S, filter, simplify = FALSE)
 }
 \arguments{
 \item{A}{\verb{t x t} matrix \eqn{\mathbf{A}}.
@@ -20,6 +20,9 @@ such as variances and covariances.}
 \item{filter}{\verb{p x t} numeric matrix
 \eqn{\mathbf{F}}.
 Filter matrix used to select observed variables.}
+
+\item{simplify}{Logical.
+Simplify the results.}
 }
 \description{
 Derives the matrix of covariance expectations of observed variables

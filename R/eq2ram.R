@@ -26,8 +26,6 @@
 #'   The `LABEL` should be a number for fixed parameters
 #'   and a variable name for free parameters.
 #'   Equality contraints can be imposed by using the same variable name.
-#'   Variable names can be written
-#'   following the `R` mathematical notation `grDevices::plotmath()`.
 #'
 #' @section Comments:
 #'   Comments can be written after a hash (`#`) sign.
@@ -39,10 +37,10 @@
 #'   # VARIABLE1 OPERATION VARIABLE2 LABEL
 #'   e           by        y         1
 #'   y           on        x         beta
-#'   e           with      e         sigma[varepsilon]^2
-#'   x           with      x         sigma[x]^2
+#'   e           with      e         varofe
+#'   x           with      x         varofx
 #'   y           on        1         alpha
-#'   x           on        1         mu[x]
+#'   x           on        1         meanofx
 #' "
 #' eq2ram(eq)
 #' @export
@@ -53,6 +51,7 @@ eq2ram <- function(eq) {
   eq <- trimws(x = gsub(pattern = "\\s+", replacement = " ", x = eq))
   eq <- do.call(what = "rbind", args = strsplit(x = eq, split = " "))
   colnames(eq) <- c("var1", "op", "var2", "label")
+  eq[, "op"] <- tolower(eq[, "op"])
   by <- eq[which(eq[, "op"] == "by"), , drop = FALSE]
   with <- eq[which(eq[, "op"] == "with"), , drop = FALSE]
   on <- eq[which(eq[, "op"] == "on" & eq[, "var2"] != "1"), , drop = FALSE]

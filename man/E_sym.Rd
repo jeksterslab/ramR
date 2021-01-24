@@ -5,12 +5,15 @@
 \title{Matrix of Total Effects
 \eqn{\mathbf{E}} - Symbolic}
 \usage{
-E_sym(A)
+E_sym(A, simplify = FALSE)
 }
 \arguments{
 \item{A}{\verb{t x t} matrix \eqn{\mathbf{A}}.
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.}
+
+\item{simplify}{Logical.
+Simplify the results.}
 }
 \value{
 Returns the matrix of total effects

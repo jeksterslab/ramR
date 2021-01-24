@@ -5,7 +5,7 @@
 \title{Vector of Mean Structure Parameters
 \eqn{\mathbf{u}} - Symbolic}
 \usage{
-u_sym(A, v)
+u_sym(A, v, simplify = FALSE)
 }
 \arguments{
 \item{A}{\verb{t x t} matrix \eqn{\mathbf{A}}.
@@ -14,6 +14,9 @@ such as regression coefficients and factor loadings.}
 
 \item{v}{vector of length \code{t} or \verb{t by 1} matrix.
 Expected values.}
+
+\item{simplify}{Logical.
+Simplify the results.}
 }
 \value{
 Returns the vector of mean structire parameters

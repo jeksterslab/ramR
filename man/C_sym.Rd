@@ -5,7 +5,7 @@
 \title{Matrix of Covariance Expectations
 \eqn{\mathbf{C}} - Symbolic}
 \usage{
-C_sym(A, S)
+C_sym(A, S, simplify = FALSE)
 }
 \arguments{
 \item{A}{\verb{t x t} matrix \eqn{\mathbf{A}}.
@@ -16,6 +16,9 @@ such as regression coefficients and factor loadings.}
 \eqn{\mathbf{S}}.
 Symmetric paths (double-headed arrows),
 such as variances and covariances.}
+
+\item{simplify}{Logical.
+Simplify the results.}
 }
 \description{
 Derives the matrix of covariance expectations

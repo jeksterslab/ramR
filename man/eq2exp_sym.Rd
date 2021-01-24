@@ -4,10 +4,13 @@
 \alias{eq2exp_sym}
 \title{Equations to Expectations - Symbolic}
 \usage{
-eq2exp_sym(eq)
+eq2exp_sym(eq, simplify = FALSE)
 }
 \arguments{
 \item{eq}{Character string. Equations. See Details.}
+
+\item{simplify}{Logical.
+Simplify the results.}
 }
 \description{
 Converts equations to expectations.
@@ -38,8 +41,6 @@ Each parameter should be labeled.
 The \code{LABEL} should be a number for fixed parameters
 and a variable name for free parameters.
 Equality contraints can be imposed by using the same variable name.
-Variable names can be written
-following the \code{R} mathematical notation \code{grDevices::plotmath()}.
 }
 
 \section{Comments}{
@@ -52,10 +53,10 @@ eq <- "
   # VARIABLE1 OPERATION VARIABLE2 LABEL/VALUE
   e           by        y         1
   y           on        x         beta
-  e           with      e         sigma[varepsilon]^2
-  x           with      x         sigma[x]^2
+  e           with      e         varofe
+  x           with      x         varofx
   y           on        1         alpha
-  x           on        1         mu[x]
+  x           on        1         meanofx
 "
 eq2exp_sym(eq)
 }

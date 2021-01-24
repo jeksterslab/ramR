@@ -4,7 +4,7 @@
 \alias{ram_sym}
 \title{Expectations from the Reticular Action Model (RAM) Matrices - Symbolic}
 \usage{
-ram_sym(A, S, u = NULL, filter)
+ram_sym(A, S, u = NULL, filter, simplify = FALSE)
 }
 \arguments{
 \item{A}{\verb{t x t} matrix \eqn{\mathbf{A}}.
@@ -22,6 +22,9 @@ Mean structure parameters.}
 \item{filter}{\verb{p x t} numeric matrix
 \eqn{\mathbf{F}}.
 Filter matrix used to select observed variables.}
+
+\item{simplify}{Logical.
+Simplify the results.}
 }
 \description{
 Expectations from the Reticular Action Model (RAM) Matrices - Symbolic
