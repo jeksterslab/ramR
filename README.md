@@ -49,11 +49,12 @@ where
 
 ### Equations to RAM
 
-The `ramR::eq2ram` converts structural equations to RAM notation.
+The `ramR::eq2ram` function converts structural equations to RAM
+notation.
 
 #### Symbolic
 
-The simple mediation model can be expressed in the following equations
+The model can be expressed in the following equations
 
 ``` r
 eq_sym <- "
