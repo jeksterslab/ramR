@@ -3,7 +3,7 @@
 \name{S_sym}
 \alias{S_sym}
 \title{Matrix of Symmetric Paths
-\eqn{\mathbf{S}} - Symmetric}
+\eqn{\mathbf{S}} - Symbolic}
 \usage{
 S_sym(A, C, simplify = FALSE)
 }

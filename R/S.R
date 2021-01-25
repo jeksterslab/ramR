@@ -99,7 +99,7 @@ S_num <- function(A,
 #' @author Ivan Jacob Agaloos Pesigan
 #'
 #' @title Matrix of Symmetric Paths
-#'   \eqn{\mathbf{S}} - Symmetric
+#'   \eqn{\mathbf{S}} - Symbolic
 #'
 #' @keywords S
 #' @family S functions

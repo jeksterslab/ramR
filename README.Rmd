@@ -34,146 +34,180 @@ You can install the released version of `ramR` from [GitHub](https://github.com/
 remotes::install_github("jeksterslab/ramR")
 ```
 
-## Symbolic Example
+## Example
 
-This is a symbolic example for the model
+Let $y$, $m$, $x$, $\varepsilon_y$, and $\varepsilon_m$ be random variables
+whose associations are given by
 
-$$y = \alpha + \beta \cdot x + \varepsilon .$$
+$$y = \beta_0 + \beta_1 x + \beta_2 m + \varepsilon_y$$
+
+$$m = \alpha_0 + \alpha_1 x + \varepsilon_m$$
+
+where
+
+- $\beta_1$ is the path from $x$ on $y$
+- $\beta_2$ is the path from $m$ to $y$
+- $\alpha_1$ is the path from $x$ to $m$
+- $\varepsilon_y$ and $\varepsilon_m$ are uncorrelated error terms
+  with means of zero and constant variances of $\sigma_{\varepsilon_y}^{2}$ and
+  $\sigma_{\varepsilon_m}^{2}$ respectively
+- $\beta_0$ and $\alpha_0$ are intercepts
+
+### Equations to RAM
+
+The `ramR::eq2ram` converts structural equations to RAM notation.
+
+#### Symbolic
+
+The simple mediation model
+can be expressed in the following equations
 
 ```{r}
-A <- S <- matrix(
-  data = 0,
-  nrow = 3,
-  ncol = 3
-)
-A[1, ] <- c(0, "beta", 1)
-diag(S) <- c(0, "sigma[x]^2", "sigma[varepsilon]^2")
-filter <- diag(2)
-filter <- cbind(filter, 0)
-u <- c("alpha", "mu[x]", 0)
+eq_sym <- "
+  # VARIABLE1 OPERATION VARIABLE2 LABEL
+  ey          by        y         1
+  em          by        m         1
+  y           on        x         beta[1]
+  y           on        m         beta[2]
+  m           on        x         alpha[1]
+  ey          with      ey        sigma[varepsilon[y]]^2
+  em          with      em        sigma[varepsilon[m]]^2
+  x           with      x         sigma[x]^2
+  y           on        1         beta[0]
+  m           on        1         alpha[0]
+  x           on        1         mu[x]
+"
 ```
-
-The covariance expectations
-can be symbolically derived using the `ramR::C_sym()` function.
 
 ```{r}
-ramR::C_sym(A, S)
+ram <- ramR::eq2ram(eq_sym)
+ram
 ```
 
-```{r, echo = FALSE, results = "asis"}
+```{r, echo=FALSE, results = "asis"}
 cat(
-  "\\begin{equation}",
+  "\\begin{equation*}",
+  "\\mathbf{A} =",
+  Ryacas::tex(Ryacas::ysym(ram$A)),
+  "\\end{equation*}",
+  sep = ""
+)
+```
+
+```{r, echo=FALSE, results = "asis"}
+cat(
+  "\\begin{equation*}",
+  "\\mathbf{S} =",
+  Ryacas::tex(Ryacas::ysym(ram$S)),
+  "\\end{equation*}",
+  sep = ""
+)
+```
+
+```{r, echo=FALSE, results = "asis"}
+cat(
+  "\\begin{equation*}",
+  "\\mathbf{F} =",
+  Ryacas::tex(Ryacas::ysym(ram$filter)),
+  "\\end{equation*}",
+  sep = ""
+)
+```
+
+```{r, echo=FALSE, results = "asis"}
+cat(
+  "\\begin{equation*}",
+  "\\mathbf{u} =",
+  Ryacas::tex(Ryacas::ysym(ram$u)),
+  "\\end{equation*}",
+  sep = ""
+)
+```
+
+#### Numerical
+
+Matrices of the RAM notation can be derived numerically
+by supplying values to the parameters.
+
+```{r}
+eq_num <- "
+  # VARIABLE1 OPERATION VARIABLE2 VALUE
+  ey          by        y         1
+  em          by        m         1
+  y           on        x         0.00
+  y           on        m         0.50
+  m           on        x         0.50
+  ey          with      ey        168.75
+  em          with      em        168.75
+  x           with      x         225
+  y           on        1         50
+  m           on        1         50
+  x           on        1         100
+"
+```
+
+```{r}
+ramR::eq2ram(eq_num)
+```
+
+### Equations to Expectations
+
+The `ramR` package has a utility function
+to convert structural equations to expectations
+both symbolically and numerically.
+
+#### Symbolic
+
+```{r}
+exp <- ramR::eq2exp_sym(eq_sym)
+exp
+```
+
+```{r, echo=FALSE, results = "asis"}
+cat(
+  "\\begin{equation*}",
   "\\mathbf{C} =",
-  Ryacas::tex(ramR::C_sym(A, S)),
-  "\\end{equation}",
+  Ryacas::tex(exp$C),
+  "\\end{equation*}",
   sep = ""
 )
 ```
 
-The covariance expectations for the observed variables
-can be symbolically derived using the `ramR::M_sym()` function.
-
-```{r}
-ramR::M_sym(A, S, filter)
-```
-
-```{r, echo = FALSE, results = "asis"}
+```{r, echo=FALSE, results = "asis"}
 cat(
-  "\\begin{equation}",
+  "\\begin{equation*}",
   "\\mathbf{M} =",
-  Ryacas::tex(ramR::M_sym(A, S, filter)),
-  "\\end{equation}",
+  Ryacas::tex(exp$M),
+  "\\end{equation*}",
   sep = ""
 )
 ```
 
-The mean expectations
-can be symbolically derived using the `ramR::v_sym()` function.
-
-```{r}
-ramR::v_sym(A, u)
-```
-
-```{r, echo = FALSE, results = "asis"}
+```{r, echo=FALSE, results = "asis"}
 cat(
-  "\\begin{equation}",
+  "\\begin{equation*}",
   "\\mathbf{v} =",
-  Ryacas::tex(ramR::v_sym(A, u)),
-  "\\end{equation}",
+  Ryacas::tex(exp$v),
+  "\\end{equation*}",
   sep = ""
 )
 ```
 
-The mean expectations for the observed variables
-can be symbolically derived using the `ramR::g_sym()` function.
-
-```{r}
-ramR::g_sym(A, u, filter)
-```
-
-```{r, echo = FALSE, results = "asis"}
+```{r, echo=FALSE, results = "asis"}
 cat(
-  "\\begin{equation}",
+  "\\begin{equation*}",
   "\\mathbf{g} =",
-  Ryacas::tex(ramR::g_sym(A, u, filter)),
-  "\\end{equation}",
+  Ryacas::tex(exp$g),
+  "\\end{equation*}",
   sep = ""
 )
 ```
 
-## Numerical Example
-
-This is a numerical example for the model
-
-$$y = \alpha + \beta \cdot x + \varepsilon$$
-
-$$y = 0 + 0.50 x + \varepsilon .$$
+#### Numerical
 
 ```{r}
-A <- S <- matrix(
-  data = 0,
-  nrow = 3,
-  ncol = 3
-)
-A[1, ] <- c(0, 1, 1)
-diag(S) <- c(0, 0.25, 1)
-colnames(A) <- rownames(A) <- c("y", "x", "e")
-filter <- diag(2)
-filter <- cbind(filter, 0)
-colnames(filter) <- c("y", "x", "e")
-rownames(filter) <- c("y", "x")
-u <- c(0.00, 0.50, 0.00)
+ramR::eq2exp_num(eq_num)
 ```
-
-The covariance expectations
-can be numerically derived using the `ramR::C_num()` function.
-
-```{r}
-ramR::C_num(A, S)
-```
-
-The covariance expectations for the observed variables
-can be numerically derived using the `ramR::M_num()` function.
-
-```{r}
-ramR::M_num(A, S, filter)
-```
-
-The mean expectations
-can be numerically derived using the `ramR::v_num()` function.
-
-```{r}
-ramR::v_num(A, u)
-```
-
-The mean expectations for the observed variables
-can be numerically derived using the `ramR::v_num()` function.
-
-```{r}
-ramR::g_num(A, u, filter)
-```
-
-
 
 ## More Information
 

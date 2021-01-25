@@ -91,7 +91,7 @@
 <div id="reticular-action-model-ram-notation" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#reticular-action-model-ram-notation" class="anchor"></a>Reticular Action Model (RAM) Notation</h1></div>
-<p>Ivan Jacob Agaloos Pesigan 2021-01-24</p>
+<p>Ivan Jacob Agaloos Pesigan 2021-01-25</p>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 <p><a href="https://github.com/jeksterslab/ramR/actions?workflow=R-CMD-check"><img src="https://github.com/jeksterslab/ramR/workflows/R-CMD-check/badge.svg?branch=master" alt="R build status"></a> <a href="https://travis-ci.com/jeksterslab/ramR"><img src="https://travis-ci.com/jeksterslab/ramR.svg?branch=master" alt="Travis build status"></a> <a href="https://codecov.io/github/jeksterslab/ramR"><img src="https://codecov.io/github/jeksterslab/ramR/branch/master/graphs/badge.svg" alt="codecov"></a> <!-- badges: end --></p>
@@ -107,91 +107,300 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"jeksterslab/ramR"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="symbolic-example" class="section level2">
+<div id="example" class="section level2">
 <h2 class="hasAnchor">
-<a href="#symbolic-example" class="anchor"></a>Symbolic Example</h2>
-<p>This is a symbolic example for the model</p>
-<p><em>y</em> = <em>α</em> + <em>β</em> ⋅ <em>x</em> + <em>ε</em>.</p>
+<a href="#example" class="anchor"></a>Example</h2>
+<p>Let <em>y</em>, <em>m</em>, <em>x</em>, <em>ε</em><sub><em>y</em></sub>, and <em>ε</em><sub><em>m</em></sub> be random variables whose associations are given by</p>
+<p><em>y</em> = <em>β</em><sub>0</sub> + <em>β</em><sub>1</sub><em>x</em> + <em>β</em><sub>2</sub><em>m</em> + <em>ε</em><sub><em>y</em></sub></p>
+<p><em>m</em> = <em>α</em><sub>0</sub> + <em>α</em><sub>1</sub><em>x</em> + <em>ε</em><sub><em>m</em></sub></p>
+<p>where</p>
+<ul>
+<li>
+<em>β</em><sub>1</sub> is the path from <em>x</em> on <em>y</em>
+</li>
+<li>
+<em>β</em><sub>2</sub> is the path from <em>m</em> to <em>y</em>
+</li>
+<li>
+<em>α</em><sub>1</sub> is the path from <em>x</em> to <em>m</em>
+</li>
+<li>
+<em>ε</em><sub><em>y</em></sub> and <em>ε</em><sub><em>m</em></sub> are uncorrelated error terms with means of zero and constant variances of <em>σ</em><sub><em>ε</em><sub><em>y</em></sub></sub><sup>2</sup> and <em>σ</em><sub><em>ε</em><sub><em>m</em></sub></sub><sup>2</sup> respectively</li>
+<li>
+<em>β</em><sub>0</sub> and <em>α</em><sub>0</sub> are intercepts</li>
+</ul>
+<div id="equations-to-ram" class="section level3">
+<h3 class="hasAnchor">
+<a href="#equations-to-ram" class="anchor"></a>Equations to RAM</h3>
+<p>The <code><a href="reference/eq2ram.html">ramR::eq2ram</a></code> converts structural equations to RAM notation.</p>
+<div id="symbolic" class="section level4">
+<h4 class="hasAnchor">
+<a href="#symbolic" class="anchor"></a>Symbolic</h4>
+<p>The simple mediation model can be expressed in the following equations</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">A</span> <span class="op">&lt;-</span> <span class="va">S</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
-  data <span class="op">=</span> <span class="fl">0</span>,
-  nrow <span class="op">=</span> <span class="fl">3</span>,
-  ncol <span class="op">=</span> <span class="fl">3</span>
-<span class="op">)</span>
-<span class="va">A</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="st">"beta"</span>, <span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="st">"sigma[x]^2"</span>, <span class="st">"sigma[varepsilon]^2"</span><span class="op">)</span>
-<span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
-<span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">filter</span>, <span class="fl">0</span><span class="op">)</span>
-<span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"alpha"</span>, <span class="st">"mu[x]"</span>, <span class="fl">0</span><span class="op">)</span></code></pre></div>
-<p>The covariance expectations can be symbolically derived using the <code><a href="reference/C_sym.html">ramR::C_sym()</a></code> function.</p>
+<code class="sourceCode R"><span class="va">eq_sym</span> <span class="op">&lt;-</span> <span class="st">"
+  # VARIABLE1 OPERATION VARIABLE2 LABEL
+  ey          by        y         1
+  em          by        m         1
+  y           on        x         beta[1]
+  y           on        m         beta[2]
+  m           on        x         alpha[1]
+  ey          with      ey        sigma[varepsilon[y]]^2
+  em          with      em        sigma[varepsilon[m]]^2
+  x           with      x         sigma[x]^2
+  y           on        1         beta[0]
+  m           on        1         alpha[0]
+  x           on        1         mu[x]
+"</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/C_sym.html">C_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span><span class="op">)</span>
-<span class="co">#&gt; {{sigma[x]^2*beta^2+sigma[varepsilon]^2,                       beta*sigma[x]^2,                   sigma[varepsilon]^2},</span>
-<span class="co">#&gt;  {                      sigma[x]^2*beta,                            sigma[x]^2,                                     0},</span>
-<span class="co">#&gt;  {                  sigma[varepsilon]^2,                                     0,                   sigma[varepsilon]^2}}</span></code></pre></div>
-<p>The covariance expectations for the observed variables can be symbolically derived using the <code><a href="reference/M_sym.html">ramR::M_sym()</a></code> function.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/M_sym.html">M_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span>, <span class="va">filter</span><span class="op">)</span>
-<span class="co">#&gt; {{sigma[x]^2*beta^2+sigma[varepsilon]^2,                       beta*sigma[x]^2},</span>
-<span class="co">#&gt;  {                      sigma[x]^2*beta,                            sigma[x]^2}}</span></code></pre></div>
-<p>The mean expectations can be symbolically derived using the <code><a href="reference/v_sym.html">ramR::v_sym()</a></code> function.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/v_sym.html">v_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">u</span><span class="op">)</span>
-<span class="co">#&gt; {{alpha+beta*mu[x]},</span>
-<span class="co">#&gt;  {           mu[x]},</span>
-<span class="co">#&gt;  {               0}}</span></code></pre></div>
-<p>The mean expectations for the observed variables can be symbolically derived using the <code><a href="reference/g_sym.html">ramR::g_sym()</a></code> function.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/g_sym.html">g_sym</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">u</span>, <span class="va">filter</span><span class="op">)</span>
-<span class="co">#&gt; {{alpha+beta*mu[x]},</span>
-<span class="co">#&gt;  {           mu[x]}}</span></code></pre></div>
+<code class="sourceCode R"><span class="va">ram</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/eq2ram.html">eq2ram</a></span><span class="op">(</span><span class="va">eq_sym</span><span class="op">)</span>
+<span class="va">ram</span>
+<span class="co">#&gt; $eq</span>
+<span class="co">#&gt;    var1   op var2                  label</span>
+<span class="co">#&gt; 1    ey   by    y                      1</span>
+<span class="co">#&gt; 2    em   by    m                      1</span>
+<span class="co">#&gt; 3     y   on    x                beta[1]</span>
+<span class="co">#&gt; 4     y   on    m                beta[2]</span>
+<span class="co">#&gt; 5     m   on    x               alpha[1]</span>
+<span class="co">#&gt; 6    ey with   ey sigma[varepsilon[y]]^2</span>
+<span class="co">#&gt; 7    em with   em sigma[varepsilon[m]]^2</span>
+<span class="co">#&gt; 8     x with    x             sigma[x]^2</span>
+<span class="co">#&gt; 9     y   on    1                beta[0]</span>
+<span class="co">#&gt; 10    m   on    1               alpha[0]</span>
+<span class="co">#&gt; 11    x   on    1                  mu[x]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $variables</span>
+<span class="co">#&gt; [1] "y"  "m"  "x"  "ey" "em"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $A</span>
+<span class="co">#&gt;    y   m         x          ey  em </span>
+<span class="co">#&gt; y  "0" "beta[2]" "beta[1]"  "1" "0"</span>
+<span class="co">#&gt; m  "0" "0"       "alpha[1]" "0" "1"</span>
+<span class="co">#&gt; x  "0" "0"       "0"        "0" "0"</span>
+<span class="co">#&gt; ey "0" "0"       "0"        "0" "0"</span>
+<span class="co">#&gt; em "0" "0"       "0"        "0" "0"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $S</span>
+<span class="co">#&gt;    y   m   x            ey                       em                      </span>
+<span class="co">#&gt; y  "0" "0" "0"          "0"                      "0"                     </span>
+<span class="co">#&gt; m  "0" "0" "0"          "0"                      "0"                     </span>
+<span class="co">#&gt; x  "0" "0" "sigma[x]^2" "0"                      "0"                     </span>
+<span class="co">#&gt; ey "0" "0" "0"          "sigma[varepsilon[y]]^2" "0"                     </span>
+<span class="co">#&gt; em "0" "0" "0"          "0"                      "sigma[varepsilon[m]]^2"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $filter</span>
+<span class="co">#&gt;   y m x ey em</span>
+<span class="co">#&gt; y 1 0 0  0  0</span>
+<span class="co">#&gt; m 0 1 0  0  0</span>
+<span class="co">#&gt; x 0 0 1  0  0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $u</span>
+<span class="co">#&gt;    u         </span>
+<span class="co">#&gt; y  "beta[0]" </span>
+<span class="co">#&gt; m  "alpha[0]"</span>
+<span class="co">#&gt; x  "mu[x]"   </span>
+<span class="co">#&gt; ey "0"       </span>
+<span class="co">#&gt; em "0"</span></code></pre></div>
 </div>
-<div id="numerical-example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#numerical-example" class="anchor"></a>Numerical Example</h2>
-<p>This is a numerical example for the model</p>
-<p><em>y</em> = <em>α</em> + <em>β</em> ⋅ <em>x</em> + <em>ε</em></p>
-<p><em>y</em> = 0 + 0.50<em>x</em> + <em>ε</em>.</p>
+<div id="numerical" class="section level4">
+<h4 class="hasAnchor">
+<a href="#numerical" class="anchor"></a>Numerical</h4>
+<p>Matrices of the RAM notation can be derived numerically by supplying values to the parameters.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">eq_num</span> <span class="op">&lt;-</span> <span class="st">"
+  # VARIABLE1 OPERATION VARIABLE2 VALUE
+  ey          by        y         1
+  em          by        m         1
+  y           on        x         0.00
+  y           on        m         0.50
+  m           on        x         0.50
+  ey          with      ey        168.75
+  em          with      em        168.75
+  x           with      x         225
+  y           on        1         50
+  m           on        1         50
+  x           on        1         100
+"</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/eq2ram.html">eq2ram</a></span><span class="op">(</span><span class="va">eq_num</span><span class="op">)</span>
+<span class="co">#&gt; $eq</span>
+<span class="co">#&gt;    var1   op var2  label</span>
+<span class="co">#&gt; 1    ey   by    y   1.00</span>
+<span class="co">#&gt; 2    em   by    m   1.00</span>
+<span class="co">#&gt; 3     y   on    x   0.00</span>
+<span class="co">#&gt; 4     y   on    m   0.50</span>
+<span class="co">#&gt; 5     m   on    x   0.50</span>
+<span class="co">#&gt; 6    ey with   ey 168.75</span>
+<span class="co">#&gt; 7    em with   em 168.75</span>
+<span class="co">#&gt; 8     x with    x 225.00</span>
+<span class="co">#&gt; 9     y   on    1  50.00</span>
+<span class="co">#&gt; 10    m   on    1  50.00</span>
+<span class="co">#&gt; 11    x   on    1 100.00</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $variables</span>
+<span class="co">#&gt; [1] "y"  "m"  "x"  "ey" "em"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $A</span>
+<span class="co">#&gt;    y   m   x ey em</span>
+<span class="co">#&gt; y  0 0.5 0.0  1  0</span>
+<span class="co">#&gt; m  0 0.0 0.5  0  1</span>
+<span class="co">#&gt; x  0 0.0 0.0  0  0</span>
+<span class="co">#&gt; ey 0 0.0 0.0  0  0</span>
+<span class="co">#&gt; em 0 0.0 0.0  0  0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $S</span>
+<span class="co">#&gt;    y m   x     ey     em</span>
+<span class="co">#&gt; y  0 0   0   0.00   0.00</span>
+<span class="co">#&gt; m  0 0   0   0.00   0.00</span>
+<span class="co">#&gt; x  0 0 225   0.00   0.00</span>
+<span class="co">#&gt; ey 0 0   0 168.75   0.00</span>
+<span class="co">#&gt; em 0 0   0   0.00 168.75</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $filter</span>
+<span class="co">#&gt;   y m x ey em</span>
+<span class="co">#&gt; y 1 0 0  0  0</span>
+<span class="co">#&gt; m 0 1 0  0  0</span>
+<span class="co">#&gt; x 0 0 1  0  0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $u</span>
+<span class="co">#&gt;      u</span>
+<span class="co">#&gt; y   50</span>
+<span class="co">#&gt; m   50</span>
+<span class="co">#&gt; x  100</span>
+<span class="co">#&gt; ey   0</span>
+<span class="co">#&gt; em   0</span></code></pre></div>
+</div>
+</div>
+<div id="equations-to-expectations" class="section level3">
+<h3 class="hasAnchor">
+<a href="#equations-to-expectations" class="anchor"></a>Equations to Expectations</h3>
+<p>The <code>ramR</code> package has a utility function to convert structural equations to expectations both symbolically and numerically.</p>
+<div id="symbolic-1" class="section level4">
+<h4 class="hasAnchor">
+<a href="#symbolic-1" class="anchor"></a>Symbolic</h4>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">exp</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/eq2exp_sym.html">eq2exp_sym</a></span><span class="op">(</span><span class="va">eq_sym</span><span class="op">)</span>
+<span class="va">exp</span>
+<span class="co">#&gt; $variables</span>
+<span class="co">#&gt; [1] "y"  "m"  "x"  "ey" "em"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $A</span>
+<span class="co">#&gt; {{       0,  beta[2],  beta[1],        1,        0},</span>
+<span class="co">#&gt;  {       0,        0, alpha[1],        0,        1},</span>
+<span class="co">#&gt;  {       0,        0,        0,        0,        0},</span>
+<span class="co">#&gt;  {       0,        0,        0,        0,        0},</span>
+<span class="co">#&gt;  {       0,        0,        0,        0,        0}} </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $S</span>
+<span class="co">#&gt; {{                     0,                      0,                      0,                      0,                      0},</span>
+<span class="co">#&gt;  {                     0,                      0,                      0,                      0,                      0},</span>
+<span class="co">#&gt;  {                     0,                      0,             sigma[x]^2,                      0,                      0},</span>
+<span class="co">#&gt;  {                     0,                      0,                      0, sigma[varepsilon[y]]^2,                      0},</span>
+<span class="co">#&gt;  {                     0,                      0,                      0,                      0, sigma[varepsilon[m]]^2}} </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $u</span>
+<span class="co">#&gt; {{ beta[0]},</span>
+<span class="co">#&gt;  {alpha[0]},</span>
+<span class="co">#&gt;  {   mu[x]},</span>
+<span class="co">#&gt;  {       0},</span>
+<span class="co">#&gt;  {       0}} </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $filter</span>
+<span class="co">#&gt; {{1, 0, 0, 0, 0},</span>
+<span class="co">#&gt;  {0, 1, 0, 0, 0},</span>
+<span class="co">#&gt;  {0, 0, 1, 0, 0}} </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $v</span>
+<span class="co">#&gt; {{beta[0]+beta[2]*alpha[0]+(beta[1]+beta[2]*alpha[1])*mu[x]},</span>
+<span class="co">#&gt;  {                                  alpha[0]+alpha[1]*mu[x]},</span>
+<span class="co">#&gt;  {                                                    mu[x]},</span>
+<span class="co">#&gt;  {                                                        0},</span>
+<span class="co">#&gt;  {                                                        0}} </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $g</span>
+<span class="co">#&gt; {{beta[0]+beta[2]*alpha[0]+(beta[1]+beta[2]*alpha[1])*mu[x]},</span>
+<span class="co">#&gt;  {                                  alpha[0]+alpha[1]*mu[x]},</span>
+<span class="co">#&gt;  {                                                    mu[x]}} </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $C</span>
+<span class="co">#&gt; {{sigma[x]^2*(beta[1]+beta[2]*alpha[1])^2+sigma[varepsilon[y]]^2+sigma[varepsilon[m]]^2*beta[2]^2,                   (beta[1]+beta[2]*alpha[1])*sigma[x]^2*alpha[1]+beta[2]*sigma[varepsilon[m]]^2,                                                           (beta[1]+beta[2]*alpha[1])*sigma[x]^2,                                                                          sigma[varepsilon[y]]^2,                                                                  beta[2]*sigma[varepsilon[m]]^2},</span>
+<span class="co">#&gt;  {                  alpha[1]*sigma[x]^2*(beta[1]+beta[2]*alpha[1])+sigma[varepsilon[m]]^2*beta[2],                                                    sigma[x]^2*alpha[1]^2+sigma[varepsilon[m]]^2,                                                                             alpha[1]*sigma[x]^2,                                                                                               0,                                                                          sigma[varepsilon[m]]^2},</span>
+<span class="co">#&gt;  {                                                          sigma[x]^2*(beta[1]+beta[2]*alpha[1]),                                                                             sigma[x]^2*alpha[1],                                                                                      sigma[x]^2,                                                                                               0,                                                                                               0},</span>
+<span class="co">#&gt;  {                                                                         sigma[varepsilon[y]]^2,                                                                                               0,                                                                                               0,                                                                          sigma[varepsilon[y]]^2,                                                                                               0},</span>
+<span class="co">#&gt;  {                                                                 sigma[varepsilon[m]]^2*beta[2],                                                                          sigma[varepsilon[m]]^2,                                                                                               0,                                                                                               0,                                                                          sigma[varepsilon[m]]^2}} </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $M</span>
+<span class="co">#&gt; {{sigma[x]^2*(beta[1]+beta[2]*alpha[1])^2+sigma[varepsilon[y]]^2+sigma[varepsilon[m]]^2*beta[2]^2,                   (beta[1]+beta[2]*alpha[1])*sigma[x]^2*alpha[1]+beta[2]*sigma[varepsilon[m]]^2,                                                           (beta[1]+beta[2]*alpha[1])*sigma[x]^2},</span>
+<span class="co">#&gt;  {                  alpha[1]*sigma[x]^2*(beta[1]+beta[2]*alpha[1])+sigma[varepsilon[m]]^2*beta[2],                                                    sigma[x]^2*alpha[1]^2+sigma[varepsilon[m]]^2,                                                                             alpha[1]*sigma[x]^2},</span>
+<span class="co">#&gt;  {                                                          sigma[x]^2*(beta[1]+beta[2]*alpha[1]),                                                                             sigma[x]^2*alpha[1],                                                                                      sigma[x]^2}}</span></code></pre></div>
+</div>
+<div id="numerical-1" class="section level4">
+<h4 class="hasAnchor">
+<a href="#numerical-1" class="anchor"></a>Numerical</h4>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">A</span> <span class="op">&lt;-</span> <span class="va">S</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
-  data <span class="op">=</span> <span class="fl">0</span>,
-  nrow <span class="op">=</span> <span class="fl">3</span>,
-  ncol <span class="op">=</span> <span class="fl">3</span>
-<span class="op">)</span>
-<span class="va">A</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.25</span>, <span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"x"</span>, <span class="st">"e"</span><span class="op">)</span>
-<span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
-<span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">filter</span>, <span class="fl">0</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">filter</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"x"</span>, <span class="st">"e"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">filter</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"x"</span><span class="op">)</span>
-<span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.00</span>, <span class="fl">0.50</span>, <span class="fl">0.00</span><span class="op">)</span></code></pre></div>
-<p>The covariance expectations can be numerically derived using the <code><a href="reference/C_num.html">ramR::C_num()</a></code> function.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/C_num.html">C_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span><span class="op">)</span>
-<span class="co">#&gt;      y    x e</span>
-<span class="co">#&gt; y 1.25 0.25 1</span>
-<span class="co">#&gt; x 0.25 0.25 0</span>
-<span class="co">#&gt; e 1.00 0.00 1</span></code></pre></div>
-<p>The covariance expectations for the observed variables can be numerically derived using the <code><a href="reference/M_num.html">ramR::M_num()</a></code> function.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/M_num.html">M_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span>, <span class="va">filter</span><span class="op">)</span>
-<span class="co">#&gt;      y    x</span>
-<span class="co">#&gt; y 1.25 0.25</span>
-<span class="co">#&gt; x 0.25 0.25</span></code></pre></div>
-<p>The mean expectations can be numerically derived using the <code><a href="reference/v_num.html">ramR::v_num()</a></code> function.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/v_num.html">v_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">u</span><span class="op">)</span>
-<span class="co">#&gt;     v</span>
-<span class="co">#&gt; y 0.5</span>
-<span class="co">#&gt; x 0.5</span>
-<span class="co">#&gt; e 0.0</span></code></pre></div>
-<p>The mean expectations for the observed variables can be numerically derived using the <code><a href="reference/v_num.html">ramR::v_num()</a></code> function.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/g_num.html">g_num</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">u</span>, <span class="va">filter</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="reference/eq2exp_num.html">eq2exp_num</a></span><span class="op">(</span><span class="va">eq_num</span><span class="op">)</span>
+<span class="co">#&gt; $variables</span>
+<span class="co">#&gt; [1] "y"  "m"  "x"  "ey" "em"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $A</span>
+<span class="co">#&gt;    y   m   x ey em</span>
+<span class="co">#&gt; y  0 0.5 0.0  1  0</span>
+<span class="co">#&gt; m  0 0.0 0.5  0  1</span>
+<span class="co">#&gt; x  0 0.0 0.0  0  0</span>
+<span class="co">#&gt; ey 0 0.0 0.0  0  0</span>
+<span class="co">#&gt; em 0 0.0 0.0  0  0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $S</span>
+<span class="co">#&gt;    y m   x     ey     em</span>
+<span class="co">#&gt; y  0 0   0   0.00   0.00</span>
+<span class="co">#&gt; m  0 0   0   0.00   0.00</span>
+<span class="co">#&gt; x  0 0 225   0.00   0.00</span>
+<span class="co">#&gt; ey 0 0   0 168.75   0.00</span>
+<span class="co">#&gt; em 0 0   0   0.00 168.75</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $u</span>
+<span class="co">#&gt;      u</span>
+<span class="co">#&gt; y   50</span>
+<span class="co">#&gt; m   50</span>
+<span class="co">#&gt; x  100</span>
+<span class="co">#&gt; ey   0</span>
+<span class="co">#&gt; em   0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $filter</span>
+<span class="co">#&gt;   y m x ey em</span>
+<span class="co">#&gt; y 1 0 0  0  0</span>
+<span class="co">#&gt; m 0 1 0  0  0</span>
+<span class="co">#&gt; x 0 0 1  0  0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $v</span>
+<span class="co">#&gt;      v</span>
+<span class="co">#&gt; y  100</span>
+<span class="co">#&gt; m  100</span>
+<span class="co">#&gt; x  100</span>
+<span class="co">#&gt; ey   0</span>
+<span class="co">#&gt; em   0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $g</span>
 <span class="co">#&gt;     g</span>
-<span class="co">#&gt; y 0.5</span>
-<span class="co">#&gt; x 0.5</span></code></pre></div>
+<span class="co">#&gt; y 100</span>
+<span class="co">#&gt; m 100</span>
+<span class="co">#&gt; x 100</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $C</span>
+<span class="co">#&gt;          y      m      x     ey      em</span>
+<span class="co">#&gt; y  225.000 112.50  56.25 168.75  84.375</span>
+<span class="co">#&gt; m  112.500 225.00 112.50   0.00 168.750</span>
+<span class="co">#&gt; x   56.250 112.50 225.00   0.00   0.000</span>
+<span class="co">#&gt; ey 168.750   0.00   0.00 168.75   0.000</span>
+<span class="co">#&gt; em  84.375 168.75   0.00   0.00 168.750</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $M</span>
+<span class="co">#&gt;        y     m      x</span>
+<span class="co">#&gt; y 225.00 112.5  56.25</span>
+<span class="co">#&gt; m 112.50 225.0 112.50</span>
+<span class="co">#&gt; x  56.25 112.5 225.00</span></code></pre></div>
+</div>
+</div>
 </div>
 <div id="more-information" class="section level2">
 <h2 class="hasAnchor">
