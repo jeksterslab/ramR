@@ -1,7 +1,7 @@
 Reticular Action Model (RAM) Notation
 ================
 Ivan Jacob Agaloos Pesigan
-2021-01-25
+2021-01-26
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
@@ -198,8 +198,8 @@ ramR::eq2ram(eq_num)
 
 ### Equations to Expectations
 
-The `ramR` package has a utility function to convert structural
-equations to expectations both symbolically and numerically.
+The `ramR` package has functions to convert structural equations to
+expectations both symbolically and numerically.
 
 #### Symbolic
 

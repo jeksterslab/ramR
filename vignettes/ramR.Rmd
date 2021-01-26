@@ -179,7 +179,7 @@ ramR::eq2ram(eq_num)
 
 ### Equations to Expectations
 
-The `ramR` package has a utility function
+The `ramR` package has functions
 to convert structural equations to expectations
 both symbolically and numerically.
 
