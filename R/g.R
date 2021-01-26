@@ -54,11 +54,7 @@
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
 #'
-#' A <- matrix(
-#'   data = 0,
-#'   nrow = 3,
-#'   ncol = 3
-#' )
+#' A <- matrixR::zeroes(3, 3)
 #' A[1, ] <- c(0, 1, 1)
 #' u <- c(0.00, 0.50, 0.00)
 #' filter <- diag(2)
@@ -91,16 +87,12 @@ g_num <- function(A,
 #' @family g functions
 #' @inherit g_num description details references return
 #' @inheritParams g_num
-#' @inheritParams E_sym
+#' @inheritParams IminusA_sym
 #' @examples
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
 #'
-#' A <- matrix(
-#'   data = 0,
-#'   nrow = 3,
-#'   ncol = 3
-#' )
+#' A <- matrixR::zeroes(3, 3)
 #' A[1, ] <- c(0, "beta", 1)
 #' u <- c("alpha", "mux", 0)
 #' filter <- diag(2)

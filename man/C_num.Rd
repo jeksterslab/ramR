@@ -61,11 +61,7 @@ such as variances and covariances, and
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
 
-A <- S <- matrix(
-  data = 0,
-  nrow = 3,
-  ncol = 3
-)
+A <- S <- matrixR::zeroes(3, 3)
 A[1, ] <- c(0, 1, 1)
 diag(S) <- c(0, 0.25, 1)
 colnames(A) <- rownames(A) <- c("y", "x", "e")

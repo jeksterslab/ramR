@@ -64,11 +64,7 @@ the model-implied variance-covariance matrix, and
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
 
-A <- matrix(
-  data = 0,
-  nrow = 3,
-  ncol = 3
-)
+A <- matrixR::zeroes(3, 3)
 A[1, ] <- c(0, 1, 1)
 C <- matrix(
   data = c(

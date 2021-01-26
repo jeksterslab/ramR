@@ -28,6 +28,16 @@ A <- S <- matrix(
   ncol = 3,
   nrow = 2
 )
+test_that("IminusA_num: square.", {
+  expect_error(
+    IminusA_num(A)
+  )
+})
+test_that("IminusA_sym: square.", {
+  expect_error(
+    IminusA_sym(A)
+  )
+})
 test_that("E_num: square.", {
   expect_error(
     E_num(A)
@@ -101,6 +111,20 @@ A <- matrix(
 test_that("E_num: singular.", {
   expect_error(
     E_num(A)
+  )
+})
+test_that("IminusA_num: singular.", {
+  expect_error(
+    IminusA_num(A)
+  )
+})
+A <- matrix(
+  data = c(1, 0, 0, 0),
+  ncol = 2
+)
+test_that("IminusA_num: nilpotent.", {
+  expect_error(
+    IminusA_num(A)
   )
 })
 #'

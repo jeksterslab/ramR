@@ -217,11 +217,7 @@ of the Reticular Action Model for moment structures.
 <span class='co'># y = alpha + beta * x + e</span>
 <span class='co'># y = 0 + 1 * x + e</span>
 
-<span class='va'>A</span> <span class='op'>&lt;-</span> <span class='va'>S</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span>
-  data <span class='op'>=</span> <span class='fl'>0</span>,
-  nrow <span class='op'>=</span> <span class='fl'>3</span>,
-  ncol <span class='op'>=</span> <span class='fl'>3</span>
-<span class='op'>)</span>
+<span class='va'>A</span> <span class='op'>&lt;-</span> <span class='va'>S</span> <span class='op'>&lt;-</span> <span class='fu'>matrixR</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/matrixR/man/zeroes.html'>zeroes</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>)</span>
 <span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='va'>S</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.25</span>, <span class='fl'>1</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"y"</span>, <span class='st'>"x"</span>, <span class='st'>"e"</span><span class='op'>)</span>

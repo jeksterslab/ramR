@@ -42,7 +42,7 @@
 #'
 #' @keywords S
 #' @family S functions
-#' @inheritParams E_num
+#' @inheritParams IminusA_num
 #' @inherit ramR references
 #' @param C `t x t` numeric matrix \eqn{\mathbf{C}}.
 #'   Model-implied variance-covariance matrix.
@@ -54,11 +54,7 @@
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
 #'
-#' A <- matrix(
-#'   data = 0,
-#'   nrow = 3,
-#'   ncol = 3
-#' )
+#' A <- matrixR::zeroes(3, 3)
 #' A[1, ] <- c(0, 1, 1)
 #' C <- matrix(
 #'   data = c(
@@ -105,16 +101,12 @@ S_num <- function(A,
 #' @family S functions
 #' @inherit S_num description details references return
 #' @inheritParams S_num
-#' @inheritParams E_sym
+#' @inheritParams IminusA_sym
 #' @examples
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
 #'
-#' A <- matrix(
-#'   data = 0,
-#'   nrow = 3,
-#'   ncol = 3
-#' )
+#' A <- matrixR::zeroes(3, 3)
 #' A[1, ] <- c(0, "beta", 1)
 #' C <- matrix(
 #'   data = c(

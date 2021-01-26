@@ -58,11 +58,7 @@ such as regression coefficients and factor loadings,
 # This is a symbolic example for the model
 # y = alpha + beta * x + e
 
-A <- matrix(
-  data = 0,
-  nrow = 3,
-  ncol = 3
-)
+A <- matrixR::zeroes(3, 3)
 A[1, ] <- c(0, "beta", 1)
 u <- c("alpha", "mux", 0)
 v_sym(A, u)

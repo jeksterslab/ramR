@@ -30,16 +30,12 @@ sigma2x <- runif(n = 1, min = 0, max = 1)
 sigma2epsilon <- runif(n = 1, min = 0, max = 1)
 mux <- runif(n = 1, min = -1, max = 1)
 muepsilon <- 0
-A <- S <- matrix(
-  data = 0,
-  nrow = 3,
-  ncol = 3
-)
-A[1, 2] <- beta
-A[1, 3] <- 1
+A <- S <- matrixR::zeroes(3, 3)
+A[1, ] <- c(0, beta, 1)
 diag(S) <- c(0, sigma2x, sigma2epsilon)
 colnames(A) <- rownames(A) <- c("y", "x", "e")
-I <- diag(dim(A)[1])
+I <- matrixR::ones_from(A)
+IminusA <- I - A
 E <- as_r(solve(ysym(I) - ysym(A)))
 filter <- diag(2)
 filter <- cbind(filter, 0)
@@ -69,6 +65,7 @@ results_ram_num_v <- round(ram_num$v, digits = 4)
 results_ram_num_g <- round(ram_num$g, digits = 4)
 results_C_num <- round(C_num(A, S), digits = 4)
 results_E_num <- round(E_num(A), digits = 4)
+results_IminusA_num <- round(IminusA_num(A), digits = 4)
 results_M_num <- round(M_num(A, S, filter), digits = 4)
 results_S_num <- round(S_num(A, C), digits = 4)
 results_v_num <- round(v_num(A, u), digits = 4)
@@ -102,6 +99,7 @@ results_ram_sym_v <- round(as_r(ram_sym$v), digits = 4)
 results_ram_sym_g <- round(as_r(ram_sym$g), digits = 4)
 results_C_sym <- round(as_r(C_sym(A, S, simplify = TRUE)), digits = 4)
 results_E_sym <- round(as_r(E_sym(A, simplify = TRUE)), digits = 4)
+results_IminusA_sym <- round(as_r(IminusA_sym(A, simplify = TRUE)), digits = 4)
 results_M_sym <- round(as_r(M_sym(A, S, filter, simplify = TRUE)), digits = 4)
 results_S_sym <- round(as_r(S_sym(A, C, simplify = TRUE)), digits = 4)
 results_v_sym <- round(as_r(v_sym(A, u, simplify = TRUE)), digits = 4)
@@ -116,6 +114,7 @@ results_eq2exp_sym_g <- round(as_r(eq2exp_sym$g), digits = 4)
 #+ round_source
 C <- round(C, digits = 4)
 E <- round(E, digits = 4)
+IminusA <- round(IminusA, digits = 4)
 M <- round(M, digits = 4)
 S <- round(S, digits = 4)
 v <- round(v, digits = 4)
@@ -146,6 +145,18 @@ test_that("E.", {
         E[i, j],
         results_E_num[i, j],
         results_E_sym[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+test_that("IminusA.", {
+  for (i in seq_len(nrow(IminusA))) {
+    for (j in seq_len(ncol(IminusA))) {
+      expect_equal(
+        IminusA[i, j],
+        results_IminusA_num[i, j],
+        results_IminusA_sym[i, j],
         check.attributes = FALSE
       )
     }

@@ -29,9 +29,7 @@
 #' @keywords E
 #' @family E functions
 #' @inherit ramR references
-#' @param A `t x t` matrix \eqn{\mathbf{A}}.
-#'   Asymmetric paths (single-headed arrows),
-#'   such as regression coefficients and factor loadings.
+#' @inheritParams IminusA_num
 #' @return Returns the matrix of total effects
 #'   \eqn{\mathbf{E}}.
 #' @examples
@@ -39,29 +37,14 @@
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
 #'
-#' A <- matrix(
-#'   data = 0,
-#'   nrow = 3,
-#'   ncol = 3
-#' )
+#' A <- matrixR::zeroes(3, 3)
 #' A[1, ] <- c(0, 1, 1)
 #' colnames(A) <- rownames(A) <- c("y", "x", "e")
 #' E_num(A)
 #' @export
 E_num <- function(A) {
-  if (!matrixR::is_sqr(A)) {
-    stop(
-      "`A` should be a square matrix."
-    )
-  }
-  IminusA <- diag(nrow(A)) - A
-  if (matrixR::is_sing(IminusA)) {
-    stop(
-      "`I - A` is singular."
-    )
-  }
   return(
-    solve(IminusA)
+    solve(IminusA_num(A))
   )
 }
 
@@ -73,29 +56,18 @@ E_num <- function(A) {
 #' @keywords E
 #' @family E functions
 #' @inherit E_num description details references return
-#' @inheritParams E_num
-#' @param simplify Logical.
-#'   Simplify the results.
+#' @inheritParams IminusA_sym
 #' @examples
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
 #'
-#' A <- matrix(
-#'   data = 0,
-#'   nrow = 3,
-#'   ncol = 3
-#' )
+#' A <- matrixR::zeroes(3, 3)
 #' A[1, ] <- c(0, "beta", 1)
 #' E_sym(A)
 #' @export
 E_sym <- function(A,
                   simplify = FALSE) {
-  if (!matrixR::is_sqr(A, chk.num = FALSE)) {
-    stop(
-      "`A` should be a square matrix."
-    )
-  }
-  out <- solve(Ryacas::ysym(diag(dim(A)[1])) - Ryacas::ysym(A))
+  out <- solve(IminusA_sym(A, simplify))
   if (simplify) {
     out <- Ryacas::simplify(out)
   }

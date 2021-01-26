@@ -56,11 +56,7 @@ such as regression coefficients and factor loadings,
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
 
-A <- matrix(
-  data = 0,
-  nrow = 3,
-  ncol = 3
-)
+A <- matrixR::zeroes(3, 3)
 A[1, ] <- c(0, 1, 1)
 v <- c(0.50, 0.50, 0.00)
 colnames(A) <- rownames(A) <- c("y", "x", "e")

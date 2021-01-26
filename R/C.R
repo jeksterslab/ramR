@@ -52,11 +52,7 @@
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
 #'
-#' A <- S <- matrix(
-#'   data = 0,
-#'   nrow = 3,
-#'   ncol = 3
-#' )
+#' A <- S <- matrixR::zeroes(3, 3)
 #' A[1, ] <- c(0, 1, 1)
 #' diag(S) <- c(0, 0.25, 1)
 #' colnames(A) <- rownames(A) <- c("y", "x", "e")
@@ -97,16 +93,12 @@ C_num <- function(A,
 #' @family C functions
 #' @inherit C_num description details references return
 #' @inheritParams C_num
-#' @inheritParams E_sym
+#' @inheritParams IminusA_sym
 #' @examples
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
 #'
-#' A <- S <- matrix(
-#'   data = 0,
-#'   nrow = 3,
-#'   ncol = 3
-#' )
+#' A <- S <- matrixR::zeroes(3, 3)
 #' A[1, ] <- c(0, "beta", 1)
 #' diag(S) <- c(0, "sigma2x", "sigma2e")
 #' C_sym(A, S)

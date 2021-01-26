@@ -44,11 +44,7 @@
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
 #'
-#' A <- matrix(
-#'   data = 0,
-#'   nrow = 3,
-#'   ncol = 3
-#' )
+#' A <- matrixR::zeroes(3, 3)
 #' A[1, ] <- c(0, 1, 1)
 #' v <- c(0.50, 0.50, 0.00)
 #' colnames(A) <- rownames(A) <- c("y", "x", "e")
@@ -58,7 +54,7 @@ u_num <- function(A,
                   v) {
   # (I - A) * v
   out <- as.matrix(
-    (diag(nrow(A)) - A) %*% as.matrix(v)
+    (matrixR::ones_from(A) - A) %*% as.matrix(v)
   )
   colnames(out) <- "u"
   return(
@@ -75,16 +71,12 @@ u_num <- function(A,
 #' @family u functions
 #' @inherit u_num description details references return
 #' @inheritParams u_num
-#' @inheritParams E_sym
+#' @inheritParams IminusA_sym
 #' @examples
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
 #'
-#' A <- matrix(
-#'   data = 0,
-#'   nrow = 3,
-#'   ncol = 3
-#' )
+#' A <- matrixR::zeroes(3, 3)
 #' A[1, ] <- c(0, "beta", 1)
 #' v <- c("alpha+beta*mux", "mux", 0)
 #' u_sym(A, v)
@@ -93,7 +85,7 @@ u_sym <- function(A,
                   v,
                   simplify = FALSE) {
   v <- as.matrix(v)
-  out <- (Ryacas::ysym(diag(dim(A)[1])) - Ryacas::ysym(A)) * Ryacas::ysym(v)
+  out <- (Ryacas::ysym(matrixR::ones_from(A)) - Ryacas::ysym(A)) * Ryacas::ysym(v)
   if (simplify) {
     out <- Ryacas::simplify(out)
   }

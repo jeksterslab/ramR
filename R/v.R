@@ -44,11 +44,7 @@
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
 #'
-#' A <- matrix(
-#'   data = 0,
-#'   nrow = 3,
-#'   ncol = 3
-#' )
+#' A <- matrixR::zeroes(3, 3)
 #' A[1, ] <- c(0, 1, 1)
 #' u <- c(0.00, 0.50, 0.00)
 #' colnames(A) <- rownames(A) <- c("y", "x", "e")
@@ -76,16 +72,12 @@ v_num <- function(A,
 #' @family v functions
 #' @inherit v_num description details references return
 #' @inheritParams v_num
-#' @inheritParams E_sym
+#' @inheritParams IminusA_sym
 #' @examples
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
 #'
-#' A <- matrix(
-#'   data = 0,
-#'   nrow = 3,
-#'   ncol = 3
-#' )
+#' A <- matrixR::zeroes(3, 3)
 #' A[1, ] <- c(0, "beta", 1)
 #' u <- c("alpha", "mux", 0)
 #' v_sym(A, u)

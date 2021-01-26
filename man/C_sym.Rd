@@ -63,11 +63,7 @@ such as variances and covariances, and
 # This is a symbolic example for the model
 # y = alpha + beta * x + e
 
-A <- S <- matrix(
-  data = 0,
-  nrow = 3,
-  ncol = 3
-)
+A <- S <- matrixR::zeroes(3, 3)
 A[1, ] <- c(0, "beta", 1)
 diag(S) <- c(0, "sigma2x", "sigma2e")
 C_sym(A, S)
