@@ -44,13 +44,13 @@ IminusA_num <- function(A) {
       "`A` should be a nilpotent matrix."
     )
   }
-  out <- matrixR::ones_from(A) - A
-  if (matrixR::is_sing(out)) {
-    stop(
-      "`I - A` is singular."
-    )
-  }
-  return(out)
+  # nilpotent is good enough
+  # if (matrixR::is_sing(out)) {
+  #  stop(
+  #    "`I - A` is singular."
+  #  )
+  # }
+  return(matrixR::ones_from(A) - A)
 }
 
 #' @author Ivan Jacob Agaloos Pesigan
