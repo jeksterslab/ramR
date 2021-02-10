@@ -369,8 +369,110 @@ of the Reticular Action Model for moment structures.
 #&gt;      y    x
 #&gt; y 1.25 0.25
 #&gt; x 0.25 0.25
-#&gt; </div><div class='input'>
-<span class='co'># Symbolic -------------------------------------------------------------</span>
+#&gt; </div><div class='input'><span class='va'>eq</span> <span class='op'>&lt;-</span> <span class='st'>"
+  # lhs op   rhs label
+    e   by   y   1; y   on   x   1;
+    e   with e   1;
+    x   with x   0.25
+    y   on   1   0; x   on   1   0.50;
+"</span>
+<span class='fu'>Eq2Expectations</span><span class='op'>(</span><span class='va'>eq</span>, par <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $variables
+#&gt; [1] "y" "x" "e"
+#&gt; 
+#&gt; $A
+#&gt;   y x e
+#&gt; y 0 1 1
+#&gt; x 0 0 0
+#&gt; e 0 0 0
+#&gt; 
+#&gt; $S
+#&gt;   y    x e
+#&gt; y 0 0.00 0
+#&gt; x 0 0.25 0
+#&gt; e 0 0.00 1
+#&gt; 
+#&gt; $u
+#&gt;     u
+#&gt; y 0.0
+#&gt; x 0.5
+#&gt; e 0.0
+#&gt; 
+#&gt; $Filter
+#&gt;   y x e
+#&gt; y 1 0 0
+#&gt; x 0 1 0
+#&gt; 
+#&gt; $v
+#&gt;     v
+#&gt; y 0.5
+#&gt; x 0.5
+#&gt; e 0.0
+#&gt; 
+#&gt; $g
+#&gt;     g
+#&gt; y 0.5
+#&gt; x 0.5
+#&gt; 
+#&gt; $C
+#&gt;      y    x e
+#&gt; y 1.25 0.25 1
+#&gt; x 0.25 0.25 0
+#&gt; e 1.00 0.00 1
+#&gt; 
+#&gt; $M
+#&gt;      y    x
+#&gt; y 1.25 0.25
+#&gt; x 0.25 0.25
+#&gt; </div><div class='input'><span class='fu'>Eq2Expectations</span><span class='op'>(</span><span class='va'>eq</span>, par <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $variables
+#&gt; [1] "y" "x" "e"
+#&gt; 
+#&gt; $A
+#&gt;   y x e
+#&gt; y 0 1 1
+#&gt; x 0 0 0
+#&gt; e 0 0 0
+#&gt; 
+#&gt; $S
+#&gt;   y    x e
+#&gt; y 0 0.00 0
+#&gt; x 0 0.25 0
+#&gt; e 0 0.00 1
+#&gt; 
+#&gt; $u
+#&gt;     u
+#&gt; y 0.0
+#&gt; x 0.5
+#&gt; e 0.0
+#&gt; 
+#&gt; $Filter
+#&gt;   y x e
+#&gt; y 1 0 0
+#&gt; x 0 1 0
+#&gt; 
+#&gt; $v
+#&gt;     v
+#&gt; y 0.5
+#&gt; x 0.5
+#&gt; e 0.0
+#&gt; 
+#&gt; $g
+#&gt;     g
+#&gt; y 0.5
+#&gt; x 0.5
+#&gt; 
+#&gt; $C
+#&gt;      y    x e
+#&gt; y 1.25 0.25 1
+#&gt; x 0.25 0.25 0
+#&gt; e 1.00 0.00 1
+#&gt; 
+#&gt; $M
+#&gt;      y    x
+#&gt; y 1.25 0.25
+#&gt; x 0.25 0.25
+#&gt; </div><div class='input'><span class='co'># Symbolic -------------------------------------------------------------</span>
 <span class='va'>eq</span> <span class='op'>&lt;-</span> <span class='st'>"
   # lhs op   rhs label
     e   by   y   1

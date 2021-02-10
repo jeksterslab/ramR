@@ -72,7 +72,7 @@ SymbolicM <- round(
     ramR::M(
       Ryacas::ysym(A),
       Ryacas::ysym(S),
-      Filter,
+      Ryacas::ysym(Filter),
       str = TRUE,
       simplify = TRUE
     )

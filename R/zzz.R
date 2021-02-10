@@ -52,8 +52,8 @@ isFALSE <- function(x) {
 
 Parse <- function(eq) {
   eq <- gsub(pattern = "#[^\\\n]*", replacement = "", x = eq)
-  eq <- unlist(strsplit(x = eq, split = "\n"))
-  eq <- unlist(strsplit(x = eq, split = ";"))
+  eq <- unlist(strsplit(x = eq, split = "[\n;]"))
+  # eq <- unlist(strsplit(x = eq, split = ";"))
   eq <- trimws(x = gsub(pattern = "\\s+", replacement = " ", x = eq))
   eq <- do.call(what = "rbind", args = strsplit(x = eq, split = " "))
   if (dim(eq)[2] == 5) {

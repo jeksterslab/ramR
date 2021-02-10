@@ -43,9 +43,7 @@
 #'     y   on   1   0
 #'     x   on   1   0.50
 #' "
-#' Eq2Expectations(eq, par = FALSE)
-#' Eq2Expectations(eq, par = TRUE)
-#'
+#' 
 #' # Symbolic -------------------------------------------------------------
 #' eq <- "
 #'   # lhs op   rhs label

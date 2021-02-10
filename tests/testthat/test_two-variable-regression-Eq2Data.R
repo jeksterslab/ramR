@@ -54,12 +54,12 @@ g <- as.matrix(Ryacas::as_r(Ryacas::ysym(Filter) * Ryacas::ysym(v)))
 #'
 #+ Eq2Data
 eq <- paste(
-  "e by y 1", ";",
-  "y on x", beta, ";",
-  "e with e", sigmae2, ";",
-  "x with x", sigmax2, ";",
-  "y on 1", alpha, ";",
-  "x on 1", mux, ";"
+  "e by y 1", "\n",
+  "y on x", beta, "\n",
+  "e with e", sigmae2, "\n",
+  "x with x", sigmax2, "\n",
+  "y on 1", alpha, "\n",
+  "x on 1", mux, "\n"
 )
 n <- 100
 Data <- ramR::Eq2Data(eq, n = n, empirical = TRUE)
