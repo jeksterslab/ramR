@@ -1,10 +1,12 @@
-#' @author Ivan Jacob Agaloos Pesigan
+#' Matrix of Covariance Expectations of Observed Variables
+#' \eqn{\mathbf{M}}
 #'
-#' @title Matrix of Covariance Expectations of Observed Variables
-#'   \eqn{\mathbf{M}} - Numeric
+#' Derives the matrix of covariance expectations of observed variables
+#' \eqn{\mathbf{M}}.
 #'
-#' @description Derives the matrix of covariance expectations of observed variables
-#'   \eqn{\mathbf{M}}.
+#' The matrix of covariance expectations for given variables
+#' \eqn{\mathbf{M}} as a function of Reticular Action Model (RAM) matrices
+#' is given by
 #'
 #'   \deqn{
 #'     \mathbf{M}
@@ -45,13 +47,15 @@
 #'     used to select the observed variables,
 #'   - \eqn{p} number of observed variables,
 #'   - \eqn{q} number of latent variables, and
-#'   - \eqn{t} number of observed and latent variables, that is \eqn{p + q} .
+#'   - \eqn{t} number of observed and latent variables,
+#'     that is \eqn{p + q} .
 #'
-#' @keywords M
-#' @family M functions
-#' @inheritParams C_num
+#' @author Ivan Jacob Agaloos Pesigan
+#' @family RAM matrices functions
+#' @keywords ram
 #' @inherit ramR references
-#' @param filter `p x t` numeric matrix
+#' @inheritParams C
+#' @param Filter `p x t` numeric matrix
 #'   \eqn{\mathbf{F}}.
 #'   Filter matrix used to select observed variables.
 #' @examples
@@ -59,61 +63,124 @@
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
 #'
-#' A <- S <- matrixR::zeroes(3, 3)
+#' # Numeric -----------------------------------------------------------
+#' A <- S <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, 1, 1)
 #' diag(S) <- c(0, 0.25, 1)
-#' filter <- diag(2)
-#' filter <- cbind(filter, 0)
-#' colnames(filter) <- c("y", "x", "e")
-#' rownames(filter) <- c("y", "x")
-#' M_num(A, S, filter)
+#' colnames(A) <- rownames(A) <- c("y", "x", "e")
+#' Filter <- diag(2)
+#' Filter <- cbind(Filter, 0)
+#' colnames(Filter) <- c("y", "x", "e")
+#' M(A, S, Filter)
+#'
+#' # Symbolic ----------------------------------------------------------
+#' A <- S <- matrixR::ZeroMatrix(3)
+#' A[1, ] <- c(0, "beta", 1)
+#' diag(S) <- c(0, "sigmax2", "sigmae2")
+#' M(Ryacas::ysym(A), S, Filter)
+#' M(Ryacas::ysym(A), S, Filter, tex = TRUE)
+#' M(Ryacas::ysym(A), S, Filter, ysym = FALSE)
+#' M(Ryacas::ysym(A), S, Filter, str = FALSE)
+#'
+#' beta <- 1
+#' sigmax2 <- 0.25
+#' sigmae2 <- 1
+#' M(Ryacas::ysym(A), S, Filter)
+#' M(Ryacas::ysym(A), S, Filter, tex = TRUE)
+#' M(Ryacas::ysym(A), S, Filter, ysym = FALSE)
+#' M(Ryacas::ysym(A), S, Filter, str = FALSE)
+#' eval(M(Ryacas::ysym(A), S, Filter, str = FALSE))
 #' @export
-M_num <- function(A,
-                  S,
-                  filter) {
-  # F * (I - A)^{-1} * S * ((I - A)^{-1})^T * F^T
-  return(
-    filter %*% tcrossprod(
-      x = C_num(
-        A = A,
-        S = S
-      ),
-      y = filter
-    )
-  )
+M <- function(A,
+              S,
+              Filter,
+              ...) {
+  UseMethod("M")
 }
 
-#' @author Ivan Jacob Agaloos Pesigan
-#'
-#' @title Matrix of Covariance Expectations of Observed Variables
-#'   \eqn{\mathbf{M}} - Symbolic
-#'
-#' @keywords M
-#' @family M functions
-#' @inherit M_num description details references return
-#' @inheritParams M_num
-#' @inheritParams IminusA_sym
-#' @examples
-#' # This is a symbolic example for the model
-#' # y = alpha + beta * x + e
-#'
-#' A <- S <- matrixR::zeroes(3, 3)
-#' A[1, ] <- c(0, "beta", 1)
-#' diag(S) <- c(0, "sigma2x", "sigma2e")
-#' filter <- diag(2)
-#' filter <- cbind(filter, 0)
-#' M_sym(A, S, filter)
+#' @rdname M
+#' @inheritParams IminusA
+#' @inheritParams M
 #' @export
-M_sym <- function(A,
-                  S,
-                  filter,
-                  simplify = FALSE) {
-  filter <- Ryacas::ysym(filter)
-  out <- filter * C_sym(A, S) * t(filter)
-  if (simplify) {
-    out <- Ryacas::simplify(out)
+M.default <- function(A,
+                      S,
+                      Filter = NULL,
+                      ...) {
+  C <- C.default(A, S)
+  if (isFALSE(is.null(Filter))) {
+    if (dim(C)[1] != dim(Filter)[2]) {
+      stop(
+        "`A` and `Filter` do not have compatible dimensions."
+      )
+    }
+    return(
+      Filter %*% tcrossprod(
+        x = C,
+        y = Filter
+      )
+    )
+  }
+  return(C)
+}
+
+#' @rdname M
+#' @inheritParams IminusA
+#' @inheritParams M
+#' @export
+M.yac_symbol <- function(A,
+                         S,
+                         Filter = NULL,
+                         str = TRUE,
+                         ysym = TRUE,
+                         simplify = FALSE,
+                         tex = FALSE,
+                         ...) {
+  stopifnot(methods::is(A, "yac_symbol"))
+  y_res <- Ryacas::yac_str(A$yacas_cmd)
+  y <- Ryacas::ysym(y_res)
+  stopifnot(y$is_mat)
+  stopifnot(matrixR::IsSquareMatrix(y))
+  if (isFALSE(methods::is(S, "yac_symbol"))) {
+    S <- Ryacas::ysym(S)
+  }
+  x_res <- Ryacas::yac_str(S$yacas_cmd)
+  x <- Ryacas::ysym(x_res)
+  stopifnot(x$is_mat)
+  stopifnot(matrixR::IsSymmetric(x))
+  At <- as.numeric(Ryacas::yac_str(paste0("Length(", y, ")")))
+  St <- as.numeric(Ryacas::yac_str(paste0("Length(", x, ")")))
+  if (isFALSE(identical(At, St))) {
+    stop(
+      "`A` and `S` do not have the same dimensions."
+    )
+  }
+  I <- paste0("Identity(Length(", y, "))")
+  E <- paste0("Inverse(", I, "-", y, ")")
+  C <- paste0(E, "*", x, "*", "Transpose(", E, ")")
+  if (isFALSE(is.null(Filter))) {
+    if (isFALSE(methods::is(Filter, "yac_symbol"))) {
+      Filter <- Ryacas::ysym(Filter)
+    }
+    z_res <- Ryacas::yac_str(Filter$yacas_cmd)
+    z <- Ryacas::ysym(z_res)
+    stopifnot(z$is_mat)
+    Filtert <- as.numeric(Ryacas::yac_str(paste0("Length(Transpose(", z, "))")))
+    if (isFALSE(identical(At, Filtert))) {
+      stop(
+        "`A` and `Filter` do not have compatible dimensions."
+      )
+    }
+    expr <- paste0(z, "*", C, "*", "Transpose(", z, ")")
+  } else {
+    expr <- C
   }
   return(
-    out
+    .exe(
+      expr = expr,
+      str = str,
+      ysym = ysym,
+      simplify = simplify,
+      tex = tex
+    )
   )
 }

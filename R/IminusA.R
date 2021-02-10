@@ -1,86 +1,89 @@
-#' @author Ivan Jacob Agaloos Pesigan
+#' \eqn{\mathbf{I} - \mathbf{A}}
 #'
-#' @title \eqn{\mathbf{I} - \mathbf{A}} - Numeric
+#' Derives \eqn{\mathbf{I} - \mathbf{A}}
 #'
-#' @description Derives \eqn{\mathbf{I} - \mathbf{A}}
-#'
-#' @details
 #'   \deqn{
 #'     \mathbf{I} - \mathbf{A}
 #'   }
 #'
-#'   where
+#' where
 #'
 #'   - \eqn{\mathbf{A}_{t \times t}} represents asymmetric paths
 #'     (single-headed arrows),
 #'     such as regression coefficients and factor loadings, and
 #'   - \eqn{\mathbf{I}_{t \times t}} represents an identity matrix.
 #'
-#' @keywords IminusA
-#' @family IminusA functions
+#' @author Ivan Jacob Agaloos Pesigan
+#' @family RAM matrices functions
+#' @keywords ram
 #' @inherit ramR references
 #' @param A `t x t` matrix \eqn{\mathbf{A}}.
 #'   Asymmetric paths (single-headed arrows),
 #'   such as regression coefficients and factor loadings.
-#' @return Returns \eqn{\mathbf{I} - \mathbf{A}}.
+#' @param ... ...
 #' @examples
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
 #'
-#' A <- matrixR::zeroes(3, 3)
+#' # Numeric -----------------------------------------------------------
+#' A <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, 1, 1)
 #' colnames(A) <- rownames(A) <- c("y", "x", "e")
-#' IminusA_num(A)
+#' IminusA(A)
+#'
+#' # Symbolic ----------------------------------------------------------
+#' A <- matrixR::ZeroMatrix(3)
+#' A[1, ] <- c(0, "beta", 1)
+#' IminusA(Ryacas::ysym(A))
+#' IminusA(Ryacas::ysym(A), ysym = FALSE)
+#' IminusA(Ryacas::ysym(A), tex = TRUE)
+#' IminusA(Ryacas::ysym(A), str = FALSE)
+#'
+#' beta <- 1
+#' IminusA(Ryacas::ysym(A))
+#' IminusA(Ryacas::ysym(A), ysym = FALSE)
+#' IminusA(Ryacas::ysym(A), tex = TRUE)
+#' IminusA(Ryacas::ysym(A), str = FALSE)
+#' eval(IminusA(Ryacas::ysym(A), str = FALSE))
 #' @export
-IminusA_num <- function(A) {
-  if (!matrixR::is_sqr(A)) {
-    stop(
-      "`A` should be a square matrix."
-    )
-  }
-  if (!matrixR::is_nilpot(A)) {
-    stop(
-      "`A` should be a nilpotent matrix."
-    )
-  }
-  # nilpotent is good enough
-  # if (matrixR::is_sing(out)) {
-  #  stop(
-  #    "`I - A` is singular."
-  #  )
-  # }
-  return(matrixR::ones_from(A) - A)
+IminusA <- function(A,
+                    ...) {
+  UseMethod("IminusA")
 }
 
-#' @author Ivan Jacob Agaloos Pesigan
-#'
-#' @title \eqn{\mathbf{I} - \mathbf{A}} - Symbolic
-#'
-#' @keywords IminusA
-#' @family IminusA functions
-#' @inherit IminusA_num description details references return
-#' @inheritParams IminusA_num
-#' @param simplify Logical.
-#'   Simplify the results.
-#' @examples
-#' # This is a symbolic example for the model
-#' # y = alpha + beta * x + e
-#'
-#' A <- matrixR::zeroes(3, 3)
-#' A[1, ] <- c(0, "beta", 1)
-#' IminusA_sym(A)
+#' @rdname IminusA
+#' @inheritParams semR::ObjectiveML
 #' @export
-IminusA_sym <- function(A,
-                        simplify = FALSE) {
-  if (!matrixR::is_sqr(A, chk.num = FALSE)) {
-    stop(
-      "`A` should be a square matrix."
+IminusA.default <- function(A,
+                            ...) {
+  stopifnot(matrixR::IsNilpotent(A))
+  return(matrixR::IdentityFrom(A) - A)
+}
+
+#' @rdname IminusA
+#' @inheritParams .exe
+#' @export
+IminusA.yac_symbol <- function(A,
+                               str = TRUE,
+                               ysym = TRUE,
+                               simplify = FALSE,
+                               tex = FALSE,
+                               ...) {
+  stopifnot(methods::is(A, "yac_symbol"))
+  y_res <- Ryacas::yac_str(A$yacas_cmd)
+  y <- Ryacas::ysym(y_res)
+  stopifnot(y$is_mat)
+  stopifnot(matrixR::IsSquareMatrix(y))
+  # apply IsNilpotent in the future
+  expr <- paste0("Identity(Length(", y, "))", "-", y)
+  return(
+    .exe(
+      expr = expr,
+      str = str,
+      ysym = ysym,
+      simplify = simplify,
+      tex = tex
     )
-  }
-  out <- Ryacas::ysym(matrixR::ones_from(A)) - Ryacas::ysym(A)
-  if (simplify) {
-    out <- Ryacas::simplify(out)
-  }
-  return(out)
+  )
 }

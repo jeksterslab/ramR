@@ -1,16 +1,11 @@
-#' @author Ivan Jacob Agaloos Pesigan
+#' Vector of Expected Values \eqn{\mathbf{v}}
 #'
-#' @title Vector of Expected Values
-#'   \eqn{\mathbf{v}} - Numeric
+#' Derives the vector of expected values \eqn{\mathbf{v}}
+#' using the Reticular Action Model (RAM) notation.
 #'
-#' @description Derives the vector of expected values
-#'   \eqn{\mathbf{v}}
-#'   using the Reticular Action Model (RAM) notation.
-#'
-#' @details The vector of expected values
-#'   \eqn{\mathbf{v}}
-#'   as a function of Reticular Action Model (RAM) matrices
-#'   is given by
+#' The vector of expected values \eqn{\mathbf{v}}
+#' as a function of Reticular Action Model (RAM) matrices
+#' is given by
 #'
 #'   \deqn{
 #'     \mathbf{v}
@@ -24,7 +19,7 @@
 #'     \mathbf{u}
 #'   }
 #'
-#'   where
+#' where
 #'
 #'   - \eqn{\mathbf{A}_{t \times t}} represents asymmetric paths
 #'     (single-headed arrows),
@@ -32,65 +27,98 @@
 #'   - \eqn{\mathbf{I}_{t \times t}} represents an identity matrix, and
 #'   - \eqn{\mathbf{u}_{t \times 1}} vector of parameters for the mean structure.
 #'
-#' @keywords v
-#' @family v functions
-#' @inheritParams C_num
+#' @author Ivan Jacob Agaloos Pesigan
+#' @family RAM matrices functions
+#' @keywords ram
+#' @inherit ramR references
+#' @inheritParams IminusA
 #' @param u vector of length `t` or `t by 1` matrix.
 #'   Mean structure parameters.
-#' @return Returns the vector of expected values
-#'   \eqn{\mathbf{v}}.
 #' @examples
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
 #'
-#' A <- matrixR::zeroes(3, 3)
+#' # Numeric -----------------------------------------------------------
+#' A <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, 1, 1)
 #' u <- c(0.00, 0.50, 0.00)
 #' colnames(A) <- rownames(A) <- c("y", "x", "e")
-#' v_num(A, u)
-#' @export
-v_num <- function(A,
-                  u) {
-  out <- as.matrix(
-    E_num(
-      A
-    ) %*% as.matrix(u)
-  )
-  colnames(out) <- "v"
-  return(
-    out
-  )
-}
-
-#' @author Ivan Jacob Agaloos Pesigan
+#' v(A, u)
 #'
-#' @title Vector of Expected Values
-#'   \eqn{\mathbf{v}} - Symbolic
-#'
-#' @keywords v
-#' @family v functions
-#' @inherit v_num description details references return
-#' @inheritParams v_num
-#' @inheritParams IminusA_sym
-#' @examples
-#' # This is a symbolic example for the model
-#' # y = alpha + beta * x + e
-#'
-#' A <- matrixR::zeroes(3, 3)
+#' # Symbolic ----------------------------------------------------------
+#' A <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, "beta", 1)
 #' u <- c("alpha", "mux", 0)
-#' v_sym(A, u)
+#' v(Ryacas::ysym(A), u)
+#' v(Ryacas::ysym(A), u, tex = TRUE)
+#' v(Ryacas::ysym(A), u, ysym = FALSE)
+#' v(Ryacas::ysym(A), u, str = FALSE)
+#'
+#' alpha <- 0
+#' beta <- 1
+#' mux <- 0.50
+#' v(Ryacas::ysym(A), u)
+#' v(Ryacas::ysym(A), u, tex = TRUE)
+#' v(Ryacas::ysym(A), u, ysym = FALSE)
+#' v(Ryacas::ysym(A), u, str = FALSE)
+#' eval(v(Ryacas::ysym(A), u, str = FALSE))
 #' @export
-v_sym <- function(A,
-                  u,
-                  simplify = FALSE) {
-  u <- as.matrix(u)
-  out <- E_sym(A) * Ryacas::ysym(u)
-  if (simplify) {
-    out <- Ryacas::simplify(out)
-  }
+v <- function(A,
+              u,
+              ...) {
+  UseMethod("v")
+}
+
+#' @rdname v
+#' @inheritParams IminusA
+#' @inheritParams v
+#' @export
+v.default <- function(A,
+                      u,
+                      ...) {
+  u <- matrix(
+    u,
+    ncol = 1
+  )
+  stopifnot(identical(dim(A)[1], dim(u)[1]))
+  E <- E.default(A)
+  v <- as.matrix(E %*% u)
+  colnames(v) <- "v"
+  return(v)
+}
+
+#' @rdname v
+#' @inheritParams IminusA
+#' @inheritParams v
+#' @export
+v.yac_symbol <- function(A,
+                         u,
+                         str = TRUE,
+                         ysym = TRUE,
+                         simplify = FALSE,
+                         tex = FALSE,
+                         ...) {
+  stopifnot(methods::is(A, "yac_symbol"))
+  y_res <- Ryacas::yac_str(A$yacas_cmd)
+  y <- Ryacas::ysym(y_res)
+  stopifnot(y$is_mat)
+  stopifnot(matrixR::IsSquareMatrix(y))
+  I <- paste0("Identity(Length(", y, "))")
+  E <- paste0("Inverse(", I, "-", y, ")")
+  u <- matrix(
+    u,
+    ncol = 1
+  )
+  a <- Ryacas::ysym(u)
+  expr <- paste0(E, "*", a)
   return(
-    out
+    .exe(
+      expr = expr,
+      str = str,
+      ysym = ysym,
+      simplify = simplify,
+      tex = tex
+    )
   )
 }

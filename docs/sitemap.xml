@@ -4,84 +4,87 @@
     <loc>https://github.com/jeksterslab/ramR//index.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/C_num.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/C.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/C_sym.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/E.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/E_num.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/Eq2Data.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/E_sym.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/Eq2Expectations.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/IminusA_num.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/Eq2RAM.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/IminusA_sym.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/Expectations.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/M_num.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/IminusA.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/M_sym.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/M.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/S_num.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/RAM2Data.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/S_sym.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/S.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/eq2dat.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/eq2exp_num.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/eq2exp_sym.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/eq2ram.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/g_num.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/g_sym.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/ram2dat.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/g.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ramR//reference/ramR.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/ram_num.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/u.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/ram_sym.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/u_num.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/u_sym.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/v_num.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/jeksterslab/ramR//reference/v_sym.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//reference/v.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ramR//articles/ramR.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_coverage.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-C.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression.html</loc>
+    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-E.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-Eq2Data.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-Eq2Expectations.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-Eq2RAM.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-Expectations.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-IminusA.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-M.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-RAM2Data.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-S.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-g.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-u.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-v.html</loc>
   </url>
 </urlset>

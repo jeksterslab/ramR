@@ -1,15 +1,10 @@
-#' @author Ivan Jacob Agaloos Pesigan
+#' Matrix of Total Effects \eqn{\mathbf{E}}
 #'
-#' @title Matrix of Total Effects
-#'   \eqn{\mathbf{E}} - Numeric
+#' Derives the matrix of total effects \eqn{\mathbf{E}}.
 #'
-#' @description Derives the matrix of total effects
-#'   \eqn{\mathbf{E}}.
-#'
-#' @details The matrix of total effects
-#'   \eqn{\mathbf{E}}
-#'   as a function of Reticular Action Model (RAM) matrices
-#'   is given by
+#' The matrix of total effects \eqn{\mathbf{E}}
+#' as a function of Reticular Action Model (RAM) matrices
+#' is given by
 #'
 #'   \deqn{
 #'     \mathbf{E}
@@ -19,59 +14,84 @@
 #'     \right)^{-1}
 #'   }
 #'
-#'   where
+#' where
 #'
 #'   - \eqn{\mathbf{A}_{t \times t}} represents asymmetric paths
 #'     (single-headed arrows),
 #'     such as regression coefficients and factor loadings, and
 #'   - \eqn{\mathbf{I}_{t \times t}} represents an identity matrix.
 #'
-#' @keywords E
-#' @family E functions
+#' @author Ivan Jacob Agaloos Pesigan
+#' @family RAM matrices functions
+#' @keywords ram
 #' @inherit ramR references
-#' @inheritParams IminusA_num
-#' @return Returns the matrix of total effects
-#'   \eqn{\mathbf{E}}.
+#' @inheritParams IminusA
 #' @examples
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
 #'
-#' A <- matrixR::zeroes(3, 3)
+#' # Numeric -----------------------------------------------------------
+#' A <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, 1, 1)
 #' colnames(A) <- rownames(A) <- c("y", "x", "e")
-#' E_num(A)
+#' E(A)
+#'
+#' # Symbolic ----------------------------------------------------------
+#' A <- matrixR::ZeroMatrix(3)
+#' A[1, ] <- c(0, "beta", 1)
+#' E(Ryacas::ysym(A))
+#' E(Ryacas::ysym(A), tex = TRUE)
+#' E(Ryacas::ysym(A), ysym = FALSE)
+#' E(Ryacas::ysym(A), str = FALSE)
+#'
+#' beta <- 1
+#' E(Ryacas::ysym(A))
+#' E(Ryacas::ysym(A), tex = TRUE)
+#' E(Ryacas::ysym(A), ysym = FALSE)
+#' E(Ryacas::ysym(A), str = FALSE)
+#' eval(E(Ryacas::ysym(A), str = FALSE))
 #' @export
-E_num <- function(A) {
+E <- function(A,
+              ...) {
+  UseMethod("E")
+}
+
+#' @rdname E
+#' @inheritParams IminusA
+#' @export
+E.default <- function(A,
+                      ...) {
   return(
-    solve(IminusA_num(A))
+    solve(
+      IminusA.default(A)
+    )
   )
 }
 
-#' @author Ivan Jacob Agaloos Pesigan
-#'
-#' @title Matrix of Total Effects
-#'   \eqn{\mathbf{E}} - Symbolic
-#'
-#' @keywords E
-#' @family E functions
-#' @inherit E_num description details references return
-#' @inheritParams IminusA_sym
-#' @examples
-#' # This is a symbolic example for the model
-#' # y = alpha + beta * x + e
-#'
-#' A <- matrixR::zeroes(3, 3)
-#' A[1, ] <- c(0, "beta", 1)
-#' E_sym(A)
+#' @rdname E
+#' @inheritParams IminusA
 #' @export
-E_sym <- function(A,
-                  simplify = FALSE) {
-  out <- solve(IminusA_sym(A, simplify))
-  if (simplify) {
-    out <- Ryacas::simplify(out)
-  }
+E.yac_symbol <- function(A,
+                         str = TRUE,
+                         ysym = TRUE,
+                         simplify = FALSE,
+                         tex = FALSE,
+                         ...) {
+  stopifnot(methods::is(A, "yac_symbol"))
+  y_res <- Ryacas::yac_str(A$yacas_cmd)
+  y <- Ryacas::ysym(y_res)
+  stopifnot(y$is_mat)
+  stopifnot(matrixR::IsSquareMatrix(y))
+  # apply IsNilpotent in the future
+  expr <- paste0("Inverse(Identity(Length(", y, "))", "-", y, ")")
   return(
-    out
+    .exe(
+      expr = expr,
+      str = str,
+      ysym = ysym,
+      simplify = simplify,
+      tex = tex
+    )
   )
 }

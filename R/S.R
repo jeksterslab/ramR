@@ -1,17 +1,11 @@
-
-#' @author Ivan Jacob Agaloos Pesigan
+#' Matrix of Symmetric Paths \eqn{\mathbf{S}}
 #'
-#' @title Matrix of Symmetric Paths
-#'   \eqn{\mathbf{S}} - Numeric
+#' Derives the matrix of symmetric paths (double-headed arrows) \eqn{\mathbf{S}}
+#' using the Reticular Action Model (RAM) notation.
 #'
-#' @description Derives the matrix of symmetric paths (double-headed arrows)
-#'   \eqn{\mathbf{S}}
-#'   using the Reticular Action Model (RAM) notation.
-#'
-#' @details The matrix of symmetric paths (double-headed arrows)
-#'   \eqn{\mathbf{S}}
-#'   as a function of Reticular Action Model (RAM) matrices
-#'   is given by
+#' The matrix of symmetric paths (double-headed arrows) \eqn{\mathbf{S}}
+#' as a function of Reticular Action Model (RAM) matrices
+#' is given by
 #'
 #'   \deqn{
 #'     \mathbf{S}
@@ -31,7 +25,7 @@
 #'     \right)^{\mathsf{T}}
 #'   }
 #'
-#'   where
+#' where
 #'
 #'   - \eqn{\mathbf{A}_{t \times t}} represents asymmetric paths
 #'     (single-headed arrows),
@@ -40,21 +34,20 @@
 #'     the model-implied variance-covariance matrix, and
 #'   - \eqn{\mathbf{I}_{t \times t}} represents an identity matrix.
 #'
-#' @keywords S
-#' @family S functions
-#' @inheritParams IminusA_num
+#' @author Ivan Jacob Agaloos Pesigan
+#' @family RAM matrices functions
+#' @keywords ram
 #' @inherit ramR references
+#' @inheritParams IminusA
 #' @param C `t x t` numeric matrix \eqn{\mathbf{C}}.
 #'   Model-implied variance-covariance matrix.
-#' @return Returns the matrix of symmetric paths (double-headed arrows)
-#'   \eqn{\mathbf{S}}
-#'   derived from the `A` and `C` matrices.
 #' @examples
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
 #'
-#' A <- matrixR::zeroes(3, 3)
+#' # Numeric -----------------------------------------------------------
+#' A <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, 1, 1)
 #' C <- matrix(
 #'   data = c(
@@ -65,22 +58,50 @@
 #'   nrow = dim(A)[1]
 #' )
 #' colnames(A) <- rownames(A) <- c("y", "x", "e")
-#' S_num(A, C)
+#' S(A, C)
+#'
+#' # Symbolic ----------------------------------------------------------
+#' A <- matrixR::ZeroMatrix(3)
+#' A[1, ] <- c(0, "beta", 1)
+#' C <- matrix(
+#'   data = c(
+#'     "sigmax2*beta^2+sigmae2", "sigmax2*beta", "sigmae2",
+#'     "sigmax2*beta", "sigmax2", 0,
+#'     "sigmae2", 0, "sigmae2"
+#'   ),
+#'   nrow = dim(A)[1]
+#' )
+#' S(Ryacas::ysym(A), C)
+#' S(Ryacas::ysym(A), C, tex = TRUE)
+#' S(Ryacas::ysym(A), C, ysym = FALSE)
+#' S(Ryacas::ysym(A), C, str = FALSE)
+#'
+#' beta <- 1
+#' sigmax2 <- 0.25
+#' sigmae2 <- 1
+#' S(Ryacas::ysym(A), C)
+#' S(Ryacas::ysym(A), C, tex = TRUE)
+#' S(Ryacas::ysym(A), C, ysym = FALSE)
+#' S(Ryacas::ysym(A), C, str = FALSE)
+#' eval(S(Ryacas::ysym(A), C, str = FALSE))
 #' @export
-S_num <- function(A,
-                  C) {
-  if (!matrixR::is_sqr(A)) {
-    stop(
-      "`A` should be a square matrix."
-    )
-  }
-  if (!identical(dim(A), dim(C))) {
-    stop(
-      "`A` and `C` should have the same dimensions."
-    )
-  }
+S <- function(A,
+              C,
+              ...) {
+  UseMethod("S")
+}
+
+#' @rdname S
+#' @inheritParams IminusA
+#' @inheritParams S
+#' @export
+S.default <- function(A,
+                      C,
+                      ...) {
+  stopifnot(matrixR::IsSymmetric(C))
+  stopifnot(identical(dim(A), dim(C)))
   # I - A
-  IminusA <- diag(nrow(A)) - A
+  IminusA <- IminusA.default(A)
   # C * (I - A)^{T}
   CIminusAt <- tcrossprod(
     x = C,
@@ -92,51 +113,48 @@ S_num <- function(A,
   )
 }
 
-#' @author Ivan Jacob Agaloos Pesigan
-#'
-#' @title Matrix of Symmetric Paths
-#'   \eqn{\mathbf{S}} - Symbolic
-#'
-#' @keywords S
-#' @family S functions
-#' @inherit S_num description details references return
-#' @inheritParams S_num
-#' @inheritParams IminusA_sym
-#' @examples
-#' # This is a symbolic example for the model
-#' # y = alpha + beta * x + e
-#'
-#' A <- matrixR::zeroes(3, 3)
-#' A[1, ] <- c(0, "beta", 1)
-#' C <- matrix(
-#'   data = c(
-#'     "sigma2x*beta^2+sigma2e", "sigma2x*beta", "sigma2e",
-#'     "beta*sigma2x", "sigma2x", 0,
-#'     "sigma2e", 0, "sigma2e"
-#'   ),
-#'   nrow = dim(A)[1]
-#' )
-#' S_sym(A, C)
+#' @rdname S
+#' @inheritParams IminusA
+#' @inheritParams S
 #' @export
-S_sym <- function(A,
-                  C,
-                  simplify = FALSE) {
-  if (!matrixR::is_sqr(A, chk.num = FALSE)) {
+S.yac_symbol <- function(A,
+                         C,
+                         str = TRUE,
+                         ysym = TRUE,
+                         simplify = FALSE,
+                         tex = FALSE,
+                         ...) {
+  stopifnot(methods::is(A, "yac_symbol"))
+  y_res <- Ryacas::yac_str(A$yacas_cmd)
+  y <- Ryacas::ysym(y_res)
+  stopifnot(y$is_mat)
+  stopifnot(matrixR::IsSquareMatrix(y))
+  if (isFALSE(methods::is(C, "yac_symbol"))) {
+    C <- Ryacas::ysym(C)
+  }
+  x_res <- Ryacas::yac_str(C$yacas_cmd)
+  x <- Ryacas::ysym(x_res)
+  stopifnot(x$is_mat)
+  stopifnot(matrixR::IsSymmetric(x))
+  At <- as.numeric(Ryacas::yac_str(paste0("Length(", y, ")")))
+  Ct <- as.numeric(Ryacas::yac_str(paste0("Length(", x, ")")))
+  if (isFALSE(identical(At, Ct))) {
     stop(
-      "`A` should be a square matrix."
+      "`A` and `C` do not have the same dimensions."
     )
   }
-  if (!identical(dim(A), dim(C))) {
-    stop(
-      "`A` and `C` should have the same dimensions."
-    )
-  }
-  IminusA <- Ryacas::ysym(diag(dim(A)[1])) - Ryacas::ysym(A)
-  out <- IminusA * Ryacas::ysym(C) * t(IminusA)
-  if (simplify) {
-    out <- Ryacas::simplify(out)
-  }
+  I <- paste0("Identity(Length(", y, "))")
+  expr <- paste0(
+    "(", I, "-", y, ")", "*", x, "*",
+    "Transpose(", I, "-", y, ")"
+  )
   return(
-    out
+    .exe(
+      expr = expr,
+      str = str,
+      ysym = ysym,
+      simplify = simplify,
+      tex = tex
+    )
   )
 }

@@ -1,0 +1,262 @@
+#' ---
+#' title: "Test: Two-Variable Linear Regression - Eq2RAM"
+#' author: "Ivan Jacob Agaloos Pesigan"
+#' date: "`r Sys.Date()`"
+#' output: rmarkdown::html_vignette
+#' vignette: >
+#'   %\VignetteIndexEntry{Test: Two-Variable Linear Regression - Eq2RAM}
+#'   %\VignetteEngine{knitr::rmarkdown}
+#'   %\VignetteEncoding{UTF-8}
+#' ---
+#'
+#+ include = FALSE
+knitr::opts_chunk$set(
+  error = TRUE,
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "100%"
+)
+#'
+#+ parameters1
+A <- Apars <- S <- Spars <- matrixR::ZeroMatrix(3)
+A[1, ] <- c(0, "beta", 1)
+Apars[1, ] <- c(0, "p1", 1)
+diag(S) <- c(0, "sigmax2", "sigmae2")
+diag(Spars) <- c(0, "p3", "p2")
+Filter <- diag(2)
+Filter <- cbind(Filter, 0)
+u <- as.matrix(c("alpha", "mux", 0))
+upars <- as.matrix(c("p4", "p5", 0))
+#'
+#' \begin{equation}
+#'   \begin{split}
+#'     y &= \alpha + \beta x + \varepsilon
+#'   \end{split}
+#' \end{equation}
+#'
+#+ labels1
+eq <- "
+  # lhs op   rhs label
+    e   by   y   1
+    y   on   x   beta
+    e   with e   sigmae2
+    x   with x   sigmax2
+    y   on   1   alpha
+    x   on   1   mux
+"
+labels <- ramR::Eq2RAM(eq, par = FALSE)
+testthat::test_that("A.", {
+  for (i in seq_len(nrow(A))) {
+    for (j in seq_len(ncol(A))) {
+      testthat::expect_equal(
+        A[i, j],
+        labels$A[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("S.", {
+  for (i in seq_len(nrow(S))) {
+    for (j in seq_len(ncol(S))) {
+      testthat::expect_equal(
+        S[i, j],
+        labels$S[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("u.", {
+  for (i in seq_len(nrow(u))) {
+    for (j in seq_len(ncol(u))) {
+      testthat::expect_equal(
+        u[i, j],
+        labels$u[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("Filter.", {
+  for (i in seq_len(nrow(Filter))) {
+    for (j in seq_len(ncol(Filter))) {
+      testthat::expect_equal(
+        Filter[i, j],
+        labels$Filter[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+#'
+#+ pars1
+pars <- ramR::Eq2RAM(eq, par = TRUE)
+testthat::test_that("Apars.", {
+  for (i in seq_len(nrow(Apars))) {
+    for (j in seq_len(ncol(Apars))) {
+      testthat::expect_equal(
+        Apars[i, j],
+        pars$A[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("Spars.", {
+  for (i in seq_len(nrow(Spars))) {
+    for (j in seq_len(ncol(Spars))) {
+      testthat::expect_equal(
+        Spars[i, j],
+        pars$S[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("upars.", {
+  for (i in seq_len(nrow(upars))) {
+    for (j in seq_len(ncol(upars))) {
+      testthat::expect_equal(
+        upars[i, j],
+        pars$u[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("Filter.", {
+  for (i in seq_len(nrow(Filter))) {
+    for (j in seq_len(ncol(Filter))) {
+      testthat::expect_equal(
+        Filter[i, j],
+        pars$Filter[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+#'
+#+ parameters2
+alpha <- runif(n = 1, min = -1, max = 1)
+beta <- runif(n = 1, min = -1, max = 1)
+sigmax2 <- runif(n = 1, min = 0, max = 1)
+sigmae2 <- runif(n = 1, min = 0, max = 1)
+mux <- runif(n = 1, min = -1, max = 1)
+A <- S <- matrixR::ZeroMatrix(3)
+A[1, ] <- c(0, beta, 1)
+Apars <- A
+diag(S) <- c(0, sigmax2, sigmae2)
+Spars <- S
+Filter <- diag(2)
+Filter <- cbind(Filter, 0)
+u <- as.matrix(c(alpha, mux, 0))
+upars <- u
+#'
+#' \begin{equation}
+#'   \begin{split}
+#'     y &= `r alpha` + `r beta` x + \varepsilon
+#'   \end{split}
+#' \end{equation}
+#'
+#+ labels2
+eq <- paste(
+  "e by y 1", ";",
+  "y on x", beta, ";",
+  "e with e", sigmae2, ";",
+  "x with x", sigmax2, ";",
+  "y on 1", alpha, ";",
+  "x on 1", mux, ";"
+)
+labels <- ramR::Eq2RAM(eq, par = FALSE)
+testthat::test_that("A.", {
+  for (i in seq_len(nrow(A))) {
+    for (j in seq_len(ncol(A))) {
+      testthat::expect_equal(
+        A[i, j],
+        labels$A[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("S.", {
+  for (i in seq_len(nrow(S))) {
+    for (j in seq_len(ncol(S))) {
+      testthat::expect_equal(
+        S[i, j],
+        labels$S[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("u.", {
+  for (i in seq_len(nrow(u))) {
+    for (j in seq_len(ncol(u))) {
+      testthat::expect_equal(
+        u[i, j],
+        labels$u[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("Filter.", {
+  for (i in seq_len(nrow(Filter))) {
+    for (j in seq_len(ncol(Filter))) {
+      testthat::expect_equal(
+        Filter[i, j],
+        labels$Filter[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+#'
+#+ pars2
+pars <- ramR::Eq2RAM(eq, par = TRUE)
+testthat::test_that("Apars.", {
+  for (i in seq_len(nrow(Apars))) {
+    for (j in seq_len(ncol(Apars))) {
+      testthat::expect_equal(
+        Apars[i, j],
+        pars$A[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("Spars.", {
+  for (i in seq_len(nrow(Spars))) {
+    for (j in seq_len(ncol(Spars))) {
+      testthat::expect_equal(
+        Spars[i, j],
+        pars$S[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("upars.", {
+  for (i in seq_len(nrow(upars))) {
+    for (j in seq_len(ncol(upars))) {
+      testthat::expect_equal(
+        upars[i, j],
+        pars$u[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("Filter.", {
+  for (i in seq_len(nrow(Filter))) {
+    for (j in seq_len(ncol(Filter))) {
+      testthat::expect_equal(
+        Filter[i, j],
+        pars$Filter[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})

@@ -27,7 +27,9 @@ Imports:
     stats,
     MASS,
     Ryacas,
-    matrixR
+    methods,
+    matrixR,
+    lavaan
 Remotes:
     jeksterslab/matrixR
 Suggests:

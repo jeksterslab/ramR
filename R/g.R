@@ -1,16 +1,11 @@
-#' @author Ivan Jacob Agaloos Pesigan
+#' Vector of Expected Values of Observed Variables \eqn{\mathbf{g}}
 #'
-#' @title Vector of Expected Values of Observed Variables
-#'   \eqn{\mathbf{g}} - Numeric
+#' Derives the vector of expected values of observed variables \eqn{\mathbf{g}}
+#' using the Reticular Action Model (RAM) notation.
 #'
-#' @description Derives the vector of expected values of observed variables
-#'   \eqn{\mathbf{g}}
-#'   using the Reticular Action Model (RAM) notation.
-#'
-#' @details The vector of expected values of observed variables
-#'   \eqn{\mathbf{g}}
-#'   as a function of Reticular Action Model (RAM) matrices
-#'   is given by
+#' The vector of expected values of observed variables \eqn{\mathbf{g}}
+#' as a function of Reticular Action Model (RAM) matrices
+#' is given by
 #'
 #'   \deqn{
 #'     \mathbf{g}
@@ -29,7 +24,7 @@
 #'     \mathbf{v}
 #'   }
 #'
-#'   where
+#' where
 #'
 #'   - \eqn{\mathbf{A}_{t \times t}} represents asymmetric paths
 #'     (single-headed arrows),
@@ -42,75 +37,126 @@
 #'   - \eqn{q} number of latent variables, and
 #'   - \eqn{t} number of observed and latent variables, that is \eqn{p + q} .
 #'
-#' @keywords g
-#' @family g functions
-#' @inheritParams M_num
-#' @param u vector of length `t` or `t by 1` matrix.
-#'   Mean structure parameters.
-#' @return Returns the vector of expected values of observed variables
-#'   \eqn{\mathbf{g}}.
+#' @author Ivan Jacob Agaloos Pesigan
+#' @family RAM matrices functions
+#' @keywords ram
+#' @inherit ramR references
+#' @inheritParams v
+#' @inheritParams M
 #' @examples
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
 #'
-#' A <- matrixR::zeroes(3, 3)
+#' # Numeric -----------------------------------------------------------
+#' A <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, 1, 1)
 #' u <- c(0.00, 0.50, 0.00)
-#' filter <- diag(2)
-#' filter <- cbind(filter, 0)
-#' colnames(filter) <- c("y", "x", "e")
-#' rownames(filter) <- c("y", "x")
-#' g_num(A, u, filter)
-#' @export
-g_num <- function(A,
-                  u,
-                  filter) {
-  out <- as.matrix(
-    filter %*% v_num(
-      A,
-      u
-    )
-  )
-  colnames(out) <- "g"
-  return(
-    out
-  )
-}
-
-#' @author Ivan Jacob Agaloos Pesigan
+#' Filter <- diag(2)
+#' Filter <- cbind(Filter, 0)
+#' colnames(A) <- rownames(A) <- c("y", "x", "e")
+#' g(A, u, Filter)
 #'
-#' @title Vector of Expected Values of Observed Variables
-#'   \eqn{\mathbf{g}} - Symbolic
-#'
-#' @keywords g
-#' @family g functions
-#' @inherit g_num description details references return
-#' @inheritParams g_num
-#' @inheritParams IminusA_sym
-#' @examples
-#' # This is a symbolic example for the model
-#' # y = alpha + beta * x + e
-#'
-#' A <- matrixR::zeroes(3, 3)
+#' # Symbolic ----------------------------------------------------------
+#' A <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, "beta", 1)
 #' u <- c("alpha", "mux", 0)
-#' filter <- diag(2)
-#' filter <- cbind(filter, 0)
-#' g_sym(A, u, filter)
+#' g(Ryacas::ysym(A), u, Filter)
+#' g(Ryacas::ysym(A), u, Filter, tex = TRUE)
+#' g(Ryacas::ysym(A), u, Filter, ysym = FALSE)
+#' g(Ryacas::ysym(A), u, Filter, str = FALSE)
+#'
+#' alpha <- 0
+#' beta <- 1
+#' mux <- 0.50
+#' g(Ryacas::ysym(A), u, Filter)
+#' g(Ryacas::ysym(A), u, Filter, tex = TRUE)
+#' g(Ryacas::ysym(A), u, Filter, ysym = FALSE)
+#' g(Ryacas::ysym(A), u, Filter, str = FALSE)
+#' eval(g(Ryacas::ysym(A), u, Filter, str = FALSE))
 #' @export
-g_sym <- function(A,
-                  u,
-                  filter,
-                  simplify = FALSE) {
-  out <- Ryacas::ysym(filter) * v_sym(
-    A,
-    u
+g <- function(A,
+              u,
+              Filter = NULL,
+              ...) {
+  UseMethod("g")
+}
+
+#' @rdname g
+#' @inheritParams IminusA
+#' @inheritParams g
+#' @export
+g.default <- function(A,
+                      u,
+                      Filter = NULL,
+                      str = TRUE,
+                      ysym = TRUE,
+                      simplify = FALSE,
+                      tex = FALSE,
+                      ...) {
+  v <- v.default(A = A, u = u)
+  if (isFALSE(is.null(Filter))) {
+    out <- Filter %*% v
+    colnames(out) <- "g"
+    return(
+      out
+    )
+  } else {
+    colnames(v) <- "g"
+    return(v)
+  }
+}
+
+#' @rdname g
+#' @inheritParams IminusA
+#' @inheritParams g
+#' @export
+g.yac_symbol <- function(A,
+                         u,
+                         Filter = NULL,
+                         str = TRUE,
+                         ysym = TRUE,
+                         simplify = FALSE,
+                         tex = FALSE,
+                         ...) {
+  stopifnot(methods::is(A, "yac_symbol"))
+  y_res <- Ryacas::yac_str(A$yacas_cmd)
+  y <- Ryacas::ysym(y_res)
+  stopifnot(y$is_mat)
+  stopifnot(matrixR::IsSquareMatrix(y))
+  I <- paste0("Identity(Length(", y, "))")
+  E <- paste0("Inverse(", I, "-", y, ")")
+  u <- matrix(
+    u,
+    ncol = 1
   )
-  if (simplify) {
-    out <- Ryacas::simplify(out)
+  a <- Ryacas::ysym(u)
+  v <- paste0(E, "*", a)
+  if (isFALSE(is.null(Filter))) {
+    At <- as.numeric(Ryacas::yac_str(paste0("Length(", y, ")")))
+    if (isFALSE(methods::is(Filter, "yac_symbol"))) {
+      Filter <- Ryacas::ysym(Filter)
+    }
+    z_res <- Ryacas::yac_str(Filter$yacas_cmd)
+    z <- Ryacas::ysym(z_res)
+    stopifnot(z$is_mat)
+    Filtert <- as.numeric(Ryacas::yac_str(paste0("Length(Transpose(", z, "))")))
+    if (isFALSE(identical(At, Filtert))) {
+      stop(
+        "`A` and `Filter` do not have compatible dimensions."
+      )
+    }
+    expr <- paste0(z, "*", v)
+  } else {
+    expr <- v
   }
   return(
-    out
+    .exe(
+      expr = expr,
+      str = str,
+      ysym = ysym,
+      simplify = simplify,
+      tex = tex
+    )
   )
 }

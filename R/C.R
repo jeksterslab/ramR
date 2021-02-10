@@ -1,15 +1,9 @@
-#' @author Ivan Jacob Agaloos Pesigan
+#' Matrix of Covariance Expectations \eqn{\mathbf{C}}
 #'
-#' @title Matrix of Covariance Expectations
-#'   \eqn{\mathbf{C}} - Numeric
+#' Derives the matrix of covariance expectations \eqn{\mathbf{C}}.
 #'
-#' @description Derives the matrix of covariance expectations
-#'   \eqn{\mathbf{C}}.
-#'
-#' @details The matrix of covariance expectations
-#'   \eqn{\mathbf{C}}
-#'   as a function of Reticular Action Model (RAM) matrices
-#'   is given by
+#' The matrix of covariance expectations \eqn{\mathbf{C}}
+#' as a function of Reticular Action Model (RAM) matrices is given by
 #'
 #'   \deqn{
 #'     \mathbf{C}
@@ -29,7 +23,7 @@
 #'     \mathbf{E}^{\mathsf{T}}
 #'   }
 #'
-#'   where
+#' where
 #'
 #'   - \eqn{\mathbf{A}_{t \times t}} represents asymmetric paths
 #'     (single-headed arrows),
@@ -39,12 +33,12 @@
 #'     such as variances and covariances, and
 #'   - \eqn{\mathbf{I}_{t \times t}} represents an identity matrix.
 #'
-#' @keywords C
-#' @family C functions
-#' @inheritParams S_num
+#' @author Ivan Jacob Agaloos Pesigan
+#' @family RAM matrices functions
+#' @keywords ram
 #' @inherit ramR references
-#' @param S `t x t` numeric matrix
-#'   \eqn{\mathbf{S}}.
+#' @inheritParams IminusA
+#' @param S `t x t` numeric matrix \eqn{\mathbf{S}}.
 #'   Symmetric paths (double-headed arrows),
 #'   such as variances and covariances.
 #' @examples
@@ -52,27 +46,48 @@
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
 #'
-#' A <- S <- matrixR::zeroes(3, 3)
+#' # Numeric -----------------------------------------------------------
+#' A <- S <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, 1, 1)
 #' diag(S) <- c(0, 0.25, 1)
 #' colnames(A) <- rownames(A) <- c("y", "x", "e")
-#' C_num(A, S)
+#' C(A, S)
+#'
+#' # Symbolic ----------------------------------------------------------
+#' A <- S <- matrixR::ZeroMatrix(3)
+#' A[1, ] <- c(0, "beta", 1)
+#' diag(S) <- c(0, "sigmax2", "sigmae2")
+#' C(Ryacas::ysym(A), S)
+#' C(Ryacas::ysym(A), S, tex = TRUE)
+#' C(Ryacas::ysym(A), S, ysym = FALSE)
+#' C(Ryacas::ysym(A), S, str = FALSE)
+#'
+#' beta <- 1
+#' sigmax2 <- 0.25
+#' sigmae2 <- 1
+#' C(Ryacas::ysym(A), S)
+#' C(Ryacas::ysym(A), S, tex = TRUE)
+#' C(Ryacas::ysym(A), S, ysym = FALSE)
+#' C(Ryacas::ysym(A), S, str = FALSE)
+#' eval(C(Ryacas::ysym(A), S, str = FALSE))
 #' @export
-C_num <- function(A,
-                  S) {
-  if (!matrixR::is_sqr(S)) {
-    stop(
-      "`S` should be a square matrix."
-    )
-  }
-  if (!identical(dim(A), dim(S))) {
-    stop(
-      "`A` and `S` should have the same dimensions."
-    )
-  }
-  E <- E_num(
-    A = A
-  )
+C <- function(A,
+              S,
+              ...) {
+  UseMethod("C")
+}
+
+#' @rdname C
+#' @inheritParams IminusA
+#' @inheritParams C
+#' @export
+C.default <- function(A,
+                      S,
+                      ...) {
+  stopifnot(matrixR::IsSymmetric(S))
+  stopifnot(identical(dim(A), dim(S)))
+  # (I - A)^{-1}
+  E <- E.default(A)
   # S * ((I - A)^{-1})^T
   STinvIminusA <- tcrossprod(
     x = S,
@@ -84,44 +99,46 @@ C_num <- function(A,
   )
 }
 
-#' @author Ivan Jacob Agaloos Pesigan
-#'
-#' @title Matrix of Covariance Expectations
-#'   \eqn{\mathbf{C}} - Symbolic
-#'
-#' @keywords C
-#' @family C functions
-#' @inherit C_num description details references return
-#' @inheritParams C_num
-#' @inheritParams IminusA_sym
-#' @examples
-#' # This is a symbolic example for the model
-#' # y = alpha + beta * x + e
-#'
-#' A <- S <- matrixR::zeroes(3, 3)
-#' A[1, ] <- c(0, "beta", 1)
-#' diag(S) <- c(0, "sigma2x", "sigma2e")
-#' C_sym(A, S)
+#' @rdname C
+#' @inheritParams IminusA
+#' @inheritParams C
 #' @export
-C_sym <- function(A,
-                  S,
-                  simplify = FALSE) {
-  if (!matrixR::is_sqr(S, chk.num = FALSE)) {
+C.yac_symbol <- function(A,
+                         S,
+                         str = TRUE,
+                         ysym = TRUE,
+                         simplify = FALSE,
+                         tex = FALSE,
+                         ...) {
+  stopifnot(methods::is(A, "yac_symbol"))
+  y_res <- Ryacas::yac_str(A$yacas_cmd)
+  y <- Ryacas::ysym(y_res)
+  stopifnot(y$is_mat)
+  stopifnot(matrixR::IsSquareMatrix(y))
+  if (isFALSE(methods::is(S, "yac_symbol"))) {
+    S <- Ryacas::ysym(S)
+  }
+  x_res <- Ryacas::yac_str(S$yacas_cmd)
+  x <- Ryacas::ysym(x_res)
+  stopifnot(x$is_mat)
+  stopifnot(matrixR::IsSymmetric(x))
+  At <- as.numeric(Ryacas::yac_str(paste0("Length(", y, ")")))
+  St <- as.numeric(Ryacas::yac_str(paste0("Length(", x, ")")))
+  if (isFALSE(identical(At, St))) {
     stop(
-      "`S` should be a square matrix."
+      "`A` and `S` do not have the same dimensions."
     )
   }
-  if (!identical(dim(A), dim(S))) {
-    stop(
-      "`A` and `S` should have the same dimensions."
-    )
-  }
-  E <- E_sym(A)
-  out <- E * Ryacas::ysym(S) * t(E)
-  if (simplify) {
-    out <- Ryacas::simplify(out)
-  }
+  I <- paste0("Identity(Length(", y, "))")
+  E <- paste0("Inverse(", I, "-", y, ")")
+  expr <- paste0(E, "*", x, "*", "Transpose(", E, ")")
   return(
-    out
+    .exe(
+      expr = expr,
+      str = str,
+      ysym = ysym,
+      simplify = simplify,
+      tex = tex
+    )
   )
 }
