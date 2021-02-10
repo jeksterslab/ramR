@@ -30,6 +30,18 @@ eq <- "
 ramR:::Parse(eq)
 #'
 #+
+eq <- "
+  # lhs op   rhs value
+    e   by   y   1
+    y   on   x   1
+    e   with e   1
+    x   with x   0.25
+    y   on   1   0
+    x   on   1   0.50
+"
+ramR:::Parse(eq)
+#'
+#+
 # equality constraint
 # starting values should be identical for parameters constrained to be equal
 eq <- "
@@ -40,5 +52,14 @@ eq <- "
     x   with x   sigmax2 1.25
     y   on   1   alpha   0.00
     x   on   1   mux     0.50
+"
+ramR:::Parse(eq)
+#'
+#+
+# `\n` and `;` as line breaks
+eq <- "
+    e   by   y   1       NA ; y   on   x   beta    0.00 ;
+    e   with e   sigmae2 1.25 ; x   with x   sigmax2 0.25 ;
+    y   on   1   alpha   0.00 \n x   on   1   mux     0.50 ;
 "
 ramR:::Parse(eq)

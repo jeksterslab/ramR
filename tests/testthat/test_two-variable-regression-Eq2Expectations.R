@@ -225,12 +225,12 @@ SymbolicParsM <- round(eval(SymbolicPars$M), digits = 4)
 #'
 #+ numeric
 eq <- paste(
-  "e by y 1", ";",
-  "y on x", beta, ";",
-  "e with e", sigmae2, ";",
-  "x with x", sigmax2, ";",
-  "y on 1", alpha, ";",
-  "x on 1", mux, ";"
+  "e by y 1", "\n",
+  "y on x", beta, "\n",
+  "e with e", sigmae2, "\n",
+  "x with x", sigmax2, "\n",
+  "y on 1", alpha, "\n",
+  "x on 1", mux, "\n"
 )
 NumericLabels <- ramR::Eq2Expectations(eq, par = FALSE)
 NumericPars <- ramR::Eq2Expectations(eq, par = TRUE)

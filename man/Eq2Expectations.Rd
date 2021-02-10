@@ -79,17 +79,7 @@ eq <- "
     y   on   1   0
     x   on   1   0.50
 "
-Eq2Expectations(eq, par = FALSE)
-Eq2Expectations(eq, par = TRUE)
-eq <- "
-  # lhs op   rhs label
-    e   by   y   1; y   on   x   1;
-    e   with e   1;
-    x   with x   0.25
-    y   on   1   0; x   on   1   0.50;
-"
-Eq2Expectations(eq, par = FALSE)
-Eq2Expectations(eq, par = TRUE)
+
 # Symbolic -------------------------------------------------------------
 eq <- "
   # lhs op   rhs label
