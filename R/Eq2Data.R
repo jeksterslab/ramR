@@ -48,19 +48,13 @@ Eq2Data <- function(eq,
                     n,
                     ...) {
   Expectations <- Eq2RAM(eq, par = FALSE)
-  variables <- list(
-    variables = Expectations[["variables"]]
+  stopifnot(is.numeric(Expectations$eq$label))
+  Expectations <- Expectations.default(
+    A = Expectations$A,
+    S = Expectations$S,
+    u = Expectations$u,
+    Filter = Expectations$Filter
   )
-  if (is.numeric(Expectations$eq$label)) {
-    Expectations <- Expectations.default(
-      A = Expectations$A,
-      S = Expectations$S,
-      u = Expectations$u,
-      Filter = Expectations$Filter
-    )
-  } else {
-    stop("The fourth column in `eq` should be numeric.")
-  }
   return(
     MASS::mvrnorm(
       n = n,

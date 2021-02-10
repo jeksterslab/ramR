@@ -1,6 +1,6 @@
 #' Expectations from the Reticular Action Model (RAM) Matrices
 #'
-#' Derives the means and covariance expectations
+#' Derives the mean and covariance expectations
 #' from the Reticular Action Model (RAM) matrices.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
@@ -141,46 +141,37 @@ Expectations.yac_symbol <- function(A,
                                     tex = FALSE,
                                     ...) {
   stopifnot(methods::is(A, "yac_symbol"))
-  y_res <- Ryacas::yac_str(A$yacas_cmd)
-  y <- Ryacas::ysym(y_res)
-  stopifnot(y$is_mat)
-  stopifnot(matrixR::IsSquareMatrix(y))
-  if (isFALSE(methods::is(S, "yac_symbol"))) {
-    S <- Ryacas::ysym(S)
-  }
-  x_res <- Ryacas::yac_str(S$yacas_cmd)
-  x <- Ryacas::ysym(x_res)
-  stopifnot(x$is_mat)
-  stopifnot(matrixR::IsSymmetric(x))
-  At <- as.numeric(Ryacas::yac_str(paste0("Length(", y, ")")))
-  St <- as.numeric(Ryacas::yac_str(paste0("Length(", x, ")")))
-  if (isFALSE(identical(At, St))) {
-    stop(
-      "`A` and `S` do not have the same dimensions."
-    )
-  }
-  if (isFALSE(is.null(Filter))) {
-    FilterNull <- TRUE
-    if (isFALSE(methods::is(Filter, "yac_symbol"))) {
-      Filter <- Ryacas::ysym(Filter)
-    }
-    z_res <- Ryacas::yac_str(Filter$yacas_cmd)
-    z <- Ryacas::ysym(z_res)
-    stopifnot(z$is_mat)
-    Filtert <- as.numeric(Ryacas::yac_str(paste0("Length(Transpose(", z, "))")))
-    if (isFALSE(identical(At, Filtert))) {
-      stop(
-        "`A` and `Filter` do not have compatible dimensions."
-      )
-    }
-  }
-  I <- paste0("Identity(Length(", y, "))")
-  E <- paste0("Inverse(", I, "-", y, ")")
-  C <- paste0(E, "*", x, "*", "Transpose(", E, ")")
-  if (FilterNull) {
-    M <- paste0(z, "*", C, "*", "Transpose(", z, ")")
+  Aysym <- Ryacas::ysym(Ryacas::yac_str(A$yacas_cmd))
+  stopifnot(Aysym$is_mat)
+  stopifnot(matrixR::IsSquareMatrix(Aysym))
+  # apply IsNilpotent in the future
+  if (methods::is(S, "yac_symbol")) {
+    Sysym <- S
   } else {
+    Sysym <- Ryacas::ysym(S)
+  }
+  Sysym <- Ryacas::ysym(Ryacas::yac_str(Sysym$yacas_cmd))
+  stopifnot(Sysym$is_mat)
+  stopifnot(matrixR::IsSymmetric(Sysym))
+  ADimensions <- as.numeric(Ryacas::yac_str(paste0("Length(", Aysym, ")")))
+  SDimensions <- as.numeric(Ryacas::yac_str(paste0("Length(", Sysym, ")")))
+  stopifnot(identical(ADimensions, SDimensions))
+  I <- paste0("Identity(Length(", Aysym, "))")
+  E <- paste0("Inverse(", I, "-", Aysym, ")")
+  C <- paste0(E, "*", Sysym, "*", "Transpose(", E, ")")
+  if (is.null(Filter)) {
     M <- C
+  } else {
+    if (methods::is(Filter, "yac_symbol")) {
+      Filterysym <- Filter
+    } else {
+      Filterysym <- Ryacas::ysym(Filter)
+    }
+    Filterysym <- Ryacas::ysym(Ryacas::yac_str(Filterysym$yacas_cmd))
+    stopifnot(Filterysym$is_mat)
+    FilterDimensions <- as.numeric(Ryacas::yac_str(paste0("Length(Transpose(", Filterysym, "))")))
+    stopifnot(identical(ADimensions, FilterDimensions))
+    M <- paste0(Filterysym, "*", C, "*", "Transpose(", Filterysym, ")")
   }
   C <- .exe(
     expr = C,
@@ -204,12 +195,12 @@ Expectations.yac_symbol <- function(A,
       u,
       ncol = 1
     )
-    a <- Ryacas::ysym(u)
-    v <- paste0(E, "*", a)
-    if (FilterNull) {
-      g <- paste0(Filter, "*", v)
-    } else {
+    uysym <- Ryacas::ysym(u)
+    v <- paste0(E, "*", uysym)
+    if (is.null(Filter)) {
       g <- v
+    } else {
+      g <- paste0(Filterysym, "*", v)
     }
     v <- .exe(
       expr = v,
@@ -228,27 +219,51 @@ Expectations.yac_symbol <- function(A,
   }
   if (str) {
     if (ysym) {
-      A <- y
-      S <- x
-      Filter <- z
-      u <- a
+      A <- Aysym
+      S <- Sysym
+      if (is.null(Filter)) {
+        Filter <- Ryacas::ysym(diag(ADimensions))
+      } else {
+        Filter <- Filterysym
+      }
+      if (isFALSE(is.null(u))) {
+        u <- uysym
+      }
     } else {
-      A <- Ryacas::yac_str(y)
-      S <- Ryacas::yac_str(x)
-      Filter <- Ryacas::yac_str(z)
-      u <- Ryacas::yac_str(a)
+      A <- Ryacas::yac_str(Aysym)
+      S <- Ryacas::yac_str(Sysym)
+      if (is.null(Filter)) {
+        Filter <- Ryacas::yac_str(diag(ADimensions))
+      } else {
+        Filter <- Ryacas::yac_str(Filterysym)
+      }
+      if (isFALSE(is.null(u))) {
+        u <- Ryacas::yac_str(uysym)
+      }
     }
     if (tex) {
-      A <- Ryacas::tex(y)
-      S <- Ryacas::tex(x)
-      Filter <- Ryacas::tex(z)
-      u <- Ryacas::tex(a)
+      A <- Ryacas::tex(Aysym)
+      S <- Ryacas::tex(Sysym)
+      if (is.null(Filter)) {
+        Filter <- Ryacas::tex(diag(ADimensions))
+      } else {
+        Filter <- Ryacas::tex(Filterysym)
+      }
+      if (isFALSE(is.null(u))) {
+        u <- Ryacas::tex(uysym)
+      }
     }
   } else {
-    A <- Ryacas::yac_expr(y)
-    S <- Ryacas::yac_expr(x)
-    Filter <- Ryacas::yac_expr(z)
-    u <- Ryacas::yac_expr(a)
+    A <- Ryacas::yac_expr(Aysym)
+    S <- Ryacas::yac_expr(Sysym)
+    if (is.null(Filter)) {
+      Filter <- diag(ADimensions)
+    } else {
+      Filter <- Ryacas::yac_expr(Filterysym)
+    }
+    if (isFALSE(is.null(u))) {
+      u <- Ryacas::yac_expr(uysym)
+    }
   }
   return(
     list(

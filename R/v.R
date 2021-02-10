@@ -100,18 +100,17 @@ v.yac_symbol <- function(A,
                          tex = FALSE,
                          ...) {
   stopifnot(methods::is(A, "yac_symbol"))
-  y_res <- Ryacas::yac_str(A$yacas_cmd)
-  y <- Ryacas::ysym(y_res)
-  stopifnot(y$is_mat)
-  stopifnot(matrixR::IsSquareMatrix(y))
-  I <- paste0("Identity(Length(", y, "))")
-  E <- paste0("Inverse(", I, "-", y, ")")
+  Aysym <- Ryacas::ysym(Ryacas::yac_str(A$yacas_cmd))
+  stopifnot(Aysym$is_mat)
+  stopifnot(matrixR::IsSquareMatrix(Aysym))
+  I <- paste0("Identity(Length(", Aysym, "))")
+  E <- paste0("Inverse(", I, "-", Aysym, ")")
   u <- matrix(
     u,
     ncol = 1
   )
-  a <- Ryacas::ysym(u)
-  expr <- paste0(E, "*", a)
+  uysym <- Ryacas::ysym(u)
+  expr <- paste0(E, "*", uysym)
   return(
     .exe(
       expr = expr,

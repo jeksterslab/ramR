@@ -120,35 +120,31 @@ g.yac_symbol <- function(A,
                          tex = FALSE,
                          ...) {
   stopifnot(methods::is(A, "yac_symbol"))
-  y_res <- Ryacas::yac_str(A$yacas_cmd)
-  y <- Ryacas::ysym(y_res)
-  stopifnot(y$is_mat)
-  stopifnot(matrixR::IsSquareMatrix(y))
-  I <- paste0("Identity(Length(", y, "))")
-  E <- paste0("Inverse(", I, "-", y, ")")
+  Aysym <- Ryacas::ysym(Ryacas::yac_str(A$yacas_cmd))
+  stopifnot(Aysym$is_mat)
+  stopifnot(matrixR::IsSquareMatrix(Aysym))
+  I <- paste0("Identity(Length(", Aysym, "))")
+  E <- paste0("Inverse(", I, "-", Aysym, ")")
   u <- matrix(
     u,
     ncol = 1
   )
-  a <- Ryacas::ysym(u)
-  v <- paste0(E, "*", a)
-  if (isFALSE(is.null(Filter))) {
-    At <- as.numeric(Ryacas::yac_str(paste0("Length(", y, ")")))
-    if (isFALSE(methods::is(Filter, "yac_symbol"))) {
-      Filter <- Ryacas::ysym(Filter)
-    }
-    z_res <- Ryacas::yac_str(Filter$yacas_cmd)
-    z <- Ryacas::ysym(z_res)
-    stopifnot(z$is_mat)
-    Filtert <- as.numeric(Ryacas::yac_str(paste0("Length(Transpose(", z, "))")))
-    if (isFALSE(identical(At, Filtert))) {
-      stop(
-        "`A` and `Filter` do not have compatible dimensions."
-      )
-    }
-    expr <- paste0(z, "*", v)
-  } else {
+  uysym <- Ryacas::ysym(u)
+  v <- paste0(E, "*", uysym)
+  if (is.null(Filter)) {
     expr <- v
+  } else {
+    if (methods::is(Filter, "yac_symbol")) {
+      Filterysym <- Filter
+    } else {
+      Filterysym <- Ryacas::ysym(Filter)
+    }
+    Filterysym <- Ryacas::ysym(Ryacas::yac_str(Filterysym$yacas_cmd))
+    stopifnot(Filterysym$is_mat)
+    ADimensions <- as.numeric(Ryacas::yac_str(paste0("Length(", Aysym, ")")))
+    FilterDimensions <- as.numeric(Ryacas::yac_str(paste0("Length(Transpose(", Filterysym, "))")))
+    stopifnot(identical(ADimensions, FilterDimensions))
+    expr <- paste0(Filterysym, "*", v)
   }
   return(
     .exe(

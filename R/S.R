@@ -130,9 +130,9 @@ S.yac_symbol <- function(A,
   stopifnot(y$is_mat)
   stopifnot(matrixR::IsSquareMatrix(y))
   if (isFALSE(methods::is(C, "yac_symbol"))) {
-    C <- Ryacas::ysym(C)
+    x <- Ryacas::ysym(C)
   }
-  x_res <- Ryacas::yac_str(C$yacas_cmd)
+  x_res <- Ryacas::yac_str(x$yacas_cmd)
   x <- Ryacas::ysym(x_res)
   stopifnot(x$is_mat)
   stopifnot(matrixR::IsSymmetric(x))
