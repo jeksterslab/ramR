@@ -63,7 +63,7 @@ If \code{FALSE}, returns symbolic result as string if \code{str = TRUE}.}
 \item{tex}{Logical. Return results as latex if \code{str = TRUE}.}
 }
 \description{
-Derives the means and covariance expectations
+Derives the mean and covariance expectations
 from the Reticular Action Model (RAM) matrices.
 }
 \details{

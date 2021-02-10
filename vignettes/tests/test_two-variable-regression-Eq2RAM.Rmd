@@ -281,3 +281,97 @@ testthat::test_that("Filter.", {
 })
 ```
 
+
+
+```{r labels3}
+eq <- paste(
+  "e by y 1", ";",
+  "y on x", beta, ";",
+  "e with e", sigmae2, ";",
+  "x with x", sigmax2, ";"
+)
+labels <- ramR::Eq2RAM(eq, par = FALSE)
+testthat::test_that("A.", {
+  for (i in seq_len(nrow(A))) {
+    for (j in seq_len(ncol(A))) {
+      testthat::expect_equal(
+        A[i, j],
+        labels$A[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("S.", {
+  for (i in seq_len(nrow(S))) {
+    for (j in seq_len(ncol(S))) {
+      testthat::expect_equal(
+        S[i, j],
+        labels$S[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("Filter.", {
+  for (i in seq_len(nrow(Filter))) {
+    for (j in seq_len(ncol(Filter))) {
+      testthat::expect_equal(
+        Filter[i, j],
+        labels$Filter[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("u.", {
+  testthat::expect_true(
+    is.null(labels$u),
+  )
+})
+```
+
+
+
+```{r pars3}
+pars <- ramR::Eq2RAM(eq, par = TRUE)
+testthat::test_that("Apars.", {
+  for (i in seq_len(nrow(Apars))) {
+    for (j in seq_len(ncol(Apars))) {
+      testthat::expect_equal(
+        Apars[i, j],
+        pars$A[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("Spars.", {
+  for (i in seq_len(nrow(Spars))) {
+    for (j in seq_len(ncol(Spars))) {
+      testthat::expect_equal(
+        Spars[i, j],
+        pars$S[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("Filter.", {
+  for (i in seq_len(nrow(Filter))) {
+    for (j in seq_len(ncol(Filter))) {
+      testthat::expect_equal(
+        Filter[i, j],
+        pars$Filter[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("upars.", {
+  testthat::expect_true(
+    is.null(pars$u),
+  )
+})
+```
+

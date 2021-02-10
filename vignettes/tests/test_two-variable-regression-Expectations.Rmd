@@ -72,6 +72,34 @@ Numericg <- round(Numeric$g, digits = 4)
 
 
 
+```{r numeric_u_NULL}
+NumericuNull <- ramR::Expectations(A, S, u = NULL, Filter)
+NumericuNullA <- round(NumericuNull$A, digits = 4)
+NumericuNullS <- round(NumericuNull$S, digits = 4)
+NumericuNullu <- NumericuNull$u
+NumericuNullFilter <- round(NumericuNull$Filter, digits = 4)
+NumericuNullC <- round(NumericuNull$C, digits = 4)
+NumericuNullM <- round(NumericuNull$M, digits = 4)
+NumericuNullv <- NumericuNull$v
+NumericuNullg <- NumericuNull$g
+```
+
+
+
+```{r numeric_Filter_NULL}
+NumericFilterNull <- ramR::Expectations(A, S, u, Filter = NULL)
+NumericFilterNullA <- round(NumericFilterNull$A, digits = 4)
+NumericFilterNullS <- round(NumericFilterNull$S, digits = 4)
+NumericFilterNullu <- round(NumericFilterNull$u, digits = 4)
+NumericFilterNullFilter <- round(NumericFilterNull$Filter, digits = 4)
+NumericFilterNullC <- round(NumericFilterNull$C, digits = 4)
+NumericFilterNullM <- round(NumericFilterNull$M, digits = 4)
+NumericFilterNullv <- round(NumericFilterNull$v, digits = 4)
+NumericFilterNullg <- round(NumericFilterNull$g, digits = 4)
+```
+
+
+
 ```{r symbolic}
 Symbolic <- ramR::Expectations(Ryacas::ysym(A), S, u, Filter)
 SymbolicA <- round(Ryacas::as_r(Symbolic$A), digits = 4)
@@ -89,6 +117,44 @@ SymbolicExprv <- round(Ryacas::as_r(SymbolicExpr$v), digits = 4)
 SymbolicExprg <- round(Ryacas::as_r(SymbolicExpr$g), digits = 4)
 ramR::Expectations(Ryacas::ysym(A), S, u, Filter, str = TRUE, ysym = FALSE, simplify = TRUE)
 ExpectationsTex <- ramR::Expectations(Ryacas::ysym(A), S, u, Filter, str = TRUE, tex = TRUE, simplify = TRUE)
+```
+
+
+
+```{r symbolic_u_null}
+SymbolicuNull <- ramR::Expectations(Ryacas::ysym(A), S, u = NULL, Filter)
+SymbolicuNullA <- round(Ryacas::as_r(SymbolicuNull$A), digits = 4)
+SymbolicuNullS <- round(Ryacas::as_r(SymbolicuNull$S), digits = 4)
+SymbolicuNullu <- SymbolicuNull$u
+SymbolicuNullFilter <- round(Ryacas::as_r(SymbolicuNull$Filter), digits = 4)
+SymbolicuNullC <- round(Ryacas::as_r(SymbolicuNull$C), digits = 4)
+SymbolicuNullM <- round(Ryacas::as_r(SymbolicuNull$M), digits = 4)
+SymbolicuNullv <- SymbolicuNull$v
+SymbolicuNullg <- SymbolicuNull$g
+SymbolicuNullExpr <- ramR::Expectations(Ryacas::ysym(A), S, u = NULL, Filter, str = FALSE, simplify = TRUE)
+SymbolicuNullExprC <- round(Ryacas::as_r(SymbolicuNullExpr$C), digits = 4)
+SymbolicuNullExprM <- round(Ryacas::as_r(SymbolicExpr$M), digits = 4)
+SymbolicuNullExprv <- SymbolicuNullExpr$v
+SymbolicuNullExprg <- SymbolicuNullExpr$g
+```
+
+
+
+```{r symbolic_Filter_NULL}
+SymbolicFilterNull <- ramR::Expectations(Ryacas::ysym(A), S, u, Filter = NULL)
+SymbolicFilterNullA <- round(Ryacas::as_r(SymbolicFilterNull$A), digits = 4)
+SymbolicFilterNullS <- round(Ryacas::as_r(SymbolicFilterNull$S), digits = 4)
+SymbolicFilterNullu <- round(Ryacas::as_r(SymbolicFilterNull$u), digits = 4)
+SymbolicFilterNullFilter <- round(Ryacas::as_r(SymbolicFilterNull$Filter), digits = 4)
+SymbolicFilterNullC <- round(Ryacas::as_r(SymbolicFilterNull$C), digits = 4)
+SymbolicFilterNullM <- round(Ryacas::as_r(SymbolicFilterNull$M), digits = 4)
+SymbolicFilterNullv <- round(Ryacas::as_r(SymbolicFilterNull$v), digits = 4)
+SymbolicFilterNullg <- round(Ryacas::as_r(SymbolicFilterNull$g), digits = 4)
+SymbolicFilterNullExpr <- ramR::Expectations(Ryacas::ysym(A), S, u, Filter = NULL, str = FALSE, simplify = TRUE)
+SymbolicFilterNullExprC <- round(Ryacas::as_r(SymbolicFilterNullExpr$C), digits = 4)
+SymbolicFilterNullExprM <- round(Ryacas::as_r(SymbolicFilterNullExpr$M), digits = 4)
+SymbolicFilterNullExprv <- round(Ryacas::as_r(SymbolicFilterNullExpr$v), digits = 4)
+SymbolicFilterNullExprg <- round(Ryacas::as_r(SymbolicFilterNullExpr$g), digits = 4)
 ```
 
 
@@ -174,7 +240,11 @@ testthat::test_that("A.", {
       testthat::expect_equal(
         A[i, j],
         NumericA[i, j],
+        NumericuNullA[i, j],
+        NumericFilterNullA[i, j],
         SymbolicA[i, j],
+        SymbolicuNullA[i, j],
+        SymbolicFilterNullA[i, j],
         check.attributes = FALSE
       )
     }
@@ -186,7 +256,11 @@ testthat::test_that("S.", {
       testthat::expect_equal(
         S[i, j],
         NumericS[i, j],
+        NumericuNullS[i, j],
+        NumericFilterNullS[i, j],
         SymbolicS[i, j],
+        SymbolicuNullS[i, j],
+        SymbolicFilterNullS[i, j],
         check.attributes = FALSE
       )
     }
@@ -198,11 +272,19 @@ testthat::test_that("u.", {
       testthat::expect_equal(
         u[i, j],
         Numericu[i, j],
+        NumericFilterNullu[i, j],
         Symbolicu[i, j],
+        SymbolicFilterNullu[i, j],
         check.attributes = FALSE
       )
     }
   }
+  testthat::expect_true(
+    is.null(NumericuNullu)
+  )
+  testthat::expect_true(
+    is.null(SymbolicuNullu)
+  )
 })
 testthat::test_that("Filter.", {
   for (i in seq_len(nrow(Filter))) {
@@ -210,7 +292,20 @@ testthat::test_that("Filter.", {
       testthat::expect_equal(
         Filter[i, j],
         NumericFilter[i, j],
+        NumericuNullFilter[i, j],
         SymbolicFilter[i, j],
+        SymbolicuNullFilter[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+  Identity <- diag(dim(A)[1])
+  for (i in seq_len(nrow(Identity))) {
+    for (j in seq_len(ncol(Identity))) {
+      testthat::expect_equal(
+        Identity[i, j],
+        NumericFilterNullFilter[i, j],
+        SymbolicFilterNullFilter[i, j],
         check.attributes = FALSE
       )
     }
@@ -222,7 +317,15 @@ testthat::test_that("C.", {
       testthat::expect_equal(
         C[i, j],
         NumericC[i, j],
+        NumericuNullC[i, j],
+        NumericFilterNullC[i, j],
+        NumericFilterNullM[i, j],
         SymbolicC[i, j],
+        SymbolicuNullC[i, j],
+        SymbolicExprC[i, j],
+        SymbolicuNullExprC[i, j],
+        SymbolicFilterNullC[i, j],
+        SymbolicFilterNullM[i, j],
         check.attributes = FALSE
       )
     }
@@ -234,8 +337,11 @@ testthat::test_that("M.", {
       testthat::expect_equal(
         M[i, j],
         NumericM[i, j],
+        NumericuNullM[i, j],
         SymbolicM[i, j],
+        SymbolicuNullM[i, j],
         SymbolicExprM[i, j],
+        SymbolicuNullExprM[i, j],
         check.attributes = FALSE
       )
     }
@@ -247,12 +353,24 @@ testthat::test_that("v.", {
       testthat::expect_equal(
         v[i, j],
         Numericv[i, j],
+        NumericFilterNullv[i, j],
         Symbolicv[i, j],
         SymbolicExprv[i, j],
+        SymbolicFilterNullv[i, j],
+        SymbolicFilterNullExprv[i, j],
         check.attributes = FALSE
       )
     }
   }
+  testthat::expect_true(
+    is.null(NumericuNullv)
+  )
+  testthat::expect_true(
+    is.null(SymbolicuNullv)
+  )
+  testthat::expect_true(
+    is.null(SymbolicuNullExprv)
+  )
 })
 testthat::test_that("g.", {
   for (i in seq_len(nrow(g))) {
@@ -260,12 +378,24 @@ testthat::test_that("g.", {
       testthat::expect_equal(
         g[i, j],
         Numericg[i, j],
+        NumericFilterNullg[i, j],
         Symbolicg[i, j],
         SymbolicExprg[i, j],
+        SymbolicFilterNullg[i, j],
+        SymbolicFilterNullExprg[i, j],
         check.attributes = FALSE
       )
     }
   }
+  testthat::expect_true(
+    is.null(NumericuNullg)
+  )
+  testthat::expect_true(
+    is.null(SymbolicuNullg)
+  )
+  testthat::expect_true(
+    is.null(SymbolicuNullExprg)
+  )
 })
 ```
 
