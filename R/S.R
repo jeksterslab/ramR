@@ -125,28 +125,25 @@ S.yac_symbol <- function(A,
                          tex = FALSE,
                          ...) {
   stopifnot(methods::is(A, "yac_symbol"))
-  y_res <- Ryacas::yac_str(A$yacas_cmd)
-  y <- Ryacas::ysym(y_res)
-  stopifnot(y$is_mat)
-  stopifnot(matrixR::IsSquareMatrix(y))
-  if (isFALSE(methods::is(C, "yac_symbol"))) {
-    x <- Ryacas::ysym(C)
+  Aysym <- Ryacas::ysym(Ryacas::yac_str(A$yacas_cmd))
+  stopifnot(Aysym$is_mat)
+  stopifnot(matrixR::IsSquareMatrix(Aysym))
+  # apply IsNilpotent in the future
+  if (methods::is(C, "yac_symbol")) {
+    Cysym <- C
+  } else {
+    Cysym <- Ryacas::ysym(C)
   }
-  x_res <- Ryacas::yac_str(x$yacas_cmd)
-  x <- Ryacas::ysym(x_res)
-  stopifnot(x$is_mat)
-  stopifnot(matrixR::IsSymmetric(x))
-  At <- as.numeric(Ryacas::yac_str(paste0("Length(", y, ")")))
-  Ct <- as.numeric(Ryacas::yac_str(paste0("Length(", x, ")")))
-  if (isFALSE(identical(At, Ct))) {
-    stop(
-      "`A` and `C` do not have the same dimensions."
-    )
-  }
-  I <- paste0("Identity(Length(", y, "))")
+  Cysym <- Ryacas::ysym(Ryacas::yac_str(Cysym$yacas_cmd))
+  stopifnot(Cysym$is_mat)
+  stopifnot(matrixR::IsSymmetric(Cysym))
+  ADimensions <- as.numeric(Ryacas::yac_str(paste0("Length(", Aysym, ")")))
+  CDimensions <- as.numeric(Ryacas::yac_str(paste0("Length(", Cysym, ")")))
+  stopifnot(identical(ADimensions, CDimensions))
+  I <- paste0("Identity(Length(", Aysym, "))")
   expr <- paste0(
-    "(", I, "-", y, ")", "*", x, "*",
-    "Transpose(", I, "-", y, ")"
+    "(", I, "-", Aysym, ")", "*", Cysym, "*",
+    "Transpose(", I, "-", Aysym, ")"
   )
   return(
     .exe(

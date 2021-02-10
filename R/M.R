@@ -107,12 +107,10 @@ M.default <- function(A,
                       Filter = NULL,
                       ...) {
   C <- C.default(A, S)
-  if (isFALSE(is.null(Filter))) {
-    if (dim(C)[1] != dim(Filter)[2]) {
-      stop(
-        "`A` and `Filter` do not have compatible dimensions."
-      )
-    }
+  if (is.null(Filter)) {
+    return(C)
+  } else {
+    stopifnot(identical(dim(A)[1], dim(Filter)[2]))
     return(
       Filter %*% tcrossprod(
         x = C,
@@ -120,7 +118,6 @@ M.default <- function(A,
       )
     )
   }
-  return(C)
 }
 
 #' @rdname M

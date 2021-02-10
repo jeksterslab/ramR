@@ -161,6 +161,7 @@ Expectations.yac_symbol <- function(A,
   C <- paste0(E, "*", Sysym, "*", "Transpose(", E, ")")
   if (is.null(Filter)) {
     M <- C
+    Filterysym <- Ryacas::ysym(diag(ADimensions))
   } else {
     if (methods::is(Filter, "yac_symbol")) {
       Filterysym <- Filter
@@ -221,22 +222,14 @@ Expectations.yac_symbol <- function(A,
     if (ysym) {
       A <- Aysym
       S <- Sysym
-      if (is.null(Filter)) {
-        Filter <- Ryacas::ysym(diag(ADimensions))
-      } else {
-        Filter <- Filterysym
-      }
+      Filter <- Filterysym
       if (isFALSE(is.null(u))) {
         u <- uysym
       }
     } else {
       A <- Ryacas::yac_str(Aysym)
       S <- Ryacas::yac_str(Sysym)
-      if (is.null(Filter)) {
-        Filter <- Ryacas::yac_str(diag(ADimensions))
-      } else {
-        Filter <- Ryacas::yac_str(Filterysym)
-      }
+      Filter <- Ryacas::yac_str(Filterysym)
       if (isFALSE(is.null(u))) {
         u <- Ryacas::yac_str(uysym)
       }
@@ -244,11 +237,7 @@ Expectations.yac_symbol <- function(A,
     if (tex) {
       A <- Ryacas::tex(Aysym)
       S <- Ryacas::tex(Sysym)
-      if (is.null(Filter)) {
-        Filter <- Ryacas::tex(diag(ADimensions))
-      } else {
-        Filter <- Ryacas::tex(Filterysym)
-      }
+      Filter <- Ryacas::tex(Filterysym)
       if (isFALSE(is.null(u))) {
         u <- Ryacas::tex(uysym)
       }
@@ -256,11 +245,7 @@ Expectations.yac_symbol <- function(A,
   } else {
     A <- Ryacas::yac_expr(Aysym)
     S <- Ryacas::yac_expr(Sysym)
-    if (is.null(Filter)) {
-      Filter <- diag(ADimensions)
-    } else {
-      Filter <- Ryacas::yac_expr(Filterysym)
-    }
+    Filter <- Ryacas::yac_expr(Filterysym)
     if (isFALSE(is.null(u))) {
       u <- Ryacas::yac_expr(uysym)
     }
