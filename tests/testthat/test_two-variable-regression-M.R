@@ -56,12 +56,28 @@ NumericM <- round(
   ramR::M(A, S, Filter),
   digits = 4
 )
+NumericC <- round(
+  ramR::M(A, S, Filter = NULL),
+  digits = 4
+)
 SymbolicM <- round(
   Ryacas::as_r(
     ramR::M(
       Ryacas::ysym(A),
-      S,
-      Filter,
+      Ryacas::ysym(S),
+      Ryacas::ysym(Filter),
+      str = TRUE,
+      simplify = TRUE
+    )
+  ),
+  digits = 4
+)
+SymbolicC <- round(
+  Ryacas::as_r(
+    ramR::M(
+      Ryacas::ysym(A),
+      Ryacas::ysym(S),
+      Filter = NULL,
       str = TRUE,
       simplify = TRUE
     )
@@ -74,6 +90,18 @@ SymbolicMExpr <- round(
       Ryacas::ysym(A),
       S,
       Filter,
+      str = FALSE,
+      simplify = TRUE
+    )
+  ),
+  digits = 4
+)
+SymbolicCExpr <- round(
+  eval(
+    ramR::M(
+      Ryacas::ysym(A),
+      S,
+      Filter = NULL,
       str = FALSE,
       simplify = TRUE
     )
@@ -107,6 +135,7 @@ cat(
 #'
 #+ round_source
 M <- round(M, digits = 4)
+C <- round(C, digits = 4)
 #'
 #+ testthat
 testthat::test_that("M.", {
@@ -117,6 +146,19 @@ testthat::test_that("M.", {
         NumericM[i, j],
         SymbolicM[i, j],
         SymbolicMExpr[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("C.", {
+  for (i in seq_len(nrow(C))) {
+    for (j in seq_len(ncol(C))) {
+      testthat::expect_equal(
+        C[i, j],
+        NumericC[i, j],
+        SymbolicC[i, j],
+        SymbolicCExpr[i, j],
         check.attributes = FALSE
       )
     }

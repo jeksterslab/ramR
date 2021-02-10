@@ -44,7 +44,7 @@ eq <- "
     e   by   y   1       NA
     y   on   x   beta    0.00
     e   with e   sigmax2 1.25
-    x   with x   sigmax2 0.25
+    x   with x   sigmax2 1.25
     y   on   1   alpha   0.00
     x   on   1   mux     0.50
 "

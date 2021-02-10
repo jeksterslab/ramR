@@ -56,12 +56,28 @@ Numericg <- round(
   ramR::g(A, u, Filter),
   digits = 4
 )
+Numericv <- round(
+  ramR::g(A, u, Filter = NULL),
+  digits = 4
+)
 Symbolicg <- round(
   Ryacas::as_r(
     ramR::g(
       Ryacas::ysym(A),
       u,
-      Filter,
+      Ryacas::ysym(Filter),
+      str = TRUE,
+      simplify = TRUE
+    )
+  ),
+  digits = 4
+)
+Symbolicv <- round(
+  Ryacas::as_r(
+    ramR::g(
+      Ryacas::ysym(A),
+      u,
+      Filter = NULL,
       str = TRUE,
       simplify = TRUE
     )
@@ -74,6 +90,18 @@ SymbolicgExpr <- round(
       Ryacas::ysym(A),
       u,
       Filter,
+      str = FALSE,
+      simplify = TRUE
+    )
+  ),
+  digits = 4
+)
+SymbolicvExpr <- round(
+  eval(
+    ramR::g(
+      Ryacas::ysym(A),
+      u,
+      Filter = NULL,
       str = FALSE,
       simplify = TRUE
     )
@@ -107,6 +135,7 @@ cat(
 #'
 #+ round_source
 g <- round(g, digits = 4)
+v <- round(v, digits = 4)
 #'
 #+ testthat
 testthat::test_that("g.", {
@@ -117,6 +146,19 @@ testthat::test_that("g.", {
         Numericg[i, j],
         Symbolicg[i, j],
         SymbolicgExpr[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("v.", {
+  for (i in seq_len(nrow(v))) {
+    for (j in seq_len(ncol(v))) {
+      testthat::expect_equal(
+        v[i, j],
+        Numericv[i, j],
+        Symbolicv[i, j],
+        SymbolicvExpr[i, j],
         check.attributes = FALSE
       )
     }

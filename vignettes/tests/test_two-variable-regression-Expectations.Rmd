@@ -101,7 +101,7 @@ NumericFilterNullg <- round(NumericFilterNull$g, digits = 4)
 
 
 ```{r symbolic}
-Symbolic <- ramR::Expectations(Ryacas::ysym(A), S, u, Filter)
+Symbolic <- ramR::Expectations(Ryacas::ysym(A), Ryacas::ysym(S), u, Ryacas::ysym(Filter))
 SymbolicA <- round(Ryacas::as_r(Symbolic$A), digits = 4)
 SymbolicS <- round(Ryacas::as_r(Symbolic$S), digits = 4)
 Symbolicu <- round(Ryacas::as_r(Symbolic$u), digits = 4)
@@ -116,6 +116,8 @@ SymbolicExprM <- round(Ryacas::as_r(SymbolicExpr$M), digits = 4)
 SymbolicExprv <- round(Ryacas::as_r(SymbolicExpr$v), digits = 4)
 SymbolicExprg <- round(Ryacas::as_r(SymbolicExpr$g), digits = 4)
 ramR::Expectations(Ryacas::ysym(A), S, u, Filter, str = TRUE, ysym = FALSE, simplify = TRUE)
+ramR::Expectations(Ryacas::ysym(A), S, u = NULL, Filter = NULL, str = TRUE, ysym = FALSE, simplify = TRUE)
+ramR::Expectations(Ryacas::ysym(A), S, u = NULL, Filter = NULL, str = TRUE, tex = TRUE, simplify = TRUE)
 ExpectationsTex <- ramR::Expectations(Ryacas::ysym(A), S, u, Filter, str = TRUE, tex = TRUE, simplify = TRUE)
 ```
 

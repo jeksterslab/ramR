@@ -60,7 +60,7 @@ SymbolicS <- round(
   Ryacas::as_r(
     ramR::S(
       Ryacas::ysym(A),
-      round(C, digits = 4),
+      Ryacas::ysym(round(C, digits = 4)),
       str = TRUE,
       simplify = TRUE
     )

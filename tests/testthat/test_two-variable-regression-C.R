@@ -60,7 +60,7 @@ SymbolicC <- round(
   Ryacas::as_r(
     ramR::C(
       Ryacas::ysym(A),
-      S,
+      Ryacas::ysym(S),
       str = TRUE,
       simplify = TRUE
     )
