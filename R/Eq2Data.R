@@ -47,8 +47,15 @@
 Eq2Data <- function(eq,
                     n,
                     ...) {
-  Expectations <- Eq2RAM(eq, par = FALSE)
-  stopifnot(is.numeric(Expectations$eq$label))
+  Expectations <- Eq2RAM(
+    eq,
+    par = FALSE
+  )
+  stopifnot(
+    is.numeric(
+      Expectations$eq$label
+    )
+  )
   Expectations <- Expectations.default(
     A = Expectations$A,
     S = Expectations$S,

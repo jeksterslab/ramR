@@ -75,7 +75,7 @@ Eq2RAM <- function(eq,
   v <- v[which(v != "1")]
   t <- length(v)
   h <- unique(by[, "lhs"])
-  g <- v[!v %in% h]
+  g <- v[!(v %in% h)]
   v <- c(g, h)
   q <- length(h)
   p <- t - q
@@ -90,23 +90,33 @@ Eq2RAM <- function(eq,
     ncol = t
   )
   diag(Filter) <- 1
-  colnames(Filter) <- rownames(A) <- colnames(A) <- rownames(S) <- colnames(S) <- v
+  colnames(Filter) <- v
+  rownames(A) <- colnames(A) <- v
+  rownames(S) <- colnames(S) <- v
   rownames(Filter) <- g
   # loadings
   for (i in seq_len(dim(by)[1])) {
     loadings <- by[i, , drop = FALSE]
-    A[loadings[, "rhs"], loadings[, "lhs"]] <- to.numeric(loadings[, "label"])
+    A[loadings[, "rhs"], loadings[, "lhs"]] <- to.numeric(
+      loadings[, "label"]
+    )
   }
   # regressions
   for (i in seq_len(dim(on)[1])) {
     regressions <- on[i, , drop = FALSE]
-    A[regressions[, "lhs"], regressions[, "rhs"]] <- to.numeric(regressions[, "label"])
+    A[regressions[, "lhs"], regressions[, "rhs"]] <- to.numeric(
+      regressions[, "label"]
+    )
   }
   # variances
   for (i in seq_len(dim(with)[1])) {
     variances <- with[i, , drop = FALSE]
-    S[variances[, "lhs"], variances[, "rhs"]] <- to.numeric(variances[, "label"])
-    S[variances[, "rhs"], variances[, "lhs"]] <- to.numeric(variances[, "label"])
+    S[variances[, "lhs"], variances[, "rhs"]] <- to.numeric(
+      variances[, "label"]
+    )
+    S[variances[, "rhs"], variances[, "lhs"]] <- to.numeric(
+      variances[, "label"]
+    )
   }
   # means
   if (dim(one)[1] > 0) {
@@ -119,7 +129,9 @@ Eq2RAM <- function(eq,
     colnames(u) <- "u"
     for (i in seq_len(dim(one)[1])) {
       means <- one[i, , drop = FALSE]
-      u[means[, "lhs"], 1] <- to.numeric(means[, "label"])
+      u[means[, "lhs"], 1] <- to.numeric(
+        means[, "label"]
+      )
     }
   } else {
     u <- NULL

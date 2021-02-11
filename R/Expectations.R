@@ -49,7 +49,10 @@
 #' Expectations(Ryacas::ysym(A), S, u, Filter, tex = TRUE)
 #' Expectations(Ryacas::ysym(A), S, u, Filter, ysym = FALSE)
 #' Expectations(Ryacas::ysym(A), S, u, Filter, str = FALSE)
-#' Expectations <- Expectations(Ryacas::ysym(A), S, u, Filter, str = FALSE)
+#' Expectations <- Expectations(
+#'   Ryacas::ysym(A), S, u, Filter,
+#'   str = FALSE
+#' )
 #' eval(Expectations$A)
 #' eval(Expectations$S)
 #' eval(Expectations$u)
@@ -111,7 +114,9 @@ Expectations.default <- function(A,
     g <- NULL
   }
   if (is.null(Filter)) {
-    Filter <- matrixR::IdentityFrom(A)
+    Filter <- matrixR::IdentityFrom(
+      A
+    )
   }
   return(
     list(
@@ -140,39 +145,134 @@ Expectations.yac_symbol <- function(A,
                                     simplify = FALSE,
                                     tex = FALSE,
                                     ...) {
-  stopifnot(methods::is(A, "yac_symbol"))
-  Aysym <- Ryacas::ysym(Ryacas::yac_str(A$yacas_cmd))
-  stopifnot(Aysym$is_mat)
-  stopifnot(matrixR::IsSquareMatrix(Aysym))
+  stopifnot(
+    methods::is(
+      A,
+      "yac_symbol"
+    )
+  )
+  Aysym <- Ryacas::ysym(
+    Ryacas::yac_str(
+      A$yacas_cmd
+    )
+  )
+  stopifnot(
+    Aysym$is_mat
+  )
+  stopifnot(
+    matrixR::IsSquareMatrix(
+      Aysym
+    )
+  )
   # apply IsNilpotent in the future
   if (methods::is(S, "yac_symbol")) {
     Sysym <- S
   } else {
     Sysym <- Ryacas::ysym(S)
   }
-  Sysym <- Ryacas::ysym(Ryacas::yac_str(Sysym$yacas_cmd))
-  stopifnot(Sysym$is_mat)
-  stopifnot(matrixR::IsSymmetric(Sysym))
-  ADimensions <- as.numeric(Ryacas::yac_str(paste0("Length(", Aysym, ")")))
-  SDimensions <- as.numeric(Ryacas::yac_str(paste0("Length(", Sysym, ")")))
-  stopifnot(identical(ADimensions, SDimensions))
-  I <- paste0("Identity(Length(", Aysym, "))")
-  E <- paste0("Inverse(", I, "-", Aysym, ")")
-  C <- paste0(E, "*", Sysym, "*", "Transpose(", E, ")")
+  Sysym <- Ryacas::ysym(
+    Ryacas::yac_str(
+      Sysym$yacas_cmd
+    )
+  )
+  stopifnot(
+    Sysym$is_mat
+  )
+  stopifnot(
+    matrixR::IsSymmetric(
+      Sysym
+    )
+  )
+  ADimensions <- as.numeric(
+    Ryacas::yac_str(
+      paste0(
+        "Length(",
+        Aysym,
+        ")"
+      )
+    )
+  )
+  SDimensions <- as.numeric(
+    Ryacas::yac_str(
+      paste0(
+        "Length(",
+        Sysym,
+        ")"
+      )
+    )
+  )
+  stopifnot(
+    identical(
+      ADimensions,
+      SDimensions
+    )
+  )
+  I <- paste0(
+    "Identity(Length(",
+    Aysym,
+    "))"
+  )
+  E <- paste0(
+    "Inverse(",
+    I,
+    "-",
+    Aysym,
+    ")"
+  )
+  C <- paste0(
+    E,
+    "*",
+    Sysym,
+    "*",
+    "Transpose(",
+    E,
+    ")"
+  )
   if (is.null(Filter)) {
     M <- C
-    Filterysym <- Ryacas::ysym(diag(ADimensions))
+    Filterysym <- Ryacas::ysym(
+      diag(
+        ADimensions
+      )
+    )
   } else {
     if (methods::is(Filter, "yac_symbol")) {
       Filterysym <- Filter
     } else {
       Filterysym <- Ryacas::ysym(Filter)
     }
-    Filterysym <- Ryacas::ysym(Ryacas::yac_str(Filterysym$yacas_cmd))
-    stopifnot(Filterysym$is_mat)
-    FilterDimensions <- as.numeric(Ryacas::yac_str(paste0("Length(Transpose(", Filterysym, "))")))
-    stopifnot(identical(ADimensions, FilterDimensions))
-    M <- paste0(Filterysym, "*", C, "*", "Transpose(", Filterysym, ")")
+    Filterysym <- Ryacas::ysym(
+      Ryacas::yac_str(
+        Filterysym$yacas_cmd
+      )
+    )
+    stopifnot(
+      Filterysym$is_mat
+    )
+    FilterDimensions <- as.numeric(
+      Ryacas::yac_str(
+        paste0(
+          "Length(Transpose(",
+          Filterysym,
+          "))"
+        )
+      )
+    )
+    stopifnot(
+      identical(
+        ADimensions,
+        FilterDimensions
+      )
+    )
+    M <- paste0(
+      Filterysym,
+      "*",
+      C,
+      "*",
+      "Transpose(",
+      Filterysym,
+      ")"
+    )
   }
   C <- .exe(
     expr = C,
@@ -197,11 +297,19 @@ Expectations.yac_symbol <- function(A,
       ncol = 1
     )
     uysym <- Ryacas::ysym(u)
-    v <- paste0(E, "*", uysym)
+    v <- paste0(
+      E,
+      "*",
+      uysym
+    )
     if (is.null(Filter)) {
       g <- v
     } else {
-      g <- paste0(Filterysym, "*", v)
+      g <- paste0(
+        Filterysym,
+        "*",
+        v
+      )
     }
     v <- .exe(
       expr = v,
@@ -227,27 +335,51 @@ Expectations.yac_symbol <- function(A,
         u <- uysym
       }
     } else {
-      A <- Ryacas::yac_str(Aysym)
-      S <- Ryacas::yac_str(Sysym)
-      Filter <- Ryacas::yac_str(Filterysym)
+      A <- Ryacas::yac_str(
+        Aysym
+      )
+      S <- Ryacas::yac_str(
+        Sysym
+      )
+      Filter <- Ryacas::yac_str(
+        Filterysym
+      )
       if (isFALSE(is.null(u))) {
-        u <- Ryacas::yac_str(uysym)
+        u <- Ryacas::yac_str(
+          uysym
+        )
       }
     }
     if (tex) {
-      A <- Ryacas::tex(Aysym)
-      S <- Ryacas::tex(Sysym)
-      Filter <- Ryacas::tex(Filterysym)
+      A <- Ryacas::tex(
+        Aysym
+      )
+      S <- Ryacas::tex(
+        Sysym
+      )
+      Filter <- Ryacas::tex(
+        Filterysym
+      )
       if (isFALSE(is.null(u))) {
-        u <- Ryacas::tex(uysym)
+        u <- Ryacas::tex(
+          uysym
+        )
       }
     }
   } else {
-    A <- Ryacas::yac_expr(Aysym)
-    S <- Ryacas::yac_expr(Sysym)
-    Filter <- Ryacas::yac_expr(Filterysym)
+    A <- Ryacas::yac_expr(
+      Aysym
+    )
+    S <- Ryacas::yac_expr(
+      Sysym
+    )
+    Filter <- Ryacas::yac_expr(
+      Filterysym
+    )
     if (isFALSE(is.null(u))) {
-      u <- Ryacas::yac_expr(uysym)
+      u <- Ryacas::yac_expr(
+        uysym
+      )
     }
   }
   return(

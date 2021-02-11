@@ -1,5 +1,7 @@
 to.numeric <- function(x) {
-  out <- suppressWarnings(as.numeric(x))
+  out <- suppressWarnings(
+    as.numeric(x)
+  )
   if (is.na(out)) {
     return(x)
   } else {
@@ -8,7 +10,10 @@ to.numeric <- function(x) {
 }
 
 isFALSE <- function(x) {
-  identical(x, FALSE)
+  identical(
+    x,
+    FALSE
+  )
 }
 
 #' @param expr Character string. Yacas expresion.
@@ -26,13 +31,17 @@ isFALSE <- function(x) {
                  simplify = FALSE,
                  tex = FALSE) {
   if (simplify) {
-    expr <- paste0("Simplify(", expr, ")")
+    expr <- paste0(
+      "Simplify(", expr, ")"
+    )
   }
   if (str) {
     out <- Ryacas::yac_str(expr)
     if (tex) {
       return(
-        Ryacas::tex(Ryacas::ysym(out))
+        Ryacas::tex(
+          Ryacas::ysym(out)
+        )
       )
     } else {
       if (ysym) {
@@ -46,35 +55,91 @@ isFALSE <- function(x) {
       }
     }
   } else {
-    return(Ryacas::yac_expr(expr))
+    return(
+      Ryacas::yac_expr(expr)
+    )
   }
 }
 
 Parse <- function(eq) {
-  eq <- gsub(pattern = "#[^\\\n]*", replacement = "", x = eq)
-  eq <- unlist(strsplit(x = eq, split = "[\n;]"))
-  # eq <- unlist(strsplit(x = eq, split = ";"))
-  eq <- trimws(x = gsub(pattern = "\\s+", replacement = " ", x = eq))
-  eq <- do.call(what = "rbind", args = strsplit(x = eq, split = " "))
+  eq <- gsub(
+    pattern = "#[^\\\n]*",
+    replacement = "",
+    x = eq
+  )
+  eq <- unlist(
+    strsplit(
+      x = eq,
+      split = "[\n;]"
+    )
+  )
+  eq <- trimws(
+    x = gsub(
+      pattern = "\\s+",
+      replacement = " ",
+      x = eq
+    )
+  )
+  eq <- do.call(
+    what = "rbind",
+    args = strsplit(
+      x = eq,
+      split = " "
+    )
+  )
   if (dim(eq)[2] == 5) {
-    colnames(eq) <- c("lhs", "op", "rhs", "label", "start")
+    colnames(eq) <- c(
+      "lhs",
+      "op",
+      "rhs",
+      "label",
+      "start"
+    )
   } else {
-    colnames(eq) <- c("lhs", "op", "rhs", "label")
+    colnames(eq) <- c(
+      "lhs",
+      "op",
+      "rhs",
+      "label"
+    )
   }
-  eq[, "op"] <- tolower(eq[, "op"])
-  # par.index-----------------------------------------------------------------
-  label <- as.vector(eq[, "label"])
-  uniquelabel <- rep(x = NA, length = length(eq[, "label"]))
+  eq[, "op"] <- tolower(
+    eq[, "op"]
+  )
+  # par.index-----------------------------------------------------------
+  label <- as.vector(
+    eq[, "label"]
+  )
+  uniquelabel <- rep(
+    x = NA,
+    length = length(
+      eq[, "label"]
+    )
+  )
   for (i in seq_along(label)) {
-    if (is.na(suppressWarnings(as.numeric(label[i])))) {
+    if (
+      is.na(
+        suppressWarnings(
+          as.numeric(label[i])
+        )
+      )
+    ) {
       uniquelabel[i] <- label[i]
     } else {
       uniquelabel[i] <- NA
     }
   }
-  uniquelabel <- unique(uniquelabel[stats::complete.cases(uniquelabel)])
-  index <- paste0("p", seq_along(uniquelabel))
-  par.index <- rep(x = NA, length = length(label))
+  uniquelabel <- unique(
+    uniquelabel[stats::complete.cases(uniquelabel)]
+  )
+  index <- paste0(
+    "p",
+    seq_along(uniquelabel)
+  )
+  par.index <- rep(
+    x = NA,
+    length = length(label)
+  )
   for (i in seq_along(label)) {
     for (j in seq_along(uniquelabel)) {
       if (uniquelabel[j] == label[i]) {
@@ -110,6 +175,6 @@ Parse <- function(eq) {
     )
     eq$start <- start
   }
-  # ---------------------------------------------------------------------------
+  # --------------------------------------------------------------------
   return(eq)
 }

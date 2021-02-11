@@ -33,7 +33,7 @@
 #' @inheritParams Eq2RAM
 #' @inheritParams Expectations.yac_symbol
 #' @examples
-#' # Numerical -------------------------------------------------------------
+#' # Numerical ---------------------------------------------------------
 #' eq <- "
 #'   # lhs op   rhs label
 #'     e   by   y   1
@@ -44,7 +44,7 @@
 #'     x   on   1   0.50
 #' "
 #'
-#' # Symbolic -------------------------------------------------------------
+#' # Symbolic ----------------------------------------------------------
 #' eq <- "
 #'   # lhs op   rhs label
 #'     e   by   y   1
@@ -85,7 +85,10 @@ Eq2Expectations <- function(eq,
                             ysym = TRUE,
                             simplify = FALSE,
                             tex = FALSE) {
-  Expectations <- Eq2RAM(eq, par = par)
+  Expectations <- Eq2RAM(
+    eq,
+    par = par
+  )
   variables <- list(
     variables = Expectations[["variables"]]
   )

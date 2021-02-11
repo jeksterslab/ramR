@@ -57,11 +57,13 @@ If \code{FALSE}, returns symbolic result as string if \code{str = TRUE}.}
 \item{tex}{Logical. Return results as latex if \code{str = TRUE}.}
 }
 \description{
-Derives the vector of expected values of observed variables \eqn{\mathbf{g}}
+Derives the vector of expected values
+of observed variables \eqn{\mathbf{g}}
 using the Reticular Action Model (RAM) notation.
 }
 \details{
-The vector of expected values of observed variables \eqn{\mathbf{g}}
+The vector of expected values
+of observed variables \eqn{\mathbf{g}}
 as a function of Reticular Action Model (RAM) matrices
 is given by
 
@@ -88,12 +90,14 @@ where
 (single-headed arrows),
 such as regression coefficients and factor loadings,
 \item \eqn{\mathbf{I}_{t \times t}} represents an identity matrix,
-\item \eqn{\mathbf{u}_{t \times 1}} vector of parameters for the mean structurem,
+\item \eqn{\mathbf{u}_{t \times 1}} vector of parameters
+for the mean structure,
 \item \eqn{\mathbf{F}_{p \times t}} represents the filter matrix
 used to select the observed variables,
 \item \eqn{p} number of observed variables,
 \item \eqn{q} number of latent variables, and
-\item \eqn{t} number of observed and latent variables, that is \eqn{p + q} .
+\item \eqn{t} number of observed and latent variables,
+that is \eqn{p + q} .
 }
 }
 \examples{
@@ -132,8 +136,8 @@ eval(g(Ryacas::ysym(A), u, Filter, str = FALSE))
 McArdle, J. J., & McDonald, R. P. (1984).
 Some algebraic properties
 of the Reticular Action Model for moment structures.
-\emph{British Journal of Mathematical and Statistical Psychology}, \emph{37} (2),
-234--251.
+\emph{British Journal of Mathematical and Statistical Psychology},
+\emph{37} (2), 234--251.
 \url{https://doi.org/10.1111/j.2044-8317.1984.tb00802.x}
 }
 \seealso{

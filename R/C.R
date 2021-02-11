@@ -84,8 +84,17 @@ C <- function(A,
 C.default <- function(A,
                       S,
                       ...) {
-  stopifnot(matrixR::IsSymmetric(S))
-  stopifnot(identical(dim(A), dim(S)))
+  stopifnot(
+    matrixR::IsSymmetric(
+      S
+    )
+  )
+  stopifnot(
+    identical(
+      dim(A),
+      dim(S)
+    )
+  )
   # (I - A)^{-1}
   E <- E.default(A)
   # S * ((I - A)^{-1})^T
@@ -110,25 +119,91 @@ C.yac_symbol <- function(A,
                          simplify = FALSE,
                          tex = FALSE,
                          ...) {
-  stopifnot(methods::is(A, "yac_symbol"))
-  Aysym <- Ryacas::ysym(Ryacas::yac_str(A$yacas_cmd))
-  stopifnot(Aysym$is_mat)
-  stopifnot(matrixR::IsSquareMatrix(Aysym))
+  stopifnot(
+    methods::is(
+      A,
+      "yac_symbol"
+    )
+  )
+  Aysym <- Ryacas::ysym(
+    Ryacas::yac_str(
+      A$yacas_cmd
+    )
+  )
+  stopifnot(
+    Aysym$is_mat
+  )
+  stopifnot(
+    matrixR::IsSquareMatrix(
+      Aysym
+    )
+  )
   # apply IsNilpotent in the future
   if (methods::is(S, "yac_symbol")) {
     Sysym <- S
   } else {
-    Sysym <- Ryacas::ysym(S)
+    Sysym <- Ryacas::ysym(
+      S
+    )
   }
-  Sysym <- Ryacas::ysym(Ryacas::yac_str(Sysym$yacas_cmd))
-  stopifnot(Sysym$is_mat)
-  stopifnot(matrixR::IsSymmetric(Sysym))
-  ADimensions <- as.numeric(Ryacas::yac_str(paste0("Length(", Aysym, ")")))
-  SDimensions <- as.numeric(Ryacas::yac_str(paste0("Length(", Sysym, ")")))
-  stopifnot(identical(ADimensions, SDimensions))
-  I <- paste0("Identity(Length(", Aysym, "))")
-  E <- paste0("Inverse(", I, "-", Aysym, ")")
-  expr <- paste0(E, "*", Sysym, "*", "Transpose(", E, ")")
+  Sysym <- Ryacas::ysym(
+    Ryacas::yac_str(
+      Sysym$yacas_cmd
+    )
+  )
+  stopifnot(
+    Sysym$is_mat
+  )
+  stopifnot(
+    matrixR::IsSymmetric(
+      Sysym
+    )
+  )
+  ADimensions <- as.numeric(
+    Ryacas::yac_str(
+      paste0(
+        "Length(",
+        Aysym,
+        ")"
+      )
+    )
+  )
+  SDimensions <- as.numeric(
+    Ryacas::yac_str(
+      paste0(
+        "Length(",
+        Sysym,
+        ")"
+      )
+    )
+  )
+  stopifnot(
+    identical(
+      ADimensions,
+      SDimensions
+    )
+  )
+  I <- paste0(
+    "Identity(Length(",
+    Aysym,
+    "))"
+  )
+  E <- paste0(
+    "Inverse(",
+    I,
+    "-",
+    Aysym,
+    ")"
+  )
+  expr <- paste0(
+    E,
+    "*",
+    Sysym,
+    "*",
+    "Transpose(",
+    E,
+    ")"
+  )
   return(
     .exe(
       expr = expr,

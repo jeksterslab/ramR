@@ -7,7 +7,11 @@
 #'
 #' The Multivariate Normal Distribution is given by
 #'   \deqn{
-#'     \mathbf{X} \sim \mathcal{N}_{k} \left( \boldsymbol{\mu}, \boldsymbol{\Sigma} \right)
+#'     \mathbf{X} \sim \mathcal{N}_{k}
+#'     \left(
+#'       \boldsymbol{\mu},
+#'       \boldsymbol{\Sigma}
+#'     \right)
 #'   }
 #'
 #'   with location parameter
@@ -130,7 +134,9 @@ RAM2Data <- function(n,
     u = u,
     Filter = Filter
   )
-  g <- as.vector(Expectations$g)
+  g <- as.vector(
+    Expectations$g
+  )
   names(g) <- rownames(Filter)
   return(
     MASS::mvrnorm(

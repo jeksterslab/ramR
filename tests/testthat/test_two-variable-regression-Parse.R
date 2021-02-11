@@ -43,7 +43,8 @@ ramR:::Parse(eq)
 #'
 #+
 # equality constraint
-# starting values should be identical for parameters constrained to be equal
+# starting values should be identical
+# for parameters constrained to be equal
 eq <- "
   # lhs op   rhs label   start
     e   by   y   1       NA

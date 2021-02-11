@@ -1,11 +1,12 @@
 #' Matrix of Covariance Expectations of Observed Variables
 #' \eqn{\mathbf{M}}
 #'
-#' Derives the matrix of covariance expectations of observed variables
-#' \eqn{\mathbf{M}}.
+#' Derives the matrix of covariance expectations
+#' of observed variables \eqn{\mathbf{M}}.
 #'
-#' The matrix of covariance expectations for given variables
-#' \eqn{\mathbf{M}} as a function of Reticular Action Model (RAM) matrices
+#' The matrix of covariance expectations
+#' for given variables \eqn{\mathbf{M}}
+#' as a function of Reticular Action Model (RAM) matrices
 #' is given by
 #'
 #'   \deqn{
@@ -106,11 +107,19 @@ M.default <- function(A,
                       S,
                       Filter = NULL,
                       ...) {
-  C <- C.default(A, S)
+  C <- C.default(
+    A,
+    S
+  )
   if (is.null(Filter)) {
     return(C)
   } else {
-    stopifnot(identical(dim(A)[1], dim(Filter)[2]))
+    stopifnot(
+      identical(
+        dim(A)[1],
+        dim(Filter)[2]
+      )
+    )
     return(
       Filter %*% tcrossprod(
         x = C,
@@ -132,38 +141,133 @@ M.yac_symbol <- function(A,
                          simplify = FALSE,
                          tex = FALSE,
                          ...) {
-  stopifnot(methods::is(A, "yac_symbol"))
-  Aysym <- Ryacas::ysym(Ryacas::yac_str(A$yacas_cmd))
-  stopifnot(Aysym$is_mat)
-  stopifnot(matrixR::IsSquareMatrix(Aysym))
+  stopifnot(
+    methods::is(
+      A,
+      "yac_symbol"
+    )
+  )
+  Aysym <- Ryacas::ysym(
+    Ryacas::yac_str(
+      A$yacas_cmd
+    )
+  )
+  stopifnot(
+    Aysym$is_mat
+  )
+  stopifnot(
+    matrixR::IsSquareMatrix(
+      Aysym
+    )
+  )
   # apply IsNilpotent in the future
   if (methods::is(S, "yac_symbol")) {
     Sysym <- S
   } else {
-    Sysym <- Ryacas::ysym(S)
+    Sysym <- Ryacas::ysym(
+      S
+    )
   }
-  Sysym <- Ryacas::ysym(Ryacas::yac_str(Sysym$yacas_cmd))
-  stopifnot(Sysym$is_mat)
-  stopifnot(matrixR::IsSymmetric(Sysym))
-  ADimensions <- as.numeric(Ryacas::yac_str(paste0("Length(", Aysym, ")")))
-  SDimensions <- as.numeric(Ryacas::yac_str(paste0("Length(", Sysym, ")")))
-  stopifnot(identical(ADimensions, SDimensions))
-  I <- paste0("Identity(Length(", Aysym, "))")
-  E <- paste0("Inverse(", I, "-", Aysym, ")")
-  C <- paste0(E, "*", Sysym, "*", "Transpose(", E, ")")
+  Sysym <- Ryacas::ysym(
+    Ryacas::yac_str(
+      Sysym$yacas_cmd
+    )
+  )
+  stopifnot(
+    Sysym$is_mat
+  )
+  stopifnot(
+    matrixR::IsSymmetric(
+      Sysym
+    )
+  )
+  ADimensions <- as.numeric(
+    Ryacas::yac_str(
+      paste0(
+        "Length(",
+        Aysym,
+        ")"
+      )
+    )
+  )
+  SDimensions <- as.numeric(
+    Ryacas::yac_str(
+      paste0(
+        "Length(",
+        Sysym,
+        ")"
+      )
+    )
+  )
+  stopifnot(
+    identical(
+      ADimensions,
+      SDimensions
+    )
+  )
+  I <- paste0(
+    "Identity(Length(",
+    Aysym,
+    "))"
+  )
+  E <- paste0(
+    "Inverse(",
+    I,
+    "-",
+    Aysym,
+    ")"
+  )
+  C <- paste0(
+    E,
+    "*",
+    Sysym,
+    "*",
+    "Transpose(",
+    E,
+    ")"
+  )
   if (is.null(Filter)) {
     expr <- C
   } else {
     if (methods::is(Filter, "yac_symbol")) {
       Filterysym <- Filter
     } else {
-      Filterysym <- Ryacas::ysym(Filter)
+      Filterysym <- Ryacas::ysym(
+        Filter
+      )
     }
-    Filterysym <- Ryacas::ysym(Ryacas::yac_str(Filterysym$yacas_cmd))
-    stopifnot(Filterysym$is_mat)
-    FilterDimensions <- as.numeric(Ryacas::yac_str(paste0("Length(Transpose(", Filterysym, "))")))
-    stopifnot(identical(ADimensions, FilterDimensions))
-    expr <- paste0(Filterysym, "*", C, "*", "Transpose(", Filterysym, ")")
+    Filterysym <- Ryacas::ysym(
+      Ryacas::yac_str(
+        Filterysym$yacas_cmd
+      )
+    )
+    stopifnot(
+      Filterysym$is_mat
+    )
+    FilterDimensions <- as.numeric(
+      Ryacas::yac_str(
+        paste0(
+          "Length(Transpose(",
+          Filterysym,
+          "))"
+        )
+      )
+    )
+    stopifnot(
+      identical(
+        ADimensions,
+        FilterDimensions
+      )
+    )
+    expr <- paste0(
+      Filterysym,
+      "*",
+      C,
+      "*",
+      "Transpose(",
+      Filterysym,
+      ")"
+    )
   }
   return(
     .exe(

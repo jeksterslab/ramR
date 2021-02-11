@@ -36,7 +36,11 @@ with the \code{\link[MASS:mvrnorm]{MASS::mvrnorm()}} function.
 \details{
 The Multivariate Normal Distribution is given by
 \deqn{
-    \mathbf{X} \sim \mathcal{N}_{k} \left( \boldsymbol{\mu}, \boldsymbol{\Sigma} \right)
+    \mathbf{X} \sim \mathcal{N}_{k}
+    \left(
+      \boldsymbol{\mu},
+      \boldsymbol{\Sigma}
+    \right)
   }
 
 with location parameter
@@ -143,8 +147,8 @@ RAM2Data(n, A, S, u, Filter)
 McArdle, J. J., & McDonald, R. P. (1984).
 Some algebraic properties
 of the Reticular Action Model for moment structures.
-\emph{British Journal of Mathematical and Statistical Psychology}, \emph{37} (2),
-234--251.
+\emph{British Journal of Mathematical and Statistical Psychology},
+\emph{37} (2), 234--251.
 \url{https://doi.org/10.1111/j.2044-8317.1984.tb00802.x}
 }
 \seealso{

@@ -44,9 +44,25 @@ v <- as.matrix(c(alpha + (beta * mux), mux, 0.00))
 rownames(u) <- rownames(v) <- c("y", "x", "e")
 colnames(u) <- "u"
 colnames(v) <- "v"
-C <- Ryacas::as_r(solve(Ryacas::ysym(I) - Ryacas::ysym(A)) * Ryacas::ysym(S) * t(solve(Ryacas::ysym(I) - Ryacas::ysym(A))))
-M <- Ryacas::as_r(Ryacas::ysym(Filter) * solve(Ryacas::ysym(I) - Ryacas::ysym(A)) * Ryacas::ysym(S) * t(solve(Ryacas::ysym(I) - Ryacas::ysym(A))) * t(Ryacas::ysym(Filter)))
-g <- as.matrix(Ryacas::as_r(Ryacas::ysym(Filter) * Ryacas::ysym(v)))
+C <- Ryacas::as_r(
+  solve(
+    Ryacas::ysym(I) - Ryacas::ysym(A)
+  ) * Ryacas::ysym(S) * t(
+    solve(Ryacas::ysym(I) - Ryacas::ysym(A))
+  )
+)
+M <- Ryacas::as_r(
+  Ryacas::ysym(Filter) * solve(
+    Ryacas::ysym(I) - Ryacas::ysym(A)
+  ) * Ryacas::ysym(S) * t(
+    solve(Ryacas::ysym(I) - Ryacas::ysym(A))
+  ) * t(Ryacas::ysym(Filter))
+)
+g <- as.matrix(
+  Ryacas::as_r(
+    Ryacas::ysym(Filter) * Ryacas::ysym(v)
+  )
+)
 ```
 
 
@@ -101,7 +117,12 @@ NumericFilterNullg <- round(NumericFilterNull$g, digits = 4)
 
 
 ```{r symbolic}
-Symbolic <- ramR::Expectations(Ryacas::ysym(A), Ryacas::ysym(S), u, Ryacas::ysym(Filter))
+Symbolic <- ramR::Expectations(
+  Ryacas::ysym(A),
+  Ryacas::ysym(S),
+  u,
+  Ryacas::ysym(Filter)
+)
 SymbolicA <- round(Ryacas::as_r(Symbolic$A), digits = 4)
 SymbolicS <- round(Ryacas::as_r(Symbolic$S), digits = 4)
 Symbolicu <- round(Ryacas::as_r(Symbolic$u), digits = 4)
@@ -110,31 +131,92 @@ SymbolicC <- round(Ryacas::as_r(Symbolic$C), digits = 4)
 SymbolicM <- round(Ryacas::as_r(Symbolic$M), digits = 4)
 Symbolicv <- round(Ryacas::as_r(Symbolic$v), digits = 4)
 Symbolicg <- round(Ryacas::as_r(Symbolic$g), digits = 4)
-SymbolicExpr <- ramR::Expectations(Ryacas::ysym(A), S, u, Filter, str = FALSE, simplify = TRUE)
+SymbolicExpr <- ramR::Expectations(
+  Ryacas::ysym(A),
+  S,
+  u,
+  Filter,
+  str = FALSE,
+  simplify = TRUE
+)
 SymbolicExprC <- round(Ryacas::as_r(SymbolicExpr$C), digits = 4)
 SymbolicExprM <- round(Ryacas::as_r(SymbolicExpr$M), digits = 4)
 SymbolicExprv <- round(Ryacas::as_r(SymbolicExpr$v), digits = 4)
 SymbolicExprg <- round(Ryacas::as_r(SymbolicExpr$g), digits = 4)
-ramR::Expectations(Ryacas::ysym(A), S, u, Filter, str = TRUE, ysym = FALSE, simplify = TRUE)
-ramR::Expectations(Ryacas::ysym(A), S, u = NULL, Filter = NULL, str = TRUE, ysym = FALSE, simplify = TRUE)
-ramR::Expectations(Ryacas::ysym(A), S, u = NULL, Filter = NULL, str = TRUE, tex = TRUE, simplify = TRUE)
-ExpectationsTex <- ramR::Expectations(Ryacas::ysym(A), S, u, Filter, str = TRUE, tex = TRUE, simplify = TRUE)
+ramR::Expectations(
+  Ryacas::ysym(A),
+  S,
+  u,
+  Filter,
+  str = TRUE,
+  ysym = FALSE,
+  simplify = TRUE
+)
+ramR::Expectations(
+  Ryacas::ysym(A),
+  S,
+  u = NULL,
+  Filter = NULL,
+  str = TRUE,
+  ysym = FALSE,
+  simplify = TRUE
+)
+ramR::Expectations(
+  Ryacas::ysym(A),
+  S,
+  u = NULL,
+  Filter = NULL,
+  str = TRUE,
+  tex = TRUE,
+  simplify = TRUE
+)
+ExpectationsTex <- ramR::Expectations(
+  Ryacas::ysym(A),
+  S,
+  u,
+  Filter,
+  str = TRUE,
+  tex = TRUE,
+  simplify = TRUE
+)
 ```
 
 
 
 ```{r symbolic_u_null}
-SymbolicuNull <- ramR::Expectations(Ryacas::ysym(A), S, u = NULL, Filter)
+SymbolicuNull <- ramR::Expectations(
+  Ryacas::ysym(A),
+  S,
+  u = NULL,
+  Filter
+)
 SymbolicuNullA <- round(Ryacas::as_r(SymbolicuNull$A), digits = 4)
 SymbolicuNullS <- round(Ryacas::as_r(SymbolicuNull$S), digits = 4)
 SymbolicuNullu <- SymbolicuNull$u
-SymbolicuNullFilter <- round(Ryacas::as_r(SymbolicuNull$Filter), digits = 4)
+SymbolicuNullFilter <- round(
+  Ryacas::as_r(
+    SymbolicuNull$Filter
+  ),
+  digits = 4
+)
 SymbolicuNullC <- round(Ryacas::as_r(SymbolicuNull$C), digits = 4)
 SymbolicuNullM <- round(Ryacas::as_r(SymbolicuNull$M), digits = 4)
 SymbolicuNullv <- SymbolicuNull$v
 SymbolicuNullg <- SymbolicuNull$g
-SymbolicuNullExpr <- ramR::Expectations(Ryacas::ysym(A), S, u = NULL, Filter, str = FALSE, simplify = TRUE)
-SymbolicuNullExprC <- round(Ryacas::as_r(SymbolicuNullExpr$C), digits = 4)
+SymbolicuNullExpr <- ramR::Expectations(
+  Ryacas::ysym(A),
+  S,
+  u = NULL,
+  Filter,
+  str = FALSE,
+  simplify = TRUE
+)
+SymbolicuNullExprC <- round(
+  Ryacas::as_r(
+    SymbolicuNullExpr$C
+  ),
+  digits = 4
+)
 SymbolicuNullExprM <- round(Ryacas::as_r(SymbolicExpr$M), digits = 4)
 SymbolicuNullExprv <- SymbolicuNullExpr$v
 SymbolicuNullExprg <- SymbolicuNullExpr$g
@@ -143,20 +225,92 @@ SymbolicuNullExprg <- SymbolicuNullExpr$g
 
 
 ```{r symbolic_Filter_NULL}
-SymbolicFilterNull <- ramR::Expectations(Ryacas::ysym(A), S, u, Filter = NULL)
-SymbolicFilterNullA <- round(Ryacas::as_r(SymbolicFilterNull$A), digits = 4)
-SymbolicFilterNullS <- round(Ryacas::as_r(SymbolicFilterNull$S), digits = 4)
-SymbolicFilterNullu <- round(Ryacas::as_r(SymbolicFilterNull$u), digits = 4)
-SymbolicFilterNullFilter <- round(Ryacas::as_r(SymbolicFilterNull$Filter), digits = 4)
-SymbolicFilterNullC <- round(Ryacas::as_r(SymbolicFilterNull$C), digits = 4)
-SymbolicFilterNullM <- round(Ryacas::as_r(SymbolicFilterNull$M), digits = 4)
-SymbolicFilterNullv <- round(Ryacas::as_r(SymbolicFilterNull$v), digits = 4)
-SymbolicFilterNullg <- round(Ryacas::as_r(SymbolicFilterNull$g), digits = 4)
-SymbolicFilterNullExpr <- ramR::Expectations(Ryacas::ysym(A), S, u, Filter = NULL, str = FALSE, simplify = TRUE)
-SymbolicFilterNullExprC <- round(Ryacas::as_r(SymbolicFilterNullExpr$C), digits = 4)
-SymbolicFilterNullExprM <- round(Ryacas::as_r(SymbolicFilterNullExpr$M), digits = 4)
-SymbolicFilterNullExprv <- round(Ryacas::as_r(SymbolicFilterNullExpr$v), digits = 4)
-SymbolicFilterNullExprg <- round(Ryacas::as_r(SymbolicFilterNullExpr$g), digits = 4)
+SymbolicFilterNull <- ramR::Expectations(
+  Ryacas::ysym(A),
+  S,
+  u,
+  Filter = NULL
+)
+SymbolicFilterNullA <- round(
+  Ryacas::as_r(
+    SymbolicFilterNull$A
+  ),
+  digits = 4
+)
+SymbolicFilterNullS <- round(
+  Ryacas::as_r(
+    SymbolicFilterNull$S
+  ),
+  digits = 4
+)
+SymbolicFilterNullu <- round(
+  Ryacas::as_r(
+    SymbolicFilterNull$u
+  ),
+  digits = 4
+)
+SymbolicFilterNullFilter <- round(
+  Ryacas::as_r(
+    SymbolicFilterNull$Filter
+  ),
+  digits = 4
+)
+SymbolicFilterNullC <- round(
+  Ryacas::as_r(
+    SymbolicFilterNull$C
+  ),
+  digits = 4
+)
+SymbolicFilterNullM <- round(
+  Ryacas::as_r(
+    SymbolicFilterNull$M
+  ),
+  digits = 4
+)
+SymbolicFilterNullv <- round(
+  Ryacas::as_r(
+    SymbolicFilterNull$v
+  ),
+  digits = 4
+)
+SymbolicFilterNullg <- round(
+  Ryacas::as_r(
+    SymbolicFilterNull$g
+  ),
+  digits = 4
+)
+SymbolicFilterNullExpr <- ramR::Expectations(
+  Ryacas::ysym(A),
+  S,
+  u,
+  Filter = NULL,
+  str = FALSE,
+  simplify = TRUE
+)
+SymbolicFilterNullExprC <- round(
+  Ryacas::as_r(
+    SymbolicFilterNullExpr$C
+  ),
+  digits = 4
+)
+SymbolicFilterNullExprM <- round(
+  Ryacas::as_r(
+    SymbolicFilterNullExpr$M
+  ),
+  digits = 4
+)
+SymbolicFilterNullExprv <- round(
+  Ryacas::as_r(
+    SymbolicFilterNullExpr$v
+  ),
+  digits = 4
+)
+SymbolicFilterNullExprg <- round(
+  Ryacas::as_r(
+    SymbolicFilterNullExpr$g
+  ),
+  digits = 4
+)
 ```
 
 

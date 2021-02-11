@@ -69,7 +69,7 @@ Comments can be written after a hash (\verb{#}) sign.
 }
 
 \examples{
-# Numerical -------------------------------------------------------------
+# Numerical ---------------------------------------------------------
 eq <- "
   # lhs op   rhs label
     e   by   y   1
@@ -80,7 +80,7 @@ eq <- "
     x   on   1   0.50
 "
 
-# Symbolic -------------------------------------------------------------
+# Symbolic ----------------------------------------------------------
 eq <- "
   # lhs op   rhs label
     e   by   y   1
@@ -119,8 +119,8 @@ eval(Exp$g)
 McArdle, J. J., & McDonald, R. P. (1984).
 Some algebraic properties
 of the Reticular Action Model for moment structures.
-\emph{British Journal of Mathematical and Statistical Psychology}, \emph{37} (2),
-234--251.
+\emph{British Journal of Mathematical and Statistical Psychology},
+\emph{37} (2), 234--251.
 \url{https://doi.org/10.1111/j.2044-8317.1984.tb00802.x}
 }
 \author{

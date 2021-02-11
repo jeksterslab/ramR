@@ -61,7 +61,8 @@ where
 (single-headed arrows),
 such as regression coefficients and factor loadings,
 \item \eqn{\mathbf{I}_{t \times t}} represents an identity matrix, and
-\item \eqn{\mathbf{u}_{t \times 1}} vector of parameters for the mean structure.
+\item \eqn{\mathbf{u}_{t \times 1}} vector of parameters
+for the mean structure.
 }
 }
 \examples{
@@ -98,8 +99,8 @@ eval(v(Ryacas::ysym(A), u, str = FALSE))
 McArdle, J. J., & McDonald, R. P. (1984).
 Some algebraic properties
 of the Reticular Action Model for moment structures.
-\emph{British Journal of Mathematical and Statistical Psychology}, \emph{37} (2),
-234--251.
+\emph{British Journal of Mathematical and Statistical Psychology},
+\emph{37} (2), 234--251.
 \url{https://doi.org/10.1111/j.2044-8317.1984.tb00802.x}
 }
 \seealso{

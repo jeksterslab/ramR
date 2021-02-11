@@ -285,8 +285,8 @@ such as regression coefficients and factor loadings,</p></li>
     <p>McArdle, J. J., &amp; McDonald, R. P. (1984).
 Some algebraic properties
 of the Reticular Action Model for moment structures.
-<em>British Journal of Mathematical and Statistical Psychology</em>, <em>37</em> (2),
-234--251.
+<em>British Journal of Mathematical and Statistical Psychology</em>,
+<em>37</em> (2), 234--251.
 <a href='https://doi.org/10.1111/j.2044-8317.1984.tb00802.x'>https://doi.org/10.1111/j.2044-8317.1984.tb00802.x</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -596,7 +596,10 @@ of the Reticular Action Model for moment structures.
 #&gt; $M
 #&gt; expression(rbind(c(sigmax2 * beta^2 + sigmae2, beta * sigmax2), 
 #&gt;     c(sigmax2 * beta, sigmax2)))
-#&gt; </div><div class='input'><span class='va'>Expectations</span> <span class='op'>&lt;-</span> <span class='fu'>Expectations</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>S</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, str <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+#&gt; </div><div class='input'><span class='va'>Expectations</span> <span class='op'>&lt;-</span> <span class='fu'>Expectations</span><span class='op'>(</span>
+  <span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>S</span>, <span class='va'>u</span>, <span class='va'>Filter</span>,
+  str <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>Expectations</span><span class='op'>$</span><span class='va'>A</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    0    1    1

@@ -119,8 +119,8 @@ eval(S(Ryacas::ysym(A), C, str = FALSE))
 McArdle, J. J., & McDonald, R. P. (1984).
 Some algebraic properties
 of the Reticular Action Model for moment structures.
-\emph{British Journal of Mathematical and Statistical Psychology}, \emph{37} (2),
-234--251.
+\emph{British Journal of Mathematical and Statistical Psychology},
+\emph{37} (2), 234--251.
 \url{https://doi.org/10.1111/j.2044-8317.1984.tb00802.x}
 }
 \seealso{

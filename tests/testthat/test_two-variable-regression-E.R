@@ -40,9 +40,25 @@ v <- as.matrix(c(alpha + (beta * mux), mux, 0.00))
 rownames(u) <- rownames(v) <- c("y", "x", "e")
 colnames(u) <- "u"
 colnames(v) <- "v"
-C <- Ryacas::as_r(solve(Ryacas::ysym(I) - Ryacas::ysym(A)) * Ryacas::ysym(S) * t(solve(Ryacas::ysym(I) - Ryacas::ysym(A))))
-M <- Ryacas::as_r(Ryacas::ysym(Filter) * solve(Ryacas::ysym(I) - Ryacas::ysym(A)) * Ryacas::ysym(S) * t(solve(Ryacas::ysym(I) - Ryacas::ysym(A))) * t(Ryacas::ysym(Filter)))
-g <- as.matrix(Ryacas::as_r(Ryacas::ysym(Filter) * Ryacas::ysym(v)))
+C <- Ryacas::as_r(
+  solve(
+    Ryacas::ysym(I) - Ryacas::ysym(A)
+  ) * Ryacas::ysym(S) * t(
+    solve(Ryacas::ysym(I) - Ryacas::ysym(A))
+  )
+)
+M <- Ryacas::as_r(
+  Ryacas::ysym(Filter) * solve(
+    Ryacas::ysym(I) - Ryacas::ysym(A)
+  ) * Ryacas::ysym(S) * t(
+    solve(Ryacas::ysym(I) - Ryacas::ysym(A))
+  ) * t(Ryacas::ysym(Filter))
+)
+g <- as.matrix(
+  Ryacas::as_r(
+    Ryacas::ysym(Filter) * Ryacas::ysym(v)
+  )
+)
 #'
 #' \begin{equation}
 #'   \begin{split}

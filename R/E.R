@@ -78,12 +78,34 @@ E.yac_symbol <- function(A,
                          simplify = FALSE,
                          tex = FALSE,
                          ...) {
-  stopifnot(methods::is(A, "yac_symbol"))
-  Aysym <- Ryacas::ysym(Ryacas::yac_str(A$yacas_cmd))
-  stopifnot(Aysym$is_mat)
-  stopifnot(matrixR::IsSquareMatrix(Aysym))
+  stopifnot(
+    methods::is(
+      A,
+      "yac_symbol"
+    )
+  )
+  Aysym <- Ryacas::ysym(
+    Ryacas::yac_str(
+      A$yacas_cmd
+    )
+  )
+  stopifnot(
+    Aysym$is_mat
+  )
+  stopifnot(
+    matrixR::IsSquareMatrix(
+      Aysym
+    )
+  )
   # apply IsNilpotent in the future
-  expr <- paste0("Inverse(Identity(Length(", Aysym, "))", "-", Aysym, ")")
+  expr <- paste0(
+    "Inverse(Identity(Length(",
+    Aysym,
+    "))",
+    "-",
+    Aysym,
+    ")"
+  )
   return(
     .exe(
       expr = expr,

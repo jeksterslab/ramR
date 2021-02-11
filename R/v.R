@@ -25,7 +25,8 @@
 #'     (single-headed arrows),
 #'     such as regression coefficients and factor loadings,
 #'   - \eqn{\mathbf{I}_{t \times t}} represents an identity matrix, and
-#'   - \eqn{\mathbf{u}_{t \times 1}} vector of parameters for the mean structure.
+#'   - \eqn{\mathbf{u}_{t \times 1}} vector of parameters
+#'     for the mean structure.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #' @family RAM matrices functions
@@ -99,18 +100,47 @@ v.yac_symbol <- function(A,
                          simplify = FALSE,
                          tex = FALSE,
                          ...) {
-  stopifnot(methods::is(A, "yac_symbol"))
-  Aysym <- Ryacas::ysym(Ryacas::yac_str(A$yacas_cmd))
-  stopifnot(Aysym$is_mat)
-  stopifnot(matrixR::IsSquareMatrix(Aysym))
-  I <- paste0("Identity(Length(", Aysym, "))")
-  E <- paste0("Inverse(", I, "-", Aysym, ")")
-  u <- matrix(
-    u,
-    ncol = 1
+  stopifnot(
+    methods::is(
+      A,
+      "yac_symbol"
+    )
   )
-  uysym <- Ryacas::ysym(u)
-  expr <- paste0(E, "*", uysym)
+  Aysym <- Ryacas::ysym(
+    Ryacas::yac_str(
+      A$yacas_cmd
+    )
+  )
+  stopifnot(
+    Aysym$is_mat
+  )
+  stopifnot(
+    matrixR::IsSquareMatrix(
+      Aysym
+    )
+  )
+  I <- paste0(
+    "Identity(Length(",
+    Aysym,
+    "))"
+  )
+  E <- paste0(
+    "Inverse(",
+    I,
+    "-",
+    Aysym,
+    ")"
+  )
+  expr <- paste0(
+    E,
+    "*",
+    Ryacas::ysym(
+      matrix(
+        u,
+        ncol = 1
+      )
+    )
+  )
   return(
     .exe(
       expr = expr,

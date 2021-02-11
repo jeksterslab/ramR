@@ -1,9 +1,11 @@
 #' Vector of Expected Values of Observed Variables \eqn{\mathbf{g}}
 #'
-#' Derives the vector of expected values of observed variables \eqn{\mathbf{g}}
+#' Derives the vector of expected values
+#' of observed variables \eqn{\mathbf{g}}
 #' using the Reticular Action Model (RAM) notation.
 #'
-#' The vector of expected values of observed variables \eqn{\mathbf{g}}
+#' The vector of expected values
+#' of observed variables \eqn{\mathbf{g}}
 #' as a function of Reticular Action Model (RAM) matrices
 #' is given by
 #'
@@ -30,12 +32,14 @@
 #'     (single-headed arrows),
 #'     such as regression coefficients and factor loadings,
 #'   - \eqn{\mathbf{I}_{t \times t}} represents an identity matrix,
-#'   - \eqn{\mathbf{u}_{t \times 1}} vector of parameters for the mean structurem,
+#'   - \eqn{\mathbf{u}_{t \times 1}} vector of parameters
+#'     for the mean structure,
 #'   - \eqn{\mathbf{F}_{p \times t}} represents the filter matrix
 #'     used to select the observed variables,
 #'   - \eqn{p} number of observed variables,
 #'   - \eqn{q} number of latent variables, and
-#'   - \eqn{t} number of observed and latent variables, that is \eqn{p + q} .
+#'   - \eqn{t} number of observed and latent variables,
+#'     that is \eqn{p + q} .
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #' @family RAM matrices functions
@@ -94,8 +98,14 @@ g.default <- function(A,
                       simplify = FALSE,
                       tex = FALSE,
                       ...) {
-  v <- v.default(A = A, u = u)
-  if (isFALSE(is.null(Filter))) {
+  v <- v.default(
+    A = A,
+    u = u
+  )
+  if (isFALSE(
+    is.null(Filter)
+  )
+  ) {
     out <- Filter %*% v
     colnames(out) <- "g"
     return(
@@ -119,32 +129,94 @@ g.yac_symbol <- function(A,
                          simplify = FALSE,
                          tex = FALSE,
                          ...) {
-  stopifnot(methods::is(A, "yac_symbol"))
-  Aysym <- Ryacas::ysym(Ryacas::yac_str(A$yacas_cmd))
-  stopifnot(Aysym$is_mat)
-  stopifnot(matrixR::IsSquareMatrix(Aysym))
-  I <- paste0("Identity(Length(", Aysym, "))")
-  E <- paste0("Inverse(", I, "-", Aysym, ")")
-  u <- matrix(
-    u,
-    ncol = 1
+  stopifnot(
+    methods::is(
+      A,
+      "yac_symbol"
+    )
   )
-  uysym <- Ryacas::ysym(u)
-  v <- paste0(E, "*", uysym)
+  Aysym <- Ryacas::ysym(
+    Ryacas::yac_str(
+      A$yacas_cmd
+    )
+  )
+  stopifnot(
+    Aysym$is_mat
+  )
+  stopifnot(
+    matrixR::IsSquareMatrix(
+      Aysym
+    )
+  )
+  I <- paste0(
+    "Identity(Length(",
+    Aysym,
+    "))"
+  )
+  E <- paste0(
+    "Inverse(",
+    I,
+    "-",
+    Aysym,
+    ")"
+  )
+  v <- paste0(
+    E,
+    "*",
+    Ryacas::ysym(
+      matrix(
+        u,
+        ncol = 1
+      )
+    )
+  )
   if (is.null(Filter)) {
     expr <- v
   } else {
     if (methods::is(Filter, "yac_symbol")) {
       Filterysym <- Filter
     } else {
-      Filterysym <- Ryacas::ysym(Filter)
+      Filterysym <- Ryacas::ysym(
+        Filter
+      )
     }
-    Filterysym <- Ryacas::ysym(Ryacas::yac_str(Filterysym$yacas_cmd))
-    stopifnot(Filterysym$is_mat)
-    ADimensions <- as.numeric(Ryacas::yac_str(paste0("Length(", Aysym, ")")))
-    FilterDimensions <- as.numeric(Ryacas::yac_str(paste0("Length(Transpose(", Filterysym, "))")))
-    stopifnot(identical(ADimensions, FilterDimensions))
-    expr <- paste0(Filterysym, "*", v)
+    Filterysym <- Ryacas::ysym(
+      Ryacas::yac_str(
+        Filterysym$yacas_cmd
+      )
+    )
+    stopifnot(
+      Filterysym$is_mat
+    )
+    ADimensions <- as.numeric(
+      Ryacas::yac_str(
+        paste0(
+          "Length(",
+          Aysym,
+          ")"
+        )
+      )
+    )
+    FilterDimensions <- as.numeric(
+      Ryacas::yac_str(
+        paste0(
+          "Length(Transpose(",
+          Filterysym,
+          "))"
+        )
+      )
+    )
+    stopifnot(
+      identical(
+        ADimensions,
+        FilterDimensions
+      )
+    )
+    expr <- paste0(
+      Filterysym,
+      "*",
+      v
+    )
   }
   return(
     .exe(
