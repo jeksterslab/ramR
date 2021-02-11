@@ -6,6 +6,99 @@
 #' The input is a character string
 #' that specifies the associations between the variables.
 #'
+#' The Multivariate Normal Distribution is given by
+#'   \deqn{
+#'     \mathbf{X} \sim \mathcal{N}_{k}
+#'     \left(
+#'       \boldsymbol{\mu},
+#'       \boldsymbol{\Sigma}
+#'     \right)
+#'   }
+#'
+#'   with location parameter
+#'
+#'   \deqn{
+#'     \boldsymbol{\mu} \in \mathbf{R}^{k}
+#'   }
+#'
+#'   and a positive definite covariance matrix
+#'
+#'   \deqn{
+#'     \boldsymbol{\Sigma} \in \mathbf{R}^{k \times k} .
+#'   }
+#'
+#'   The probability density function is given by
+#'
+#'   \deqn{
+#'     f_{\mathbf{X}} \left( x_1, \cdots, x_k \right)
+#'     =
+#'     \frac{
+#'       \exp
+#'       \left[
+#'         - \frac{1}{2}
+#'         \left(
+#'           \mathbf{x} - \boldsymbol{\mu}
+#'         \right)^{\mathsf{T}}
+#'         \boldsymbol{\Sigma}^{-1}
+#'         \left(
+#'           \mathbf{x} - \boldsymbol{\mu}
+#'         \right)
+#'       \right]
+#'       }{
+#'         \sqrt{
+#'           \left( 2 \pi \right)^k
+#'           | \boldsymbol{\Sigma} |
+#'         }
+#'       }
+#'     }
+#'
+#'   In this function,
+#'   the model-implied mean vector and variance-covariance matrix
+#'   are used as parameters to generate the data.
+#'
+#'   \deqn{
+#'     \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
+#'     =
+#'     \mathbf{g}
+#'     =
+#'     \mathbf{F}
+#'     \left(
+#'       \mathbf{I} - \mathbf{A}
+#'     \right)^{\mathsf{T}}
+#'     \mathbf{u}
+#'     =
+#'     \mathbf{F}
+#'     \mathbf{E}
+#'     \mathbf{u}
+#'   }
+#'   \deqn{
+#'     \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
+#'     =
+#'     \mathbf{M}
+#'     =
+#'     \mathbf{F}
+#'     \left(
+#'       \mathbf{I} - \mathbf{A}
+#'     \right)^{-1}
+#'     \mathbf{S}
+#'     \left[
+#'       \left(
+#'         \mathbf{I} - \mathbf{A}
+#'       \right)^{-1}
+#'     \right]^{\mathsf{T}}
+#'     \mathbf{F}^{\mathsf{T}} \\
+#'     =
+#'     \mathbf{F}
+#'     \mathbf{E}
+#'     \mathbf{S}
+#'     \mathbf{E}^{\mathsf{T}}
+#'     \mathbf{F}^{\mathsf{T}} \\
+#'     =
+#'     \mathbf{F}
+#'     \mathbf{C}
+#'     \mathbf{F}^{\mathsf{T}}
+#'   }
+#'
 #' @section Syntax:
 #'   Each line should follow the syntax below
 #'
@@ -30,7 +123,6 @@
 #' @family data generation functions
 #' @keywords data
 #' @inherit ramR references
-#' @inherit RAM2Data details
 #' @inheritParams Eq2RAM
 #' @inheritParams RAM2Data
 #' @examples

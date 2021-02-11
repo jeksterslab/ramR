@@ -45,8 +45,7 @@
 #'     y   on   1   0
 #'     x   on   1   0.50
 #' "
-#' Eq2RAM(eq, par = FALSE)
-#' Eq2RAM(eq, par = TRUE)
+#' Eq2RAM(eq)
 #'
 #' # Symbolic ----------------------------------------------------------
 #' eq <- "
@@ -58,8 +57,7 @@
 #'     y   on   1   alpha
 #'     x   on   1   mux
 #' "
-#' Eq2RAM(eq, par = FALSE)
-#' Eq2RAM(eq, par = TRUE)
+#' Eq2RAM(eq)
 #' @export
 Eq2RAM <- function(eq,
                    par = FALSE) {
@@ -67,10 +65,18 @@ Eq2RAM <- function(eq,
   if (par) {
     eq[, "label"] <- eq[, "par.index"]
   }
-  by <- eq[which(eq[, "op"] == "by"), , drop = FALSE]
-  with <- eq[which(eq[, "op"] == "with"), , drop = FALSE]
-  on <- eq[which(eq[, "op"] == "on" & eq[, "rhs"] != "1"), , drop = FALSE]
-  one <- eq[which(eq[, "op"] == "on" & eq[, "rhs"] == "1"), , drop = FALSE]
+  by <- eq[which(
+    eq[, "op"] == "by"
+  ), , drop = FALSE]
+  with <- eq[which(
+    eq[, "op"] == "with"
+  ), , drop = FALSE]
+  on <- eq[which(
+    eq[, "op"] == "on" & eq[, "rhs"] != "1"
+  ), , drop = FALSE]
+  one <- eq[which(
+    eq[, "op"] == "on" & eq[, "rhs"] == "1"
+  ), , drop = FALSE]
   v <- unique(c(eq[, "lhs"], eq[, "rhs"]))
   v <- v[which(v != "1")]
   t <- length(v)
@@ -91,8 +97,10 @@ Eq2RAM <- function(eq,
   )
   diag(Filter) <- 1
   colnames(Filter) <- v
-  rownames(A) <- colnames(A) <- v
-  rownames(S) <- colnames(S) <- v
+  rownames(A) <- v
+  colnames(A) <- v
+  rownames(S) <- v
+  colnames(S) <- v
   rownames(Filter) <- g
   # loadings
   for (i in seq_len(dim(by)[1])) {
@@ -136,7 +144,6 @@ Eq2RAM <- function(eq,
   } else {
     u <- NULL
   }
-  # -------------------------------------------------------------
   return(
     list(
       eq = eq,

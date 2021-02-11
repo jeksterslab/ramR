@@ -200,6 +200,90 @@ Sample size.</p></td>
 
     <p>The input is a character string
 that specifies the associations between the variables.</p>
+<p>The Multivariate Normal Distribution is given by
+$$
+    \mathbf{X} \sim \mathcal{N}_{k}
+    \left(
+      \boldsymbol{\mu},
+      \boldsymbol{\Sigma}
+    \right)
+  $$</p>
+<p>with location parameter</p>
+<p>$$
+    \boldsymbol{\mu} \in \mathbf{R}^{k}
+  $$</p>
+<p>and a positive definite covariance matrix</p>
+<p>$$
+    \boldsymbol{\Sigma} \in \mathbf{R}^{k \times k} .
+  $$</p>
+<p>The probability density function is given by</p>
+<p>$$
+    f_{\mathbf{X}} \left( x_1, \cdots, x_k \right)
+    =
+    \frac{
+      \exp
+      \left[
+        - \frac{1}{2}
+        \left(
+          \mathbf{x} - \boldsymbol{\mu}
+        \right)^{\mathsf{T}}
+        \boldsymbol{\Sigma}^{-1}
+        \left(
+          \mathbf{x} - \boldsymbol{\mu}
+        \right)
+      \right]
+      }{
+        \sqrt{
+          \left( 2 \pi \right)^k
+          | \boldsymbol{\Sigma} |
+        }
+      }
+    $$</p>
+<p>In this function,
+the model-implied mean vector and variance-covariance matrix
+are used as parameters to generate the data.</p>
+<p>$$
+    \boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
+    =
+    \mathbf{g}
+    =
+    \mathbf{F}
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{\mathsf{T}}
+    \mathbf{u}
+    =
+    \mathbf{F}
+    \mathbf{E}
+    \mathbf{u}
+  $$
+$$
+    \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
+    =
+    \mathbf{M}
+    =
+    \mathbf{F}
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{-1}
+    \mathbf{S}
+    \left[
+      \left(
+        \mathbf{I} - \mathbf{A}
+      \right)^{-1}
+    \right]^{\mathsf{T}}
+    \mathbf{F}^{\mathsf{T}} \\
+    =
+    \mathbf{F}
+    \mathbf{E}
+    \mathbf{S}
+    \mathbf{E}^{\mathsf{T}}
+    \mathbf{F}^{\mathsf{T}} \\
+    =
+    \mathbf{F}
+    \mathbf{C}
+    \mathbf{F}^{\mathsf{T}}
+  $$</p>
     <h2 class="hasAnchor" id="syntax"><a class="anchor" href="#syntax"></a>Syntax</h2>
 
     

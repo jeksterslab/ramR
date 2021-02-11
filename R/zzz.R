@@ -157,7 +157,10 @@ Parse <- function(eq) {
     eq,
     par.index
   )
-  eq <- as.data.frame(eq)
+  eq <- as.data.frame(
+    eq,
+    stringsAsFactors = FALSE
+  )
   label <- sapply(
     X = eq$label,
     FUN = to.numeric

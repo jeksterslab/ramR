@@ -246,42 +246,7 @@ of the Reticular Action Model for moment structures.
     y   on   1   0
     x   on   1   0.50
 "</span>
-<span class='fu'>Eq2RAM</span><span class='op'>(</span><span class='va'>eq</span>, par <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $eq
-#&gt;   lhs   op rhs label par.index
-#&gt; 1   e   by   y  1.00      1.00
-#&gt; 2   y   on   x  1.00      1.00
-#&gt; 3   e with   e  1.00      1.00
-#&gt; 4   x with   x  0.25      0.25
-#&gt; 5   y   on   1  0.00      0.00
-#&gt; 6   x   on   1  0.50      0.50
-#&gt; 
-#&gt; $variables
-#&gt; [1] "y" "x" "e"
-#&gt; 
-#&gt; $A
-#&gt;   y x e
-#&gt; y 0 1 1
-#&gt; x 0 0 0
-#&gt; e 0 0 0
-#&gt; 
-#&gt; $S
-#&gt;   y    x e
-#&gt; y 0 0.00 0
-#&gt; x 0 0.25 0
-#&gt; e 0 0.00 1
-#&gt; 
-#&gt; $Filter
-#&gt;   y x e
-#&gt; y 1 0 0
-#&gt; x 0 1 0
-#&gt; 
-#&gt; $u
-#&gt;     u
-#&gt; y 0.0
-#&gt; x 0.5
-#&gt; e 0.0
-#&gt; </div><div class='input'><span class='fu'>Eq2RAM</span><span class='op'>(</span><span class='va'>eq</span>, par <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'>Eq2RAM</span><span class='op'>(</span><span class='va'>eq</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $eq
 #&gt;   lhs   op rhs label par.index
 #&gt; 1   e   by   y  1.00      1.00
@@ -327,7 +292,7 @@ of the Reticular Action Model for moment structures.
     y   on   1   alpha
     x   on   1   mux
 "</span>
-<span class='fu'>Eq2RAM</span><span class='op'>(</span><span class='va'>eq</span>, par <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'>Eq2RAM</span><span class='op'>(</span><span class='va'>eq</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $eq
 #&gt;   lhs   op rhs   label par.index
 #&gt; 1   e   by   y       1         1
@@ -362,41 +327,6 @@ of the Reticular Action Model for moment structures.
 #&gt; y "alpha"
 #&gt; x "mux"  
 #&gt; e "0"    
-#&gt; </div><div class='input'><span class='fu'>Eq2RAM</span><span class='op'>(</span><span class='va'>eq</span>, par <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $eq
-#&gt;   lhs   op rhs label par.index
-#&gt; 1   e   by   y     1         1
-#&gt; 2   y   on   x    p1        p1
-#&gt; 3   e with   e    p2        p2
-#&gt; 4   x with   x    p3        p3
-#&gt; 5   y   on   1    p4        p4
-#&gt; 6   x   on   1    p5        p5
-#&gt; 
-#&gt; $variables
-#&gt; [1] "y" "x" "e"
-#&gt; 
-#&gt; $A
-#&gt;   y   x    e  
-#&gt; y "0" "p1" "1"
-#&gt; x "0" "0"  "0"
-#&gt; e "0" "0"  "0"
-#&gt; 
-#&gt; $S
-#&gt;   y   x    e   
-#&gt; y "0" "0"  "0" 
-#&gt; x "0" "p3" "0" 
-#&gt; e "0" "0"  "p2"
-#&gt; 
-#&gt; $Filter
-#&gt;   y x e
-#&gt; y 1 0 0
-#&gt; x 0 1 0
-#&gt; 
-#&gt; $u
-#&gt;   u   
-#&gt; y "p4"
-#&gt; x "p5"
-#&gt; e "0" 
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

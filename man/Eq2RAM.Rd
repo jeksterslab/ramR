@@ -60,8 +60,7 @@ eq <- "
     y   on   1   0
     x   on   1   0.50
 "
-Eq2RAM(eq, par = FALSE)
-Eq2RAM(eq, par = TRUE)
+Eq2RAM(eq)
 
 # Symbolic ----------------------------------------------------------
 eq <- "
@@ -73,8 +72,7 @@ eq <- "
     y   on   1   alpha
     x   on   1   mux
 "
-Eq2RAM(eq, par = FALSE)
-Eq2RAM(eq, par = TRUE)
+Eq2RAM(eq)
 }
 \references{
 McArdle, J. J., & McDonald, R. P. (1984).
