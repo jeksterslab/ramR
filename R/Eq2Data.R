@@ -30,6 +30,7 @@
 #' @family data generation functions
 #' @keywords data
 #' @inherit ramR references
+#' @inherit RAM2Data details
 #' @inheritParams Eq2RAM
 #' @inheritParams RAM2Data
 #' @examples
