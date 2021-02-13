@@ -5,7 +5,7 @@
 #'   using the Reticular Action Model (RAM) notation
 #'   with the [MASS::mvrnorm()] function.
 #'
-#' The Multivariate Normal Distribution is given by
+#' The multivariate normal distribution is given by
 #'   \deqn{
 #'     \mathbf{X} \sim \mathcal{N}_{k}
 #'     \left(
@@ -99,13 +99,18 @@
 #'   }
 #'
 #' @author Ivan Jacob Agaloos Pesigan
+#'
 #' @family data generation functions
 #' @keywords data
+#'
 #' @inherit ramR references
+#' @inherit Eq2Data return
+#'
 #' @inheritParams Expectations
 #' @param n Integer.
 #'   Sample size.
 #' @param ... Additional arguments to pass to [MASS::mvrnorm()].
+#'
 #' @examples
 #' # This is an example for the model
 #' # y = alpha + beta * x + e
