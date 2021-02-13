@@ -33,7 +33,7 @@
 #'   that is, parameters with the same `par.label`.
 #'
 #' @section Line breaks:
-#'   The characters `\n` and `;` can be used as line breaks.
+#'   The characters `\\n` and `;` can be used as line breaks.
 #'
 #' @section Comments:
 #'   Comments can be written after a hash (`#`) sign.
@@ -207,12 +207,12 @@ EqParse <- function(eq) {
     FUN = to.numeric
   )
   par.table$par.index <- par.index
-  if ("start" %in% colnames(par.table)) {
-    start <- sapply(
-      X = par.table$start,
+  if ("par.start" %in% colnames(par.table)) {
+    par.start <- sapply(
+      X = par.table$par.start,
       FUN = function(x) suppressWarnings(as.numeric(x))
     )
-    par.table$start <- start
+    par.table$par.start <- par.start
   }
   # --------------------------------------------------------------------
   return(par.table)
