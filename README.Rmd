@@ -38,3 +38,5 @@ remotes::install_github("jeksterslab/ramR")
 
 See [GitHub Pages](https://jeksterslab.github.io/ramR/index.html)
 for package documentation.
+See [ramR_notes](https://jeksterslab.github.io/ramR_notes/index.html)
+for notes and more examples.

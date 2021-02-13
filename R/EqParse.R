@@ -33,7 +33,7 @@
 #'   that is, parameters with the same `par.label`.
 #'
 #' @section Line breaks:
-#'   The characters `\\n` and `;` can be used as line breaks.
+#'   The characters `\n` and `;` can be used as line breaks.
 #'
 #' @section Comments:
 #'   Comments can be written after a hash (`#`) sign.
@@ -214,6 +214,5 @@ EqParse <- function(eq) {
     )
     par.table$par.start <- par.start
   }
-  # --------------------------------------------------------------------
   return(par.table)
 }
