@@ -23,15 +23,15 @@ M(A, S, Filter, ...)
 )
 }
 \arguments{
-\item{A}{\verb{t x t} matrix \eqn{\mathbf{A}}.
+\item{A}{\verb{t by t} matrix \eqn{\mathbf{A}}.
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.}
 
-\item{S}{\verb{t x t} numeric matrix \eqn{\mathbf{S}}.
+\item{S}{\verb{t by t} numeric matrix \eqn{\mathbf{S}}.
 Symmetric paths (double-headed arrows),
 such as variances and covariances.}
 
-\item{Filter}{\verb{p x t} numeric matrix
+\item{Filter}{\verb{p by t} numeric matrix
 \eqn{\mathbf{F}}.
 Filter matrix used to select observed variables.}
 
@@ -48,6 +48,9 @@ If \code{FALSE}, returns symbolic result as string if \code{str = TRUE}.}
 \item{simplify}{Logical. Simplify symbolic results.}
 
 \item{tex}{Logical. Return results as latex if \code{str = TRUE}.}
+}
+\value{
+\eqn{\mathbf{M} = \mathbf{F} \mathbf{C} \mathbf{F}^{\mathsf{T}}}
 }
 \description{
 Derives the matrix of covariance expectations

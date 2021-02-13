@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 #'
 #+ ascii
 eq <- "
-  # lhs op   rhs label
+  # lhs op   rhs par.label
     e   by   y   1
     y   on   x   beta
     e   with e   sigmae2
@@ -36,7 +36,7 @@ SymbolicPars <- ramR::Eq2Expectations(eq, par = TRUE, str = FALSE)
 #'
 #+ latex
 eq <- "
-  # lhs op   rhs label
+  # lhs op   rhs par.label
     e   by   y   1
     y   on   x   beta
     e   with e   sigma[epsilon]^2

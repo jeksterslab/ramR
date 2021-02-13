@@ -8,16 +8,7 @@
 \usage{
 g(A, u, Filter = NULL, ...)
 
-\method{g}{default}(
-  A,
-  u,
-  Filter = NULL,
-  str = TRUE,
-  ysym = TRUE,
-  simplify = FALSE,
-  tex = FALSE,
-  ...
-)
+\method{g}{default}(A, u, Filter = NULL, ...)
 
 \method{g}{yac_symbol}(
   A,
@@ -31,14 +22,14 @@ g(A, u, Filter = NULL, ...)
 )
 }
 \arguments{
-\item{A}{\verb{t x t} matrix \eqn{\mathbf{A}}.
+\item{A}{\verb{t by t} matrix \eqn{\mathbf{A}}.
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.}
 
 \item{u}{vector of length \code{t} or \verb{t by 1} matrix.
 Mean structure parameters.}
 
-\item{Filter}{\verb{p x t} numeric matrix
+\item{Filter}{\verb{p by t} numeric matrix
 \eqn{\mathbf{F}}.
 Filter matrix used to select observed variables.}
 
@@ -55,6 +46,9 @@ If \code{FALSE}, returns symbolic result as string if \code{str = TRUE}.}
 \item{simplify}{Logical. Simplify symbolic results.}
 
 \item{tex}{Logical. Return results as latex if \code{str = TRUE}.}
+}
+\value{
+\eqn{\mathbf{g} = \mathbf{F} \mathbf{v}}
 }
 \description{
 Derives the vector of expected values

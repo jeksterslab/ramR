@@ -11,22 +11,30 @@ RAM2Data(n, A, S, u, Filter, ...)
 \item{n}{Integer.
 Sample size.}
 
-\item{A}{\verb{t x t} matrix \eqn{\mathbf{A}}.
+\item{A}{\verb{t by t} matrix \eqn{\mathbf{A}}.
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.}
 
-\item{S}{\verb{t x t} numeric matrix \eqn{\mathbf{S}}.
+\item{S}{\verb{t by t} numeric matrix \eqn{\mathbf{S}}.
 Symmetric paths (double-headed arrows),
 such as variances and covariances.}
 
 \item{u}{vector of length \code{t} or \verb{t by 1} matrix.
 Mean structure parameters.}
 
-\item{Filter}{\verb{p x t} numeric matrix
+\item{Filter}{\verb{p by t} numeric matrix
 \eqn{\mathbf{F}}.
 Filter matrix used to select observed variables.}
 
 \item{...}{Additional arguments to pass to \code{\link[MASS:mvrnorm]{MASS::mvrnorm()}}.}
+}
+\value{
+\eqn{n} variates from \eqn{ \mathbf{X} \sim \mathcal{N}_{k}
+    \left(
+      \boldsymbol{\mu} \left( \boldsymbol{\theta} \right),
+      \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
+    \right) .
+  }
 }
 \description{
 Generates data from a multivariate normal distribution
@@ -34,7 +42,7 @@ using the Reticular Action Model (RAM) notation
 with the \code{\link[MASS:mvrnorm]{MASS::mvrnorm()}} function.
 }
 \details{
-The Multivariate Normal Distribution is given by
+The multivariate normal distribution is given by
 \deqn{
     \mathbf{X} \sim \mathcal{N}_{k}
     \left(

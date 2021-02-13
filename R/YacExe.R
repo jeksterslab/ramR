@@ -1,5 +1,7 @@
 #' Execute Yacas Expression using Ryacas
 #'
+#' Execute `yacas` expressions using `Ryacas`.
+#'
 #' @references
 #' [YACAS - Yet Another Computer Algebra System](http://www.yacas.org/)
 #'
@@ -35,6 +37,9 @@
 #' c <- 3
 #' d <- 4
 #' eval(YacExe(expr, str = FALSE))
+#'
+#' A <- matrix(c(a, c, b, d), ncol = 2)
+#' det(A)
 #' @export
 YacExe <- function(expr,
                    str = TRUE,

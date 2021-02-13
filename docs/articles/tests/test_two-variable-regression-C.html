@@ -72,6 +72,9 @@
       <a href="../../articles/tests/test_two-variable-regression-Eq2RAM.html">Test: Two-Variable Linear Regression - Eq2RAM</a>
     </li>
     <li>
+      <a href="../../articles/tests/test_two-variable-regression-EqParse.html">Test: Two-Variable Linear Regression - EqParse</a>
+    </li>
+    <li>
       <a href="../../articles/tests/test_two-variable-regression-Expectations.html">Test: Two-Variable Linear Regression - Expectations</a>
     </li>
     <li>
@@ -79,9 +82,6 @@
     </li>
     <li>
       <a href="../../articles/tests/test_two-variable-regression-M.html">Test: Two-Variable Linear Regression - M</a>
-    </li>
-    <li>
-      <a href="../../articles/tests/test_two-variable-regression-Parse.html">Test: Two-Variable Linear Regression - Parse</a>
     </li>
     <li>
       <a href="../../articles/tests/test_two-variable-regression-RAM2Data.html">Test: Two-Variable Linear Regression - RAM2Data</a>
@@ -127,7 +127,7 @@
       <h1 data-toc-skip>Test: Two-Variable Linear Regression - C</h1>
                         <h4 class="author">Ivan Jacob Agaloos Pesigan</h4>
             
-            <h4 class="date">2021-02-11</h4>
+            <h4 class="date">2021-02-14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jeksterslab/ramR/blob/master/vignettes/tests/test_two-variable-regression-C.Rmd"><code>vignettes/tests/test_two-variable-regression-C.Rmd</code></a></small>
       <div class="hidden name"><code>test_two-variable-regression-C.Rmd</code></div>
@@ -181,7 +181,7 @@
 <p><span class="math display">\[\begin{equation}
   \begin{split}
     y &amp;= \alpha + \beta x + \varepsilon \\
-    y &amp;= 0.9227473 + 0.0801936 x + \varepsilon
+    y &amp;= 0.9206923 + -0.6486455 x + \varepsilon
   \end{split}
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -219,7 +219,7 @@
   ysym <span class="op">=</span> <span class="cn">FALSE</span>,
   simplify <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "{{0.4836321691,0.0500218712,0.4796207335},{0.0500218712,0.6237636266,0},{0.4796207335,0,0.4796207335}}"</span></code></pre></div>
+<span class="co">#&gt; [1] "{{0.6930421427,-0.0131999094,0.6844800808},{-0.0131999094,0.0203499591,0},{0.6844800808,0,0.6844800808}}"</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
@@ -232,7 +232,7 @@
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\left( \begin{array}{ccc} 0.4836321691 &amp; 0.0500218712 &amp; 0.4796207335 \\ 0.0500218712 &amp; 0.6237636266 &amp; 0 \\ 0.4796207335 &amp; 0 &amp; 0.4796207335 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\left( \begin{array}{ccc} 0.6930421427 &amp; -0.0131999094 &amp; 0.6844800808 \\ -0.0131999094 &amp; 0.0203499591 &amp; 0 \\ 0.6844800808 &amp; 0 &amp; 0.6844800808 \end{array} \right)\end{align*}\]</span></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">C</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -249,7 +249,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🥇</span></code></pre></div>
+<span class="co">#&gt; Test passed 🎊</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

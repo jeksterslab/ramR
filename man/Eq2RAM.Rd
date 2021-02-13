@@ -11,7 +11,33 @@ Eq2RAM(eq, par = FALSE)
 
 \item{par}{Logical.
 If \code{par = TRUE}, use \code{par.index} as labels.
-If \code{par = FALSE}, use \code{label} as labels.}
+If \code{par = FALSE}, use \code{par.label} as labels.}
+}
+\value{
+Returns list with the following elements
+
+\describe{
+\item{par.table}{Parameter table.}
+\item{variables}{Variable names.}
+\item{g.variables}{Variable names of observed variables.}
+\item{h.variables}{Variable names of latent variables.}
+\item{A}{
+A \verb{t by t} matrix \eqn{\mathbf{A}}.
+Asymmetric paths (single-headed arrows),
+such as regression coefficients and factor loadings.
+}
+\item{S}{
+S \verb{t by t} numeric matrix \eqn{\mathbf{S}}.
+Symmetric paths (double-headed arrows),
+such as variances and covariances.
+}
+\item{u}{\verb{t by 1} matrix of mean structure parameters.}
+\item{Filter}{
+Filter \verb{p by t} numeric matrix
+\eqn{\mathbf{F}}.
+Filter matrix used to select observed variables.
+}
+}
 }
 \description{
 Converts model equations to RAM matrices.
@@ -24,7 +50,7 @@ that specifies the associations between the variables.
 
 Each line should follow the syntax below
 
-\verb{lhs operation rhs label}
+\verb{lhs operation rhs par.label}
 
 The associations are defined by the following operations
 
@@ -36,12 +62,12 @@ The associations are defined by the following operations
 }
 }
 
-\section{label}{
+\section{par.label}{
 
 Each parameter should be labeled.
-The \code{label} should be a number for fixed parameters
+The \code{par.label} should be a number for fixed parameters
 and a character string for free parameters.
-Equality contraints can be imposed by using the same label.
+Equality contraints can be imposed by using the same \code{par.label}.
 }
 
 \section{Comments}{
@@ -52,7 +78,7 @@ Comments can be written after a hash (\verb{#}) sign.
 \examples{
 # Numeric ----------------------------------------------------------
 eq <- "
-  # lhs op   rhs label
+  # lhs op   rhs par.label
     e   by   y   1
     y   on   x   1
     e   with e   1
@@ -64,7 +90,7 @@ Eq2RAM(eq)
 
 # Symbolic ----------------------------------------------------------
 eq <- "
-  # lhs op   rhs label
+  # lhs op   rhs par.label
     e   by   y   1
     y   on   x   beta
     e   with e   sigmae2
@@ -82,6 +108,13 @@ of the Reticular Action Model for moment structures.
 \emph{37} (2), 234--251.
 \url{https://doi.org/10.1111/j.2044-8317.1984.tb00802.x}
 }
+\seealso{
+Other eq functions: 
+\code{\link{Eq2Expectations}()},
+\code{\link{EqParse}()}
+}
 \author{
 Ivan Jacob Agaloos Pesigan
 }
+\concept{eq functions}
+\keyword{eq}

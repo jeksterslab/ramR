@@ -1,4 +1,4 @@
-#' Equation Parser
+#' Equations Parser
 #'
 #' Parse equations and return a parameter table (`par.table`).
 #'
@@ -33,7 +33,7 @@
 #'   that is, parameters with the same `par.label`.
 #'
 #' @section Line breaks:
-#'   `\n` and `;` can be used as line breaks.
+#'   The characters `\n` and `;` can be used as line breaks.
 #'
 #' @section Comments:
 #'   Comments can be written after a hash (`#`) sign.

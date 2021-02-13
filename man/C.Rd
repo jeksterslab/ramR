@@ -13,11 +13,11 @@ C(A, S, ...)
 \method{C}{yac_symbol}(A, S, str = TRUE, ysym = TRUE, simplify = FALSE, tex = FALSE, ...)
 }
 \arguments{
-\item{A}{\verb{t x t} matrix \eqn{\mathbf{A}}.
+\item{A}{\verb{t by t} matrix \eqn{\mathbf{A}}.
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.}
 
-\item{S}{\verb{t x t} numeric matrix \eqn{\mathbf{S}}.
+\item{S}{\verb{t by t} numeric matrix \eqn{\mathbf{S}}.
 Symmetric paths (double-headed arrows),
 such as variances and covariances.}
 
@@ -34,6 +34,9 @@ If \code{FALSE}, returns symbolic result as string if \code{str = TRUE}.}
 \item{simplify}{Logical. Simplify symbolic results.}
 
 \item{tex}{Logical. Return results as latex if \code{str = TRUE}.}
+}
+\value{
+\eqn{\mathbf{C} = \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}}}
 }
 \description{
 Derives the matrix of covariance expectations \eqn{\mathbf{C}}.

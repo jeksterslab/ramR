@@ -13,7 +13,7 @@ v(A, u, ...)
 \method{v}{yac_symbol}(A, u, str = TRUE, ysym = TRUE, simplify = FALSE, tex = FALSE, ...)
 }
 \arguments{
-\item{A}{\verb{t x t} matrix \eqn{\mathbf{A}}.
+\item{A}{\verb{t by t} matrix \eqn{\mathbf{A}}.
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.}
 
@@ -33,6 +33,9 @@ If \code{FALSE}, returns symbolic result as string if \code{str = TRUE}.}
 \item{simplify}{Logical. Simplify symbolic results.}
 
 \item{tex}{Logical. Return results as latex if \code{str = TRUE}.}
+}
+\value{
+\eqn{\mathbf{v} = \mathbf{E} \mathbf{u}}
 }
 \description{
 Derives the vector of expected values \eqn{\mathbf{v}}

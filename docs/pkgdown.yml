@@ -8,16 +8,16 @@ articles:
   tests/test_two-variable-regression-Eq2Data: test_two-variable-regression-Eq2Data.html
   tests/test_two-variable-regression-Eq2Expectations: test_two-variable-regression-Eq2Expectations.html
   tests/test_two-variable-regression-Eq2RAM: test_two-variable-regression-Eq2RAM.html
+  tests/test_two-variable-regression-EqParse: test_two-variable-regression-EqParse.html
   tests/test_two-variable-regression-Expectations: test_two-variable-regression-Expectations.html
   tests/test_two-variable-regression-IminusA: test_two-variable-regression-IminusA.html
   tests/test_two-variable-regression-M: test_two-variable-regression-M.html
-  tests/test_two-variable-regression-Parse: test_two-variable-regression-Parse.html
   tests/test_two-variable-regression-RAM2Data: test_two-variable-regression-RAM2Data.html
   tests/test_two-variable-regression-S: test_two-variable-regression-S.html
   tests/test_two-variable-regression-g: test_two-variable-regression-g.html
   tests/test_two-variable-regression-u: test_two-variable-regression-u.html
   tests/test_two-variable-regression-v: test_two-variable-regression-v.html
-last_built: 2021-02-11T08:36Z
+last_built: 2021-02-13T16:25Z
 urls:
   reference: https://github.com/jeksterslab/ramR//reference
   article: https://github.com/jeksterslab/ramR//articles

@@ -1,4 +1,4 @@
-#' Equations to Sample Data
+#' Equations to Multivariate Normal Sample Data
 #'
 #' Generates data from a multivariate normal distribution
 #' from model equations using the [MASS::mvrnorm()] function.

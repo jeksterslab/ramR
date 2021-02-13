@@ -1,2 +1,24 @@
 destination: docs
 url: https://github.com/jeksterslab/ramR/
+
+reference:
+- title: ramR
+  desc: Package description.
+- contents:
+  - has_keyword("ramR")
+- title: Equation
+  desc: Equation related functions.
+- contents:
+  - has_keyword("eq")
+- title: Data
+  desc: Data generation
+- contents:
+  - has_keyword("data")
+- title: RAM
+  desc: RAM matrices functions.
+- contents:
+  - has_keyword("ram")
+- title: Yacas
+  desc: Yacas
+- contents:
+  - has_keyword("yac")

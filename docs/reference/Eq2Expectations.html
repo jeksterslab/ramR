@@ -113,6 +113,9 @@
       <a href="../articles/tests/test_two-variable-regression-Eq2RAM.html">Test: Two-Variable Linear Regression - Eq2RAM</a>
     </li>
     <li>
+      <a href="../articles/tests/test_two-variable-regression-EqParse.html">Test: Two-Variable Linear Regression - EqParse</a>
+    </li>
+    <li>
       <a href="../articles/tests/test_two-variable-regression-Expectations.html">Test: Two-Variable Linear Regression - Expectations</a>
     </li>
     <li>
@@ -120,9 +123,6 @@
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-M.html">Test: Two-Variable Linear Regression - M</a>
-    </li>
-    <li>
-      <a href="../articles/tests/test_two-variable-regression-Parse.html">Test: Two-Variable Linear Regression - Parse</a>
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-RAM2Data.html">Test: Two-Variable Linear Regression - RAM2Data</a>
@@ -194,7 +194,7 @@
       <th>par</th>
       <td><p>Logical.
 If <code>par = TRUE</code>, use <code>par.index</code> as labels.
-If <code>par = FALSE</code>, use <code>label</code> as labels.</p></td>
+If <code>par = FALSE</code>, use <code>par.label</code> as labels.</p></td>
     </tr>
     <tr>
       <th>str</th>
@@ -218,6 +218,31 @@ If <code>FALSE</code>, returns symbolic result as string if <code>str = TRUE</co
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Returns list with the following elements</p>
+<dl>
+<dt>par.table</dt><dd><p>Parameter table.</p></dd>
+<dt>variables</dt><dd><p>Variable names.</p></dd>
+<dt>g.variables</dt><dd><p>Variable names of observed variables.</p></dd>
+<dt>h.variables</dt><dd><p>Variable names of latent variables.</p></dd>
+<dt>A</dt><dd><p>A <code>t by t</code> matrix \(\mathbf{A}\).
+Asymmetric paths (single-headed arrows),
+such as regression coefficients and factor loadings.</p></dd>
+<dt>S</dt><dd><p>S <code>t by t</code> numeric matrix \(\mathbf{S}\).
+Symmetric paths (double-headed arrows),
+such as variances and covariances.</p></dd>
+<dt>u</dt><dd><p><code>t by 1</code> matrix of mean structure parameters.</p></dd>
+<dt>Filter</dt><dd><p>Filter <code>p by t</code> numeric matrix
+\(\mathbf{F}\).
+Filter matrix used to select observed variables.</p></dd>
+<dt>v</dt><dd><p><code>t by 1</code> matrix of expected values.</p></dd>
+<dt>g</dt><dd><p><code>p by 1</code> matrix of expected values of observed variables.</p></dd>
+<dt>C</dt><dd><p><code>t by t</code> matrix of expected covariances.</p></dd>
+<dt>M</dt><dd><p><code>p by p</code> matrix of expected covariances of observed variables.</p></dd>
+
+</dl>
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The input is a character string
@@ -227,7 +252,7 @@ that specifies the associations between the variables.</p>
     
 
 <p>Each line should follow the syntax below</p>
-<p><code>lhs operation rhs label</code></p>
+<p><code>lhs operation rhs par.label</code></p>
 <p>The associations are defined by the following operations</p>
 <dl>
 <dt>by</dt><dd><p><code>left-hand side</code> measured <strong>by</strong> <code>right-hand side</code></p></dd>
@@ -237,14 +262,14 @@ that specifies the associations between the variables.</p>
 
 </dl>
 
-    <h2 class="hasAnchor" id="label"><a class="anchor" href="#label"></a>label</h2>
+    <h2 class="hasAnchor" id="par-label"><a class="anchor" href="#par-label"></a>par.label</h2>
 
     
 
 <p>Each parameter should be labeled.
-The <code>label</code> should be a number for fixed parameters
+The <code>par.label</code> should be a number for fixed parameters
 and a character string for free parameters.
-Equality contraints can be imposed by using the same label.</p>
+Equality contraints can be imposed by using the same <code>par.label</code>.</p>
     <h2 class="hasAnchor" id="comments"><a class="anchor" href="#comments"></a>Comments</h2>
 
     
@@ -258,6 +283,11 @@ of the Reticular Action Model for moment structures.
 <em>British Journal of Mathematical and Statistical Psychology</em>,
 <em>37</em> (2), 234--251.
 <a href='https://doi.org/10.1111/j.2044-8317.1984.tb00802.x'>https://doi.org/10.1111/j.2044-8317.1984.tb00802.x</a></p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other eq functions: 
+<code><a href='Eq2RAM.html'>Eq2RAM</a>()</code>,
+<code><a href='EqParse.html'>EqParse</a>()</code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Ivan Jacob Agaloos Pesigan</p>
@@ -265,7 +295,7 @@ of the Reticular Action Model for moment structures.
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Numerical ---------------------------------------------------------</span>
 <span class='va'>eq</span> <span class='op'>&lt;-</span> <span class='st'>"
-  # lhs op   rhs label
+  # lhs op   rhs par.label
     e   by   y   1
     y   on   x   1
     e   with e   1
@@ -273,10 +303,73 @@ of the Reticular Action Model for moment structures.
     y   on   1   0
     x   on   1   0.50
 "</span>
-
+<span class='fu'>Eq2Expectations</span><span class='op'>(</span><span class='va'>eq</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $par.table
+#&gt;   lhs   op rhs par.label par.index
+#&gt; 1   e   by   y      1.00      1.00
+#&gt; 2   y   on   x      1.00      1.00
+#&gt; 3   e with   e      1.00      1.00
+#&gt; 4   x with   x      0.25      0.25
+#&gt; 5   y   on   1      0.00      0.00
+#&gt; 6   x   on   1      0.50      0.50
+#&gt; 
+#&gt; $variables
+#&gt; [1] "y" "x" "e"
+#&gt; 
+#&gt; $g.variables
+#&gt; [1] "y" "x"
+#&gt; 
+#&gt; $h.variables
+#&gt; [1] "e"
+#&gt; 
+#&gt; $A
+#&gt;   y x e
+#&gt; y 0 1 1
+#&gt; x 0 0 0
+#&gt; e 0 0 0
+#&gt; 
+#&gt; $S
+#&gt;   y    x e
+#&gt; y 0 0.00 0
+#&gt; x 0 0.25 0
+#&gt; e 0 0.00 1
+#&gt; 
+#&gt; $u
+#&gt;     u
+#&gt; y 0.0
+#&gt; x 0.5
+#&gt; e 0.0
+#&gt; 
+#&gt; $Filter
+#&gt;   y x e
+#&gt; y 1 0 0
+#&gt; x 0 1 0
+#&gt; 
+#&gt; $v
+#&gt;     v
+#&gt; y 0.5
+#&gt; x 0.5
+#&gt; e 0.0
+#&gt; 
+#&gt; $g
+#&gt;     g
+#&gt; y 0.5
+#&gt; x 0.5
+#&gt; 
+#&gt; $C
+#&gt;      y    x e
+#&gt; y 1.25 0.25 1
+#&gt; x 0.25 0.25 0
+#&gt; e 1.00 0.00 1
+#&gt; 
+#&gt; $M
+#&gt;      y    x
+#&gt; y 1.25 0.25
+#&gt; x 0.25 0.25
+#&gt; </div><div class='input'>
 <span class='co'># Symbolic ----------------------------------------------------------</span>
 <span class='va'>eq</span> <span class='op'>&lt;-</span> <span class='st'>"
-  # lhs op   rhs label
+  # lhs op   rhs par.label
     e   by   y   1
     y   on   x   beta
     e   with e   sigmae2
@@ -285,8 +378,23 @@ of the Reticular Action Model for moment structures.
     x   on   1   mux
 "</span>
 <span class='fu'>Eq2Expectations</span><span class='op'>(</span><span class='va'>eq</span>, par <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $variables
+</div><div class='output co'>#&gt; $par.table
+#&gt;   lhs   op rhs par.label par.index
+#&gt; 1   e   by   y         1         1
+#&gt; 2   y   on   x      beta        p1
+#&gt; 3   e with   e   sigmae2        p2
+#&gt; 4   x with   x   sigmax2        p3
+#&gt; 5   y   on   1     alpha        p4
+#&gt; 6   x   on   1       mux        p5
+#&gt; 
+#&gt; $variables
 #&gt; [1] "y" "x" "e"
+#&gt; 
+#&gt; $g.variables
+#&gt; [1] "y" "x"
+#&gt; 
+#&gt; $h.variables
+#&gt; [1] "e"
 #&gt; 
 #&gt; $A
 #&gt; {{   0, beta,    1},
@@ -324,8 +432,63 @@ of the Reticular Action Model for moment structures.
 #&gt; $M
 #&gt; {{sigmax2*beta^2+sigmae2,           beta*sigmax2},
 #&gt;  {          sigmax2*beta,                sigmax2}} 
+#&gt; </div><div class='input'><span class='fu'>Eq2Expectations</span><span class='op'>(</span><span class='va'>eq</span>, par <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $par.table
+#&gt;   lhs   op rhs par.label par.index
+#&gt; 1   e   by   y         1         1
+#&gt; 2   y   on   x        p1        p1
+#&gt; 3   e with   e        p2        p2
+#&gt; 4   x with   x        p3        p3
+#&gt; 5   y   on   1        p4        p4
+#&gt; 6   x   on   1        p5        p5
+#&gt; 
+#&gt; $variables
+#&gt; [1] "y" "x" "e"
+#&gt; 
+#&gt; $g.variables
+#&gt; [1] "y" "x"
+#&gt; 
+#&gt; $h.variables
+#&gt; [1] "e"
+#&gt; 
+#&gt; $A
+#&gt; {{ 0, p1,  1},
+#&gt;  { 0,  0,  0},
+#&gt;  { 0,  0,  0}} 
+#&gt; 
+#&gt; $S
+#&gt; {{ 0,  0,  0},
+#&gt;  { 0, p3,  0},
+#&gt;  { 0,  0, p2}} 
+#&gt; 
+#&gt; $u
+#&gt; {{p4},
+#&gt;  {p5},
+#&gt;  { 0}} 
+#&gt; 
+#&gt; $Filter
+#&gt; {{1, 0, 0},
+#&gt;  {0, 1, 0}} 
+#&gt; 
+#&gt; $v
+#&gt; {{p4+p1*p5},
+#&gt;  {      p5},
+#&gt;  {       0}} 
+#&gt; 
+#&gt; $g
+#&gt; {{p4+p1*p5},
+#&gt;  {      p5}} 
+#&gt; 
+#&gt; $C
+#&gt; {{p3*p1^2+p2,      p1*p3,         p2},
+#&gt;  {     p3*p1,         p3,          0},
+#&gt;  {        p2,          0,         p2}} 
+#&gt; 
+#&gt; $M
+#&gt; {{p3*p1^2+p2,      p1*p3},
+#&gt;  {     p3*p1,         p3}} 
 #&gt; </div><div class='input'>
-<span class='co'># Expressions using `label`</span>
+<span class='co'># Expressions using `par.label`</span>
 
 <span class='va'>beta</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
 <span class='va'>sigmae2</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>

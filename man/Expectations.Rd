@@ -33,18 +33,18 @@ Expectations(A, S, u = NULL, Filter = NULL, ...)
 )
 }
 \arguments{
-\item{A}{\verb{t x t} matrix \eqn{\mathbf{A}}.
+\item{A}{\verb{t by t} matrix \eqn{\mathbf{A}}.
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.}
 
-\item{S}{\verb{t x t} numeric matrix \eqn{\mathbf{S}}.
+\item{S}{\verb{t by t} numeric matrix \eqn{\mathbf{S}}.
 Symmetric paths (double-headed arrows),
 such as variances and covariances.}
 
 \item{u}{vector of length \code{t} or \verb{t by 1} matrix.
 Mean structure parameters.}
 
-\item{Filter}{\verb{p x t} numeric matrix
+\item{Filter}{\verb{p by t} numeric matrix
 \eqn{\mathbf{F}}.
 Filter matrix used to select observed variables.}
 
@@ -61,6 +61,32 @@ If \code{FALSE}, returns symbolic result as string if \code{str = TRUE}.}
 \item{simplify}{Logical. Simplify symbolic results.}
 
 \item{tex}{Logical. Return results as latex if \code{str = TRUE}.}
+}
+\value{
+Returns list with the following elements
+
+\describe{
+\item{A}{
+A \verb{t by t} matrix \eqn{\mathbf{A}}.
+Asymmetric paths (single-headed arrows),
+such as regression coefficients and factor loadings.
+}
+\item{S}{
+S \verb{t by t} numeric matrix \eqn{\mathbf{S}}.
+Symmetric paths (double-headed arrows),
+such as variances and covariances.
+}
+\item{u}{\verb{t by 1} matrix of mean structure parameters.}
+\item{Filter}{
+Filter \verb{p by t} numeric matrix
+\eqn{\mathbf{F}}.
+Filter matrix used to select observed variables.
+}
+\item{v}{\verb{t by 1} matrix of expected values.}
+\item{g}{\verb{p by 1} matrix of expected values of observed variables.}
+\item{C}{\verb{t by t} matrix of expected covariances.}
+\item{M}{\verb{p by p} matrix of expected covariances of observed variables.}
+}
 }
 \description{
 Derives the mean and covariance expectations

@@ -36,7 +36,7 @@ upars <- as.matrix(c("p4", "p5", 0))
 #'
 #+ labels1
 eq <- "
-  # lhs op   rhs label
+  # lhs op   rhs par.label
     e   by   y   1
     y   on   x   beta
     e   with e   sigmae2

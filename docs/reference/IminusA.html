@@ -113,6 +113,9 @@
       <a href="../articles/tests/test_two-variable-regression-Eq2RAM.html">Test: Two-Variable Linear Regression - Eq2RAM</a>
     </li>
     <li>
+      <a href="../articles/tests/test_two-variable-regression-EqParse.html">Test: Two-Variable Linear Regression - EqParse</a>
+    </li>
+    <li>
       <a href="../articles/tests/test_two-variable-regression-Expectations.html">Test: Two-Variable Linear Regression - Expectations</a>
     </li>
     <li>
@@ -120,9 +123,6 @@
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-M.html">Test: Two-Variable Linear Regression - M</a>
-    </li>
-    <li>
-      <a href="../articles/tests/test_two-variable-regression-Parse.html">Test: Two-Variable Linear Regression - Parse</a>
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-RAM2Data.html">Test: Two-Variable Linear Regression - RAM2Data</a>
@@ -187,7 +187,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>A</th>
-      <td><p><code>t x t</code> matrix \(\mathbf{A}\).
+      <td><p><code>t by t</code> matrix \(\mathbf{A}\).
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.</p></td>
     </tr>
@@ -217,6 +217,9 @@ If <code>FALSE</code>, returns symbolic result as string if <code>str = TRUE</co
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>\(\mathbf{I} - \mathbf{A}\)</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>$$

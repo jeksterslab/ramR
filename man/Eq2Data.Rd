@@ -2,7 +2,7 @@
 % Please edit documentation in R/Eq2Data.R
 \name{Eq2Data}
 \alias{Eq2Data}
-\title{Equations to Sample Data}
+\title{Equations to Multivariate Normal Sample Data}
 \usage{
 Eq2Data(eq, n, ...)
 }
@@ -14,15 +14,23 @@ Sample size.}
 
 \item{...}{Additional arguments to pass to \code{\link[MASS:mvrnorm]{MASS::mvrnorm()}}.}
 }
+\value{
+\eqn{n} variates from \eqn{ \mathbf{X} \sim \mathcal{N}_{k}
+    \left(
+      \boldsymbol{\mu} \left( \boldsymbol{\theta} \right),
+      \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
+    \right) .
+  }
+}
 \description{
 Generates data from a multivariate normal distribution
-from model equations.
+from model equations using the \code{\link[MASS:mvrnorm]{MASS::mvrnorm()}} function.
 }
 \details{
 The input is a character string
 that specifies the associations between the variables.
 
-The Multivariate Normal Distribution is given by
+The multivariate normal distribution is given by
 \deqn{
     \mathbf{X} \sim \mathcal{N}_{k}
     \left(
@@ -143,7 +151,7 @@ Comments can be written after a hash (\verb{#}) sign.
 
 \examples{
 eq <- "
-  # lhs op   rhs label
+  # lhs op   rhs value
     e   by   y   1
     y   on   x   1
     e   with e   1

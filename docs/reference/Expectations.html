@@ -114,6 +114,9 @@ from the Reticular Action Model (RAM) matrices." />
       <a href="../articles/tests/test_two-variable-regression-Eq2RAM.html">Test: Two-Variable Linear Regression - Eq2RAM</a>
     </li>
     <li>
+      <a href="../articles/tests/test_two-variable-regression-EqParse.html">Test: Two-Variable Linear Regression - EqParse</a>
+    </li>
+    <li>
       <a href="../articles/tests/test_two-variable-regression-Expectations.html">Test: Two-Variable Linear Regression - Expectations</a>
     </li>
     <li>
@@ -121,9 +124,6 @@ from the Reticular Action Model (RAM) matrices." />
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-M.html">Test: Two-Variable Linear Regression - M</a>
-    </li>
-    <li>
-      <a href="../articles/tests/test_two-variable-regression-Parse.html">Test: Two-Variable Linear Regression - Parse</a>
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-RAM2Data.html">Test: Two-Variable Linear Regression - RAM2Data</a>
@@ -209,13 +209,13 @@ from the Reticular Action Model (RAM) matrices.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>A</th>
-      <td><p><code>t x t</code> matrix \(\mathbf{A}\).
+      <td><p><code>t by t</code> matrix \(\mathbf{A}\).
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.</p></td>
     </tr>
     <tr>
       <th>S</th>
-      <td><p><code>t x t</code> numeric matrix \(\mathbf{S}\).
+      <td><p><code>t by t</code> numeric matrix \(\mathbf{S}\).
 Symmetric paths (double-headed arrows),
 such as variances and covariances.</p></td>
     </tr>
@@ -226,7 +226,7 @@ Mean structure parameters.</p></td>
     </tr>
     <tr>
       <th>Filter</th>
-      <td><p><code>p x t</code> numeric matrix
+      <td><p><code>p by t</code> numeric matrix
 \(\mathbf{F}\).
 Filter matrix used to select observed variables.</p></td>
     </tr>
@@ -255,6 +255,27 @@ If <code>FALSE</code>, returns symbolic result as string if <code>str = TRUE</co
       <td><p>Logical. Return results as latex if <code>str = TRUE</code>.</p></td>
     </tr>
     </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Returns list with the following elements</p>
+<dl>
+<dt>A</dt><dd><p>A <code>t by t</code> matrix \(\mathbf{A}\).
+Asymmetric paths (single-headed arrows),
+such as regression coefficients and factor loadings.</p></dd>
+<dt>S</dt><dd><p>S <code>t by t</code> numeric matrix \(\mathbf{S}\).
+Symmetric paths (double-headed arrows),
+such as variances and covariances.</p></dd>
+<dt>u</dt><dd><p><code>t by 1</code> matrix of mean structure parameters.</p></dd>
+<dt>Filter</dt><dd><p>Filter <code>p by t</code> numeric matrix
+\(\mathbf{F}\).
+Filter matrix used to select observed variables.</p></dd>
+<dt>v</dt><dd><p><code>t by 1</code> matrix of expected values.</p></dd>
+<dt>g</dt><dd><p><code>p by 1</code> matrix of expected values of observed variables.</p></dd>
+<dt>C</dt><dd><p><code>t by t</code> matrix of expected covariances.</p></dd>
+<dt>M</dt><dd><p><code>p by p</code> matrix of expected covariances of observed variables.</p></dd>
+
+</dl>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 

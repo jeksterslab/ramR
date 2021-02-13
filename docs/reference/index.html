@@ -112,6 +112,9 @@
       <a href="../articles/tests/test_two-variable-regression-Eq2RAM.html">Test: Two-Variable Linear Regression - Eq2RAM</a>
     </li>
     <li>
+      <a href="../articles/tests/test_two-variable-regression-EqParse.html">Test: Two-Variable Linear Regression - EqParse</a>
+    </li>
+    <li>
       <a href="../articles/tests/test_two-variable-regression-Expectations.html">Test: Two-Variable Linear Regression - Expectations</a>
     </li>
     <li>
@@ -119,9 +122,6 @@
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-M.html">Test: Two-Variable Linear Regression - M</a>
-    </li>
-    <li>
-      <a href="../articles/tests/test_two-variable-regression-Parse.html">Test: Two-Variable Linear Regression - Parse</a>
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-RAM2Data.html">Test: Two-Variable Linear Regression - RAM2Data</a>
@@ -178,8 +178,84 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-ramr" class="hasAnchor"><a href="#section-ramr" class="anchor"></a>ramR</h2>
+          <p class="section-desc"><p>Package description.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="ramR.html">ramR</a></code> </p>
+        </td>
+        <td><p>ramR: Reticular Action Model (RAM) Notation</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-equation" class="hasAnchor"><a href="#section-equation" class="anchor"></a>Equation</h2>
+          <p class="section-desc"><p>Equation related functions.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="Eq2Expectations.html">Eq2Expectations()</a></code> </p>
+        </td>
+        <td><p>Equations to Expectations</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="Eq2RAM.html">Eq2RAM()</a></code> </p>
+        </td>
+        <td><p>Equations to RAM Matrices</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="EqParse.html">EqParse()</a></code> </p>
+        </td>
+        <td><p>Equations Parser</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-data" class="hasAnchor"><a href="#section-data" class="anchor"></a>Data</h2>
+          <p class="section-desc"><p>Data generation</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="Eq2Data.html">Eq2Data()</a></code> </p>
+        </td>
+        <td><p>Equations to Multivariate Normal Sample Data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="RAM2Data.html">RAM2Data()</a></code> </p>
+        </td>
+        <td><p>Generate Data from a Multivariate Normal Distribution
+Using the Reticular Action Model (RAM) Notation</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-ram" class="hasAnchor"><a href="#section-ram" class="anchor"></a>RAM</h2>
+          <p class="section-desc"><p>RAM matrices functions.</p></p>
         </th>
       </tr>
       
@@ -202,24 +278,6 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="Eq2Data.html">Eq2Data()</a></code> </p>
-        </td>
-        <td><p>Equations to Sample Data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="Eq2Expectations.html">Eq2Expectations()</a></code> </p>
-        </td>
-        <td><p>Equations to Expectations</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="Eq2RAM.html">Eq2RAM()</a></code> </p>
-        </td>
-        <td><p>Equations to RAM Matrices</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="Expectations.html">Expectations()</a></code> </p>
         </td>
         <td><p>Expectations from the Reticular Action Model (RAM) Matrices</p></td>
@@ -239,13 +297,6 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="RAM2Data.html">RAM2Data()</a></code> </p>
-        </td>
-        <td><p>Generate Data from a Multivariate Normal Distribution
-Using the Reticular Action Model (RAM) Notation</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="S.html">S()</a></code> </p>
         </td>
         <td><p>Matrix of Symmetric Paths \(\mathbf{S}\)</p></td>
@@ -258,12 +309,6 @@ Using the Reticular Action Model (RAM) Notation</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="ramR.html">ramR</a></code> </p>
-        </td>
-        <td><p>ramR: Reticular Action Model (RAM) Notation</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="u.html">u()</a></code> </p>
         </td>
         <td><p>Vector of Mean Structure Parameters \(\mathbf{u}\)</p></td>
@@ -273,6 +318,25 @@ Using the Reticular Action Model (RAM) Notation</p></td>
           <p><code><a href="v.html">v()</a></code> </p>
         </td>
         <td><p>Vector of Expected Values \(\mathbf{v}\)</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-yacas" class="hasAnchor"><a href="#section-yacas" class="anchor"></a>Yacas</h2>
+          <p class="section-desc"><p>Yacas</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="YacExe.html">YacExe()</a></code> </p>
+        </td>
+        <td><p>Execute Yacas Expression using Ryacas</p></td>
       </tr>
     </tbody>
     </table>

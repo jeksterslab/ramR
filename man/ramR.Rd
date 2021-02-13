@@ -19,3 +19,4 @@ of the Reticular Action Model for moment structures.
 \author{
 Ivan Jacob Agaloos Pesigan
 }
+\keyword{ramR}

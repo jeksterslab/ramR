@@ -19,6 +19,9 @@
     <loc>https://github.com/jeksterslab/ramR//reference/Eq2RAM.html</loc>
   </url>
   <url>
+    <loc>https://github.com/jeksterslab/ramR//reference/EqParse.html</loc>
+  </url>
+  <url>
     <loc>https://github.com/jeksterslab/ramR//reference/Expectations.html</loc>
   </url>
   <url>
@@ -32,6 +35,9 @@
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ramR//reference/S.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//reference/YacExe.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ramR//reference/g.html</loc>
@@ -64,6 +70,9 @@
     <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-Eq2RAM.html</loc>
   </url>
   <url>
+    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-EqParse.html</loc>
+  </url>
+  <url>
     <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-Expectations.html</loc>
   </url>
   <url>
@@ -71,9 +80,6 @@
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-M.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-Parse.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-RAM2Data.html</loc>

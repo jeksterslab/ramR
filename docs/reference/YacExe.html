@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ramR: Reticular Action Model (RAM) Notation — ramR • ramR</title>
+<title>Execute Yacas Expression using Ryacas — YacExe • ramR</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="ramR: Reticular Action Model (RAM) Notation — ramR" />
-<meta property="og:description" content="A collection of utility functions using
-the Reticular Action Model (RAM) notation." />
+<meta property="og:title" content="Execute Yacas Expression using Ryacas — YacExe" />
+<meta property="og:description" content="Execute yacas expressions using Ryacas." />
 
 
 
@@ -166,30 +165,73 @@ the Reticular Action Model (RAM) notation." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>ramR: Reticular Action Model (RAM) Notation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/ramR.R'><code>R/ramR.R</code></a></small>
-    <div class="hidden name"><code>ramR.Rd</code></div>
+    <h1>Execute Yacas Expression using Ryacas</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jeksterslab/ramR/blob/master/R/YacExe.R'><code>R/YacExe.R</code></a></small>
+    <div class="hidden name"><code>YacExe.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A collection of utility functions using
-the Reticular Action Model (RAM) notation.</p>
+    <p>Execute <code>yacas</code> expressions using <code>Ryacas</code>.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>YacExe</span><span class='op'>(</span><span class='va'>expr</span>, str <span class='op'>=</span> <span class='cn'>TRUE</span>, ysym <span class='op'>=</span> <span class='cn'>TRUE</span>, simplify <span class='op'>=</span> <span class='cn'>FALSE</span>, tex <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>expr</th>
+      <td><p>Character string. Yacas expresion.</p></td>
+    </tr>
+    <tr>
+      <th>str</th>
+      <td><p>Logical.
+If <code>TRUE</code>, returns symbolic result as string.
+If <code>FALSE</code>, returns symbolic result as an <code>R</code> expression.</p></td>
+    </tr>
+    <tr>
+      <th>ysym</th>
+      <td><p>Logical.
+If <code>TRUE</code>, returns symbolic result as <code>yac_symbol</code> if <code>str = TRUE</code>.
+If <code>FALSE</code>, returns symbolic result as string if <code>str = TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>simplify</th>
+      <td><p>Logical. Simplify symbolic results.</p></td>
+    </tr>
+    <tr>
+      <th>tex</th>
+      <td><p>Logical. Return results as latex if <code>str = TRUE</code>.</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>McArdle, J. J., &amp; McDonald, R. P. (1984).
-Some algebraic properties
-of the Reticular Action Model for moment structures.
-<em>British Journal of Mathematical and Statistical Psychology</em>,
-<em>37</em> (2), 234--251.
-<a href='https://doi.org/10.1111/j.2044-8317.1984.tb00802.x'>https://doi.org/10.1111/j.2044-8317.1984.tb00802.x</a></p>
+    <p><a href='http://www.yacas.org/'>YACAS - Yet Another Computer Algebra System</a></p>
+<p><a href='http://r-cas.github.io/ryacas/'>Ryacas</a></p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Ivan Jacob Agaloos Pesigan</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"c"</span>, <span class='st'>"b"</span>, <span class='st'>"d"</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='va'>expr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"Determinant("</span>, <span class='va'>A</span>, <span class='st'>")"</span><span class='op'>)</span>
+<span class='fu'>YacExe</span><span class='op'>(</span><span class='va'>expr</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; y: a*d-b*c</div><div class='input'><span class='fu'>YacExe</span><span class='op'>(</span><span class='va'>expr</span>, str <span class='op'>=</span> <span class='cn'>TRUE</span>, ysym <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "a*d-b*c"</div><div class='input'><span class='fu'>YacExe</span><span class='op'>(</span><span class='va'>expr</span>, str <span class='op'>=</span> <span class='cn'>TRUE</span>, tex <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "a d - b c"</div><div class='input'><span class='fu'>YacExe</span><span class='op'>(</span><span class='va'>expr</span>, str <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; expression(a * d - b * c)</div><div class='input'>
+<span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
+<span class='va'>b</span> <span class='op'>&lt;-</span> <span class='fl'>2</span>
+<span class='va'>c</span> <span class='op'>&lt;-</span> <span class='fl'>3</span>
+<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fl'>4</span>
+<span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='fu'>YacExe</span><span class='op'>(</span><span class='va'>expr</span>, str <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] -2</div><div class='input'>
+<span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>a</span>, <span class='va'>c</span>, <span class='va'>b</span>, <span class='va'>d</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/det.html'>det</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] -2</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

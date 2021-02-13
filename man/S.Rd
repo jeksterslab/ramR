@@ -13,11 +13,11 @@ S(A, C, ...)
 \method{S}{yac_symbol}(A, C, str = TRUE, ysym = TRUE, simplify = FALSE, tex = FALSE, ...)
 }
 \arguments{
-\item{A}{\verb{t x t} matrix \eqn{\mathbf{A}}.
+\item{A}{\verb{t by t} matrix \eqn{\mathbf{A}}.
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.}
 
-\item{C}{\verb{t x t} numeric matrix \eqn{\mathbf{C}}.
+\item{C}{\verb{t by t} numeric matrix \eqn{\mathbf{C}}.
 Model-implied variance-covariance matrix.}
 
 \item{...}{...}
@@ -33,6 +33,10 @@ If \code{FALSE}, returns symbolic result as string if \code{str = TRUE}.}
 \item{simplify}{Logical. Simplify symbolic results.}
 
 \item{tex}{Logical. Return results as latex if \code{str = TRUE}.}
+}
+\value{
+\eqn{\mathbf{S} = \mathbf{E}^{-1} \mathbf{C}
+  \left( \mathbf{E}^{-1} \right)^{\mathsf{T}}}
 }
 \description{
 Derives the matrix of symmetric paths (double-headed arrows) \eqn{\mathbf{S}}

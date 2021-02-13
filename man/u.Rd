@@ -13,7 +13,7 @@ u(A, v, ...)
 \method{u}{yac_symbol}(A, v, str = TRUE, ysym = TRUE, simplify = FALSE, tex = FALSE, ...)
 }
 \arguments{
-\item{A}{\verb{t x t} matrix \eqn{\mathbf{A}}.
+\item{A}{\verb{t by t} matrix \eqn{\mathbf{A}}.
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.}
 
@@ -33,6 +33,9 @@ If \code{FALSE}, returns symbolic result as string if \code{str = TRUE}.}
 \item{simplify}{Logical. Simplify symbolic results.}
 
 \item{tex}{Logical. Return results as latex if \code{str = TRUE}.}
+}
+\value{
+\eqn{\mathbf{u} = \mathbf{E}^{-1} \mathbf{v}}
 }
 \description{
 Derives the vector of mean structure parameters \eqn{\mathbf{u}}

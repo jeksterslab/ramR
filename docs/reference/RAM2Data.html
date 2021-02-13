@@ -117,6 +117,9 @@ with the MASS::mvrnorm() function." />
       <a href="../articles/tests/test_two-variable-regression-Eq2RAM.html">Test: Two-Variable Linear Regression - Eq2RAM</a>
     </li>
     <li>
+      <a href="../articles/tests/test_two-variable-regression-EqParse.html">Test: Two-Variable Linear Regression - EqParse</a>
+    </li>
+    <li>
       <a href="../articles/tests/test_two-variable-regression-Expectations.html">Test: Two-Variable Linear Regression - Expectations</a>
     </li>
     <li>
@@ -124,9 +127,6 @@ with the MASS::mvrnorm() function." />
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-M.html">Test: Two-Variable Linear Regression - M</a>
-    </li>
-    <li>
-      <a href="../articles/tests/test_two-variable-regression-Parse.html">Test: Two-Variable Linear Regression - Parse</a>
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-RAM2Data.html">Test: Two-Variable Linear Regression - RAM2Data</a>
@@ -193,13 +193,13 @@ Sample size.</p></td>
     </tr>
     <tr>
       <th>A</th>
-      <td><p><code>t x t</code> matrix \(\mathbf{A}\).
+      <td><p><code>t by t</code> matrix \(\mathbf{A}\).
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.</p></td>
     </tr>
     <tr>
       <th>S</th>
-      <td><p><code>t x t</code> numeric matrix \(\mathbf{S}\).
+      <td><p><code>t by t</code> numeric matrix \(\mathbf{S}\).
 Symmetric paths (double-headed arrows),
 such as variances and covariances.</p></td>
     </tr>
@@ -210,7 +210,7 @@ Mean structure parameters.</p></td>
     </tr>
     <tr>
       <th>Filter</th>
-      <td><p><code>p x t</code> numeric matrix
+      <td><p><code>p by t</code> numeric matrix
 \(\mathbf{F}\).
 Filter matrix used to select observed variables.</p></td>
     </tr>
@@ -220,9 +220,17 @@ Filter matrix used to select observed variables.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>\(n\) variates from \( \mathbf{X} \sim \mathcal{N}_{k}
+    \left(
+      \boldsymbol{\mu} \left( \boldsymbol{\theta} \right),
+      \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
+    \right) .
+  \)</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The Multivariate Normal Distribution is given by
+    <p>The multivariate normal distribution is given by
 $$
     \mathbf{X} \sim \mathcal{N}_{k}
     \left(
