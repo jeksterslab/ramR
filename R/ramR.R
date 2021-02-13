@@ -15,4 +15,5 @@
 #'
 #' @docType package
 #' @name ramR
+#' @keywords ramR
 NULL
