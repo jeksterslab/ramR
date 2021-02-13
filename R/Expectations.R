@@ -3,17 +3,46 @@
 #' Derives the mean and covariance expectations
 #' from the Reticular Action Model (RAM) matrices.
 #'
+#' @return Returns list with the following elements
+#'
+#'   \describe{
+#'     \item{A}{
+#'       A `t by t` matrix \eqn{\mathbf{A}}.
+#'       Asymmetric paths (single-headed arrows),
+#'       such as regression coefficients and factor loadings.
+#'     }
+#'     \item{S}{
+#'       S `t by t` numeric matrix \eqn{\mathbf{S}}.
+#'       Symmetric paths (double-headed arrows),
+#'       such as variances and covariances.
+#'     }
+#'     \item{u}{`t by 1` matrix of mean structure parameters.}
+#'     \item{Filter}{
+#'       Filter `p by t` numeric matrix
+#'       \eqn{\mathbf{F}}.
+#'       Filter matrix used to select observed variables.
+#'     }
+#'     \item{v}{`t by 1` matrix of expected values.}
+#'     \item{g}{`p by 1` matrix of expected values of observed variables.}
+#'     \item{C}{`t by t` matrix of expected covariances.}
+#'     \item{M}{`p by p` matrix of expected covariances of observed variables.}
+#'   }
+#'
 #' @author Ivan Jacob Agaloos Pesigan
+#'
 #' @family RAM matrices functions
 #' @keywords ram
+#'
 #' @inherit ramR references
 #' @inherit u details
 #' @inherit v details
 #' @inherit g details
 #' @inherit C details
 #' @inherit M details
+#'
 #' @inheritParams M
 #' @inheritParams g
+#'
 #' @examples
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
@@ -274,14 +303,14 @@ Expectations.yac_symbol <- function(A,
       ")"
     )
   }
-  C <- .exe(
+  C <- YacExe(
     expr = C,
     str = str,
     ysym = ysym,
     simplify = simplify,
     tex = tex
   )
-  M <- .exe(
+  M <- YacExe(
     expr = M,
     str = str,
     ysym = ysym,
@@ -311,14 +340,14 @@ Expectations.yac_symbol <- function(A,
         v
       )
     }
-    v <- .exe(
+    v <- YacExe(
       expr = v,
       str = str,
       ysym = ysym,
       simplify = simplify,
       tex = tex
     )
-    g <- .exe(
+    g <- YacExe(
       expr = g,
       str = str,
       ysym = ysym,
