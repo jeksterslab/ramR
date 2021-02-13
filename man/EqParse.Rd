@@ -51,7 +51,7 @@ that is, parameters with the same \code{par.label}.
 
 \section{Line breaks}{
 
-The characters \verb{\\n} and \verb{;} can be used as line breaks.
+The characters \verb{\\\\n} and \verb{;} can be used as line breaks.
 }
 
 \section{Comments}{
