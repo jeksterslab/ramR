@@ -8,7 +8,7 @@
 #' @section Syntax:
 #'   Each line should follow the syntax below
 #'
-#'   `lhs operation rhs label`
+#'   `lhs operation rhs par.label`
 #'
 #'   The associations are defined by the following operations
 #'
@@ -19,23 +19,58 @@
 #'     \item{on 1}{`left-hand side` regressed **on 1** for mean structure}
 #'   }
 #'
-#' @section label:
+#' @section par.label:
 #'   Each parameter should be labeled.
-#'   The `label` should be a number for fixed parameters
+#'   The `par.label` should be a number for fixed parameters
 #'   and a character string for free parameters.
-#'   Equality contraints can be imposed by using the same label.
+#'   Equality contraints can be imposed by using the same `par.label`.
 #'
 #' @section Comments:
 #'   Comments can be written after a hash (`#`) sign.
 #'
+#' @return Returns list with the following elements
+#'
+#'   \describe{
+#'     \item{par.table}{Parameter table.}
+#'     \item{variables}{Variable names.}
+#'     \item{g.variables}{Variable names of observed variables.}
+#'     \item{h.variables}{Variable names of latent variables.}
+#'     \item{A}{
+#'       A `t by t` matrix \eqn{\mathbf{A}}.
+#'       Asymmetric paths (single-headed arrows),
+#'       such as regression coefficients and factor loadings.
+#'     }
+#'     \item{S}{
+#'       S `t by t` numeric matrix \eqn{\mathbf{S}}.
+#'       Symmetric paths (double-headed arrows),
+#'       such as variances and covariances.
+#'     }
+#'     \item{u}{`t by 1` matrix of mean structure parameters.}
+#'     \item{Filter}{
+#'       Filter `p by t` numeric matrix
+#'       \eqn{\mathbf{F}}.
+#'       Filter matrix used to select observed variables.
+#'     }
+#'     \item{v}{`t by 1` matrix of expected values.}
+#'     \item{g}{`p by 1` matrix of expected values of observed variables.}
+#'     \item{C}{`t by t` matrix of expected covariances.}
+#'     \item{M}{`p by p` matrix of expected covariances of observed variables.}
+#'   }
+#'
 #' @author Ivan Jacob Agaloos Pesigan
+#'
+#' @family eq functions
+#' @keywords eq
+#'
 #' @inherit ramR references
+#'
 #' @inheritParams Eq2RAM
-#' @inheritParams Expectations.yac_symbol
+#' @inheritParams Expectations
+#'
 #' @examples
 #' # Numerical ---------------------------------------------------------
 #' eq <- "
-#'   # lhs op   rhs label
+#'   # lhs op   rhs par.label
 #'     e   by   y   1
 #'     y   on   x   1
 #'     e   with e   1
@@ -43,10 +78,11 @@
 #'     y   on   1   0
 #'     x   on   1   0.50
 #' "
+#' Eq2Expectations(eq)
 #'
 #' # Symbolic ----------------------------------------------------------
 #' eq <- "
-#'   # lhs op   rhs label
+#'   # lhs op   rhs par.label
 #'     e   by   y   1
 #'     y   on   x   beta
 #'     e   with e   sigmae2
@@ -55,8 +91,9 @@
 #'     x   on   1   mux
 #' "
 #' Eq2Expectations(eq, par = FALSE)
+#' Eq2Expectations(eq, par = TRUE)
 #'
-#' # Expressions using `label`
+#' # Expressions using `par.label`
 #'
 #' beta <- 1
 #' sigmae2 <- 1
@@ -89,10 +126,7 @@ Eq2Expectations <- function(eq,
     eq,
     par = par
   )
-  variables <- list(
-    variables = Expectations[["variables"]]
-  )
-  if (is.numeric(Expectations$eq$label)) {
+  if (is.numeric(Expectations$par.table$par.label)) {
     out <- Expectations.default(
       A = Expectations$A,
       S = Expectations$S,
@@ -113,7 +147,10 @@ Eq2Expectations <- function(eq,
   }
   return(
     c(
-      variables,
+      par.table = list(Expectations[["par.table"]]),
+      variables = list(Expectations[["variables"]]),
+      g.variables = list(Expectations[["g.variables"]]),
+      h.variables = list(Expectations[["h.variables"]]),
       out
     )
   )

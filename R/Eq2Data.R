@@ -1,12 +1,12 @@
 #' Equations to Sample Data
 #'
 #' Generates data from a multivariate normal distribution
-#' from model equations.
+#' from model equations using the [MASS::mvrnorm()] function.
 #'
 #' The input is a character string
 #' that specifies the associations between the variables.
 #'
-#' The Multivariate Normal Distribution is given by
+#' The multivariate normal distribution is given by
 #'   \deqn{
 #'     \mathbf{X} \sim \mathcal{N}_{k}
 #'     \left(
@@ -113,6 +113,13 @@
 #'     \item{on 1}{`left-hand side` regressed **on 1** for mean structure}
 #'   }
 #'
+#' @return \eqn{n} variates from \eqn{ \mathbf{X} \sim \mathcal{N}_{k}
+#'     \left(
+#'       \boldsymbol{\mu} \left( \boldsymbol{\theta} \right),
+#'       \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
+#'     \right) .
+#'   }
+#'
 #' @section Value:
 #'   Each parameter should have a numeric value.
 #'
@@ -120,14 +127,18 @@
 #'   Comments can be written after a hash (`#`) sign.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
+#'
 #' @family data generation functions
 #' @keywords data
+#'
 #' @inherit ramR references
+#'
 #' @inheritParams Eq2RAM
 #' @inheritParams RAM2Data
+#'
 #' @examples
 #' eq <- "
-#'   # lhs op   rhs label
+#'   # lhs op   rhs value
 #'     e   by   y   1
 #'     y   on   x   1
 #'     e   with e   1
@@ -146,7 +157,7 @@ Eq2Data <- function(eq,
   )
   stopifnot(
     is.numeric(
-      Expectations$eq$label
+      Expectations$par.table$par.label
     )
   )
   Expectations <- Expectations.default(

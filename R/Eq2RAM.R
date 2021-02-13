@@ -3,12 +3,12 @@
 #' Converts model equations to RAM matrices.
 #'
 #' The input is a character string
-#'   that specifies the associations between the variables.
+#' that specifies the associations between the variables.
 #'
 #' @section Syntax:
 #'   Each line should follow the syntax below
 #'
-#'   `lhs operation rhs label`
+#'   `lhs operation rhs par.label`
 #'
 #'   The associations are defined by the following operations
 #'
@@ -19,25 +19,56 @@
 #'     \item{on 1}{`left-hand side` regressed **on 1** for mean structure}
 #'   }
 #'
-#' @section label:
+#' @section par.label:
 #'   Each parameter should be labeled.
-#'   The `label` should be a number for fixed parameters
+#'   The `par.label` should be a number for fixed parameters
 #'   and a character string for free parameters.
-#'   Equality contraints can be imposed by using the same label.
+#'   Equality contraints can be imposed by using the same `par.label`.
 #'
 #' @section Comments:
 #'   Comments can be written after a hash (`#`) sign.
 #'
+#' @return Returns list with the following elements
+#'
+#'   \describe{
+#'     \item{par.table}{Parameter table.}
+#'     \item{variables}{Variable names.}
+#'     \item{g.variables}{Variable names of observed variables.}
+#'     \item{h.variables}{Variable names of latent variables.}
+#'     \item{A}{
+#'       A `t by t` matrix \eqn{\mathbf{A}}.
+#'       Asymmetric paths (single-headed arrows),
+#'       such as regression coefficients and factor loadings.
+#'     }
+#'     \item{S}{
+#'       S `t by t` numeric matrix \eqn{\mathbf{S}}.
+#'       Symmetric paths (double-headed arrows),
+#'       such as variances and covariances.
+#'     }
+#'     \item{u}{`t by 1` matrix of mean structure parameters.}
+#'     \item{Filter}{
+#'       Filter `p by t` numeric matrix
+#'       \eqn{\mathbf{F}}.
+#'       Filter matrix used to select observed variables.
+#'     }
+#'   }
+#'
 #' @author Ivan Jacob Agaloos Pesigan
+#'
+#' @family eq functions
+#' @keywords eq
+#'
 #' @inherit ramR references
-#' @param eq Character string. Equations. See Details.
+#'
+#' @inheritParams EqParse
 #' @param par Logical.
 #'   If `par = TRUE`, use `par.index` as labels.
-#'   If `par = FALSE`, use `label` as labels.
+#'   If `par = FALSE`, use `par.label` as labels.
+#'
 #' @examples
 #' # Numeric ----------------------------------------------------------
 #' eq <- "
-#'   # lhs op   rhs label
+#'   # lhs op   rhs par.label
 #'     e   by   y   1
 #'     y   on   x   1
 #'     e   with e   1
@@ -49,7 +80,7 @@
 #'
 #' # Symbolic ----------------------------------------------------------
 #' eq <- "
-#'   # lhs op   rhs label
+#'   # lhs op   rhs par.label
 #'     e   by   y   1
 #'     y   on   x   beta
 #'     e   with e   sigmae2
@@ -61,23 +92,28 @@
 #' @export
 Eq2RAM <- function(eq,
                    par = FALSE) {
-  eq <- Parse(eq)
+  par.table <- EqParse(eq)
   if (par) {
-    eq[, "label"] <- eq[, "par.index"]
+    par.table[, "par.label"] <- par.table[, "par.index"]
   }
-  by <- eq[which(
-    eq[, "op"] == "by"
+  by <- par.table[which(
+    par.table[, "op"] == "by"
   ), , drop = FALSE]
-  with <- eq[which(
-    eq[, "op"] == "with"
+  with <- par.table[which(
+    par.table[, "op"] == "with"
   ), , drop = FALSE]
-  on <- eq[which(
-    eq[, "op"] == "on" & eq[, "rhs"] != "1"
+  on <- par.table[which(
+    par.table[, "op"] == "on" & par.table[, "rhs"] != "1"
   ), , drop = FALSE]
-  one <- eq[which(
-    eq[, "op"] == "on" & eq[, "rhs"] == "1"
+  one <- par.table[which(
+    par.table[, "op"] == "on" & par.table[, "rhs"] == "1"
   ), , drop = FALSE]
-  v <- unique(c(eq[, "lhs"], eq[, "rhs"]))
+  v <- unique(
+    c(
+      par.table[, "lhs"],
+      par.table[, "rhs"]
+    )
+  )
   v <- v[which(v != "1")]
   t <- length(v)
   h <- unique(by[, "lhs"])
@@ -106,24 +142,24 @@ Eq2RAM <- function(eq,
   for (i in seq_len(dim(by)[1])) {
     loadings <- by[i, , drop = FALSE]
     A[loadings[, "rhs"], loadings[, "lhs"]] <- to.numeric(
-      loadings[, "label"]
+      loadings[, "par.label"]
     )
   }
   # regressions
   for (i in seq_len(dim(on)[1])) {
     regressions <- on[i, , drop = FALSE]
     A[regressions[, "lhs"], regressions[, "rhs"]] <- to.numeric(
-      regressions[, "label"]
+      regressions[, "par.label"]
     )
   }
   # variances
   for (i in seq_len(dim(with)[1])) {
     variances <- with[i, , drop = FALSE]
     S[variances[, "lhs"], variances[, "rhs"]] <- to.numeric(
-      variances[, "label"]
+      variances[, "par.label"]
     )
     S[variances[, "rhs"], variances[, "lhs"]] <- to.numeric(
-      variances[, "label"]
+      variances[, "par.label"]
     )
   }
   # means
@@ -138,7 +174,7 @@ Eq2RAM <- function(eq,
     for (i in seq_len(dim(one)[1])) {
       means <- one[i, , drop = FALSE]
       u[means[, "lhs"], 1] <- to.numeric(
-        means[, "label"]
+        means[, "par.label"]
       )
     }
   } else {
@@ -146,12 +182,14 @@ Eq2RAM <- function(eq,
   }
   return(
     list(
-      eq = eq,
+      par.table = par.table,
       variables = v,
+      g.variables = g,
+      h.variables = h,
       A = A,
       S = S,
-      Filter = Filter,
-      u = u
+      u = u,
+      Filter = Filter
     )
   )
 }
