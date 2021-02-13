@@ -13,14 +13,19 @@
 #'     such as regression coefficients and factor loadings, and
 #'   - \eqn{\mathbf{I}_{t \times t}} represents an identity matrix.
 #'
+#' @return \eqn{\mathbf{I} - \mathbf{A}}
+#'
 #' @author Ivan Jacob Agaloos Pesigan
+#'
 #' @family RAM matrices functions
 #' @keywords ram
+#'
 #' @inherit ramR references
-#' @param A `t x t` matrix \eqn{\mathbf{A}}.
+#' @param A `t by t` matrix \eqn{\mathbf{A}}.
 #'   Asymmetric paths (single-headed arrows),
 #'   such as regression coefficients and factor loadings.
 #' @param ... ...
+#'
 #' @examples
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
@@ -53,7 +58,7 @@ IminusA <- function(A,
 }
 
 #' @rdname IminusA
-#' @inheritParams semR::ObjectiveML
+#' @inheritParams IminusA
 #' @export
 IminusA.default <- function(A,
                             ...) {
@@ -62,7 +67,8 @@ IminusA.default <- function(A,
 }
 
 #' @rdname IminusA
-#' @inheritParams .exe
+#' @inheritParams IminusA
+#' @inheritParams YacExe
 #' @export
 IminusA.yac_symbol <- function(A,
                                str = TRUE,
@@ -98,7 +104,7 @@ IminusA.yac_symbol <- function(A,
     Aysym
   )
   return(
-    .exe(
+    YacExe(
       expr = expr,
       str = str,
       ysym = ysym,

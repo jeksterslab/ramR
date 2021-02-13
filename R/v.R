@@ -28,13 +28,18 @@
 #'   - \eqn{\mathbf{u}_{t \times 1}} vector of parameters
 #'     for the mean structure.
 #'
+#' @return \eqn{\mathbf{v} = \mathbf{E} \mathbf{u}}
+#'
 #' @author Ivan Jacob Agaloos Pesigan
+#'
 #' @family RAM matrices functions
 #' @keywords ram
+#'
 #' @inherit ramR references
 #' @inheritParams IminusA
 #' @param u vector of length `t` or `t by 1` matrix.
 #'   Mean structure parameters.
+#'
 #' @examples
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
@@ -142,7 +147,7 @@ v.yac_symbol <- function(A,
     )
   )
   return(
-    .exe(
+    YacExe(
       expr = expr,
       str = str,
       ysym = ysym,

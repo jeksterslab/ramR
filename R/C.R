@@ -33,14 +33,19 @@
 #'     such as variances and covariances, and
 #'   - \eqn{\mathbf{I}_{t \times t}} represents an identity matrix.
 #'
+#' @return \eqn{\mathbf{C} = \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}}}
+#'
 #' @author Ivan Jacob Agaloos Pesigan
+#'
 #' @family RAM matrices functions
 #' @keywords ram
+#'
 #' @inherit ramR references
 #' @inheritParams IminusA
-#' @param S `t x t` numeric matrix \eqn{\mathbf{S}}.
+#' @param S `t by t` numeric matrix \eqn{\mathbf{S}}.
 #'   Symmetric paths (double-headed arrows),
 #'   such as variances and covariances.
+#'
 #' @examples
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
@@ -205,7 +210,7 @@ C.yac_symbol <- function(A,
     ")"
   )
   return(
-    .exe(
+    YacExe(
       expr = expr,
       str = str,
       ysym = ysym,

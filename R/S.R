@@ -34,13 +34,19 @@
 #'     the model-implied variance-covariance matrix, and
 #'   - \eqn{\mathbf{I}_{t \times t}} represents an identity matrix.
 #'
+#' @return \eqn{\mathbf{S} = \mathbf{E}^{-1} \mathbf{C}
+#'   \left( \mathbf{E}^{-1} \right)^{\mathsf{T}}}
+#'
 #' @author Ivan Jacob Agaloos Pesigan
+#'
 #' @family RAM matrices functions
 #' @keywords ram
+#'
 #' @inherit ramR references
 #' @inheritParams IminusA
-#' @param C `t x t` numeric matrix \eqn{\mathbf{C}}.
+#' @param C `t by t` numeric matrix \eqn{\mathbf{C}}.
 #'   Model-implied variance-covariance matrix.
+#'
 #' @examples
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
@@ -209,7 +215,7 @@ S.yac_symbol <- function(A,
     ")"
   )
   return(
-    .exe(
+    YacExe(
       expr = expr,
       str = str,
       ysym = ysym,

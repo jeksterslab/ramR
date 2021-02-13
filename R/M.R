@@ -51,14 +51,19 @@
 #'   - \eqn{t} number of observed and latent variables,
 #'     that is \eqn{p + q} .
 #'
+#' @return \eqn{\mathbf{M} = \mathbf{F} \mathbf{C} \mathbf{F}^{\mathsf{T}}}
+#'
 #' @author Ivan Jacob Agaloos Pesigan
+#'
 #' @family RAM matrices functions
 #' @keywords ram
+#'
 #' @inherit ramR references
 #' @inheritParams C
-#' @param Filter `p x t` numeric matrix
+#' @param Filter `p by t` numeric matrix
 #'   \eqn{\mathbf{F}}.
 #'   Filter matrix used to select observed variables.
+#'
 #' @examples
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
@@ -270,7 +275,7 @@ M.yac_symbol <- function(A,
     )
   }
   return(
-    .exe(
+    YacExe(
       expr = expr,
       str = str,
       ysym = ysym,

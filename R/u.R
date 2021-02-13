@@ -27,13 +27,18 @@
 #'   - \eqn{\mathbf{I}_{t \times t}} represents an identity matrix, and
 #'   - \eqn{\mathbf{v}_{t \times 1}} vector of expected values.
 #'
+#' @return \eqn{\mathbf{u} = \mathbf{E}^{-1} \mathbf{v}}
+#'
 #' @author Ivan Jacob Agaloos Pesigan
+#'
 #' @family RAM matrices functions
 #' @keywords ram
+#'
 #' @inherit ramR references
 #' @inheritParams IminusA
 #' @param v vector of length `t` or `t by 1` matrix.
 #'   Expected values.
+#'
 #' @examples
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
@@ -134,7 +139,7 @@ u.yac_symbol <- function(A,
     )
   )
   return(
-    .exe(
+    YacExe(
       expr = expr,
       str = str,
       ysym = ysym,
