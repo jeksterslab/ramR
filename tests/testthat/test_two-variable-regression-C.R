@@ -76,7 +76,7 @@ SymbolicC <- round(
   Ryacas::as_r(
     ramR::C(
       Ryacas::ysym(A),
-      Ryacas::ysym(S),
+      S,
       str = TRUE,
       simplify = TRUE
     )
@@ -134,3 +134,10 @@ testthat::test_that("C.", {
     }
   }
 })
+#'
+#+ coverage
+ramR::C(
+  Ryacas::ysym(A),
+  Ryacas::ysym(S),
+  exe = FALSE
+)

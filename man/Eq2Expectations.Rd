@@ -21,16 +21,18 @@ If \code{par = TRUE}, use \code{par.index} as labels.
 If \code{par = FALSE}, use \code{par.label} as labels.}
 
 \item{str}{Logical.
-If \code{TRUE}, returns symbolic result as string.
-If \code{FALSE}, returns symbolic result as an \code{R} expression.}
+If \code{str = TRUE}, returns symbolic result as string.
+If \code{str = FALSE}, returns symbolic result as an \code{R} expression.}
 
 \item{ysym}{Logical.
-If \code{TRUE}, returns symbolic result as \code{yac_symbol} if \code{str = TRUE}.
-If \code{FALSE}, returns symbolic result as string if \code{str = TRUE}.}
+If \code{ysym = TRUE}, returns symbolic result as \code{yac_symbol} if \code{str = TRUE}.
+If \code{ysym = FALSE}, returns symbolic result as string if \code{str = TRUE}.}
 
 \item{simplify}{Logical. Simplify symbolic results.}
 
-\item{tex}{Logical. Return results as latex if \code{str = TRUE}.}
+\item{tex}{Logical.
+If \code{tex = TRUE} returns results as latex math if \code{str = TRUE}.
+If \code{tex = FALSE}, returns symbolic result as string if \code{str = TRUE}.}
 }
 \value{
 Returns list with the following elements

@@ -130,3 +130,9 @@ testthat::test_that("IminusA.", {
     }
   }
 })
+#'
+#+
+ramR::IminusA(
+  Ryacas::ysym(A),
+  exe = FALSE
+)

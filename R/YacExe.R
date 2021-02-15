@@ -14,14 +14,15 @@
 #'
 #' @param expr Character string. Yacas expresion.
 #' @param str Logical.
-#' If `TRUE`, returns symbolic result as string.
-#' If `FALSE`, returns symbolic result as an `R` expression.
+#'   If `str = TRUE`, returns symbolic result as string.
+#'   If `str = FALSE`, returns symbolic result as an `R` expression.
 #' @param ysym Logical.
-#' If `TRUE`, returns symbolic result as `yac_symbol` if `str = TRUE`.
-#' If `FALSE`, returns symbolic result as string if `str = TRUE`.
+#'   If `ysym = TRUE`, returns symbolic result as `yac_symbol` if `str = TRUE`.
+#'   If `ysym = FALSE`, returns symbolic result as string if `str = TRUE`.
+#' @param tex Logical.
+#'   If `tex = TRUE` returns results as latex math if `str = TRUE`.
+#'   If `tex = FALSE`, returns symbolic result as string if `str = TRUE`.
 #' @param simplify Logical. Simplify symbolic results.
-#' @param tex Logical. Return results as latex if `str = TRUE`.
-#'
 #' @examples
 #' A <- Ryacas::ysym(
 #'   matrix(c("a", "c", "b", "d"), ncol = 2)
@@ -44,8 +45,8 @@
 YacExe <- function(expr,
                    str = TRUE,
                    ysym = TRUE,
-                   simplify = FALSE,
-                   tex = FALSE) {
+                   tex = FALSE,
+                   simplify = FALSE) {
   if (simplify) {
     expr <- paste0(
       "Simplify(", expr, ")"

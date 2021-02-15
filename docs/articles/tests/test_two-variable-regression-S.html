@@ -127,7 +127,7 @@
       <h1 data-toc-skip>Test: Two-Variable Linear Regression - S</h1>
                         <h4 class="author">Ivan Jacob Agaloos Pesigan</h4>
             
-            <h4 class="date">2021-02-14</h4>
+            <h4 class="date">2021-02-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jeksterslab/ramR/blob/master/vignettes/tests/test_two-variable-regression-S.Rmd"><code>vignettes/tests/test_two-variable-regression-S.Rmd</code></a></small>
       <div class="hidden name"><code>test_two-variable-regression-S.Rmd</code></div>
@@ -181,19 +181,19 @@
 <p><span class="math display">\[\begin{equation}
   \begin{split}
     y &amp;= \alpha + \beta x + \varepsilon \\
-    y &amp;= 0.1573861 + 0.821016 x + \varepsilon
+    y &amp;= -0.8921756 + -0.1807297 x + \varepsilon
   \end{split}
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">NumericS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>
-  <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/S.html">S</a></span><span class="op">(</span><span class="va">A</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span>,
+  <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/S.html">S</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">C</span><span class="op">)</span>,
   digits <span class="op">=</span> <span class="fl">4</span>
 <span class="op">)</span>
 <span class="va">SymbolicS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span>
     <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/S.html">S</a></span><span class="op">(</span>
       <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
-      <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span>,
+      <span class="va">C</span>,
       str <span class="op">=</span> <span class="cn">TRUE</span>,
       simplify <span class="op">=</span> <span class="cn">TRUE</span>
     <span class="op">)</span>
@@ -204,7 +204,7 @@
   <span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span>
     <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/S.html">S</a></span><span class="op">(</span>
       <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
-      <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,
+      <span class="va">C</span>,
       str <span class="op">=</span> <span class="cn">FALSE</span>,
       simplify <span class="op">=</span> <span class="cn">TRUE</span>
     <span class="op">)</span>
@@ -214,25 +214,25 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/S.html">S</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,
+  <span class="va">C</span>,
   str <span class="op">=</span> <span class="cn">TRUE</span>,
   ysym <span class="op">=</span> <span class="cn">FALSE</span>,
   simplify <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "{{-0.0000545156,0.0000006225,0},{0.0000006225,0.3045,0},{0,0,0.7098}}"</span></code></pre></div>
+<span class="co">#&gt; [1] "{{1.,0.0310952024,-0.595160847},{0,1.,0},{0,0,1.}}"</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
   <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/S.html">S</a></span><span class="op">(</span>
     <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,
+    <span class="va">C</span>,
     str <span class="op">=</span> <span class="cn">TRUE</span>,
     tex <span class="op">=</span> <span class="cn">TRUE</span>
   <span class="op">)</span>,
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\left( \begin{array}{ccc} -0.0000545156 &amp; 0.0000006225 &amp; 0 \\ 0.0000006225 &amp; 0.3045 &amp; 0 \\ 0 &amp; 0 &amp; 0.7098 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\left( \begin{array}{ccc} 1. &amp; 0.0310952024 &amp; -0.595160847 \\ 0 &amp; 1. &amp; 0 \\ 0 &amp; 0 &amp; 1. \end{array} \right)\end{align*}\]</span></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">S</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">S</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -265,7 +265,14 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 😸</span></code></pre></div>
+<span class="co">#&gt; Test passed 🎉</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/S.html">S</a></span><span class="op">(</span>
+  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
+  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">C</span><span class="op">)</span>,
+  exe <span class="op">=</span> <span class="cn">FALSE</span>
+<span class="op">)</span>
+<span class="co">#&gt; [1] "Identity(Length({{0,-0.1807297249,1},{0,0,0},{0,0,0}}))-{{0,-0.1807297249,1},{0,0,0},{0,0,0}}*{{0.6007806743,-0.0310952024,0.595160847},{-0.0310952024,0.1720536146,0},{0.595160847,0,0.595160847}}*Transpose(Identity(Length({{0,-0.1807297249,1},{0,0,0},{0,0,0}}))-{{0,-0.1807297249,1},{0,0,0},{0,0,0}})"</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

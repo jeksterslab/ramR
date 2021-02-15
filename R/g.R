@@ -125,85 +125,36 @@ g.default <- function(A,
 g.yac_symbol <- function(A,
                          u,
                          Filter = NULL,
+                         exe = TRUE,
                          str = TRUE,
                          ysym = TRUE,
                          simplify = FALSE,
                          tex = FALSE,
                          ...) {
-  stopifnot(
-    methods::is(
-      A,
-      "yac_symbol"
-    )
-  )
-  Aysym <- Ryacas::ysym(
-    Ryacas::yac_str(
-      A$yacas_cmd
-    )
-  )
-  stopifnot(
-    Aysym$is_mat
-  )
-  stopifnot(
-    matrixR::IsSquareMatrix(
-      Aysym
-    )
-  )
-  I <- paste0(
-    "Identity(Length(",
-    Aysym,
-    "))"
-  )
-  E <- paste0(
-    "Inverse(",
-    I,
-    "-",
-    Aysym,
-    ")"
-  )
-  v <- paste0(
-    E,
-    "*",
-    Ryacas::ysym(
-      matrix(
-        u,
-        ncol = 1
-      )
-    )
+  vysym <- v(
+    A = A,
+    u = u,
+    exe = FALSE
   )
   if (is.null(Filter)) {
-    expr <- v
+    expr <- vysym
   } else {
-    if (methods::is(Filter, "yac_symbol")) {
-      Filterysym <- Filter
-    } else {
-      Filterysym <- Ryacas::ysym(
-        Filter
-      )
-    }
-    Filterysym <- Ryacas::ysym(
-      Ryacas::yac_str(
-        Filterysym$yacas_cmd
-      )
-    )
-    stopifnot(
-      Filterysym$is_mat
-    )
-    ADimensions <- as.numeric(
-      Ryacas::yac_str(
-        paste0(
-          "Length(",
-          Aysym,
-          ")"
-        )
-      )
-    )
+    Filterysym <- RMatrix2Yac(Filter)
     FilterDimensions <- as.numeric(
       Ryacas::yac_str(
         paste0(
           "Length(Transpose(",
           Filterysym,
           "))"
+        )
+      )
+    )
+    ADimensions <- as.numeric(
+      Ryacas::yac_str(
+        paste0(
+          "Length(",
+          A,
+          ")"
         )
       )
     )
@@ -216,16 +167,20 @@ g.yac_symbol <- function(A,
     expr <- paste0(
       Filterysym,
       "*",
-      v
+      vysym
     )
   }
-  return(
-    YacExe(
-      expr = expr,
-      str = str,
-      ysym = ysym,
-      simplify = simplify,
-      tex = tex
+  if (exe) {
+    return(
+      YacExe(
+        expr = expr,
+        str = str,
+        ysym = ysym,
+        tex = tex,
+        simplify = simplify
+      )
     )
-  )
+  } else {
+    return(expr)
+  }
 }

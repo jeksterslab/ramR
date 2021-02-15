@@ -83,12 +83,10 @@ v <- function(A,
 v.default <- function(A,
                       u,
                       ...) {
-  u <- matrix(
-    u,
-    ncol = 1
-  )
+  E <- E(A)
+  stopifnot(is.numeric(u))
+  u <- as.matrix(u)
   stopifnot(identical(dim(A)[1], dim(u)[1]))
-  E <- E.default(A)
   v <- as.matrix(E %*% u)
   colnames(v) <- "v"
   return(v)
@@ -100,59 +98,33 @@ v.default <- function(A,
 #' @export
 v.yac_symbol <- function(A,
                          u,
+                         exe = TRUE,
                          str = TRUE,
                          ysym = TRUE,
                          simplify = FALSE,
                          tex = FALSE,
                          ...) {
-  stopifnot(
-    methods::is(
-      A,
-      "yac_symbol"
-    )
+  Eysym <- E(
+    A = A,
+    exe = FALSE
   )
-  Aysym <- Ryacas::ysym(
-    Ryacas::yac_str(
-      A$yacas_cmd
-    )
-  )
-  stopifnot(
-    Aysym$is_mat
-  )
-  stopifnot(
-    matrixR::IsSquareMatrix(
-      Aysym
-    )
-  )
-  I <- paste0(
-    "Identity(Length(",
-    Aysym,
-    "))"
-  )
-  E <- paste0(
-    "Inverse(",
-    I,
-    "-",
-    Aysym,
-    ")"
-  )
+  uysym <- RVector2Yac(u, col = TRUE)
   expr <- paste0(
-    E,
+    Eysym,
     "*",
-    Ryacas::ysym(
-      matrix(
-        u,
-        ncol = 1
+    uysym
+  )
+  if (exe) {
+    return(
+      YacExe(
+        expr = expr,
+        str = str,
+        ysym = ysym,
+        tex = tex,
+        simplify = simplify
       )
     )
-  )
-  return(
-    YacExe(
-      expr = expr,
-      str = str,
-      ysym = ysym,
-      simplify = simplify,
-      tex = tex
-    )
-  )
+  } else {
+    return(expr)
+  }
 }

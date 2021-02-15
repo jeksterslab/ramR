@@ -134,3 +134,10 @@ testthat::test_that("u.", {
     }
   }
 })
+#'
+#+ coverage
+ramR::u(
+  Ryacas::ysym(A),
+  v,
+  exe = FALSE
+)

@@ -4,22 +4,24 @@
 \alias{YacExe}
 \title{Execute Yacas Expression using Ryacas}
 \usage{
-YacExe(expr, str = TRUE, ysym = TRUE, simplify = FALSE, tex = FALSE)
+YacExe(expr, str = TRUE, ysym = TRUE, tex = FALSE, simplify = FALSE)
 }
 \arguments{
 \item{expr}{Character string. Yacas expresion.}
 
 \item{str}{Logical.
-If \code{TRUE}, returns symbolic result as string.
-If \code{FALSE}, returns symbolic result as an \code{R} expression.}
+If \code{str = TRUE}, returns symbolic result as string.
+If \code{str = FALSE}, returns symbolic result as an \code{R} expression.}
 
 \item{ysym}{Logical.
-If \code{TRUE}, returns symbolic result as \code{yac_symbol} if \code{str = TRUE}.
-If \code{FALSE}, returns symbolic result as string if \code{str = TRUE}.}
+If \code{ysym = TRUE}, returns symbolic result as \code{yac_symbol} if \code{str = TRUE}.
+If \code{ysym = FALSE}, returns symbolic result as string if \code{str = TRUE}.}
+
+\item{tex}{Logical.
+If \code{tex = TRUE} returns results as latex math if \code{str = TRUE}.
+If \code{tex = FALSE}, returns symbolic result as string if \code{str = TRUE}.}
 
 \item{simplify}{Logical. Simplify symbolic results.}
-
-\item{tex}{Logical. Return results as latex if \code{str = TRUE}.}
 }
 \description{
 Execute \code{yacas} expressions using \code{Ryacas}.

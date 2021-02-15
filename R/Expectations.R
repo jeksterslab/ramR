@@ -173,254 +173,130 @@ Expectations.yac_symbol <- function(A,
                                     ysym = TRUE,
                                     simplify = FALSE,
                                     tex = FALSE,
+                                    exe = TRUE,
                                     ...) {
-  stopifnot(
-    methods::is(
-      A,
-      "yac_symbol"
-    )
+  Cysym <- C(
+    A = A,
+    S = S,
+    exe = FALSE
   )
-  Aysym <- Ryacas::ysym(
-    Ryacas::yac_str(
-      A$yacas_cmd
-    )
-  )
-  stopifnot(
-    Aysym$is_mat
-  )
-  stopifnot(
-    matrixR::IsSquareMatrix(
-      Aysym
-    )
-  )
-  # apply IsNilpotent in the future
-  if (methods::is(S, "yac_symbol")) {
-    Sysym <- S
-  } else {
-    Sysym <- Ryacas::ysym(S)
-  }
-  Sysym <- Ryacas::ysym(
-    Ryacas::yac_str(
-      Sysym$yacas_cmd
-    )
-  )
-  stopifnot(
-    Sysym$is_mat
-  )
-  stopifnot(
-    matrixR::IsSymmetric(
-      Sysym
-    )
-  )
-  ADimensions <- as.numeric(
-    Ryacas::yac_str(
-      paste0(
-        "Length(",
-        Aysym,
-        ")"
-      )
-    )
-  )
-  SDimensions <- as.numeric(
-    Ryacas::yac_str(
-      paste0(
-        "Length(",
-        Sysym,
-        ")"
-      )
-    )
-  )
-  stopifnot(
-    identical(
-      ADimensions,
-      SDimensions
-    )
-  )
-  I <- paste0(
-    "Identity(Length(",
-    Aysym,
-    "))"
-  )
-  E <- paste0(
-    "Inverse(",
-    I,
-    "-",
-    Aysym,
-    ")"
-  )
-  C <- paste0(
-    E,
-    "*",
-    Sysym,
-    "*",
-    "Transpose(",
-    E,
-    ")"
+  Cout <- YacExe(
+    expr = Cysym,
+    str = str,
+    ysym = ysym,
+    tex = tex,
+    simplify = simplify
   )
   if (is.null(Filter)) {
-    M <- C
-    Filterysym <- Ryacas::ysym(
-      diag(
-        ADimensions
-      )
-    )
+    Mysym <- Cysym
+    Mout <- Cout
   } else {
-    if (methods::is(Filter, "yac_symbol")) {
-      Filterysym <- Filter
-    } else {
-      Filterysym <- Ryacas::ysym(Filter)
-    }
-    Filterysym <- Ryacas::ysym(
-      Ryacas::yac_str(
-        Filterysym$yacas_cmd
-      )
+    Mysym <- M(
+      A = A,
+      S = S,
+      Filter = Filter,
+      exe = FALSE
     )
-    stopifnot(
-      Filterysym$is_mat
-    )
-    FilterDimensions <- as.numeric(
-      Ryacas::yac_str(
-        paste0(
-          "Length(Transpose(",
-          Filterysym,
-          "))"
-        )
-      )
-    )
-    stopifnot(
-      identical(
-        ADimensions,
-        FilterDimensions
-      )
-    )
-    M <- paste0(
-      Filterysym,
-      "*",
-      C,
-      "*",
-      "Transpose(",
-      Filterysym,
-      ")"
+    Mout <- YacExe(
+      expr = Mysym,
+      str = str,
+      ysym = ysym,
+      tex = tex,
+      simplify = simplify
     )
   }
-  C <- YacExe(
-    expr = C,
-    str = str,
-    ysym = ysym,
-    simplify = simplify,
-    tex = tex
-  )
-  M <- YacExe(
-    expr = M,
-    str = str,
-    ysym = ysym,
-    simplify = simplify,
-    tex = tex
-  )
   if (is.null(u)) {
-    v <- NULL
-    g <- NULL
+    vout <- NULL
+    gout <- NULL
   } else {
-    u <- matrix(
-      u,
-      ncol = 1
+    vysym <- v(
+      A = A,
+      u = u,
+      exe = FALSE
     )
-    uysym <- Ryacas::ysym(u)
-    v <- paste0(
-      E,
-      "*",
-      uysym
+    vout <- YacExe(
+      expr = vysym,
+      str = str,
+      ysym = ysym,
+      tex = tex,
+      simplify = simplify
     )
     if (is.null(Filter)) {
-      g <- v
+      gysym <- vysym
+      gout <- vout
     } else {
-      g <- paste0(
-        Filterysym,
-        "*",
-        v
+      gysym <- g(
+        A = A,
+        u = u,
+        Filter = Filter,
+        exe = FALSE
+      )
+      gout <- YacExe(
+        expr = gysym,
+        str = str,
+        ysym = ysym,
+        tex = tex,
+        simplify = simplify
       )
     }
-    v <- YacExe(
-      expr = v,
-      str = str,
-      ysym = ysym,
-      simplify = simplify,
-      tex = tex
-    )
-    g <- YacExe(
-      expr = g,
-      str = str,
-      ysym = ysym,
-      simplify = simplify,
-      tex = tex
+  }
+  # make input the same format as output
+  Aout <- YacExe(
+    expr = A,
+    str = str,
+    ysym = ysym,
+    tex = tex,
+    simplify = simplify
+  )
+  Sout <- YacExe(
+    expr = R2Yac(S),
+    str = str,
+    ysym = ysym,
+    tex = tex,
+    simplify = simplify
+  )
+  if (is.null(Filter)) {
+    # Filter as identity matrix
+    Filter <- diag(
+      as.numeric(
+        Ryacas::yac_str(
+          paste0(
+            "Length(",
+            A,
+            ")"
+          )
+        )
+      )
     )
   }
-  if (str) {
-    if (ysym) {
-      A <- Aysym
-      S <- Sysym
-      Filter <- Filterysym
-      if (isFALSE(is.null(u))) {
-        u <- uysym
-      }
-    } else {
-      A <- Ryacas::yac_str(
-        Aysym
-      )
-      S <- Ryacas::yac_str(
-        Sysym
-      )
-      Filter <- Ryacas::yac_str(
-        Filterysym
-      )
-      if (isFALSE(is.null(u))) {
-        u <- Ryacas::yac_str(
-          uysym
-        )
-      }
-    }
-    if (tex) {
-      A <- Ryacas::tex(
-        Aysym
-      )
-      S <- Ryacas::tex(
-        Sysym
-      )
-      Filter <- Ryacas::tex(
-        Filterysym
-      )
-      if (isFALSE(is.null(u))) {
-        u <- Ryacas::tex(
-          uysym
-        )
-      }
-    }
+  Filterout <- YacExe(
+    expr = R2Yac(Filter),
+    str = str,
+    ysym = ysym,
+    tex = tex,
+    simplify = simplify
+  )
+  if (is.null(u)) {
+    uout <- u
   } else {
-    A <- Ryacas::yac_expr(
-      Aysym
+    uout <- YacExe(
+      expr = RVector2Yac(u),
+      str = str,
+      ysym = ysym,
+      tex = tex,
+      simplify = simplify
     )
-    S <- Ryacas::yac_expr(
-      Sysym
-    )
-    Filter <- Ryacas::yac_expr(
-      Filterysym
-    )
-    if (isFALSE(is.null(u))) {
-      u <- Ryacas::yac_expr(
-        uysym
-      )
-    }
   }
   return(
     list(
-      A = A,
-      S = S,
-      u = u,
-      Filter = Filter,
-      v = v,
-      g = g,
-      C = C,
-      M = M
+      A = Aout,
+      S = Sout,
+      u = uout,
+      Filter = Filterout,
+      v = vout,
+      g = gout,
+      C = Cout,
+      M = Mout
     )
   )
 }

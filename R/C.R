@@ -89,9 +89,10 @@ C <- function(A,
 C.default <- function(A,
                       S,
                       ...) {
+  stopifnot(is.numeric(S))
   stopifnot(
     matrixR::IsSymmetric(
-      S
+      round(S, digits = 4)
     )
   )
   stopifnot(
@@ -100,14 +101,11 @@ C.default <- function(A,
       dim(S)
     )
   )
-  # (I - A)^{-1}
-  E <- E.default(A)
-  # S * ((I - A)^{-1})^T
+  E <- E(A)
   STinvIminusA <- tcrossprod(
     x = S,
     y = E
   )
-  # (I - A)^{-1} * S * ((I - A)^{-1})^T
   return(
     E %*% STinvIminusA
   )
@@ -119,56 +117,26 @@ C.default <- function(A,
 #' @export
 C.yac_symbol <- function(A,
                          S,
+                         exe = TRUE,
                          str = TRUE,
                          ysym = TRUE,
                          simplify = FALSE,
                          tex = FALSE,
                          ...) {
-  stopifnot(
-    methods::is(
-      A,
-      "yac_symbol"
-    )
+  Eysym <- E(
+    A = A,
+    exe = FALSE
   )
-  Aysym <- Ryacas::ysym(
-    Ryacas::yac_str(
-      A$yacas_cmd
-    )
-  )
-  stopifnot(
-    Aysym$is_mat
-  )
-  stopifnot(
-    matrixR::IsSquareMatrix(
-      Aysym
-    )
-  )
-  # apply IsNilpotent in the future
-  if (methods::is(S, "yac_symbol")) {
-    Sysym <- S
-  } else {
-    Sysym <- Ryacas::ysym(
-      S
-    )
-  }
-  Sysym <- Ryacas::ysym(
-    Ryacas::yac_str(
-      Sysym$yacas_cmd
-    )
-  )
-  stopifnot(
-    Sysym$is_mat
-  )
-  stopifnot(
-    matrixR::IsSymmetric(
-      Sysym
-    )
+  # IsSymmetric unsafe for nonnumeric input
+  Sysym <- matrixR::MatrixCheck(
+    A = R2Yac(S),
+    IsSquareMatrix = TRUE
   )
   ADimensions <- as.numeric(
     Ryacas::yac_str(
       paste0(
         "Length(",
-        Aysym,
+        A,
         ")"
       )
     )
@@ -188,34 +156,26 @@ C.yac_symbol <- function(A,
       SDimensions
     )
   )
-  I <- paste0(
-    "Identity(Length(",
-    Aysym,
-    "))"
-  )
-  E <- paste0(
-    "Inverse(",
-    I,
-    "-",
-    Aysym,
-    ")"
-  )
   expr <- paste0(
-    E,
+    Eysym,
     "*",
     Sysym,
     "*",
     "Transpose(",
-    E,
+    Eysym,
     ")"
   )
-  return(
-    YacExe(
-      expr = expr,
-      str = str,
-      ysym = ysym,
-      simplify = simplify,
-      tex = tex
+  if (exe) {
+    return(
+      YacExe(
+        expr = expr,
+        str = str,
+        ysym = ysym,
+        tex = tex,
+        simplify = simplify
+      )
     )
-  )
+  } else {
+    return(expr)
+  }
 }

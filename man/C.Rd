@@ -10,7 +10,16 @@ C(A, S, ...)
 
 \method{C}{default}(A, S, ...)
 
-\method{C}{yac_symbol}(A, S, str = TRUE, ysym = TRUE, simplify = FALSE, tex = FALSE, ...)
+\method{C}{yac_symbol}(
+  A,
+  S,
+  exe = TRUE,
+  str = TRUE,
+  ysym = TRUE,
+  simplify = FALSE,
+  tex = FALSE,
+  ...
+)
 }
 \arguments{
 \item{A}{\verb{t by t} matrix \eqn{\mathbf{A}}.
@@ -23,17 +32,24 @@ such as variances and covariances.}
 
 \item{...}{...}
 
+\item{exe}{Logical.
+If \code{exe = TRUE}, executes the resulting \code{yacas} expression.
+If \code{exe = FALSE}, returns the resulting \code{yacas} expression as a character string.
+If \code{exe = FALSE}, the arguments \code{str}, \code{ysym}, \code{simplify}, and \code{tex}, are ignored.}
+
 \item{str}{Logical.
-If \code{TRUE}, returns symbolic result as string.
-If \code{FALSE}, returns symbolic result as an \code{R} expression.}
+If \code{str = TRUE}, returns symbolic result as string.
+If \code{str = FALSE}, returns symbolic result as an \code{R} expression.}
 
 \item{ysym}{Logical.
-If \code{TRUE}, returns symbolic result as \code{yac_symbol} if \code{str = TRUE}.
-If \code{FALSE}, returns symbolic result as string if \code{str = TRUE}.}
+If \code{ysym = TRUE}, returns symbolic result as \code{yac_symbol} if \code{str = TRUE}.
+If \code{ysym = FALSE}, returns symbolic result as string if \code{str = TRUE}.}
 
 \item{simplify}{Logical. Simplify symbolic results.}
 
-\item{tex}{Logical. Return results as latex if \code{str = TRUE}.}
+\item{tex}{Logical.
+If \code{tex = TRUE} returns results as latex math if \code{str = TRUE}.
+If \code{tex = FALSE}, returns symbolic result as string if \code{str = TRUE}.}
 }
 \value{
 \eqn{\mathbf{C} = \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}}}

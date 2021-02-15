@@ -127,7 +127,7 @@
       <h1 data-toc-skip>Test: Two-Variable Linear Regression - M</h1>
                         <h4 class="author">Ivan Jacob Agaloos Pesigan</h4>
             
-            <h4 class="date">2021-02-14</h4>
+            <h4 class="date">2021-02-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jeksterslab/ramR/blob/master/vignettes/tests/test_two-variable-regression-M.Rmd"><code>vignettes/tests/test_two-variable-regression-M.Rmd</code></a></small>
       <div class="hidden name"><code>test_two-variable-regression-M.Rmd</code></div>
@@ -181,7 +181,7 @@
 <p><span class="math display">\[\begin{equation}
   \begin{split}
     y &amp;= \alpha + \beta x + \varepsilon \\
-    y &amp;= -0.0365562 + 0.0449555 x + \varepsilon
+    y &amp;= -0.8484042 + -0.8849942 x + \varepsilon
   \end{split}
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -197,8 +197,8 @@
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span>
     <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/M.html">M</a></span><span class="op">(</span>
       <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
-      <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span>,
-      <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">Filter</span><span class="op">)</span>,
+      <span class="va">S</span>,
+      <span class="va">Filter</span>,
       str <span class="op">=</span> <span class="cn">TRUE</span>,
       simplify <span class="op">=</span> <span class="cn">TRUE</span>
     <span class="op">)</span>
@@ -209,7 +209,7 @@
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span>
     <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/M.html">M</a></span><span class="op">(</span>
       <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
-      <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span>,
+      <span class="va">S</span>,
       Filter <span class="op">=</span> <span class="cn">NULL</span>,
       str <span class="op">=</span> <span class="cn">TRUE</span>,
       simplify <span class="op">=</span> <span class="cn">TRUE</span>
@@ -250,7 +250,7 @@
   ysym <span class="op">=</span> <span class="cn">FALSE</span>,
   simplify <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "{{0.3767651823,0.0025392239},{0.0025392239,0.0564830459}}"</span></code></pre></div>
+<span class="co">#&gt; [1] "{{1.1908226112,-0.4583660669},{-0.4583660669,0.5179311721}}"</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
@@ -264,7 +264,7 @@
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\left( \begin{array}{cc} 0.3767651823 &amp; 0.0025392239 \\ 0.0025392239 &amp; 0.0564830459 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\left( \begin{array}{cc} 1.1908226112 &amp; -0.4583660669 \\ -0.4583660669 &amp; 0.5179311721 \end{array} \right)\end{align*}\]</span></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">M</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">C</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
@@ -282,7 +282,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🌈</span>
+<span class="co">#&gt; Test passed 🥳</span>
 <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"C."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">C</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">C</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -296,7 +296,15 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🌈</span></code></pre></div>
+<span class="co">#&gt; Test passed 😸</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/M.html">M</a></span><span class="op">(</span>
+  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
+  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span>,
+  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">Filter</span><span class="op">)</span>,
+  exe <span class="op">=</span> <span class="cn">FALSE</span>
+<span class="op">)</span>
+<span class="co">#&gt; [1] "{{1,0,0},{0,1,0}}*Inverse(Identity(Length({{0,-0.8849941683,1},{0,0,0},{0,0,0}}))-{{0,-0.8849941683,1},{0,0,0},{0,0,0}})*{{0,0,0},{0,0.517931172158569,0},{0,0,0.785171315073967}}*Transpose(Inverse(Identity(Length({{0,-0.8849941683,1},{0,0,0},{0,0,0}}))-{{0,-0.8849941683,1},{0,0,0},{0,0,0}}))*Transpose({{1,0,0},{0,1,0}})"</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

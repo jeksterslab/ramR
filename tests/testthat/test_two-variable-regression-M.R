@@ -80,8 +80,8 @@ SymbolicM <- round(
   Ryacas::as_r(
     ramR::M(
       Ryacas::ysym(A),
-      Ryacas::ysym(S),
-      Ryacas::ysym(Filter),
+      S,
+      Filter,
       str = TRUE,
       simplify = TRUE
     )
@@ -92,7 +92,7 @@ SymbolicC <- round(
   Ryacas::as_r(
     ramR::M(
       Ryacas::ysym(A),
-      Ryacas::ysym(S),
+      S,
       Filter = NULL,
       str = TRUE,
       simplify = TRUE
@@ -180,3 +180,11 @@ testthat::test_that("C.", {
     }
   }
 })
+#'
+#+ coverage
+ramR::M(
+  Ryacas::ysym(A),
+  Ryacas::ysym(S),
+  Ryacas::ysym(Filter),
+  exe = FALSE
+)

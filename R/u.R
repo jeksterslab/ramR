@@ -82,12 +82,10 @@ u <- function(A,
 u.default <- function(A,
                       v,
                       ...) {
-  v <- matrix(
-    v,
-    ncol = 1
-  )
+  IminusA <- IminusA(A)
+  stopifnot(is.numeric(v))
+  v <- as.matrix(v)
   stopifnot(identical(dim(A)[1], dim(v)[1]))
-  IminusA <- IminusA.default(A)
   u <- as.matrix(IminusA %*% v)
   colnames(u) <- "u"
   return(u)
@@ -99,52 +97,62 @@ u.default <- function(A,
 #' @export
 u.yac_symbol <- function(A,
                          v,
+                         exe = TRUE,
                          str = TRUE,
                          ysym = TRUE,
                          simplify = FALSE,
                          tex = FALSE,
                          ...) {
-  stopifnot(
-    methods::is(
-      A,
-      "yac_symbol"
-    )
+  Aysym <- matrixR::MatrixCheck(
+    A,
+    IsSquareMatrix = TRUE
   )
-  Aysym <- Ryacas::ysym(
-    Ryacas::yac_str(
-      A$yacas_cmd
-    )
-  )
-  stopifnot(
-    Aysym$is_mat
-  )
-  stopifnot(
-    matrixR::IsSquareMatrix(
-      Aysym
-    )
-  )
-  I <- paste0(
+  Iysym <- paste0(
     "Identity(Length(",
     Aysym,
     "))"
   )
-  expr <- paste0(
-    I,
-    "*",
-    Ryacas::ysym(
-      matrix(
-        v,
-        ncol = 1
+  vysym <- RVector2Yac(v, col = TRUE)
+  ADimensions <- as.numeric(
+    Ryacas::yac_str(
+      paste0(
+        "Length(",
+        Aysym,
+        ")"
       )
     )
   )
-  return(
-    YacExe(
-      expr = expr,
-      str = str,
-      ysym = ysym,
-      simplify = simplify,
-      tex = tex
+  vDimensions <- as.numeric(
+    Ryacas::yac_str(
+      paste0(
+        "Length(",
+        vysym,
+        ")"
+      )
     )
   )
+  stopifnot(
+    identical(
+      ADimensions,
+      vDimensions
+    )
+  )
+  expr <- paste0(
+    Iysym,
+    "*",
+    vysym
+  )
+  if (exe) {
+    return(
+      YacExe(
+        expr = expr,
+        str = str,
+        ysym = ysym,
+        tex = tex,
+        simplify = simplify
+      )
+    )
+  } else {
+    return(expr)
+  }
 }

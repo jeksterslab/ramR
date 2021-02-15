@@ -7,7 +7,7 @@
 \title{Matrix of Covariance Expectations of Observed Variables
 \eqn{\mathbf{M}}}
 \usage{
-M(A, S, Filter, ...)
+M(A, S, Filter = NULL, ...)
 
 \method{M}{default}(A, S, Filter = NULL, ...)
 
@@ -15,6 +15,7 @@ M(A, S, Filter, ...)
   A,
   S,
   Filter = NULL,
+  exe = TRUE,
   str = TRUE,
   ysym = TRUE,
   simplify = FALSE,
@@ -37,17 +38,24 @@ Filter matrix used to select observed variables.}
 
 \item{...}{...}
 
+\item{exe}{Logical.
+If \code{exe = TRUE}, executes the resulting \code{yacas} expression.
+If \code{exe = FALSE}, returns the resulting \code{yacas} expression as a character string.
+If \code{exe = FALSE}, the arguments \code{str}, \code{ysym}, \code{simplify}, and \code{tex}, are ignored.}
+
 \item{str}{Logical.
-If \code{TRUE}, returns symbolic result as string.
-If \code{FALSE}, returns symbolic result as an \code{R} expression.}
+If \code{str = TRUE}, returns symbolic result as string.
+If \code{str = FALSE}, returns symbolic result as an \code{R} expression.}
 
 \item{ysym}{Logical.
-If \code{TRUE}, returns symbolic result as \code{yac_symbol} if \code{str = TRUE}.
-If \code{FALSE}, returns symbolic result as string if \code{str = TRUE}.}
+If \code{ysym = TRUE}, returns symbolic result as \code{yac_symbol} if \code{str = TRUE}.
+If \code{ysym = FALSE}, returns symbolic result as string if \code{str = TRUE}.}
 
 \item{simplify}{Logical. Simplify symbolic results.}
 
-\item{tex}{Logical. Return results as latex if \code{str = TRUE}.}
+\item{tex}{Logical.
+If \code{tex = TRUE} returns results as latex math if \code{str = TRUE}.
+If \code{tex = FALSE}, returns symbolic result as string if \code{str = TRUE}.}
 }
 \value{
 \eqn{\mathbf{M} = \mathbf{F} \mathbf{C} \mathbf{F}^{\mathsf{T}}}

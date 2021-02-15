@@ -81,7 +81,7 @@ Symbolicg <- round(
     ramR::g(
       Ryacas::ysym(A),
       u,
-      Ryacas::ysym(Filter),
+      Filter,
       str = TRUE,
       simplify = TRUE
     )
@@ -180,3 +180,11 @@ testthat::test_that("v.", {
     }
   }
 })
+#'
+#+ coverage
+ramR::g(
+  Ryacas::ysym(A),
+  u,
+  Ryacas::ysym(Filter),
+  exe = FALSE
+)

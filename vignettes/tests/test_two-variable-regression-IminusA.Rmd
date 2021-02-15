@@ -151,3 +151,12 @@ testthat::test_that("IminusA.", {
 })
 ```
 
+
+
+```{r }
+ramR::IminusA(
+  Ryacas::ysym(A),
+  exe = FALSE
+)
+```
+

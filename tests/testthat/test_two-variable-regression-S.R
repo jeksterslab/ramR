@@ -69,14 +69,14 @@ g <- as.matrix(
 #'
 #+
 NumericS <- round(
-  ramR::S(A, round(C, digits = 4)),
+  ramR::S(A, C),
   digits = 4
 )
 SymbolicS <- round(
   Ryacas::as_r(
     ramR::S(
       Ryacas::ysym(A),
-      Ryacas::ysym(round(C, digits = 4)),
+      C,
       str = TRUE,
       simplify = TRUE
     )
@@ -87,7 +87,7 @@ SymbolicSExpr <- round(
   eval(
     ramR::S(
       Ryacas::ysym(A),
-      round(C, digits = 4),
+      C,
       str = FALSE,
       simplify = TRUE
     )
@@ -98,7 +98,7 @@ SymbolicSExpr <- round(
 #+ str
 ramR::S(
   Ryacas::ysym(A),
-  round(C, digits = 4),
+  C,
   str = TRUE,
   ysym = FALSE,
   simplify = TRUE
@@ -109,7 +109,7 @@ cat(
   "\\begin{align*}",
   ramR::S(
     Ryacas::ysym(A),
-    round(C, digits = 4),
+    C,
     str = TRUE,
     tex = TRUE
   ),
@@ -150,3 +150,10 @@ testthat::test_that("S.", {
     }
   }
 })
+#'
+#+ coverage
+ramR::S(
+  Ryacas::ysym(A),
+  Ryacas::ysym(C),
+  exe = FALSE
+)

@@ -69,7 +69,7 @@ E.default <- function(A,
                       ...) {
   return(
     solve(
-      IminusA.default(A)
+      IminusA(A)
     )
   )
 }
@@ -78,46 +78,32 @@ E.default <- function(A,
 #' @inheritParams IminusA
 #' @export
 E.yac_symbol <- function(A,
+                         exe = TRUE,
                          str = TRUE,
                          ysym = TRUE,
                          simplify = FALSE,
                          tex = FALSE,
                          ...) {
-  stopifnot(
-    methods::is(
-      A,
-      "yac_symbol"
-    )
+  IminusAsym <- IminusA(
+    A = A,
+    exe = FALSE
   )
-  Aysym <- Ryacas::ysym(
-    Ryacas::yac_str(
-      A$yacas_cmd
-    )
-  )
-  stopifnot(
-    Aysym$is_mat
-  )
-  stopifnot(
-    matrixR::IsSquareMatrix(
-      Aysym
-    )
-  )
-  # apply IsNilpotent in the future
   expr <- paste0(
-    "Inverse(Identity(Length(",
-    Aysym,
-    "))",
-    "-",
-    Aysym,
+    "Inverse(",
+    IminusAsym,
     ")"
   )
-  return(
-    YacExe(
-      expr = expr,
-      str = str,
-      ysym = ysym,
-      simplify = simplify,
-      tex = tex
+  if (exe) {
+    return(
+      YacExe(
+        expr = expr,
+        str = str,
+        ysym = ysym,
+        tex = tex,
+        simplify = simplify
+      )
     )
-  )
+  } else {
+    return(expr)
+  }
 }
