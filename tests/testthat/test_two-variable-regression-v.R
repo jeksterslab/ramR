@@ -141,3 +141,13 @@ ramR::v(
   u,
   exe = FALSE
 )
+ramR::v(
+  Ryacas::ysym(A),
+  Ryacas::ysym(as.vector(u)),
+  exe = FALSE
+)
+ramR::v(
+  Ryacas::ysym(A),
+  Ryacas::ysym(u),
+  exe = FALSE
+)

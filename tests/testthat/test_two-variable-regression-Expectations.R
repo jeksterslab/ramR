@@ -101,12 +101,7 @@ NumericFilterNullv <- round(NumericFilterNull$v, digits = 4)
 NumericFilterNullg <- round(NumericFilterNull$g, digits = 4)
 #'
 #+ symbolic
-Symbolic <- ramR::Expectations(
-  Ryacas::ysym(A),
-  Ryacas::ysym(S),
-  u,
-  Ryacas::ysym(Filter)
-)
+Symbolic <- ramR::Expectations(Ryacas::ysym(A), S, u, Filter)
 SymbolicA <- round(Ryacas::as_r(Symbolic$A), digits = 4)
 SymbolicS <- round(Ryacas::as_r(Symbolic$S), digits = 4)
 Symbolicu <- round(Ryacas::as_r(Symbolic$u), digits = 4)
@@ -522,3 +517,17 @@ testthat::test_that("g.", {
     is.null(SymbolicuNullExprg)
   )
 })
+#'
+#+ coverage
+Symbolic <- ramR::Expectations(
+  Ryacas::ysym(A),
+  Ryacas::ysym(S),
+  Ryacas::ysym(as.vector(u)),
+  Ryacas::ysym(Filter)
+)
+Symbolic <- ramR::Expectations(
+  Ryacas::ysym(A),
+  Ryacas::ysym(S),
+  Ryacas::ysym(u),
+  Ryacas::ysym(Filter)
+)

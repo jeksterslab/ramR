@@ -188,3 +188,15 @@ ramR::g(
   Ryacas::ysym(Filter),
   exe = FALSE
 )
+ramR::g(
+  Ryacas::ysym(A),
+  Ryacas::ysym(as.vector(u)),
+  Ryacas::ysym(Filter),
+  exe = FALSE
+)
+ramR::g(
+  Ryacas::ysym(A),
+  Ryacas::ysym(u),
+  Ryacas::ysym(Filter),
+  exe = FALSE
+)
