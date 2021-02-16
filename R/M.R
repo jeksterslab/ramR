@@ -63,39 +63,6 @@
 #' @param Filter `p by t` numeric matrix
 #'   \eqn{\mathbf{F}}.
 #'   Filter matrix used to select observed variables.
-#'
-#' @examples
-#' # This is a numerical example for the model
-#' # y = alpha + beta * x + e
-#' # y = 0 + 1 * x + e
-#'
-#' # Numeric -----------------------------------------------------------
-#' A <- S <- matrixR::ZeroMatrix(3)
-#' A[1, ] <- c(0, 1, 1)
-#' diag(S) <- c(0, 0.25, 1)
-#' colnames(A) <- rownames(A) <- c("y", "x", "e")
-#' Filter <- diag(2)
-#' Filter <- cbind(Filter, 0)
-#' colnames(Filter) <- c("y", "x", "e")
-#' M(A, S, Filter)
-#'
-#' # Symbolic ----------------------------------------------------------
-#' A <- S <- matrixR::ZeroMatrix(3)
-#' A[1, ] <- c(0, "beta", 1)
-#' diag(S) <- c(0, "sigmax2", "sigmae2")
-#' M(Ryacas::ysym(A), S, Filter)
-#' M(Ryacas::ysym(A), S, Filter, tex = TRUE)
-#' M(Ryacas::ysym(A), S, Filter, ysym = FALSE)
-#' M(Ryacas::ysym(A), S, Filter, str = FALSE)
-#'
-#' beta <- 1
-#' sigmax2 <- 0.25
-#' sigmae2 <- 1
-#' M(Ryacas::ysym(A), S, Filter)
-#' M(Ryacas::ysym(A), S, Filter, tex = TRUE)
-#' M(Ryacas::ysym(A), S, Filter, ysym = FALSE)
-#' M(Ryacas::ysym(A), S, Filter, str = FALSE)
-#' eval(M(Ryacas::ysym(A), S, Filter, str = FALSE))
 #' @export
 M <- function(A,
               S,
@@ -107,6 +74,20 @@ M <- function(A,
 #' @rdname M
 #' @inheritParams IminusA
 #' @inheritParams M
+#' @examples
+#' # Numeric -----------------------------------------------------------
+#' # This is a numerical example for the model
+#' # y = alpha + beta * x + e
+#' # y = 0 + 1 * x + e
+#'
+#' A <- S <- matrixR::ZeroMatrix(3)
+#' A[1, ] <- c(0, 1, 1)
+#' diag(S) <- c(0, 0.25, 1)
+#' colnames(A) <- rownames(A) <- c("y", "x", "e")
+#' Filter <- diag(2)
+#' Filter <- cbind(Filter, 0)
+#' colnames(Filter) <- c("y", "x", "e")
+#' M(A, S, Filter)
 #' @export
 M.default <- function(A,
                       S,
@@ -137,15 +118,38 @@ M.default <- function(A,
 #' @rdname M
 #' @inheritParams IminusA
 #' @inheritParams M
+#' @examples
+#' # Symbolic ----------------------------------------------------------
+#' # This is a symbolic example for the model
+#' # y = alpha + beta * x + e
+#' # y = 0 + 1 * x + e
+#'
+#' A <- S <- matrixR::ZeroMatrix(3)
+#' A[1, ] <- c(0, "beta", 1)
+#' diag(S) <- c(0, "sigmax2", "sigmae2")
+#' M(Ryacas::ysym(A), S, Filter)
+#' M(Ryacas::ysym(A), S, Filter, format = "tex")
+#' M(Ryacas::ysym(A), S, Filter, format = "ysym")
+#' M(Ryacas::ysym(A), S, Filter, R = TRUE)
+#'
+#' # Assigning values to symbols
+#'
+#' beta <- 1
+#' sigmax2 <- 0.25
+#' sigmae2 <- 1
+#' M(Ryacas::ysym(A), S, Filter)
+#' M(Ryacas::ysym(A), S, Filter, format = "tex")
+#' M(Ryacas::ysym(A), S, Filter, format = "ysym")
+#' M(Ryacas::ysym(A), S, Filter, R = TRUE)
+#' eval(M(Ryacas::ysym(A), S, Filter, R = TRUE))
 #' @export
 M.yac_symbol <- function(A,
                          S,
                          Filter = NULL,
                          exe = TRUE,
-                         str = TRUE,
-                         ysym = TRUE,
+                         R = FALSE,
+                         format = "ysym",
                          simplify = FALSE,
-                         tex = FALSE,
                          ...) {
   Cysym <- C(
     A = A,
@@ -192,11 +196,10 @@ M.yac_symbol <- function(A,
   }
   if (exe) {
     return(
-      YacExe(
-        expr = expr,
-        str = str,
-        ysym = ysym,
-        tex = tex,
+      yacR::Exe(
+        expr,
+        R = R,
+        format = format,
         simplify = simplify
       )
     )

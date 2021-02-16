@@ -8,15 +8,42 @@
 #' @section Syntax:
 #'   Each line should follow the syntax below
 #'
-#'   `lhs operation rhs par.label`
+#'   `lhs <space> op <space> rhs <space> par.label <\n> or <;>`
+#'
+#'   \describe{
+#'     \item{lhs}{
+#'       is the variable on the **left-hand side**,
+#'     }
+#'     \item{rhs}{
+#'       is the variable on the **right-hand side**,
+#'     }
+#'     \item{op}{
+#'       is the **operation** between `lhs` and `rhs`,
+#'     }
+#'     \item{par.label}{
+#'       is the column of **parameter label**,
+#'     }
+#'     \item{\\n or ;}{
+#'       are **line breaks**.
+#'       **Each line should end with a line break.**
+#'     }
+#'   }
 #'
 #'   The associations are defined by the following operations
 #'
 #'   \describe{
-#'     \item{by}{`left-hand side` measured **by** `right-hand side`}
-#'     \item{on}{`left-hand side` regressed **on** `right-hand side`}
-#'     \item{with}{`left-hand side` covarying **with** `right-hand side`}
-#'     \item{on 1}{`left-hand side` regressed **on 1** for mean structure}
+#'     \item{by}{
+#'       `left-hand side` measured **by** `right-hand side`,
+#'     }
+#'     \item{on}{
+#'       `left-hand side` regressed **on** `right-hand side`,
+#'     }
+#'     \item{with}{
+#'       `left-hand side` covarying **with** `right-hand side`,
+#'     }
+#'     \item{on 1}{
+#'       `left-hand side` regressed **on 1** for mean structure.
+#'     }
 #'   }
 #'
 #' @section par.label:
@@ -25,10 +52,14 @@
 #'   and a character string for free parameters.
 #'   Equality contraints can be imposed by using the same `par.label`.
 #'
+#' @section Line breaks:
+#'   The characters `\n` and `;` can be used as line breaks.
+#'   **Each line should end with a line break.**
+#'
 #' @section Comments:
 #'   Comments can be written after a hash (`#`) sign.
 #'
-#' @return Returns list with the following elements
+#' @return Returns a list with the following elements
 #'
 #'   \describe{
 #'     \item{par.table}{Parameter table.}
@@ -36,18 +67,20 @@
 #'     \item{g.variables}{Variable names of observed variables.}
 #'     \item{h.variables}{Variable names of latent variables.}
 #'     \item{A}{
-#'       A `t by t` matrix \eqn{\mathbf{A}}.
+#'       `t by t` matrix \eqn{\mathbf{A}}.
 #'       Asymmetric paths (single-headed arrows),
 #'       such as regression coefficients and factor loadings.
 #'     }
 #'     \item{S}{
-#'       S `t by t` numeric matrix \eqn{\mathbf{S}}.
+#'       `t by t` numeric matrix \eqn{\mathbf{S}}.
 #'       Symmetric paths (double-headed arrows),
 #'       such as variances and covariances.
 #'     }
-#'     \item{u}{`t by 1` matrix of mean structure parameters.}
+#'     \item{u}{
+#'       `t by 1` matrix \eqn{\mathbf{u}} of mean structure parameters.
+#'     }
 #'     \item{Filter}{
-#'       Filter `p by t` numeric matrix
+#'       `p by t` numeric matrix
 #'       \eqn{\mathbf{F}}.
 #'       Filter matrix used to select observed variables.
 #'     }

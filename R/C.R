@@ -45,36 +45,6 @@
 #' @param S `t by t` numeric matrix \eqn{\mathbf{S}}.
 #'   Symmetric paths (double-headed arrows),
 #'   such as variances and covariances.
-#'
-#' @examples
-#' # This is a numerical example for the model
-#' # y = alpha + beta * x + e
-#' # y = 0 + 1 * x + e
-#'
-#' # Numeric -----------------------------------------------------------
-#' A <- S <- matrixR::ZeroMatrix(3)
-#' A[1, ] <- c(0, 1, 1)
-#' diag(S) <- c(0, 0.25, 1)
-#' colnames(A) <- rownames(A) <- c("y", "x", "e")
-#' C(A, S)
-#'
-#' # Symbolic ----------------------------------------------------------
-#' A <- S <- matrixR::ZeroMatrix(3)
-#' A[1, ] <- c(0, "beta", 1)
-#' diag(S) <- c(0, "sigmax2", "sigmae2")
-#' C(Ryacas::ysym(A), S)
-#' C(Ryacas::ysym(A), S, tex = TRUE)
-#' C(Ryacas::ysym(A), S, ysym = FALSE)
-#' C(Ryacas::ysym(A), S, str = FALSE)
-#'
-#' beta <- 1
-#' sigmax2 <- 0.25
-#' sigmae2 <- 1
-#' C(Ryacas::ysym(A), S)
-#' C(Ryacas::ysym(A), S, tex = TRUE)
-#' C(Ryacas::ysym(A), S, ysym = FALSE)
-#' C(Ryacas::ysym(A), S, str = FALSE)
-#' eval(C(Ryacas::ysym(A), S, str = FALSE))
 #' @export
 C <- function(A,
               S,
@@ -85,6 +55,17 @@ C <- function(A,
 #' @rdname C
 #' @inheritParams IminusA
 #' @inheritParams C
+#' @examples
+#' # Numeric -----------------------------------------------------------
+#' # This is a numerical example for the model
+#' # y = alpha + beta * x + e
+#' # y = 0 + 1 * x + e
+#'
+#' A <- S <- matrixR::ZeroMatrix(3)
+#' A[1, ] <- c(0, 1, 1)
+#' diag(S) <- c(0, 0.25, 1)
+#' colnames(A) <- rownames(A) <- c("y", "x", "e")
+#' C(A, S)
 #' @export
 C.default <- function(A,
                       S,
@@ -114,14 +95,38 @@ C.default <- function(A,
 #' @rdname C
 #' @inheritParams IminusA
 #' @inheritParams C
+#' @examples
+#' # Symbolic ----------------------------------------------------------
+#' # This is a symbolic example for the model
+#' # y = alpha + beta * x + e
+#' # y = 0 + 1 * x + e
+#'
+#' A <- S <- matrixR::ZeroMatrix(3)
+#' A[1, ] <- c(0, "beta", 1)
+#' diag(S) <- c(0, "sigmax2", "sigmae2")
+#' C(Ryacas::ysym(A), S, R = FALSE, format = "ysym")
+#' C(Ryacas::ysym(A), S, R = FALSE, format = "str")
+#' C(Ryacas::ysym(A), S, R = FALSE, format = "tex")
+#' C(Ryacas::ysym(A), S, R = TRUE)
+#'
+#' # Assigning values to symbols
+#'
+#' beta <- 1
+#' sigmax2 <- 0.25
+#' sigmae2 <- 1
+#'
+#' C(Ryacas::ysym(A), S, R = FALSE, format = "ysym")
+#' C(Ryacas::ysym(A), S, R = FALSE, format = "str")
+#' C(Ryacas::ysym(A), S, R = FALSE, format = "tex")
+#' C(Ryacas::ysym(A), S, R = TRUE)
+#' eval(C(Ryacas::ysym(A), S, R = TRUE))
 #' @export
 C.yac_symbol <- function(A,
                          S,
                          exe = TRUE,
-                         str = TRUE,
-                         ysym = TRUE,
+                         R = FALSE,
+                         format = "ysym",
                          simplify = FALSE,
-                         tex = FALSE,
                          ...) {
   Eysym <- E(
     A = A,
@@ -167,11 +172,10 @@ C.yac_symbol <- function(A,
   )
   if (exe) {
     return(
-      YacExe(
-        expr = expr,
-        str = str,
-        ysym = ysym,
-        tex = tex,
+      yacR::Exe(
+        expr,
+        R = R,
+        format = format,
         simplify = simplify
       )
     )

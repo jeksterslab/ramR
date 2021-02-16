@@ -38,36 +38,6 @@
 #' @inheritParams IminusA
 #' @param v vector of length `t` or `t by 1` matrix.
 #'   Expected values.
-#'
-#' @examples
-#' # This is a numerical example for the model
-#' # y = alpha + beta * x + e
-#' # y = 0 + 1 * x + e
-#'
-#' # Numeric -----------------------------------------------------------
-#' A <- matrixR::ZeroMatrix(3)
-#' A[1, ] <- c(0, 1, 1)
-#' v <- c(0.50, 0.50, 0.00)
-#' colnames(A) <- rownames(A) <- c("y", "x", "e")
-#' u(A, v)
-#'
-#' # Symbolic ----------------------------------------------------------
-#' A <- matrixR::ZeroMatrix(3)
-#' A[1, ] <- c(0, "beta", 1)
-#' v <- c("alpha+beta*mux", "mux", 0)
-#' # u(A, v, sym = TRUE)
-#' # u(A, v, sym = TRUE, str = FALSE)
-#' # u(A, v, sym = TRUE, ysym = FALSE)
-#' # u(A, v, sym = TRUE, tex = TRUE)
-#'
-#' alpha <- 0
-#' beta <- 1
-#' mux <- 0.50
-#' u(Ryacas::ysym(A), v)
-#' u(Ryacas::ysym(A), v, tex = TRUE)
-#' u(Ryacas::ysym(A), v, ysym = FALSE)
-#' u(Ryacas::ysym(A), v, str = FALSE)
-#' eval(u(Ryacas::ysym(A), v, str = FALSE))
 #' @export
 u <- function(A,
               v,
@@ -78,6 +48,17 @@ u <- function(A,
 #' @rdname u
 #' @inheritParams IminusA.default
 #' @inheritParams u
+#' @examples
+#' # Numeric -----------------------------------------------------------
+#' # This is a numerical example for the model
+#' # y = alpha + beta * x + e
+#' # y = 0 + 1 * x + e
+#'
+#' A <- matrixR::ZeroMatrix(3)
+#' A[1, ] <- c(0, 1, 1)
+#' v <- c(0.50, 0.50, 0.00)
+#' colnames(A) <- rownames(A) <- c("y", "x", "e")
+#' u(A, v)
 #' @export
 u.default <- function(A,
                       v,
@@ -94,14 +75,37 @@ u.default <- function(A,
 #' @rdname u
 #' @inheritParams IminusA.yac_symbol
 #' @inheritParams u
+#' @examples
+#' # Symbolic ----------------------------------------------------------
+#' # This is a symbolic example for the model
+#' # y = alpha + beta * x + e
+#' # y = 0 + 1 * x + e
+#'
+#' A <- matrixR::ZeroMatrix(3)
+#' A[1, ] <- c(0, "beta", 1)
+#' v <- c("alpha+beta*mux", "mux", 0)
+#' u(Ryacas::ysym(A), v)
+#' u(Ryacas::ysym(A), v, format = "tex")
+#' u(Ryacas::ysym(A), v, format = "ysym")
+#' u(Ryacas::ysym(A), v, R = TRUE)
+#'
+#' # Assigning values to symbols
+#'
+#' alpha <- 0
+#' beta <- 1
+#' mux <- 0.50
+#' u(Ryacas::ysym(A), v)
+#' u(Ryacas::ysym(A), v, format = "tex")
+#' u(Ryacas::ysym(A), v, format = "ysym")
+#' u(Ryacas::ysym(A), v, R = TRUE)
+#' eval(u(Ryacas::ysym(A), v, R = TRUE))
 #' @export
 u.yac_symbol <- function(A,
                          v,
                          exe = TRUE,
-                         str = TRUE,
-                         ysym = TRUE,
+                         R = FALSE,
+                         format = "ysym",
                          simplify = FALSE,
-                         tex = FALSE,
                          ...) {
   Aysym <- matrixR::MatrixCheck(
     A,
@@ -144,11 +148,10 @@ u.yac_symbol <- function(A,
   )
   if (exe) {
     return(
-      YacExe(
-        expr = expr,
-        str = str,
-        ysym = ysym,
-        tex = tex,
+      yacR::Exe(
+        expr,
+        R = R,
+        format = format,
         simplify = simplify
       )
     )

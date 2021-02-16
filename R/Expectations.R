@@ -3,29 +3,43 @@
 #' Derives the mean and covariance expectations
 #' from the Reticular Action Model (RAM) matrices.
 #'
-#' @return Returns list with the following elements
+#' @return Returns a list with the following elements
 #'
 #'   \describe{
 #'     \item{A}{
-#'       A `t by t` matrix \eqn{\mathbf{A}}.
+#'       `t by t` matrix \eqn{\mathbf{A}}.
 #'       Asymmetric paths (single-headed arrows),
 #'       such as regression coefficients and factor loadings.
 #'     }
 #'     \item{S}{
-#'       S `t by t` numeric matrix \eqn{\mathbf{S}}.
+#'       `t by t` numeric matrix \eqn{\mathbf{S}}.
 #'       Symmetric paths (double-headed arrows),
 #'       such as variances and covariances.
 #'     }
-#'     \item{u}{`t by 1` matrix of mean structure parameters.}
+#'     \item{u}{
+#'       `t by 1` matrix \eqn{\mathbf{u}} of mean structure parameters.
+#'     }
 #'     \item{Filter}{
-#'       Filter `p by t` numeric matrix
+#'       `p by t` numeric matrix
 #'       \eqn{\mathbf{F}}.
 #'       Filter matrix used to select observed variables.
 #'     }
-#'     \item{v}{`t by 1` matrix of expected values.}
-#'     \item{g}{`p by 1` matrix of expected values of observed variables.}
-#'     \item{C}{`t by t` matrix of expected covariances.}
-#'     \item{M}{`p by p` matrix of expected covariances of observed variables.}
+#'     \item{v}{
+#'       `t by 1` matrix \eqn{\mathbf{v}}
+#'       of expected values.
+#'     }
+#'     \item{g}{
+#'       `p by 1` matrix \eqn{\mathbf{g}}
+#'       of expected values of observed variables.
+#'     }
+#'     \item{C}{
+#'       `t by t` matrix \eqn{\mathbf{C}}
+#'       of expected covariances.
+#'     }
+#'     \item{M}{
+#'       `p by p` matrix \eqn{\mathbf{M}}
+#'       of expected covariances of observed variables.
+#'     }
 #'   }
 #'
 #' @author Ivan Jacob Agaloos Pesigan
@@ -64,24 +78,22 @@
 #' A[1, ] <- c(0, "beta", 1)
 #' diag(S) <- c(0, "sigmax2", "sigmae2")
 #' u <- c("alpha", "mux", 0)
-#' Expectations(Ryacas::ysym(A), S, u, Filter)
-#' Expectations(Ryacas::ysym(A), S, u, Filter, tex = TRUE)
-#' Expectations(Ryacas::ysym(A), S, u, Filter, ysym = FALSE)
-#' Expectations(Ryacas::ysym(A), S, u, Filter, str = FALSE)
+#' Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "ysym")
+#' Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "str")
+#' Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "tex")
+#' Expectations(Ryacas::ysym(A), S, u, Filter, R = TRUE)
+#'
+#' # Assigning values to symbols
 #'
 #' alpha <- 0
 #' beta <- 1
 #' sigmax2 <- 0.25
 #' sigmae2 <- 1
 #' mux <- 0.50
-#' Expectations(Ryacas::ysym(A), S, u, Filter)
-#' Expectations(Ryacas::ysym(A), S, u, Filter, tex = TRUE)
-#' Expectations(Ryacas::ysym(A), S, u, Filter, ysym = FALSE)
-#' Expectations(Ryacas::ysym(A), S, u, Filter, str = FALSE)
-#' Expectations <- Expectations(
-#'   Ryacas::ysym(A), S, u, Filter,
-#'   str = FALSE
-#' )
+#' Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "ysym")
+#' Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "str")
+#' Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "tex")
+#' (Expectations <- Expectations(Ryacas::ysym(A), S, u, Filter, R = TRUE))
 #' eval(Expectations$A)
 #' eval(Expectations$S)
 #' eval(Expectations$u)
@@ -107,10 +119,6 @@ Expectations.default <- function(A,
                                  S,
                                  u = NULL,
                                  Filter = NULL,
-                                 str = TRUE,
-                                 ysym = TRUE,
-                                 simplify = FALSE,
-                                 tex = FALSE,
                                  ...) {
   C <- C.default(
     A = A,
@@ -169,22 +177,19 @@ Expectations.yac_symbol <- function(A,
                                     S,
                                     u = NULL,
                                     Filter = NULL,
-                                    str = TRUE,
-                                    ysym = TRUE,
+                                    R = FALSE,
+                                    format = "ysym",
                                     simplify = FALSE,
-                                    tex = FALSE,
-                                    exe = TRUE,
                                     ...) {
   Cysym <- C(
     A = A,
     S = S,
     exe = FALSE
   )
-  Cout <- YacExe(
-    expr = Cysym,
-    str = str,
-    ysym = ysym,
-    tex = tex,
+  Cout <- yacR::Exe(
+    Cysym,
+    R = R,
+    format = format,
     simplify = simplify
   )
   if (is.null(Filter)) {
@@ -197,11 +202,10 @@ Expectations.yac_symbol <- function(A,
       Filter = Filter,
       exe = FALSE
     )
-    Mout <- YacExe(
-      expr = Mysym,
-      str = str,
-      ysym = ysym,
-      tex = tex,
+    Mout <- yacR::Exe(
+      Mysym,
+      R = R,
+      format = format,
       simplify = simplify
     )
   }
@@ -214,11 +218,10 @@ Expectations.yac_symbol <- function(A,
       u = u,
       exe = FALSE
     )
-    vout <- YacExe(
-      expr = vysym,
-      str = str,
-      ysym = ysym,
-      tex = tex,
+    vout <- yacR::Exe(
+      vysym,
+      R = R,
+      format = format,
       simplify = simplify
     )
     if (is.null(Filter)) {
@@ -231,28 +234,25 @@ Expectations.yac_symbol <- function(A,
         Filter = Filter,
         exe = FALSE
       )
-      gout <- YacExe(
-        expr = gysym,
-        str = str,
-        ysym = ysym,
-        tex = tex,
+      gout <- yacR::Exe(
+        gysym,
+        R = R,
+        format = format,
         simplify = simplify
       )
     }
   }
   # make input the same format as output
-  Aout <- YacExe(
-    expr = A,
-    str = str,
-    ysym = ysym,
-    tex = tex,
+  Aout <- yacR::Exe(
+    A,
+    R = R,
+    format = format,
     simplify = simplify
   )
-  Sout <- YacExe(
-    expr = R2Yac(S),
-    str = str,
-    ysym = ysym,
-    tex = tex,
+  Sout <- yacR::Exe(
+    R2Yac(S),
+    R = R,
+    format = format,
     simplify = simplify
   )
   if (is.null(Filter)) {
@@ -269,21 +269,19 @@ Expectations.yac_symbol <- function(A,
       )
     )
   }
-  Filterout <- YacExe(
-    expr = R2Yac(Filter),
-    str = str,
-    ysym = ysym,
-    tex = tex,
+  Filterout <- yacR::Exe(
+    R2Yac(Filter),
+    R = R,
+    format = format,
     simplify = simplify
   )
   if (is.null(u)) {
     uout <- u
   } else {
-    uout <- YacExe(
-      expr = RVector2Yac(u),
-      str = str,
-      ysym = ysym,
-      tex = tex,
+    uout <- yacR::Exe(
+      RVector2Yac(u),
+      R = R,
+      format = format,
       simplify = simplify
     )
   }

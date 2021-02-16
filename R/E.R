@@ -30,32 +30,6 @@
 #'
 #' @inherit ramR references
 #' @inheritParams IminusA
-#'
-#' @examples
-#' # This is a numerical example for the model
-#' # y = alpha + beta * x + e
-#' # y = 0 + 1 * x + e
-#'
-#' # Numeric -----------------------------------------------------------
-#' A <- matrixR::ZeroMatrix(3)
-#' A[1, ] <- c(0, 1, 1)
-#' colnames(A) <- rownames(A) <- c("y", "x", "e")
-#' E(A)
-#'
-#' # Symbolic ----------------------------------------------------------
-#' A <- matrixR::ZeroMatrix(3)
-#' A[1, ] <- c(0, "beta", 1)
-#' E(Ryacas::ysym(A))
-#' E(Ryacas::ysym(A), tex = TRUE)
-#' E(Ryacas::ysym(A), ysym = FALSE)
-#' E(Ryacas::ysym(A), str = FALSE)
-#'
-#' beta <- 1
-#' E(Ryacas::ysym(A))
-#' E(Ryacas::ysym(A), tex = TRUE)
-#' E(Ryacas::ysym(A), ysym = FALSE)
-#' E(Ryacas::ysym(A), str = FALSE)
-#' eval(E(Ryacas::ysym(A), str = FALSE))
 #' @export
 E <- function(A,
               ...) {
@@ -64,6 +38,16 @@ E <- function(A,
 
 #' @rdname E
 #' @inheritParams IminusA
+#' @examples
+#' # Numeric -----------------------------------------------------------
+#' # This is a numerical example for the model
+#' # y = alpha + beta * x + e
+#' # y = 0 + 1 * x + e
+#'
+#' A <- matrixR::ZeroMatrix(3)
+#' A[1, ] <- c(0, 1, 1)
+#' colnames(A) <- rownames(A) <- c("y", "x", "e")
+#' E(A)
 #' @export
 E.default <- function(A,
                       ...) {
@@ -76,13 +60,33 @@ E.default <- function(A,
 
 #' @rdname E
 #' @inheritParams IminusA
+#' @examples
+#' # Symbolic ----------------------------------------------------------
+#' # This is a symbolic example for the model
+#' # y = alpha + beta * x + e
+#' # y = 0 + 1 * x + e
+#'
+#' A <- matrixR::ZeroMatrix(3)
+#' A[1, ] <- c(0, "beta", 1)
+#' E(Ryacas::ysym(A), R = FALSE, format = "ysym")
+#' E(Ryacas::ysym(A), R = FALSE, format = "str")
+#' E(Ryacas::ysym(A), R = FALSE, format = "tex")
+#' E(Ryacas::ysym(A), R = TRUE)
+#'
+#' # Assigning values to symbols
+#'
+#' beta <- 1
+#' E(Ryacas::ysym(A), R = FALSE, format = "ysym")
+#' E(Ryacas::ysym(A), R = FALSE, format = "str")
+#' E(Ryacas::ysym(A), R = FALSE, format = "tex")
+#' E(Ryacas::ysym(A), R = TRUE)
+#' eval(E(Ryacas::ysym(A), R = TRUE))
 #' @export
 E.yac_symbol <- function(A,
                          exe = TRUE,
-                         str = TRUE,
-                         ysym = TRUE,
+                         R = FALSE,
+                         format = "ysym",
                          simplify = FALSE,
-                         tex = FALSE,
                          ...) {
   IminusAsym <- IminusA(
     A = A,
@@ -95,11 +99,10 @@ E.yac_symbol <- function(A,
   )
   if (exe) {
     return(
-      YacExe(
-        expr = expr,
-        str = str,
-        ysym = ysym,
-        tex = tex,
+      yacR::Exe(
+        expr,
+        R = R,
+        format = format,
         simplify = simplify
       )
     )

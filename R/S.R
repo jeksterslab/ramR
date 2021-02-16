@@ -1,7 +1,7 @@
 #' Matrix of Symmetric Paths \eqn{\mathbf{S}}
 #'
-#' Derives the matrix of symmetric paths (double-headed arrows) \eqn{\mathbf{S}}
-#' using the Reticular Action Model (RAM) notation.
+#' Derives the matrix of symmetric paths (double-headed arrows)
+#' \eqn{\mathbf{S}} using the Reticular Action Model (RAM) notation.
 #'
 #' The matrix of symmetric paths (double-headed arrows) \eqn{\mathbf{S}}
 #' as a function of Reticular Action Model (RAM) matrices
@@ -46,13 +46,22 @@
 #' @inheritParams IminusA
 #' @param C `t by t` numeric matrix \eqn{\mathbf{C}}.
 #'   Model-implied variance-covariance matrix.
-#'
+#' @export
+S <- function(A,
+              C,
+              ...) {
+  UseMethod("S")
+}
+
+#' @rdname S
+#' @inheritParams IminusA
+#' @inheritParams S
 #' @examples
+#' # Numeric -----------------------------------------------------------
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
 #'
-#' # Numeric -----------------------------------------------------------
 #' A <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, 1, 1)
 #' C <- matrix(
@@ -65,41 +74,6 @@
 #' )
 #' colnames(A) <- rownames(A) <- c("y", "x", "e")
 #' S(A, C)
-#'
-#' # Symbolic ----------------------------------------------------------
-#' A <- matrixR::ZeroMatrix(3)
-#' A[1, ] <- c(0, "beta", 1)
-#' C <- matrix(
-#'   data = c(
-#'     "sigmax2*beta^2+sigmae2", "sigmax2*beta", "sigmae2",
-#'     "sigmax2*beta", "sigmax2", 0,
-#'     "sigmae2", 0, "sigmae2"
-#'   ),
-#'   nrow = dim(A)[1]
-#' )
-#' S(Ryacas::ysym(A), C)
-#' S(Ryacas::ysym(A), C, tex = TRUE)
-#' S(Ryacas::ysym(A), C, ysym = FALSE)
-#' S(Ryacas::ysym(A), C, str = FALSE)
-#'
-#' beta <- 1
-#' sigmax2 <- 0.25
-#' sigmae2 <- 1
-#' S(Ryacas::ysym(A), C)
-#' S(Ryacas::ysym(A), C, tex = TRUE)
-#' S(Ryacas::ysym(A), C, ysym = FALSE)
-#' S(Ryacas::ysym(A), C, str = FALSE)
-#' eval(S(Ryacas::ysym(A), C, str = FALSE))
-#' @export
-S <- function(A,
-              C,
-              ...) {
-  UseMethod("S")
-}
-
-#' @rdname S
-#' @inheritParams IminusA
-#' @inheritParams S
 #' @export
 S.default <- function(A,
                       C,
@@ -124,14 +98,44 @@ S.default <- function(A,
 #' @rdname S
 #' @inheritParams IminusA
 #' @inheritParams S
+#' @examples
+#' # Symbolic ----------------------------------------------------------
+#' # This is a symbolic example for the model
+#' # y = alpha + beta * x + e
+#' # y = 0 + 1 * x + e
+#'
+#' A <- matrixR::ZeroMatrix(3)
+#' A[1, ] <- c(0, "beta", 1)
+#' C <- matrix(
+#'   data = c(
+#'     "sigmax2*beta^2+sigmae2", "sigmax2*beta", "sigmae2",
+#'     "sigmax2*beta", "sigmax2", 0,
+#'     "sigmae2", 0, "sigmae2"
+#'   ),
+#'   nrow = dim(A)[1]
+#' )
+#' S(Ryacas::ysym(A), C, R = FALSE, format = "ysym")
+#' S(Ryacas::ysym(A), C, R = FALSE, format = "str")
+#' S(Ryacas::ysym(A), C, R = FALSE, format = "tex")
+#' S(Ryacas::ysym(A), C, R = TRUE)
+#'
+#' # Assigning values to symbols
+#'
+#' beta <- 1
+#' sigmax2 <- 0.25
+#' sigmae2 <- 1
+#' S(Ryacas::ysym(A), C, R = FALSE, format = "ysym")
+#' S(Ryacas::ysym(A), C, R = FALSE, format = "str")
+#' S(Ryacas::ysym(A), C, R = FALSE, format = "tex")
+#' S(Ryacas::ysym(A), C, R = TRUE)
+#' eval(S(Ryacas::ysym(A), C, R = TRUE))
 #' @export
 S.yac_symbol <- function(A,
                          C,
                          exe = TRUE,
-                         str = TRUE,
-                         ysym = TRUE,
+                         R = FALSE,
+                         format = "ysym",
                          simplify = FALSE,
-                         tex = FALSE,
                          ...) {
   IminusAysym <- IminusA(
     A = A,
@@ -177,11 +181,10 @@ S.yac_symbol <- function(A,
   )
   if (exe) {
     return(
-      YacExe(
-        expr = expr,
-        str = str,
-        ysym = ysym,
-        tex = tex,
+      yacR::Exe(
+        expr,
+        R = R,
+        format = format,
         simplify = simplify
       )
     )

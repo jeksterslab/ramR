@@ -8,15 +8,46 @@
 #' @section Syntax:
 #'   Each line should follow the syntax below
 #'
-#'   `lhs operation rhs par.label par.start`
+#'   `lhs <space> op <space> rhs <space> par.label <\n> or <;>`
+#'
+#'   \describe{
+#'     \item{lhs}{
+#'       is the variable on the **left-hand side**,
+#'     }
+#'     \item{rhs}{
+#'       is the variable on the **right-hand side**,
+#'     }
+#'     \item{op}{
+#'       is the **operation** between `lhs` and `rhs`,
+#'     }
+#'     \item{par.label}{
+#'       is the column of **parameter label**,
+#'     }
+#'     \item{par.start}{
+#'       is the column of **starting values** for estimation
+#'       (only for functions that require it), and
+#'     }
+#'     \item{\\n or ;}{
+#'       are **line breaks**.
+#'       **Each line should end with a line break.**
+#'     }
+#'   }
 #'
 #'   The associations are defined by the following operations
 #'
 #'   \describe{
-#'     \item{by}{`left-hand side` measured **by** `right-hand side`}
-#'     \item{on}{`left-hand side` regressed **on** `right-hand side`}
-#'     \item{with}{`left-hand side` covarying **with** `right-hand side`}
-#'     \item{on 1}{`left-hand side` regressed **on 1** for mean structure}
+#'     \item{by}{
+#'       `left-hand side` measured **by** `right-hand side`,
+#'     }
+#'     \item{on}{
+#'       `left-hand side` regressed **on** `right-hand side`,
+#'     }
+#'     \item{with}{
+#'       `left-hand side` covarying **with** `right-hand side`,
+#'     }
+#'     \item{on 1}{
+#'       `left-hand side` regressed **on 1** for mean structure.
+#'     }
 #'   }
 #'
 #' @section par.label:
@@ -34,6 +65,7 @@
 #'
 #' @section Line breaks:
 #'   The characters `\n` and `;` can be used as line breaks.
+#'   **Each line should end with a line break.**
 #'
 #' @section Comments:
 #'   Comments can be written after a hash (`#`) sign.

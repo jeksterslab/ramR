@@ -25,32 +25,6 @@
 #'   Asymmetric paths (single-headed arrows),
 #'   such as regression coefficients and factor loadings.
 #' @param ... ...
-#'
-#' @examples
-#' # This is a numerical example for the model
-#' # y = alpha + beta * x + e
-#' # y = 0 + 1 * x + e
-#'
-#' # Numeric -----------------------------------------------------------
-#' A <- matrixR::ZeroMatrix(3)
-#' A[1, ] <- c(0, 1, 1)
-#' colnames(A) <- rownames(A) <- c("y", "x", "e")
-#' IminusA(A)
-#'
-#' # Symbolic ----------------------------------------------------------
-#' A <- matrixR::ZeroMatrix(3)
-#' A[1, ] <- c(0, "beta", 1)
-#' IminusA(Ryacas::ysym(A))
-#' IminusA(Ryacas::ysym(A), ysym = FALSE)
-#' IminusA(Ryacas::ysym(A), tex = TRUE)
-#' IminusA(Ryacas::ysym(A), str = FALSE)
-#'
-#' beta <- 1
-#' IminusA(Ryacas::ysym(A))
-#' IminusA(Ryacas::ysym(A), ysym = FALSE)
-#' IminusA(Ryacas::ysym(A), tex = TRUE)
-#' IminusA(Ryacas::ysym(A), str = FALSE)
-#' eval(IminusA(Ryacas::ysym(A), str = FALSE))
 #' @export
 IminusA <- function(A,
                     ...) {
@@ -59,6 +33,16 @@ IminusA <- function(A,
 
 #' @rdname IminusA
 #' @inheritParams IminusA
+#' @examples
+#' # Numeric -----------------------------------------------------------
+#' # This is a numerical example for the model
+#' # y = alpha + beta * x + e
+#' # y = 0 + 1 * x + e
+#'
+#' A <- matrixR::ZeroMatrix(3)
+#' A[1, ] <- c(0, 1, 1)
+#' colnames(A) <- rownames(A) <- c("y", "x", "e")
+#' IminusA(A)
 #' @export
 IminusA.default <- function(A,
                             ...) {
@@ -73,18 +57,41 @@ IminusA.default <- function(A,
 
 #' @rdname IminusA
 #' @inheritParams IminusA
-#' @inheritParams YacExe
+#' @inheritParams yacR::Exe
 #' @param exe Logical.
-#'   If `exe = TRUE`, executes the resulting `yacas` expression.
-#'   If `exe = FALSE`, returns the resulting `yacas` expression as a character string.
-#'   If `exe = FALSE`, the arguments `str`, `ysym`, `simplify`, and `tex`, are ignored.
+#'   If `exe = TRUE`,
+#'   executes the resulting `yacas` expression.
+#'   If `exe = FALSE`,
+#'   returns the resulting `yacas` expression as a character string.
+#'   If `exe = FALSE`,
+#'   the arguments `str`, `ysym`, `simplify`, and `tex`, are ignored.
+#' @examples
+#' # Symbolic ----------------------------------------------------------
+#' # This is a symbolic example for the model
+#' # y = alpha + beta * x + e
+#' # y = 0 + 1 * x + e
+#'
+#' A <- matrixR::ZeroMatrix(3)
+#' A[1, ] <- c(0, "beta", 1)
+#' IminusA(Ryacas::ysym(A), R = FALSE, format = "ysym")
+#' IminusA(Ryacas::ysym(A), R = FALSE, format = "str")
+#' IminusA(Ryacas::ysym(A), R = FALSE, format = "tex")
+#' IminusA(Ryacas::ysym(A), R = TRUE)
+#'
+#' # Assigning values to symbols
+#'
+#' beta <- 1
+#' IminusA(Ryacas::ysym(A), R = FALSE, format = "ysym")
+#' IminusA(Ryacas::ysym(A), R = FALSE, format = "str")
+#' IminusA(Ryacas::ysym(A), R = FALSE, format = "tex")
+#' IminusA(Ryacas::ysym(A), R = TRUE)
+#' eval(IminusA(Ryacas::ysym(A), R = TRUE))
 #' @export
 IminusA.yac_symbol <- function(A,
                                exe = TRUE,
-                               str = TRUE,
-                               ysym = TRUE,
+                               R = FALSE,
+                               format = "ysym",
                                simplify = FALSE,
-                               tex = FALSE,
                                ...) {
   Aysym <- matrixR::MatrixCheck(
     A = A,
@@ -99,11 +106,10 @@ IminusA.yac_symbol <- function(A,
   )
   if (exe) {
     return(
-      YacExe(
-        expr = expr,
-        str = str,
-        ysym = ysym,
-        tex = tex,
+      yacR::Exe(
+        expr,
+        R = R,
+        format = format,
         simplify = simplify
       )
     )

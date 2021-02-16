@@ -51,38 +51,6 @@
 #' @inherit ramR references
 #' @inheritParams v
 #' @inheritParams M
-#'
-#' @examples
-#' # This is a numerical example for the model
-#' # y = alpha + beta * x + e
-#' # y = 0 + 1 * x + e
-#'
-#' # Numeric -----------------------------------------------------------
-#' A <- matrixR::ZeroMatrix(3)
-#' A[1, ] <- c(0, 1, 1)
-#' u <- c(0.00, 0.50, 0.00)
-#' Filter <- diag(2)
-#' Filter <- cbind(Filter, 0)
-#' colnames(A) <- rownames(A) <- c("y", "x", "e")
-#' g(A, u, Filter)
-#'
-#' # Symbolic ----------------------------------------------------------
-#' A <- matrixR::ZeroMatrix(3)
-#' A[1, ] <- c(0, "beta", 1)
-#' u <- c("alpha", "mux", 0)
-#' g(Ryacas::ysym(A), u, Filter)
-#' g(Ryacas::ysym(A), u, Filter, tex = TRUE)
-#' g(Ryacas::ysym(A), u, Filter, ysym = FALSE)
-#' g(Ryacas::ysym(A), u, Filter, str = FALSE)
-#'
-#' alpha <- 0
-#' beta <- 1
-#' mux <- 0.50
-#' g(Ryacas::ysym(A), u, Filter)
-#' g(Ryacas::ysym(A), u, Filter, tex = TRUE)
-#' g(Ryacas::ysym(A), u, Filter, ysym = FALSE)
-#' g(Ryacas::ysym(A), u, Filter, str = FALSE)
-#' eval(g(Ryacas::ysym(A), u, Filter, str = FALSE))
 #' @export
 g <- function(A,
               u,
@@ -94,6 +62,19 @@ g <- function(A,
 #' @rdname g
 #' @inheritParams IminusA
 #' @inheritParams g
+#' @examples
+#' # Numeric -----------------------------------------------------------
+#' # This is a numerical example for the model
+#' # y = alpha + beta * x + e
+#' # y = 0 + 1 * x + e
+#'
+#' A <- matrixR::ZeroMatrix(3)
+#' A[1, ] <- c(0, 1, 1)
+#' u <- c(0.00, 0.50, 0.00)
+#' Filter <- diag(2)
+#' Filter <- cbind(Filter, 0)
+#' colnames(A) <- rownames(A) <- c("y", "x", "e")
+#' g(A, u, Filter)
 #' @export
 g.default <- function(A,
                       u,
@@ -121,15 +102,38 @@ g.default <- function(A,
 #' @rdname g
 #' @inheritParams IminusA
 #' @inheritParams g
+#' @examples
+#' # Symbolic ----------------------------------------------------------
+#' # This is a symbolic example for the model
+#' # y = alpha + beta * x + e
+#' # y = 0 + 1 * x + e
+#'
+#' A <- matrixR::ZeroMatrix(3)
+#' A[1, ] <- c(0, "beta", 1)
+#' u <- c("alpha", "mux", 0)
+#' g(Ryacas::ysym(A), u, Filter)
+#' g(Ryacas::ysym(A), u, Filter, format = "tex")
+#' g(Ryacas::ysym(A), u, Filter, format = "ysym")
+#' g(Ryacas::ysym(A), u, Filter, R = TRUE)
+#'
+#' # Assigning values to symbols
+#'
+#' alpha <- 0
+#' beta <- 1
+#' mux <- 0.50
+#' g(Ryacas::ysym(A), u, Filter)
+#' g(Ryacas::ysym(A), u, Filter, format = "tex")
+#' g(Ryacas::ysym(A), u, Filter, format = "ysym")
+#' g(Ryacas::ysym(A), u, Filter, R = TRUE)
+#' eval(g(Ryacas::ysym(A), u, Filter, R = TRUE))
 #' @export
 g.yac_symbol <- function(A,
                          u,
                          Filter = NULL,
                          exe = TRUE,
-                         str = TRUE,
-                         ysym = TRUE,
+                         R = FALSE,
+                         format = "ysym",
                          simplify = FALSE,
-                         tex = FALSE,
                          ...) {
   vysym <- v(
     A = A,
@@ -172,11 +176,10 @@ g.yac_symbol <- function(A,
   }
   if (exe) {
     return(
-      YacExe(
-        expr = expr,
-        str = str,
-        ysym = ysym,
-        tex = tex,
+      yacR::Exe(
+        expr,
+        R = R,
+        format = format,
         simplify = simplify
       )
     )

@@ -8,15 +8,42 @@
 #' @section Syntax:
 #'   Each line should follow the syntax below
 #'
-#'   `lhs operation rhs par.label`
+#'   `lhs <space> op <space> rhs <space> par.label <\n> or <;>`
+#'
+#'   \describe{
+#'     \item{lhs}{
+#'       is the variable on the **left-hand side**,
+#'     }
+#'     \item{rhs}{
+#'       is the variable on the **right-hand side**,
+#'     }
+#'     \item{op}{
+#'       is the **operation** between `lhs` and `rhs`,
+#'     }
+#'     \item{par.label}{
+#'       is the column of **parameter label**,
+#'     }
+#'     \item{\\n or ;}{
+#'       are **line breaks**.
+#'       **Each line should end with a line break.**
+#'     }
+#'   }
 #'
 #'   The associations are defined by the following operations
 #'
 #'   \describe{
-#'     \item{by}{`left-hand side` measured **by** `right-hand side`}
-#'     \item{on}{`left-hand side` regressed **on** `right-hand side`}
-#'     \item{with}{`left-hand side` covarying **with** `right-hand side`}
-#'     \item{on 1}{`left-hand side` regressed **on 1** for mean structure}
+#'     \item{by}{
+#'       `left-hand side` measured **by** `right-hand side`,
+#'     }
+#'     \item{on}{
+#'       `left-hand side` regressed **on** `right-hand side`,
+#'     }
+#'     \item{with}{
+#'       `left-hand side` covarying **with** `right-hand side`,
+#'     }
+#'     \item{on 1}{
+#'       `left-hand side` regressed **on 1** for mean structure.
+#'     }
 #'   }
 #'
 #' @section par.label:
@@ -25,10 +52,14 @@
 #'   and a character string for free parameters.
 #'   Equality contraints can be imposed by using the same `par.label`.
 #'
+#' @section Line breaks:
+#'   The characters `\n` and `;` can be used as line breaks.
+#'   **Each line should end with a line break.**
+#'
 #' @section Comments:
 #'   Comments can be written after a hash (`#`) sign.
 #'
-#' @return Returns list with the following elements
+#' @return Returns a list with the following elements
 #'
 #'   \describe{
 #'     \item{par.table}{Parameter table.}
@@ -36,25 +67,39 @@
 #'     \item{g.variables}{Variable names of observed variables.}
 #'     \item{h.variables}{Variable names of latent variables.}
 #'     \item{A}{
-#'       A `t by t` matrix \eqn{\mathbf{A}}.
+#'       `t by t` matrix \eqn{\mathbf{A}}.
 #'       Asymmetric paths (single-headed arrows),
 #'       such as regression coefficients and factor loadings.
 #'     }
 #'     \item{S}{
-#'       S `t by t` numeric matrix \eqn{\mathbf{S}}.
+#'       `t by t` numeric matrix \eqn{\mathbf{S}}.
 #'       Symmetric paths (double-headed arrows),
 #'       such as variances and covariances.
 #'     }
-#'     \item{u}{`t by 1` matrix of mean structure parameters.}
+#'     \item{u}{
+#'       `t by 1` matrix \eqn{\mathbf{u}} of mean structure parameters.
+#'     }
 #'     \item{Filter}{
-#'       Filter `p by t` numeric matrix
+#'       `p by t` numeric matrix
 #'       \eqn{\mathbf{F}}.
 #'       Filter matrix used to select observed variables.
 #'     }
-#'     \item{v}{`t by 1` matrix of expected values.}
-#'     \item{g}{`p by 1` matrix of expected values of observed variables.}
-#'     \item{C}{`t by t` matrix of expected covariances.}
-#'     \item{M}{`p by p` matrix of expected covariances of observed variables.}
+#'     \item{v}{
+#'       `t by 1` matrix \eqn{\mathbf{v}}
+#'       of expected values.
+#'     }
+#'     \item{g}{
+#'       `p by 1` matrix \eqn{\mathbf{g}}
+#'       of expected values of observed variables.
+#'     }
+#'     \item{C}{
+#'       `t by t` matrix \eqn{\mathbf{C}}
+#'       of expected covariances.
+#'     }
+#'     \item{M}{
+#'       `p by p` matrix \eqn{\mathbf{M}}
+#'       of expected covariances of observed variables.
+#'     }
 #'   }
 #'
 #' @author Ivan Jacob Agaloos Pesigan
@@ -100,7 +145,7 @@
 #' sigmax2 <- 0.25
 #' alpha <- 0
 #' mux <- 0.50
-#' Exp <- Eq2Expectations(eq, par = FALSE, str = FALSE)
+#' Exp <- Eq2Expectations(eq, par = FALSE, R = TRUE)
 #' eval(Exp$M)
 #' eval(Exp$g)
 #'
@@ -112,16 +157,15 @@
 #' p3 <- p[3]
 #' p4 <- p[4]
 #' p5 <- p[5]
-#' Exp <- Eq2Expectations(eq, par = TRUE, str = FALSE)
+#' Exp <- Eq2Expectations(eq, par = TRUE, R = TRUE)
 #' eval(Exp$M)
 #' eval(Exp$g)
 #' @export
 Eq2Expectations <- function(eq,
                             par = FALSE,
-                            str = TRUE,
-                            ysym = TRUE,
-                            simplify = FALSE,
-                            tex = FALSE) {
+                            R = FALSE,
+                            format = "ysym",
+                            simplify = FALSE) {
   Expectations <- Eq2RAM(
     eq,
     par = par
@@ -139,10 +183,9 @@ Eq2Expectations <- function(eq,
       S = Expectations$S,
       u = Expectations$u,
       Filter = Expectations$Filter,
-      str = str,
-      ysym = ysym,
-      simplify = simplify,
-      tex = tex
+      R = R,
+      format = format,
+      simplify = simplify
     )
   }
   return(

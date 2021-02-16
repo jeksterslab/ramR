@@ -102,15 +102,42 @@
 #' @section Syntax:
 #'   Each line should follow the syntax below
 #'
-#'   `lhs operation rhs value`
+#'   `lhs <space> op <space> rhs <space> par.label <\n> or <;>`
+#'
+#'   \describe{
+#'     \item{lhs}{
+#'       is the variable on the **left-hand side**,
+#'     }
+#'     \item{rhs}{
+#'       is the variable on the **right-hand side**,
+#'     }
+#'     \item{op}{
+#'       is the **operation** between `lhs` and `rhs`,
+#'     }
+#'     \item{par.label}{
+#'       is the column of **parameter label**,
+#'     }
+#'     \item{\\n or ;}{
+#'       are **line breaks**.
+#'       **Each line should end with a line break.**
+#'     }
+#'   }
 #'
 #'   The associations are defined by the following operations
 #'
 #'   \describe{
-#'     \item{by}{`left-hand side` measured **by** `right-hand side`}
-#'     \item{on}{`left-hand side` regressed **on** `right-hand side`}
-#'     \item{with}{`left-hand side` covarying **with** `right-hand side`}
-#'     \item{on 1}{`left-hand side` regressed **on 1** for mean structure}
+#'     \item{by}{
+#'       `left-hand side` measured **by** `right-hand side`,
+#'     }
+#'     \item{on}{
+#'       `left-hand side` regressed **on** `right-hand side`,
+#'     }
+#'     \item{with}{
+#'       `left-hand side` covarying **with** `right-hand side`,
+#'     }
+#'     \item{on 1}{
+#'       `left-hand side` regressed **on 1** for mean structure.
+#'     }
 #'   }
 #'
 #' @return \eqn{n} variates from \eqn{ \mathbf{X} \sim \mathcal{N}_{k}
@@ -120,8 +147,12 @@
 #'     \right) .
 #'   }
 #'
-#' @section Value:
+#' @section par.label:
 #'   Each parameter should have a numeric value.
+#'
+#' @section Line breaks:
+#'   The characters `\n` and `;` can be used as line breaks.
+#'   **Each line should end with a line break.**
 #'
 #' @section Comments:
 #'   Comments can be written after a hash (`#`) sign.
