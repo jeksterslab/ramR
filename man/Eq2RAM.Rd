@@ -14,7 +14,7 @@ If \code{par = TRUE}, use \code{par.index} as labels.
 If \code{par = FALSE}, use \code{par.label} as labels.}
 }
 \value{
-Returns list with the following elements
+Returns a list with the following elements
 
 \describe{
 \item{par.table}{Parameter table.}
@@ -22,18 +22,20 @@ Returns list with the following elements
 \item{g.variables}{Variable names of observed variables.}
 \item{h.variables}{Variable names of latent variables.}
 \item{A}{
-A \verb{t by t} matrix \eqn{\mathbf{A}}.
+\verb{t by t} matrix \eqn{\mathbf{A}}.
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.
 }
 \item{S}{
-S \verb{t by t} numeric matrix \eqn{\mathbf{S}}.
+\verb{t by t} numeric matrix \eqn{\mathbf{S}}.
 Symmetric paths (double-headed arrows),
 such as variances and covariances.
 }
-\item{u}{\verb{t by 1} matrix of mean structure parameters.}
+\item{u}{
+\verb{t by 1} matrix \eqn{\mathbf{u}} of mean structure parameters.
+}
 \item{Filter}{
-Filter \verb{p by t} numeric matrix
+\verb{p by t} numeric matrix
 \eqn{\mathbf{F}}.
 Filter matrix used to select observed variables.
 }
@@ -50,15 +52,42 @@ that specifies the associations between the variables.
 
 Each line should follow the syntax below
 
-\verb{lhs operation rhs par.label}
+\verb{lhs <space> op <space> rhs <space> par.label <\\n> or <;>}
+
+\describe{
+\item{lhs}{
+is the variable on the \strong{left-hand side},
+}
+\item{rhs}{
+is the variable on the \strong{right-hand side},
+}
+\item{op}{
+is the \strong{operation} between \code{lhs} and \code{rhs},
+}
+\item{par.label}{
+is the column of \strong{parameter label},
+}
+\item{\\n or ;}{
+are \strong{line breaks}.
+\strong{Each line should end with a line break.}
+}
+}
 
 The associations are defined by the following operations
 
 \describe{
-\item{by}{\verb{left-hand side} measured \strong{by} \verb{right-hand side}}
-\item{on}{\verb{left-hand side} regressed \strong{on} \verb{right-hand side}}
-\item{with}{\verb{left-hand side} covarying \strong{with} \verb{right-hand side}}
-\item{on 1}{\verb{left-hand side} regressed \strong{on 1} for mean structure}
+\item{by}{
+\verb{left-hand side} measured \strong{by} \verb{right-hand side},
+}
+\item{on}{
+\verb{left-hand side} regressed \strong{on} \verb{right-hand side},
+}
+\item{with}{
+\verb{left-hand side} covarying \strong{with} \verb{right-hand side},
+}
+\item{on 1}{
+\verb{left-hand side} regressed \strong{on 1} for mean structure.
+}
 }
 }
 
@@ -68,6 +97,12 @@ Each parameter should be labeled.
 The \code{par.label} should be a number for fixed parameters
 and a character string for free parameters.
 Equality contraints can be imposed by using the same \code{par.label}.
+}
+
+\section{Line breaks}{
+
+The characters \verb{\\n} and \verb{;} can be used as line breaks.
+\strong{Each line should end with a line break.}
 }
 
 \section{Comments}{

@@ -99,6 +99,9 @@ using the Reticular Action Model (RAM) notation." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/Equations.html">Equations</a>
+    </li>
+    <li>
       <a href="../articles/tests/test_two-variable-regression-C.html">Test: Two-Variable Linear Regression - C</a>
     </li>
     <li>
@@ -182,16 +185,7 @@ using the Reticular Action Model (RAM) notation.</p>
 <span class='fu'>u</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>v</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for yac_symbol</span>
-<span class='fu'>u</span><span class='op'>(</span>
-  <span class='va'>A</span>,
-  <span class='va'>v</span>,
-  exe <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  str <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  ysym <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  simplify <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  tex <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></pre>
+<span class='fu'>u</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>v</span>, exe <span class='op'>=</span> <span class='cn'>TRUE</span>, R <span class='op'>=</span> <span class='cn'>FALSE</span>, format <span class='op'>=</span> <span class='st'>"ysym"</span>, simplify <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -214,31 +208,34 @@ Expected values.</p></td>
     <tr>
       <th>exe</th>
       <td><p>Logical.
-If <code>exe = TRUE</code>, executes the resulting <code>yacas</code> expression.
-If <code>exe = FALSE</code>, returns the resulting <code>yacas</code> expression as a character string.
-If <code>exe = FALSE</code>, the arguments <code>str</code>, <code>ysym</code>, <code>simplify</code>, and <code>tex</code>, are ignored.</p></td>
+If <code>exe = TRUE</code>,
+executes the resulting <code>yacas</code> expression.
+If <code>exe = FALSE</code>,
+returns the resulting <code>yacas</code> expression as a character string.
+If <code>exe = FALSE</code>,
+the arguments <code>str</code>, <code>ysym</code>, <code>simplify</code>, and <code>tex</code>, are ignored.</p></td>
     </tr>
     <tr>
-      <th>str</th>
+      <th>R</th>
       <td><p>Logical.
-If <code>str = TRUE</code>, returns symbolic result as string.
-If <code>str = FALSE</code>, returns symbolic result as an <code>R</code> expression.</p></td>
+If <code>R = TRUE</code>, returns symbolic result as an <code>R</code> expression.
+If <code>R = FALSE</code>, returns symbolic result as <code>"ysym"</code>, <code>"str"</code>,  or <code>"tex"</code>
+depending of <code>format</code>.</p></td>
     </tr>
     <tr>
-      <th>ysym</th>
-      <td><p>Logical.
-If <code>ysym = TRUE</code>, returns symbolic result as <code>yac_symbol</code> if <code>str = TRUE</code>.
-If <code>ysym = FALSE</code>, returns symbolic result as string if <code>str = TRUE</code>.</p></td>
+      <th>format</th>
+      <td><p>Character string.
+Only used when <code>R = FALSE</code>.
+If <code>format = "ysym"</code>,
+returns symbolic result as <code>yac_symbol</code>.
+If <code>format = "str"</code>,
+returns symbolic result as a characetr string.
+If <code>format = "tex"</code>,
+returns symbolic result as laTeX math.</p></td>
     </tr>
     <tr>
       <th>simplify</th>
       <td><p>Logical. Simplify symbolic results.</p></td>
-    </tr>
-    <tr>
-      <th>tex</th>
-      <td><p>Logical.
-If <code>tex = TRUE</code> returns results as latex math if <code>str = TRUE</code>.
-If <code>tex = FALSE</code>, returns symbolic result as string if <code>str = TRUE</code>.</p></td>
     </tr>
     </table>
 
@@ -293,11 +290,11 @@ of the Reticular Action Model for moment structures.
     <p>Ivan Jacob Agaloos Pesigan</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># This is a numerical example for the model</span>
+    <pre class="examples"><div class='input'><span class='co'># Numeric -----------------------------------------------------------</span>
+<span class='co'># This is a numerical example for the model</span>
 <span class='co'># y = alpha + beta * x + e</span>
 <span class='co'># y = 0 + 1 * x + e</span>
 
-<span class='co'># Numeric -----------------------------------------------------------</span>
 <span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'>matrixR</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/matrixR/man/ZeroMatrix.html'>ZeroMatrix</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>
 <span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>
 <span class='va'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.50</span>, <span class='fl'>0.50</span>, <span class='fl'>0.00</span><span class='op'>)</span>
@@ -306,15 +303,24 @@ of the Reticular Action Model for moment structures.
 </div><div class='output co'>#&gt;     u
 #&gt; y 0.0
 #&gt; x 0.5
-#&gt; e 0.0</div><div class='input'>
-<span class='co'># Symbolic ----------------------------------------------------------</span>
+#&gt; e 0.0</div><div class='input'><span class='co'># Symbolic ----------------------------------------------------------</span>
+<span class='co'># This is a symbolic example for the model</span>
+<span class='co'># y = alpha + beta * x + e</span>
+<span class='co'># y = 0 + 1 * x + e</span>
+
 <span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'>matrixR</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/matrixR/man/ZeroMatrix.html'>ZeroMatrix</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>
 <span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='st'>"beta"</span>, <span class='fl'>1</span><span class='op'>)</span>
 <span class='va'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"alpha+beta*mux"</span>, <span class='st'>"mux"</span>, <span class='fl'>0</span><span class='op'>)</span>
-<span class='co'># u(A, v, sym = TRUE)</span>
-<span class='co'># u(A, v, sym = TRUE, str = FALSE)</span>
-<span class='co'># u(A, v, sym = TRUE, ysym = FALSE)</span>
-<span class='co'># u(A, v, sym = TRUE, tex = TRUE)</span>
+<span class='fu'>u</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>v</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; {{alpha+beta*mux},
+#&gt;  {           mux},
+#&gt;  {             0}} </div><div class='input'><span class='fu'>u</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>v</span>, format <span class='op'>=</span> <span class='st'>"tex"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "\\left( \\begin{array}{c} \\alpha  + \\beta  \\mathrm{ mux } \\\\ \\mathrm{ mux } \\\\ 0 \\end{array} \\right)"</div><div class='input'><span class='fu'>u</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>v</span>, format <span class='op'>=</span> <span class='st'>"ysym"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; {{alpha+beta*mux},
+#&gt;  {           mux},
+#&gt;  {             0}} </div><div class='input'><span class='fu'>u</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>v</span>, R <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; expression(rbind(c(alpha + beta * mux), c(mux), c(0)))</div><div class='input'>
+<span class='co'># Assigning values to symbols</span>
 
 <span class='va'>alpha</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
 <span class='va'>beta</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
@@ -322,10 +328,12 @@ of the Reticular Action Model for moment structures.
 <span class='fu'>u</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>v</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; {{alpha+beta*mux},
 #&gt;  {           mux},
-#&gt;  {             0}} </div><div class='input'><span class='fu'>u</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>v</span>, tex <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "\\left( \\begin{array}{c} \\alpha  + \\beta  \\mathrm{ mux } \\\\ \\mathrm{ mux } \\\\ 0 \\end{array} \\right)"</div><div class='input'><span class='fu'>u</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>v</span>, ysym <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "{{alpha+beta*mux},{mux},{0}}"</div><div class='input'><span class='fu'>u</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>v</span>, str <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; expression(rbind(c(alpha + beta * mux), c(mux), c(0)))</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='fu'>u</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>v</span>, str <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span>
+#&gt;  {             0}} </div><div class='input'><span class='fu'>u</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>v</span>, format <span class='op'>=</span> <span class='st'>"tex"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "\\left( \\begin{array}{c} \\alpha  + \\beta  \\mathrm{ mux } \\\\ \\mathrm{ mux } \\\\ 0 \\end{array} \\right)"</div><div class='input'><span class='fu'>u</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>v</span>, format <span class='op'>=</span> <span class='st'>"ysym"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; {{alpha+beta*mux},
+#&gt;  {           mux},
+#&gt;  {             0}} </div><div class='input'><span class='fu'>u</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>v</span>, R <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; expression(rbind(c(alpha + beta * mux), c(mux), c(0)))</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='fu'>u</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>v</span>, R <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1]
 #&gt; [1,]  0.5
 #&gt; [2,]  0.5

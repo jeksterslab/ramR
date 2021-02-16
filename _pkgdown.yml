@@ -18,7 +18,3 @@ reference:
   desc: RAM matrices functions.
 - contents:
   - has_keyword("ram")
-- title: Yacas
-  desc: Yacas
-- contents:
-  - has_keyword("yac")

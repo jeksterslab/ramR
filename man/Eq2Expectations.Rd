@@ -4,14 +4,7 @@
 \alias{Eq2Expectations}
 \title{Equations to Expectations}
 \usage{
-Eq2Expectations(
-  eq,
-  par = FALSE,
-  str = TRUE,
-  ysym = TRUE,
-  simplify = FALSE,
-  tex = FALSE
-)
+Eq2Expectations(eq, par = FALSE, R = FALSE, format = "ysym", simplify = FALSE)
 }
 \arguments{
 \item{eq}{Character string. Equations. See Details.}
@@ -20,22 +13,24 @@ Eq2Expectations(
 If \code{par = TRUE}, use \code{par.index} as labels.
 If \code{par = FALSE}, use \code{par.label} as labels.}
 
-\item{str}{Logical.
-If \code{str = TRUE}, returns symbolic result as string.
-If \code{str = FALSE}, returns symbolic result as an \code{R} expression.}
+\item{R}{Logical.
+If \code{R = TRUE}, returns symbolic result as an \code{R} expression.
+If \code{R = FALSE}, returns symbolic result as \code{"ysym"}, \code{"str"},  or \code{"tex"}
+depending of \code{format}.}
 
-\item{ysym}{Logical.
-If \code{ysym = TRUE}, returns symbolic result as \code{yac_symbol} if \code{str = TRUE}.
-If \code{ysym = FALSE}, returns symbolic result as string if \code{str = TRUE}.}
+\item{format}{Character string.
+Only used when \code{R = FALSE}.
+If \code{format = "ysym"},
+returns symbolic result as \code{yac_symbol}.
+If \code{format = "str"},
+returns symbolic result as a characetr string.
+If \code{format = "tex"},
+returns symbolic result as laTeX math.}
 
 \item{simplify}{Logical. Simplify symbolic results.}
-
-\item{tex}{Logical.
-If \code{tex = TRUE} returns results as latex math if \code{str = TRUE}.
-If \code{tex = FALSE}, returns symbolic result as string if \code{str = TRUE}.}
 }
 \value{
-Returns list with the following elements
+Returns a list with the following elements
 
 \describe{
 \item{par.table}{Parameter table.}
@@ -43,25 +38,39 @@ Returns list with the following elements
 \item{g.variables}{Variable names of observed variables.}
 \item{h.variables}{Variable names of latent variables.}
 \item{A}{
-A \verb{t by t} matrix \eqn{\mathbf{A}}.
+\verb{t by t} matrix \eqn{\mathbf{A}}.
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.
 }
 \item{S}{
-S \verb{t by t} numeric matrix \eqn{\mathbf{S}}.
+\verb{t by t} numeric matrix \eqn{\mathbf{S}}.
 Symmetric paths (double-headed arrows),
 such as variances and covariances.
 }
-\item{u}{\verb{t by 1} matrix of mean structure parameters.}
+\item{u}{
+\verb{t by 1} matrix \eqn{\mathbf{u}} of mean structure parameters.
+}
 \item{Filter}{
-Filter \verb{p by t} numeric matrix
+\verb{p by t} numeric matrix
 \eqn{\mathbf{F}}.
 Filter matrix used to select observed variables.
 }
-\item{v}{\verb{t by 1} matrix of expected values.}
-\item{g}{\verb{p by 1} matrix of expected values of observed variables.}
-\item{C}{\verb{t by t} matrix of expected covariances.}
-\item{M}{\verb{p by p} matrix of expected covariances of observed variables.}
+\item{v}{
+\verb{t by 1} matrix \eqn{\mathbf{v}}
+of expected values.
+}
+\item{g}{
+\verb{p by 1} matrix \eqn{\mathbf{g}}
+of expected values of observed variables.
+}
+\item{C}{
+\verb{t by t} matrix \eqn{\mathbf{C}}
+of expected covariances.
+}
+\item{M}{
+\verb{p by p} matrix \eqn{\mathbf{M}}
+of expected covariances of observed variables.
+}
 }
 }
 \description{
@@ -75,15 +84,42 @@ that specifies the associations between the variables.
 
 Each line should follow the syntax below
 
-\verb{lhs operation rhs par.label}
+\verb{lhs <space> op <space> rhs <space> par.label <\\n> or <;>}
+
+\describe{
+\item{lhs}{
+is the variable on the \strong{left-hand side},
+}
+\item{rhs}{
+is the variable on the \strong{right-hand side},
+}
+\item{op}{
+is the \strong{operation} between \code{lhs} and \code{rhs},
+}
+\item{par.label}{
+is the column of \strong{parameter label},
+}
+\item{\\n or ;}{
+are \strong{line breaks}.
+\strong{Each line should end with a line break.}
+}
+}
 
 The associations are defined by the following operations
 
 \describe{
-\item{by}{\verb{left-hand side} measured \strong{by} \verb{right-hand side}}
-\item{on}{\verb{left-hand side} regressed \strong{on} \verb{right-hand side}}
-\item{with}{\verb{left-hand side} covarying \strong{with} \verb{right-hand side}}
-\item{on 1}{\verb{left-hand side} regressed \strong{on 1} for mean structure}
+\item{by}{
+\verb{left-hand side} measured \strong{by} \verb{right-hand side},
+}
+\item{on}{
+\verb{left-hand side} regressed \strong{on} \verb{right-hand side},
+}
+\item{with}{
+\verb{left-hand side} covarying \strong{with} \verb{right-hand side},
+}
+\item{on 1}{
+\verb{left-hand side} regressed \strong{on 1} for mean structure.
+}
 }
 }
 
@@ -93,6 +129,12 @@ Each parameter should be labeled.
 The \code{par.label} should be a number for fixed parameters
 and a character string for free parameters.
 Equality contraints can be imposed by using the same \code{par.label}.
+}
+
+\section{Line breaks}{
+
+The characters \verb{\\n} and \verb{;} can be used as line breaks.
+\strong{Each line should end with a line break.}
 }
 
 \section{Comments}{
@@ -133,7 +175,7 @@ sigmae2 <- 1
 sigmax2 <- 0.25
 alpha <- 0
 mux <- 0.50
-Exp <- Eq2Expectations(eq, par = FALSE, str = FALSE)
+Exp <- Eq2Expectations(eq, par = FALSE, R = TRUE)
 eval(Exp$M)
 eval(Exp$g)
 
@@ -145,7 +187,7 @@ p2 <- p[2]
 p3 <- p[3]
 p4 <- p[4]
 p5 <- p[5]
-Exp <- Eq2Expectations(eq, par = TRUE, str = FALSE)
+Exp <- Eq2Expectations(eq, par = TRUE, R = TRUE)
 eval(Exp$M)
 eval(Exp$g)
 }

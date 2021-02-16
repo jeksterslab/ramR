@@ -2,6 +2,7 @@ pandoc: 2.11.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
+  Equations: Equations.html
   ramR: ramR.html
   tests/test_two-variable-regression-C: test_two-variable-regression-C.html
   tests/test_two-variable-regression-E: test_two-variable-regression-E.html
@@ -17,7 +18,7 @@ articles:
   tests/test_two-variable-regression-g: test_two-variable-regression-g.html
   tests/test_two-variable-regression-u: test_two-variable-regression-u.html
   tests/test_two-variable-regression-v: test_two-variable-regression-v.html
-last_built: 2021-02-15T17:30Z
+last_built: 2021-02-16T20:01Z
 urls:
   reference: https://github.com/jeksterslab/ramR//reference
   article: https://github.com/jeksterslab/ramR//articles

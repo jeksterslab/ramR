@@ -63,10 +63,9 @@ g <- as.matrix(
 #' \begin{equation}
 #'   \begin{split}
 #'     y &= \alpha + \beta x + \varepsilon \\
-#'     y &= `r alpha` + `r beta` x + \varepsilon
+#'     y &= `r alpha` + \left( `r beta` x \right) + \varepsilon
 #'   \end{split}
 #' \end{equation}
-#'
 #'
 #+ Eq2Data
 eq <- paste(

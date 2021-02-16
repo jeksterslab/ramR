@@ -28,8 +28,10 @@ Imports:
     MASS,
     Ryacas,
     methods,
+    yacR,
     matrixR
 Remotes:
+    jeksterslab/yacR,
     jeksterslab/matrixR
 Suggests:
     knitr,

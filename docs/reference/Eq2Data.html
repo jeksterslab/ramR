@@ -99,6 +99,9 @@ from model equations using the MASS::mvrnorm() function." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/Equations.html">Equations</a>
+    </li>
+    <li>
       <a href="../articles/tests/test_two-variable-regression-C.html">Test: Two-Variable Linear Regression - C</a>
     </li>
     <li>
@@ -297,21 +300,37 @@ $$
     
 
 <p>Each line should follow the syntax below</p>
-<p><code>lhs operation rhs value</code></p>
-<p>The associations are defined by the following operations</p>
+<p><code>lhs &lt;space&gt; op &lt;space&gt; rhs &lt;space&gt; par.label &lt;\n&gt; or &lt;;&gt;</code></p>
 <dl>
-<dt>by</dt><dd><p><code>left-hand side</code> measured <strong>by</strong> <code>right-hand side</code></p></dd>
-<dt>on</dt><dd><p><code>left-hand side</code> regressed <strong>on</strong> <code>right-hand side</code></p></dd>
-<dt>with</dt><dd><p><code>left-hand side</code> covarying <strong>with</strong> <code>right-hand side</code></p></dd>
-<dt>on 1</dt><dd><p><code>left-hand side</code> regressed <strong>on 1</strong> for mean structure</p></dd>
+<dt>lhs</dt><dd><p>is the variable on the <strong>left-hand side</strong>,</p></dd>
+<dt>rhs</dt><dd><p>is the variable on the <strong>right-hand side</strong>,</p></dd>
+<dt>op</dt><dd><p>is the <strong>operation</strong> between <code>lhs</code> and <code>rhs</code>,</p></dd>
+<dt>par.label</dt><dd><p>is the column of <strong>parameter label</strong>,</p></dd>
+<dt>\n or ;</dt><dd><p>are <strong>line breaks</strong>.
+<strong>Each line should end with a line break.</strong></p></dd>
 
 </dl>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+<p>The associations are defined by the following operations</p>
+<dl>
+<dt>by</dt><dd><p><code>left-hand side</code> measured <strong>by</strong> <code>right-hand side</code>,</p></dd>
+<dt>on</dt><dd><p><code>left-hand side</code> regressed <strong>on</strong> <code>right-hand side</code>,</p></dd>
+<dt>with</dt><dd><p><code>left-hand side</code> covarying <strong>with</strong> <code>right-hand side</code>,</p></dd>
+<dt>on 1</dt><dd><p><code>left-hand side</code> regressed <strong>on 1</strong> for mean structure.</p></dd>
+
+</dl>
+
+    <h2 class="hasAnchor" id="par-label"><a class="anchor" href="#par-label"></a>par.label</h2>
 
     
 
 <p>Each parameter should have a numeric value.</p>
+    <h2 class="hasAnchor" id="line-breaks"><a class="anchor" href="#line-breaks"></a>Line breaks</h2>
+
+    
+
+<p>The characters <code>\n</code> and <code>;</code> can be used as line breaks.
+<strong>Each line should end with a line break.</strong></p>
     <h2 class="hasAnchor" id="comments"><a class="anchor" href="#comments"></a>Comments</h2>
 
     

@@ -98,6 +98,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/Equations.html">Equations</a>
+    </li>
+    <li>
       <a href="../articles/tests/test_two-variable-regression-C.html">Test: Two-Variable Linear Regression - C</a>
     </li>
     <li>
@@ -174,14 +177,7 @@
     <p>Converts equations to expectations.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Eq2Expectations</span><span class='op'>(</span>
-  <span class='va'>eq</span>,
-  par <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  str <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  ysym <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  simplify <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  tex <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>Eq2Expectations</span><span class='op'>(</span><span class='va'>eq</span>, par <span class='op'>=</span> <span class='cn'>FALSE</span>, R <span class='op'>=</span> <span class='cn'>FALSE</span>, format <span class='op'>=</span> <span class='st'>"ysym"</span>, simplify <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -197,51 +193,55 @@ If <code>par = TRUE</code>, use <code>par.index</code> as labels.
 If <code>par = FALSE</code>, use <code>par.label</code> as labels.</p></td>
     </tr>
     <tr>
-      <th>str</th>
+      <th>R</th>
       <td><p>Logical.
-If <code>str = TRUE</code>, returns symbolic result as string.
-If <code>str = FALSE</code>, returns symbolic result as an <code>R</code> expression.</p></td>
+If <code>R = TRUE</code>, returns symbolic result as an <code>R</code> expression.
+If <code>R = FALSE</code>, returns symbolic result as <code>"ysym"</code>, <code>"str"</code>,  or <code>"tex"</code>
+depending of <code>format</code>.</p></td>
     </tr>
     <tr>
-      <th>ysym</th>
-      <td><p>Logical.
-If <code>ysym = TRUE</code>, returns symbolic result as <code>yac_symbol</code> if <code>str = TRUE</code>.
-If <code>ysym = FALSE</code>, returns symbolic result as string if <code>str = TRUE</code>.</p></td>
+      <th>format</th>
+      <td><p>Character string.
+Only used when <code>R = FALSE</code>.
+If <code>format = "ysym"</code>,
+returns symbolic result as <code>yac_symbol</code>.
+If <code>format = "str"</code>,
+returns symbolic result as a characetr string.
+If <code>format = "tex"</code>,
+returns symbolic result as laTeX math.</p></td>
     </tr>
     <tr>
       <th>simplify</th>
       <td><p>Logical. Simplify symbolic results.</p></td>
     </tr>
-    <tr>
-      <th>tex</th>
-      <td><p>Logical.
-If <code>tex = TRUE</code> returns results as latex math if <code>str = TRUE</code>.
-If <code>tex = FALSE</code>, returns symbolic result as string if <code>str = TRUE</code>.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns list with the following elements</p>
+    <p>Returns a list with the following elements</p>
 <dl>
 <dt>par.table</dt><dd><p>Parameter table.</p></dd>
 <dt>variables</dt><dd><p>Variable names.</p></dd>
 <dt>g.variables</dt><dd><p>Variable names of observed variables.</p></dd>
 <dt>h.variables</dt><dd><p>Variable names of latent variables.</p></dd>
-<dt>A</dt><dd><p>A <code>t by t</code> matrix \(\mathbf{A}\).
+<dt>A</dt><dd><p><code>t by t</code> matrix \(\mathbf{A}\).
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.</p></dd>
-<dt>S</dt><dd><p>S <code>t by t</code> numeric matrix \(\mathbf{S}\).
+<dt>S</dt><dd><p><code>t by t</code> numeric matrix \(\mathbf{S}\).
 Symmetric paths (double-headed arrows),
 such as variances and covariances.</p></dd>
-<dt>u</dt><dd><p><code>t by 1</code> matrix of mean structure parameters.</p></dd>
-<dt>Filter</dt><dd><p>Filter <code>p by t</code> numeric matrix
+<dt>u</dt><dd><p><code>t by 1</code> matrix \(\mathbf{u}\) of mean structure parameters.</p></dd>
+<dt>Filter</dt><dd><p><code>p by t</code> numeric matrix
 \(\mathbf{F}\).
 Filter matrix used to select observed variables.</p></dd>
-<dt>v</dt><dd><p><code>t by 1</code> matrix of expected values.</p></dd>
-<dt>g</dt><dd><p><code>p by 1</code> matrix of expected values of observed variables.</p></dd>
-<dt>C</dt><dd><p><code>t by t</code> matrix of expected covariances.</p></dd>
-<dt>M</dt><dd><p><code>p by p</code> matrix of expected covariances of observed variables.</p></dd>
+<dt>v</dt><dd><p><code>t by 1</code> matrix \(\mathbf{v}\)
+of expected values.</p></dd>
+<dt>g</dt><dd><p><code>p by 1</code> matrix \(\mathbf{g}\)
+of expected values of observed variables.</p></dd>
+<dt>C</dt><dd><p><code>t by t</code> matrix \(\mathbf{C}\)
+of expected covariances.</p></dd>
+<dt>M</dt><dd><p><code>p by p</code> matrix \(\mathbf{M}\)
+of expected covariances of observed variables.</p></dd>
 
 </dl>
 
@@ -254,13 +254,23 @@ that specifies the associations between the variables.</p>
     
 
 <p>Each line should follow the syntax below</p>
-<p><code>lhs operation rhs par.label</code></p>
+<p><code>lhs &lt;space&gt; op &lt;space&gt; rhs &lt;space&gt; par.label &lt;\n&gt; or &lt;;&gt;</code></p>
+<dl>
+<dt>lhs</dt><dd><p>is the variable on the <strong>left-hand side</strong>,</p></dd>
+<dt>rhs</dt><dd><p>is the variable on the <strong>right-hand side</strong>,</p></dd>
+<dt>op</dt><dd><p>is the <strong>operation</strong> between <code>lhs</code> and <code>rhs</code>,</p></dd>
+<dt>par.label</dt><dd><p>is the column of <strong>parameter label</strong>,</p></dd>
+<dt>\n or ;</dt><dd><p>are <strong>line breaks</strong>.
+<strong>Each line should end with a line break.</strong></p></dd>
+
+</dl>
+
 <p>The associations are defined by the following operations</p>
 <dl>
-<dt>by</dt><dd><p><code>left-hand side</code> measured <strong>by</strong> <code>right-hand side</code></p></dd>
-<dt>on</dt><dd><p><code>left-hand side</code> regressed <strong>on</strong> <code>right-hand side</code></p></dd>
-<dt>with</dt><dd><p><code>left-hand side</code> covarying <strong>with</strong> <code>right-hand side</code></p></dd>
-<dt>on 1</dt><dd><p><code>left-hand side</code> regressed <strong>on 1</strong> for mean structure</p></dd>
+<dt>by</dt><dd><p><code>left-hand side</code> measured <strong>by</strong> <code>right-hand side</code>,</p></dd>
+<dt>on</dt><dd><p><code>left-hand side</code> regressed <strong>on</strong> <code>right-hand side</code>,</p></dd>
+<dt>with</dt><dd><p><code>left-hand side</code> covarying <strong>with</strong> <code>right-hand side</code>,</p></dd>
+<dt>on 1</dt><dd><p><code>left-hand side</code> regressed <strong>on 1</strong> for mean structure.</p></dd>
 
 </dl>
 
@@ -272,6 +282,12 @@ that specifies the associations between the variables.</p>
 The <code>par.label</code> should be a number for fixed parameters
 and a character string for free parameters.
 Equality contraints can be imposed by using the same <code>par.label</code>.</p>
+    <h2 class="hasAnchor" id="line-breaks"><a class="anchor" href="#line-breaks"></a>Line breaks</h2>
+
+    
+
+<p>The characters <code>\n</code> and <code>;</code> can be used as line breaks.
+<strong>Each line should end with a line break.</strong></p>
     <h2 class="hasAnchor" id="comments"><a class="anchor" href="#comments"></a>Comments</h2>
 
     
@@ -497,7 +513,7 @@ of the Reticular Action Model for moment structures.
 <span class='va'>sigmax2</span> <span class='op'>&lt;-</span> <span class='fl'>0.25</span>
 <span class='va'>alpha</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
 <span class='va'>mux</span> <span class='op'>&lt;-</span> <span class='fl'>0.50</span>
-<span class='va'>Exp</span> <span class='op'>&lt;-</span> <span class='fu'>Eq2Expectations</span><span class='op'>(</span><span class='va'>eq</span>, par <span class='op'>=</span> <span class='cn'>FALSE</span>, str <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>Exp</span> <span class='op'>&lt;-</span> <span class='fu'>Eq2Expectations</span><span class='op'>(</span><span class='va'>eq</span>, par <span class='op'>=</span> <span class='cn'>FALSE</span>, R <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>Exp</span><span class='op'>$</span><span class='va'>M</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1] [,2]
 #&gt; [1,] 1.25 0.25
@@ -513,7 +529,7 @@ of the Reticular Action Model for moment structures.
 <span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span>
 <span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p</span><span class='op'>[</span><span class='fl'>4</span><span class='op'>]</span>
 <span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='va'>p</span><span class='op'>[</span><span class='fl'>5</span><span class='op'>]</span>
-<span class='va'>Exp</span> <span class='op'>&lt;-</span> <span class='fu'>Eq2Expectations</span><span class='op'>(</span><span class='va'>eq</span>, par <span class='op'>=</span> <span class='cn'>TRUE</span>, str <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>Exp</span> <span class='op'>&lt;-</span> <span class='fu'>Eq2Expectations</span><span class='op'>(</span><span class='va'>eq</span>, par <span class='op'>=</span> <span class='cn'>TRUE</span>, R <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>Exp</span><span class='op'>$</span><span class='va'>M</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1] [,2]
 #&gt; [1,] 1.25 0.25

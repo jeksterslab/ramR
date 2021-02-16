@@ -63,7 +63,7 @@ g <- as.matrix(
 #' \begin{equation}
 #'   \begin{split}
 #'     y &= \alpha + \beta x + \varepsilon \\
-#'     y &= `r alpha` + `r beta` x + \varepsilon
+#'     y &= `r alpha` + \left( `r beta` x \right) + \varepsilon
 #'   \end{split}
 #' \end{equation}
 #'
@@ -77,7 +77,7 @@ SymbolicS <- round(
     ramR::S(
       Ryacas::ysym(A),
       C,
-      str = TRUE,
+      R = FALSE,
       simplify = TRUE
     )
   ),
@@ -88,7 +88,7 @@ SymbolicSExpr <- round(
     ramR::S(
       Ryacas::ysym(A),
       C,
-      str = FALSE,
+      R = TRUE,
       simplify = TRUE
     )
   ),
@@ -99,7 +99,7 @@ SymbolicSExpr <- round(
 ramR::S(
   Ryacas::ysym(A),
   C,
-  str = TRUE,
+  R = FALSE,
   ysym = FALSE,
   simplify = TRUE
 )
@@ -110,8 +110,8 @@ cat(
   ramR::S(
     Ryacas::ysym(A),
     C,
-    str = TRUE,
-    tex = TRUE
+    R = FALSE,
+    format = "tex"
   ),
   "\\end{align*}",
   sep = ""

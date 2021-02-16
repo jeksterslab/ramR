@@ -15,10 +15,9 @@ g(A, u, Filter = NULL, ...)
   u,
   Filter = NULL,
   exe = TRUE,
-  str = TRUE,
-  ysym = TRUE,
+  R = FALSE,
+  format = "ysym",
   simplify = FALSE,
-  tex = FALSE,
   ...
 )
 }
@@ -37,23 +36,28 @@ Filter matrix used to select observed variables.}
 \item{...}{...}
 
 \item{exe}{Logical.
-If \code{exe = TRUE}, executes the resulting \code{yacas} expression.
-If \code{exe = FALSE}, returns the resulting \code{yacas} expression as a character string.
-If \code{exe = FALSE}, the arguments \code{str}, \code{ysym}, \code{simplify}, and \code{tex}, are ignored.}
+If \code{exe = TRUE},
+executes the resulting \code{yacas} expression.
+If \code{exe = FALSE},
+returns the resulting \code{yacas} expression as a character string.
+If \code{exe = FALSE},
+the arguments \code{str}, \code{ysym}, \code{simplify}, and \code{tex}, are ignored.}
 
-\item{str}{Logical.
-If \code{str = TRUE}, returns symbolic result as string.
-If \code{str = FALSE}, returns symbolic result as an \code{R} expression.}
+\item{R}{Logical.
+If \code{R = TRUE}, returns symbolic result as an \code{R} expression.
+If \code{R = FALSE}, returns symbolic result as \code{"ysym"}, \code{"str"},  or \code{"tex"}
+depending of \code{format}.}
 
-\item{ysym}{Logical.
-If \code{ysym = TRUE}, returns symbolic result as \code{yac_symbol} if \code{str = TRUE}.
-If \code{ysym = FALSE}, returns symbolic result as string if \code{str = TRUE}.}
+\item{format}{Character string.
+Only used when \code{R = FALSE}.
+If \code{format = "ysym"},
+returns symbolic result as \code{yac_symbol}.
+If \code{format = "str"},
+returns symbolic result as a characetr string.
+If \code{format = "tex"},
+returns symbolic result as laTeX math.}
 
 \item{simplify}{Logical. Simplify symbolic results.}
-
-\item{tex}{Logical.
-If \code{tex = TRUE} returns results as latex math if \code{str = TRUE}.
-If \code{tex = FALSE}, returns symbolic result as string if \code{str = TRUE}.}
 }
 \value{
 \eqn{\mathbf{g} = \mathbf{F} \mathbf{v}}
@@ -103,11 +107,11 @@ that is \eqn{p + q} .
 }
 }
 \examples{
+# Numeric -----------------------------------------------------------
 # This is a numerical example for the model
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
 
-# Numeric -----------------------------------------------------------
 A <- matrixR::ZeroMatrix(3)
 A[1, ] <- c(0, 1, 1)
 u <- c(0.00, 0.50, 0.00)
@@ -115,24 +119,29 @@ Filter <- diag(2)
 Filter <- cbind(Filter, 0)
 colnames(A) <- rownames(A) <- c("y", "x", "e")
 g(A, u, Filter)
-
 # Symbolic ----------------------------------------------------------
+# This is a symbolic example for the model
+# y = alpha + beta * x + e
+# y = 0 + 1 * x + e
+
 A <- matrixR::ZeroMatrix(3)
 A[1, ] <- c(0, "beta", 1)
 u <- c("alpha", "mux", 0)
 g(Ryacas::ysym(A), u, Filter)
-g(Ryacas::ysym(A), u, Filter, tex = TRUE)
-g(Ryacas::ysym(A), u, Filter, ysym = FALSE)
-g(Ryacas::ysym(A), u, Filter, str = FALSE)
+g(Ryacas::ysym(A), u, Filter, format = "tex")
+g(Ryacas::ysym(A), u, Filter, format = "ysym")
+g(Ryacas::ysym(A), u, Filter, R = TRUE)
+
+# Assigning values to symbols
 
 alpha <- 0
 beta <- 1
 mux <- 0.50
 g(Ryacas::ysym(A), u, Filter)
-g(Ryacas::ysym(A), u, Filter, tex = TRUE)
-g(Ryacas::ysym(A), u, Filter, ysym = FALSE)
-g(Ryacas::ysym(A), u, Filter, str = FALSE)
-eval(g(Ryacas::ysym(A), u, Filter, str = FALSE))
+g(Ryacas::ysym(A), u, Filter, format = "tex")
+g(Ryacas::ysym(A), u, Filter, format = "ysym")
+g(Ryacas::ysym(A), u, Filter, R = TRUE)
+eval(g(Ryacas::ysym(A), u, Filter, R = TRUE))
 }
 \references{
 McArdle, J. J., & McDonald, R. P. (1984).

@@ -127,21 +127,54 @@ are used as parameters to generate the data.
 
 Each line should follow the syntax below
 
-\verb{lhs operation rhs value}
+\verb{lhs <space> op <space> rhs <space> par.label <\\n> or <;>}
+
+\describe{
+\item{lhs}{
+is the variable on the \strong{left-hand side},
+}
+\item{rhs}{
+is the variable on the \strong{right-hand side},
+}
+\item{op}{
+is the \strong{operation} between \code{lhs} and \code{rhs},
+}
+\item{par.label}{
+is the column of \strong{parameter label},
+}
+\item{\\n or ;}{
+are \strong{line breaks}.
+\strong{Each line should end with a line break.}
+}
+}
 
 The associations are defined by the following operations
 
 \describe{
-\item{by}{\verb{left-hand side} measured \strong{by} \verb{right-hand side}}
-\item{on}{\verb{left-hand side} regressed \strong{on} \verb{right-hand side}}
-\item{with}{\verb{left-hand side} covarying \strong{with} \verb{right-hand side}}
-\item{on 1}{\verb{left-hand side} regressed \strong{on 1} for mean structure}
+\item{by}{
+\verb{left-hand side} measured \strong{by} \verb{right-hand side},
+}
+\item{on}{
+\verb{left-hand side} regressed \strong{on} \verb{right-hand side},
+}
+\item{with}{
+\verb{left-hand side} covarying \strong{with} \verb{right-hand side},
+}
+\item{on 1}{
+\verb{left-hand side} regressed \strong{on 1} for mean structure.
+}
 }
 }
 
-\section{Value}{
+\section{par.label}{
 
 Each parameter should have a numeric value.
+}
+
+\section{Line breaks}{
+
+The characters \verb{\\n} and \verb{;} can be used as line breaks.
+\strong{Each line should end with a line break.}
 }
 
 \section{Comments}{

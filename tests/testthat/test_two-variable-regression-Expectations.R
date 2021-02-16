@@ -63,7 +63,7 @@ g <- as.matrix(
 #' \begin{equation}
 #'   \begin{split}
 #'     y &= \alpha + \beta x + \varepsilon \\
-#'     y &= `r alpha` + `r beta` x + \varepsilon
+#'     y &= `r alpha` + \left( `r beta` x \right) + \varepsilon
 #'   \end{split}
 #' \end{equation}
 #'
@@ -115,7 +115,7 @@ SymbolicExpr <- ramR::Expectations(
   S,
   u,
   Filter,
-  str = FALSE,
+  R = TRUE,
   simplify = TRUE
 )
 SymbolicExprC <- round(Ryacas::as_r(SymbolicExpr$C), digits = 4)
@@ -127,7 +127,7 @@ ramR::Expectations(
   S,
   u,
   Filter,
-  str = TRUE,
+  R = FALSE,
   ysym = FALSE,
   simplify = TRUE
 )
@@ -136,7 +136,7 @@ ramR::Expectations(
   S,
   u = NULL,
   Filter = NULL,
-  str = TRUE,
+  R = FALSE,
   ysym = FALSE,
   simplify = TRUE
 )
@@ -145,8 +145,8 @@ ramR::Expectations(
   S,
   u = NULL,
   Filter = NULL,
-  str = TRUE,
-  tex = TRUE,
+  R = FALSE,
+  format = "tex",
   simplify = TRUE
 )
 ExpectationsTex <- ramR::Expectations(
@@ -154,8 +154,8 @@ ExpectationsTex <- ramR::Expectations(
   S,
   u,
   Filter,
-  str = TRUE,
-  tex = TRUE,
+  R = FALSE,
+  format = "tex",
   simplify = TRUE
 )
 #'
@@ -184,7 +184,7 @@ SymbolicuNullExpr <- ramR::Expectations(
   S,
   u = NULL,
   Filter,
-  str = FALSE,
+  R = TRUE,
   simplify = TRUE
 )
 SymbolicuNullExprC <- round(
@@ -257,7 +257,7 @@ SymbolicFilterNullExpr <- ramR::Expectations(
   S,
   u,
   Filter = NULL,
-  str = FALSE,
+  R = TRUE,
   simplify = TRUE
 )
 SymbolicFilterNullExprC <- round(

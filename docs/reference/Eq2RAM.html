@@ -98,6 +98,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/Equations.html">Equations</a>
+    </li>
+    <li>
       <a href="../articles/tests/test_two-variable-regression-C.html">Test: Two-Variable Linear Regression - C</a>
     </li>
     <li>
@@ -193,20 +196,20 @@ If <code>par = FALSE</code>, use <code>par.label</code> as labels.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns list with the following elements</p>
+    <p>Returns a list with the following elements</p>
 <dl>
 <dt>par.table</dt><dd><p>Parameter table.</p></dd>
 <dt>variables</dt><dd><p>Variable names.</p></dd>
 <dt>g.variables</dt><dd><p>Variable names of observed variables.</p></dd>
 <dt>h.variables</dt><dd><p>Variable names of latent variables.</p></dd>
-<dt>A</dt><dd><p>A <code>t by t</code> matrix \(\mathbf{A}\).
+<dt>A</dt><dd><p><code>t by t</code> matrix \(\mathbf{A}\).
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.</p></dd>
-<dt>S</dt><dd><p>S <code>t by t</code> numeric matrix \(\mathbf{S}\).
+<dt>S</dt><dd><p><code>t by t</code> numeric matrix \(\mathbf{S}\).
 Symmetric paths (double-headed arrows),
 such as variances and covariances.</p></dd>
-<dt>u</dt><dd><p><code>t by 1</code> matrix of mean structure parameters.</p></dd>
-<dt>Filter</dt><dd><p>Filter <code>p by t</code> numeric matrix
+<dt>u</dt><dd><p><code>t by 1</code> matrix \(\mathbf{u}\) of mean structure parameters.</p></dd>
+<dt>Filter</dt><dd><p><code>p by t</code> numeric matrix
 \(\mathbf{F}\).
 Filter matrix used to select observed variables.</p></dd>
 
@@ -221,13 +224,23 @@ that specifies the associations between the variables.</p>
     
 
 <p>Each line should follow the syntax below</p>
-<p><code>lhs operation rhs par.label</code></p>
+<p><code>lhs &lt;space&gt; op &lt;space&gt; rhs &lt;space&gt; par.label &lt;\n&gt; or &lt;;&gt;</code></p>
+<dl>
+<dt>lhs</dt><dd><p>is the variable on the <strong>left-hand side</strong>,</p></dd>
+<dt>rhs</dt><dd><p>is the variable on the <strong>right-hand side</strong>,</p></dd>
+<dt>op</dt><dd><p>is the <strong>operation</strong> between <code>lhs</code> and <code>rhs</code>,</p></dd>
+<dt>par.label</dt><dd><p>is the column of <strong>parameter label</strong>,</p></dd>
+<dt>\n or ;</dt><dd><p>are <strong>line breaks</strong>.
+<strong>Each line should end with a line break.</strong></p></dd>
+
+</dl>
+
 <p>The associations are defined by the following operations</p>
 <dl>
-<dt>by</dt><dd><p><code>left-hand side</code> measured <strong>by</strong> <code>right-hand side</code></p></dd>
-<dt>on</dt><dd><p><code>left-hand side</code> regressed <strong>on</strong> <code>right-hand side</code></p></dd>
-<dt>with</dt><dd><p><code>left-hand side</code> covarying <strong>with</strong> <code>right-hand side</code></p></dd>
-<dt>on 1</dt><dd><p><code>left-hand side</code> regressed <strong>on 1</strong> for mean structure</p></dd>
+<dt>by</dt><dd><p><code>left-hand side</code> measured <strong>by</strong> <code>right-hand side</code>,</p></dd>
+<dt>on</dt><dd><p><code>left-hand side</code> regressed <strong>on</strong> <code>right-hand side</code>,</p></dd>
+<dt>with</dt><dd><p><code>left-hand side</code> covarying <strong>with</strong> <code>right-hand side</code>,</p></dd>
+<dt>on 1</dt><dd><p><code>left-hand side</code> regressed <strong>on 1</strong> for mean structure.</p></dd>
 
 </dl>
 
@@ -239,6 +252,12 @@ that specifies the associations between the variables.</p>
 The <code>par.label</code> should be a number for fixed parameters
 and a character string for free parameters.
 Equality contraints can be imposed by using the same <code>par.label</code>.</p>
+    <h2 class="hasAnchor" id="line-breaks"><a class="anchor" href="#line-breaks"></a>Line breaks</h2>
+
+    
+
+<p>The characters <code>\n</code> and <code>;</code> can be used as line breaks.
+<strong>Each line should end with a line break.</strong></p>
     <h2 class="hasAnchor" id="comments"><a class="anchor" href="#comments"></a>Comments</h2>
 
     

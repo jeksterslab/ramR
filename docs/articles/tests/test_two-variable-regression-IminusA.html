@@ -57,6 +57,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../../articles/Equations.html">Equations</a>
+    </li>
+    <li>
       <a href="../../articles/tests/test_two-variable-regression-C.html">Test: Two-Variable Linear Regression - C</a>
     </li>
     <li>
@@ -127,7 +130,7 @@
       <h1 data-toc-skip>Test: Two-Variable Linear Regression - IminusA</h1>
                         <h4 class="author">Ivan Jacob Agaloos Pesigan</h4>
             
-            <h4 class="date">2021-02-16</h4>
+            <h4 class="date">2021-02-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jeksterslab/ramR/blob/master/vignettes/tests/test_two-variable-regression-IminusA.Rmd"><code>vignettes/tests/test_two-variable-regression-IminusA.Rmd</code></a></small>
       <div class="hidden name"><code>test_two-variable-regression-IminusA.Rmd</code></div>
@@ -181,7 +184,7 @@
 <p><span class="math display">\[\begin{equation}
   \begin{split}
     y &amp;= \alpha + \beta x + \varepsilon \\
-    y &amp;= 0.7156152 + 0.9760145 x + \varepsilon
+    y &amp;= 0.8420303 + \left( -0.295691 x \right) + \varepsilon
   \end{split}
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -193,7 +196,7 @@
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span>
     <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/IminusA.html">IminusA</a></span><span class="op">(</span>
       <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
-      str <span class="op">=</span> <span class="cn">TRUE</span>,
+      R <span class="op">=</span> <span class="cn">FALSE</span>,
       simplify <span class="op">=</span> <span class="cn">TRUE</span>
     <span class="op">)</span>
   <span class="op">)</span>,
@@ -203,7 +206,7 @@
   <span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span>
     <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/IminusA.html">IminusA</a></span><span class="op">(</span>
       <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
-      str <span class="op">=</span> <span class="cn">FALSE</span>,
+      R <span class="op">=</span> <span class="cn">TRUE</span>,
       simplify <span class="op">=</span> <span class="cn">TRUE</span>
     <span class="op">)</span>
   <span class="op">)</span>,
@@ -212,23 +215,25 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/IminusA.html">IminusA</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
-  str <span class="op">=</span> <span class="cn">TRUE</span>,
-  ysym <span class="op">=</span> <span class="cn">FALSE</span>,
+  R <span class="op">=</span> <span class="cn">FALSE</span>,
+  format <span class="op">=</span> <span class="st">"ysym"</span>,
   simplify <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "{{1,-0.9760145302,-1},{0,1,0},{0,0,1}}"</span></code></pre></div>
+<span class="co">#&gt; {{           1, 0.2956910031,           -1},</span>
+<span class="co">#&gt;  {           0,            1,            0},</span>
+<span class="co">#&gt;  {           0,            0,            1}}</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
   <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/IminusA.html">IminusA</a></span><span class="op">(</span>
     <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
-    str <span class="op">=</span> <span class="cn">TRUE</span>,
-    tex <span class="op">=</span> <span class="cn">TRUE</span>
+    R <span class="op">=</span> <span class="cn">FALSE</span>,
+    format <span class="op">=</span> <span class="st">"tex"</span>
   <span class="op">)</span>,
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\left( \begin{array}{ccc} 1 &amp; -0.9760145302 &amp; -1 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\left( \begin{array}{ccc} 1 &amp; 0.2956910031 &amp; -1 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{array} \right)\end{align*}\]</span></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">IminusA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">IminusA</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -251,7 +256,7 @@
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
   exe <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "Identity(Length({{0,0.976014530286193,1},{0,0,0},{0,0,0}}))-{{0,0.976014530286193,1},{0,0,0},{0,0,0}}"</span></code></pre></div>
+<span class="co">#&gt; [1] "Identity(Length({{0,-0.2956910031,1},{0,0,0},{0,0,0}}))-{{0,-0.2956910031,1},{0,0,0},{0,0,0}}"</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

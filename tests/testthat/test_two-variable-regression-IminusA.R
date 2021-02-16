@@ -63,7 +63,7 @@ g <- as.matrix(
 #' \begin{equation}
 #'   \begin{split}
 #'     y &= \alpha + \beta x + \varepsilon \\
-#'     y &= `r alpha` + `r beta` x + \varepsilon
+#'     y &= `r alpha` + \left( `r beta` x \right) + \varepsilon
 #'   \end{split}
 #' \end{equation}
 #'
@@ -76,7 +76,7 @@ SymbolicIminusA <- round(
   Ryacas::as_r(
     ramR::IminusA(
       Ryacas::ysym(A),
-      str = TRUE,
+      R = FALSE,
       simplify = TRUE
     )
   ),
@@ -86,7 +86,7 @@ SymbolicIminusAExpr <- round(
   eval(
     ramR::IminusA(
       Ryacas::ysym(A),
-      str = FALSE,
+      R = TRUE,
       simplify = TRUE
     )
   ),
@@ -96,8 +96,8 @@ SymbolicIminusAExpr <- round(
 #+ str
 ramR::IminusA(
   Ryacas::ysym(A),
-  str = TRUE,
-  ysym = FALSE,
+  R = FALSE,
+  format = "ysym",
   simplify = TRUE
 )
 #'
@@ -106,8 +106,8 @@ cat(
   "\\begin{align*}",
   ramR::IminusA(
     Ryacas::ysym(A),
-    str = TRUE,
-    tex = TRUE
+    R = FALSE,
+    format = "tex"
   ),
   "\\end{align*}",
   sep = ""

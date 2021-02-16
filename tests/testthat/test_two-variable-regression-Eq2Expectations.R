@@ -29,8 +29,8 @@ eq <- "
     y   on   1   alpha
     x   on   1   mux
 "
-SymbolicLabels <- ramR::Eq2Expectations(eq, par = FALSE, str = FALSE)
-SymbolicPars <- ramR::Eq2Expectations(eq, par = TRUE, str = FALSE)
+SymbolicLabels <- ramR::Eq2Expectations(eq, par = FALSE, R = TRUE)
+SymbolicPars <- ramR::Eq2Expectations(eq, par = TRUE, R = TRUE)
 #'
 #' ## LaTeX
 #'
@@ -47,14 +47,14 @@ eq <- "
 SymbolicLabelsTex <- ramR::Eq2Expectations(
   eq,
   par = FALSE,
-  str = TRUE,
-  tex = TRUE
+  R = FALSE,
+  format = "tex"
 )
 SymbolicParsTex <- ramR::Eq2Expectations(
   eq,
   par = TRUE,
-  str = TRUE,
-  tex = TRUE
+  R = FALSE,
+  format = "tex"
 )
 #'
 #+ SymbolicLabelsTex, results = "asis"
@@ -219,7 +219,7 @@ g <- as.matrix(
 #' \begin{equation}
 #'   \begin{split}
 #'     y &= \alpha + \beta x + \varepsilon \\
-#'     y &= `r alpha` + `r beta` x + \varepsilon
+#'     y &= `r alpha` + \left( `r beta` \right) x + \varepsilon
 #'   \end{split}
 #' \end{equation}
 #'

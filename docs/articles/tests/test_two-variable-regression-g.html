@@ -57,6 +57,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../../articles/Equations.html">Equations</a>
+    </li>
+    <li>
       <a href="../../articles/tests/test_two-variable-regression-C.html">Test: Two-Variable Linear Regression - C</a>
     </li>
     <li>
@@ -127,7 +130,7 @@
       <h1 data-toc-skip>Test: Two-Variable Linear Regression - g</h1>
                         <h4 class="author">Ivan Jacob Agaloos Pesigan</h4>
             
-            <h4 class="date">2021-02-16</h4>
+            <h4 class="date">2021-02-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jeksterslab/ramR/blob/master/vignettes/tests/test_two-variable-regression-g.Rmd"><code>vignettes/tests/test_two-variable-regression-g.Rmd</code></a></small>
       <div class="hidden name"><code>test_two-variable-regression-g.Rmd</code></div>
@@ -181,7 +184,7 @@
 <p><span class="math display">\[\begin{equation}
   \begin{split}
     y &amp;= \alpha + \beta x + \varepsilon \\
-    y &amp;= 0.3432079 + 0.8382492 x + \varepsilon
+    y &amp;= 0.8899589 + \left( -0.2469751 x \right) + \varepsilon
   \end{split}
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -199,7 +202,7 @@
       <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
       <span class="va">u</span>,
       <span class="va">Filter</span>,
-      str <span class="op">=</span> <span class="cn">TRUE</span>,
+      R <span class="op">=</span> <span class="cn">FALSE</span>,
       simplify <span class="op">=</span> <span class="cn">TRUE</span>
     <span class="op">)</span>
   <span class="op">)</span>,
@@ -211,7 +214,7 @@
       <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
       <span class="va">u</span>,
       Filter <span class="op">=</span> <span class="cn">NULL</span>,
-      str <span class="op">=</span> <span class="cn">TRUE</span>,
+      R <span class="op">=</span> <span class="cn">FALSE</span>,
       simplify <span class="op">=</span> <span class="cn">TRUE</span>
     <span class="op">)</span>
   <span class="op">)</span>,
@@ -223,7 +226,7 @@
       <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
       <span class="va">u</span>,
       <span class="va">Filter</span>,
-      str <span class="op">=</span> <span class="cn">FALSE</span>,
+      R <span class="op">=</span> <span class="cn">TRUE</span>,
       simplify <span class="op">=</span> <span class="cn">TRUE</span>
     <span class="op">)</span>
   <span class="op">)</span>,
@@ -235,7 +238,7 @@
       <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
       <span class="va">u</span>,
       Filter <span class="op">=</span> <span class="cn">NULL</span>,
-      str <span class="op">=</span> <span class="cn">FALSE</span>,
+      R <span class="op">=</span> <span class="cn">TRUE</span>,
       simplify <span class="op">=</span> <span class="cn">TRUE</span>
     <span class="op">)</span>
   <span class="op">)</span>,
@@ -246,11 +249,12 @@
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
   <span class="va">u</span>,
   <span class="va">Filter</span>,
-  str <span class="op">=</span> <span class="cn">TRUE</span>,
+  R <span class="op">=</span> <span class="cn">FALSE</span>,
   ysym <span class="op">=</span> <span class="cn">FALSE</span>,
   simplify <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "{{-0.2688002141},{-0.7301027723}}"</span></code></pre></div>
+<span class="co">#&gt; {{ 0.9688080172},</span>
+<span class="co">#&gt;  {-0.3192594167}}</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
@@ -258,13 +262,13 @@
     <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
     <span class="va">u</span>,
     <span class="va">Filter</span>,
-    str <span class="op">=</span> <span class="cn">TRUE</span>,
-    tex <span class="op">=</span> <span class="cn">TRUE</span>
+    R <span class="op">=</span> <span class="cn">FALSE</span>,
+    format <span class="op">=</span> <span class="st">"tex"</span>
   <span class="op">)</span>,
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\left( \begin{array}{c} -0.2688002141 \\ -0.7301027723 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\left( \begin{array}{c} 0.9688080172 \\ -0.3192594167 \end{array} \right)\end{align*}\]</span></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">g</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">v</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
@@ -296,7 +300,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🥳</span></code></pre></div>
+<span class="co">#&gt; Test passed 🎉</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/g.html">g</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
@@ -304,21 +308,21 @@
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">Filter</span><span class="op">)</span>,
   exe <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "{{1,0,0},{0,1,0}}*Inverse(Identity(Length({{0,0.83824924333021,1},{0,0,0},{0,0,0}}))-{{0,0.83824924333021,1},{0,0,0},{0,0,0}})*{{0.34320788225159},{-0.7301027723},{0}}"</span>
+<span class="co">#&gt; [1] "{{1,0,0},{0,1,0}}*Inverse(Identity(Length({{0,-0.2469750847,1},{0,0,0},{0,0,0}}))-{{0,-0.2469750847,1},{0,0,0},{0,0,0}})*{{0.889958895742893},{-0.3192594167},{0}}"</span>
 <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/g.html">g</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span><span class="op">)</span>,
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">Filter</span><span class="op">)</span>,
   exe <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "{{1,0,0},{0,1,0}}*Inverse(Identity(Length({{0,0.83824924333021,1},{0,0,0},{0,0,0}}))-{{0,0.83824924333021,1},{0,0,0},{0,0,0}})*{{0.34320788225159},{-0.7301027723},{0}}"</span>
+<span class="co">#&gt; [1] "{{1,0,0},{0,1,0}}*Inverse(Identity(Length({{0,-0.2469750847,1},{0,0,0},{0,0,0}}))-{{0,-0.2469750847,1},{0,0,0},{0,0,0}})*{{0.889958895742893},{-0.3192594167},{0}}"</span>
 <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/g.html">g</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span>,
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">Filter</span><span class="op">)</span>,
   exe <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "{{1,0,0},{0,1,0}}*Inverse(Identity(Length({{0,0.83824924333021,1},{0,0,0},{0,0,0}}))-{{0,0.83824924333021,1},{0,0,0},{0,0,0}})*{{0.34320788225159},{-0.7301027723},{0}}"</span></code></pre></div>
+<span class="co">#&gt; [1] "{{1,0,0},{0,1,0}}*Inverse(Identity(Length({{0,-0.2469750847,1},{0,0,0},{0,0,0}}))-{{0,-0.2469750847,1},{0,0,0},{0,0,0}})*{{0.889958895742893},{-0.3192594167},{0}}"</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

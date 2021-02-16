@@ -8,28 +8,16 @@
 \usage{
 Expectations(A, S, u = NULL, Filter = NULL, ...)
 
-\method{Expectations}{default}(
-  A,
-  S,
-  u = NULL,
-  Filter = NULL,
-  str = TRUE,
-  ysym = TRUE,
-  simplify = FALSE,
-  tex = FALSE,
-  ...
-)
+\method{Expectations}{default}(A, S, u = NULL, Filter = NULL, ...)
 
 \method{Expectations}{yac_symbol}(
   A,
   S,
   u = NULL,
   Filter = NULL,
-  str = TRUE,
-  ysym = TRUE,
+  R = FALSE,
+  format = "ysym",
   simplify = FALSE,
-  tex = FALSE,
-  exe = TRUE,
   ...
 )
 }
@@ -51,49 +39,60 @@ Filter matrix used to select observed variables.}
 
 \item{...}{...}
 
-\item{str}{Logical.
-If \code{str = TRUE}, returns symbolic result as string.
-If \code{str = FALSE}, returns symbolic result as an \code{R} expression.}
+\item{R}{Logical.
+If \code{R = TRUE}, returns symbolic result as an \code{R} expression.
+If \code{R = FALSE}, returns symbolic result as \code{"ysym"}, \code{"str"},  or \code{"tex"}
+depending of \code{format}.}
 
-\item{ysym}{Logical.
-If \code{ysym = TRUE}, returns symbolic result as \code{yac_symbol} if \code{str = TRUE}.
-If \code{ysym = FALSE}, returns symbolic result as string if \code{str = TRUE}.}
+\item{format}{Character string.
+Only used when \code{R = FALSE}.
+If \code{format = "ysym"},
+returns symbolic result as \code{yac_symbol}.
+If \code{format = "str"},
+returns symbolic result as a characetr string.
+If \code{format = "tex"},
+returns symbolic result as laTeX math.}
 
 \item{simplify}{Logical. Simplify symbolic results.}
-
-\item{tex}{Logical.
-If \code{tex = TRUE} returns results as latex math if \code{str = TRUE}.
-If \code{tex = FALSE}, returns symbolic result as string if \code{str = TRUE}.}
-
-\item{exe}{Logical.
-If \code{exe = TRUE}, executes the resulting \code{yacas} expression.
-If \code{exe = FALSE}, returns the resulting \code{yacas} expression as a character string.
-If \code{exe = FALSE}, the arguments \code{str}, \code{ysym}, \code{simplify}, and \code{tex}, are ignored.}
 }
 \value{
-Returns list with the following elements
+Returns a list with the following elements
 
 \describe{
 \item{A}{
-A \verb{t by t} matrix \eqn{\mathbf{A}}.
+\verb{t by t} matrix \eqn{\mathbf{A}}.
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.
 }
 \item{S}{
-S \verb{t by t} numeric matrix \eqn{\mathbf{S}}.
+\verb{t by t} numeric matrix \eqn{\mathbf{S}}.
 Symmetric paths (double-headed arrows),
 such as variances and covariances.
 }
-\item{u}{\verb{t by 1} matrix of mean structure parameters.}
+\item{u}{
+\verb{t by 1} matrix \eqn{\mathbf{u}} of mean structure parameters.
+}
 \item{Filter}{
-Filter \verb{p by t} numeric matrix
+\verb{p by t} numeric matrix
 \eqn{\mathbf{F}}.
 Filter matrix used to select observed variables.
 }
-\item{v}{\verb{t by 1} matrix of expected values.}
-\item{g}{\verb{p by 1} matrix of expected values of observed variables.}
-\item{C}{\verb{t by t} matrix of expected covariances.}
-\item{M}{\verb{p by p} matrix of expected covariances of observed variables.}
+\item{v}{
+\verb{t by 1} matrix \eqn{\mathbf{v}}
+of expected values.
+}
+\item{g}{
+\verb{p by 1} matrix \eqn{\mathbf{g}}
+of expected values of observed variables.
+}
+\item{C}{
+\verb{t by t} matrix \eqn{\mathbf{C}}
+of expected covariances.
+}
+\item{M}{
+\verb{p by p} matrix \eqn{\mathbf{M}}
+of expected covariances of observed variables.
+}
 }
 }
 \description{
@@ -147,24 +146,22 @@ A <- S <- matrixR::ZeroMatrix(3)
 A[1, ] <- c(0, "beta", 1)
 diag(S) <- c(0, "sigmax2", "sigmae2")
 u <- c("alpha", "mux", 0)
-Expectations(Ryacas::ysym(A), S, u, Filter)
-Expectations(Ryacas::ysym(A), S, u, Filter, tex = TRUE)
-Expectations(Ryacas::ysym(A), S, u, Filter, ysym = FALSE)
-Expectations(Ryacas::ysym(A), S, u, Filter, str = FALSE)
+Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "ysym")
+Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "str")
+Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "tex")
+Expectations(Ryacas::ysym(A), S, u, Filter, R = TRUE)
+
+# Assigning values to symbols
 
 alpha <- 0
 beta <- 1
 sigmax2 <- 0.25
 sigmae2 <- 1
 mux <- 0.50
-Expectations(Ryacas::ysym(A), S, u, Filter)
-Expectations(Ryacas::ysym(A), S, u, Filter, tex = TRUE)
-Expectations(Ryacas::ysym(A), S, u, Filter, ysym = FALSE)
-Expectations(Ryacas::ysym(A), S, u, Filter, str = FALSE)
-Expectations <- Expectations(
-  Ryacas::ysym(A), S, u, Filter,
-  str = FALSE
-)
+Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "ysym")
+Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "str")
+Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "tex")
+(Expectations <- Expectations(Ryacas::ysym(A), S, u, Filter, R = TRUE))
 eval(Expectations$A)
 eval(Expectations$S)
 eval(Expectations$u)
