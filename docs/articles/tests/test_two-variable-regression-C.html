@@ -130,7 +130,7 @@
       <h1 data-toc-skip>Test: Two-Variable Linear Regression - C</h1>
                         <h4 class="author">Ivan Jacob Agaloos Pesigan</h4>
             
-            <h4 class="date">2021-02-17</h4>
+            <h4 class="date">2021-02-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jeksterslab/ramR/blob/master/vignettes/tests/test_two-variable-regression-C.Rmd"><code>vignettes/tests/test_two-variable-regression-C.Rmd</code></a></small>
       <div class="hidden name"><code>test_two-variable-regression-C.Rmd</code></div>
@@ -184,7 +184,7 @@
 <p><span class="math display">\[\begin{equation}
   \begin{split}
     y &amp;= \alpha + \beta x + \varepsilon \\
-    y &amp;= 0.0953401 + \left( -0.3182441 x \right) + \varepsilon
+    y &amp;= -0.0183323 + \left( -0.5943997 x \right) + \varepsilon
   \end{split}
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -222,9 +222,9 @@
   ysym <span class="op">=</span> <span class="cn">FALSE</span>,
   simplify <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
-<span class="co">#&gt; {{ 0.5152177865, -0.0879102874,  0.4872408567},</span>
-<span class="co">#&gt;  {-0.0879102874,  0.2762354083,             0},</span>
-<span class="co">#&gt;  { 0.4872408567,             0,  0.4872408567}}</span></code></pre></div>
+<span class="co">#&gt; {{0.9083493681, -0.248392016, 0.7607052191},</span>
+<span class="co">#&gt;  {-0.248392016, 0.4178871566,            0},</span>
+<span class="co">#&gt;  {0.7607052191,            0, 0.7607052191}}</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
@@ -237,7 +237,7 @@
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\left( \begin{array}{ccc} 0.5152177865 &amp; -0.0879102874 &amp; 0.4872408567 \\ -0.0879102874 &amp; 0.2762354083 &amp; 0 \\ 0.4872408567 &amp; 0 &amp; 0.4872408567 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\left( \begin{array}{ccc} 0.9083493681 &amp; -0.248392016 &amp; 0.7607052191 \\ -0.248392016 &amp; 0.4178871566 &amp; 0 \\ 0.7607052191 &amp; 0 &amp; 0.7607052191 \end{array} \right)\end{align*}\]</span></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">C</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -254,14 +254,14 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🎉</span></code></pre></div>
+<span class="co">#&gt; Test passed 🥇</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/C.html">C</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span>,
   exe <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "Inverse(Identity(Length({{0,-0.3182440945,1},{0,0,0},{0,0,0}}))-{{0,-0.3182440945,1},{0,0,0},{0,0,0}})*{{0,0,0},{0,0.27623540838249,0},{0,0,0.487240856746212}}*Transpose(Inverse(Identity(Length({{0,-0.3182440945,1},{0,0,0},{0,0,0}}))-{{0,-0.3182440945,1},{0,0,0},{0,0,0}}))"</span></code></pre></div>
+<span class="co">#&gt; [1] "Inverse(Identity(Length({{0,-0.5943997372,1},{0,0,0},{0,0,0}}))-{{0,-0.5943997372,1},{0,0,0},{0,0,0}})*{{0,0,0},{0,0.417887156596407,0},{0,0,0.760705219116062}}*Transpose(Inverse(Identity(Length({{0,-0.5943997372,1},{0,0,0},{0,0,0}}))-{{0,-0.5943997372,1},{0,0,0},{0,0,0}}))"</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

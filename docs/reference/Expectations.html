@@ -242,7 +242,7 @@ returns symbolic result as <code>yac_symbol</code>.
 If <code>format = "str"</code>,
 returns symbolic result as a characetr string.
 If <code>format = "tex"</code>,
-returns symbolic result as laTeX math.</p></td>
+returns symbolic result as LaTeX math.</p></td>
     </tr>
     <tr>
       <th>simplify</th>
@@ -399,7 +399,9 @@ of the Reticular Action Model for moment structures.
 #&gt;  {      0,       0, sigmae2}} 
 #&gt; 
 #&gt; $u
-#&gt; {alpha, mux, 0} 
+#&gt; {{alpha},
+#&gt;  {  mux},
+#&gt;  {    0}} 
 #&gt; 
 #&gt; $Filter
 #&gt; {{1, 0, 0},
@@ -430,7 +432,7 @@ of the Reticular Action Model for moment structures.
 #&gt; [1] "{{0,0,0},{0,sigmax2,0},{0,0,sigmae2}}"
 #&gt; 
 #&gt; $u
-#&gt; [1] "{alpha,mux,0}"
+#&gt; [1] "{{alpha},{mux},{0}}"
 #&gt; 
 #&gt; $Filter
 #&gt; [1] "{{1,0,0},{0,1,0}}"
@@ -454,7 +456,7 @@ of the Reticular Action Model for moment structures.
 #&gt; [1] "\\left( \\begin{array}{ccc} 0 &amp; 0 &amp; 0 \\\\ 0 &amp; \\mathrm{ sigmax2 } &amp; 0 \\\\ 0 &amp; 0 &amp; \\mathrm{ sigmae2 } \\end{array} \\right)"
 #&gt; 
 #&gt; $u
-#&gt; [1] "\\left( \\alpha , \\mathrm{ mux }, 0\\right)"
+#&gt; [1] "\\left( \\begin{array}{c} \\alpha  \\\\ \\mathrm{ mux } \\\\ 0 \\end{array} \\right)"
 #&gt; 
 #&gt; $Filter
 #&gt; [1] "\\left( \\begin{array}{ccc} 1 &amp; 0 &amp; 0 \\\\ 0 &amp; 1 &amp; 0 \\end{array} \\right)"
@@ -478,7 +480,7 @@ of the Reticular Action Model for moment structures.
 #&gt; expression(rbind(c(0, 0, 0), c(0, sigmax2, 0), c(0, 0, sigmae2)))
 #&gt; 
 #&gt; $u
-#&gt; expression(c(alpha, mux, 0))
+#&gt; expression(rbind(c(alpha), c(mux), c(0)))
 #&gt; 
 #&gt; $Filter
 #&gt; expression(rbind(c(1, 0, 0), c(0, 1, 0)))
@@ -516,7 +518,9 @@ of the Reticular Action Model for moment structures.
 #&gt;  {      0,       0, sigmae2}} 
 #&gt; 
 #&gt; $u
-#&gt; {alpha, mux, 0} 
+#&gt; {{alpha},
+#&gt;  {  mux},
+#&gt;  {    0}} 
 #&gt; 
 #&gt; $Filter
 #&gt; {{1, 0, 0},
@@ -547,7 +551,7 @@ of the Reticular Action Model for moment structures.
 #&gt; [1] "{{0,0,0},{0,sigmax2,0},{0,0,sigmae2}}"
 #&gt; 
 #&gt; $u
-#&gt; [1] "{alpha,mux,0}"
+#&gt; [1] "{{alpha},{mux},{0}}"
 #&gt; 
 #&gt; $Filter
 #&gt; [1] "{{1,0,0},{0,1,0}}"
@@ -571,7 +575,7 @@ of the Reticular Action Model for moment structures.
 #&gt; [1] "\\left( \\begin{array}{ccc} 0 &amp; 0 &amp; 0 \\\\ 0 &amp; \\mathrm{ sigmax2 } &amp; 0 \\\\ 0 &amp; 0 &amp; \\mathrm{ sigmae2 } \\end{array} \\right)"
 #&gt; 
 #&gt; $u
-#&gt; [1] "\\left( \\alpha , \\mathrm{ mux }, 0\\right)"
+#&gt; [1] "\\left( \\begin{array}{c} \\alpha  \\\\ \\mathrm{ mux } \\\\ 0 \\end{array} \\right)"
 #&gt; 
 #&gt; $Filter
 #&gt; [1] "\\left( \\begin{array}{ccc} 1 &amp; 0 &amp; 0 \\\\ 0 &amp; 1 &amp; 0 \\end{array} \\right)"
@@ -595,7 +599,7 @@ of the Reticular Action Model for moment structures.
 #&gt; expression(rbind(c(0, 0, 0), c(0, sigmax2, 0), c(0, 0, sigmae2)))
 #&gt; 
 #&gt; $u
-#&gt; expression(c(alpha, mux, 0))
+#&gt; expression(rbind(c(alpha), c(mux), c(0)))
 #&gt; 
 #&gt; $Filter
 #&gt; expression(rbind(c(1, 0, 0), c(0, 1, 0)))
@@ -622,7 +626,10 @@ of the Reticular Action Model for moment structures.
 #&gt; [1,]    0 0.00    0
 #&gt; [2,]    0 0.25    0
 #&gt; [3,]    0 0.00    1</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>Expectations</span><span class='op'>$</span><span class='va'>u</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.0 0.5 0.0</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>Expectations</span><span class='op'>$</span><span class='va'>Filter</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1]
+#&gt; [1,]  0.0
+#&gt; [2,]  0.5
+#&gt; [3,]  0.0</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>Expectations</span><span class='op'>$</span><span class='va'>Filter</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    1    0    0
 #&gt; [2,]    0    1    0</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>Expectations</span><span class='op'>$</span><span class='va'>v</span><span class='op'>)</span>

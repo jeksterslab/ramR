@@ -130,7 +130,7 @@
       <h1 data-toc-skip>Test: Two-Variable Linear Regression - v</h1>
                         <h4 class="author">Ivan Jacob Agaloos Pesigan</h4>
             
-            <h4 class="date">2021-02-17</h4>
+            <h4 class="date">2021-02-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jeksterslab/ramR/blob/master/vignettes/tests/test_two-variable-regression-v.Rmd"><code>vignettes/tests/test_two-variable-regression-v.Rmd</code></a></small>
       <div class="hidden name"><code>test_two-variable-regression-v.Rmd</code></div>
@@ -184,7 +184,7 @@
 <p><span class="math display">\[\begin{equation}
   \begin{split}
     y &amp;= \alpha + \beta x + \varepsilon \\
-    y &amp;= 0.0138609 + \left( -0.0865803 x \right) + \varepsilon
+    y &amp;= 0.1285668 + \left( -0.1823063 x \right) + \varepsilon
   \end{split}
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -222,8 +222,8 @@
   ysym <span class="op">=</span> <span class="cn">FALSE</span>,
   simplify <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
-<span class="co">#&gt; {{  0.077278741},</span>
-<span class="co">#&gt;  {-0.7324738609},</span>
+<span class="co">#&gt; {{-0.0283278443},</span>
+<span class="co">#&gt;  { 0.8606099588},</span>
 <span class="co">#&gt;  {            0}}</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
@@ -237,7 +237,7 @@
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\left( \begin{array}{c} 0.077278741 \\ -0.7324738609 \\ 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\left( \begin{array}{c} -0.0283278443 \\ 0.8606099588 \\ 0 \end{array} \right)\end{align*}\]</span></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">v</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -254,26 +254,26 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🥇</span></code></pre></div>
+<span class="co">#&gt; Test passed 😸</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/v.html">v</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
   <span class="va">u</span>,
   exe <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "Inverse(Identity(Length({{0,-0.0865803375,1},{0,0,0},{0,0,0}}))-{{0,-0.0865803375,1},{0,0,0},{0,0,0}})*{{0.0138609069399536},{-0.7324738609},{0}}"</span>
+<span class="co">#&gt; [1] "Inverse(Identity(Length({{0,-0.1823063343,1},{0,0,0},{0,0,0}}))-{{0,-0.1823063343,1},{0,0,0},{0,0,0}})*{{0.128566802479327},{0.86060995887965},{0}}"</span>
 <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/v.html">v</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span><span class="op">)</span>,
   exe <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "Inverse(Identity(Length({{0,-0.0865803375,1},{0,0,0},{0,0,0}}))-{{0,-0.0865803375,1},{0,0,0},{0,0,0}})*{{0.0138609069399536},{-0.7324738609},{0}}"</span>
+<span class="co">#&gt; [1] "Inverse(Identity(Length({{0,-0.1823063343,1},{0,0,0},{0,0,0}}))-{{0,-0.1823063343,1},{0,0,0},{0,0,0}})*{{0.128566802479327},{0.86060995887965},{0}}"</span>
 <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/v.html">v</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span>,
   exe <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "Inverse(Identity(Length({{0,-0.0865803375,1},{0,0,0},{0,0,0}}))-{{0,-0.0865803375,1},{0,0,0},{0,0,0}})*{{0.0138609069399536},{-0.7324738609},{0}}"</span></code></pre></div>
+<span class="co">#&gt; [1] "Inverse(Identity(Length({{0,-0.1823063343,1},{0,0,0},{0,0,0}}))-{{0,-0.1823063343,1},{0,0,0},{0,0,0}})*{{0.128566802479327},{0.86060995887965},{0}}"</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

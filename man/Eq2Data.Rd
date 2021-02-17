@@ -147,6 +147,9 @@ are \strong{line breaks}.
 \strong{Each line should end with a line break.}
 }
 }
+}
+
+\section{Operations}{
 
 The associations are defined by the following operations
 

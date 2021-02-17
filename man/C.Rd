@@ -43,7 +43,7 @@ returns symbolic result as \code{yac_symbol}.
 If \code{format = "str"},
 returns symbolic result as a characetr string.
 If \code{format = "tex"},
-returns symbolic result as laTeX math.}
+returns symbolic result as LaTeX math.}
 
 \item{simplify}{Logical. Simplify symbolic results.}
 }
