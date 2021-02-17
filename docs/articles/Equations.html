@@ -140,7 +140,7 @@
 
     
     
-<p><code>Eq*</code> functions in the <code>ramR</code> package requires an input which is a character string that specifies the associations between the variables. Each line in the character string is a structural equation linking two variables at a time.</p>
+<p><code>Eq*</code> functions in the <code>ramR</code> package require an input which is a character string that specifies the associations between the variables. Each line in the character string is a structural equation linking two variables at a time.</p>
 <div id="defining-structural-equations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#defining-structural-equations" class="anchor"></a>Defining Structural Equations</h2>
@@ -208,39 +208,42 @@
 <p>In the following example, let <code>y1</code> to <code>y6</code> be observed variables, <code>eta[1]</code> and <code>eta[2]</code> be latent variables, and <code>epsilon[1]</code> to <code>epsilon[6]</code> be error terms. Let <code>y1</code> to <code>y3</code> be indicators of <code>eta[1]</code>, and <code>y4</code> to <code>y6</code> of <code>eta[2]</code>. The first indicator of the latent variable has a factor loading of <span class="math inline">\(1\)</span>. The latent variables are correlated. The factor loadings are labeled with <code>lambda[*]</code>, the intercepts are labeled with <code>nu[*]</code>, the error variances are labeled with <code>theta[*]</code>, the latent variable variances and covariances are labeled with <code>psi[*]</code>, and the latent variable means are labeled with <code>alpha[*]</code>. The structural equations can be defined as follows</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">eq</span> <span class="op">&lt;-</span> <span class="st">"
-# loadings
+# items
+## loadings
   eta[1] by y1 1
   eta[1] by y2 lambda[y2]
   eta[1] by y3 lambda[y3]
   eta[2] by y4 1
   eta[2] by y5 lambda[y5]
   eta[2] by y6 lambda[y6]
-# errors
-  epsilon[1] by y1 1
-  epsilon[2] by y2 1
-  epsilon[3] by y3 1
-  epsilon[4] by y4 1
-  epsilon[5] by y5 1
-  epsilon[6] by y6 1
-# intercepts
+## intercepts
   y1 on 1 nu[y1]
   y2 on 1 nu[y2]
   y3 on 1 nu[y3]
   y4 on 1 nu[y4]
   y5 on 1 nu[y5]
   y6 on 1 nu[y6]
-# error variances
+# errors
+## Asymmetric - fixed to 1
+  epsilon[1] by y1 1
+  epsilon[2] by y2 1
+  epsilon[3] by y3 1
+  epsilon[4] by y4 1
+  epsilon[5] by y5 1
+  epsilon[6] by y6 1
+## Symmetric - error variances
   epsilon[1] with epsilon[1] theta[y1]
   epsilon[2] with epsilon[2] theta[y2]
   epsilon[3] with epsilon[3] theta[y3]
   epsilon[4] with epsilon[4] theta[y4]
   epsilon[5] with epsilon[5] theta[y5]
   epsilon[6] with epsilon[6] theta[y6]
-# factor variances and covariances
+# factors
+## variances and covariances
   eta[1] with eta[1] psi[11]
   eta[1] with eta[2] psi[12]
   eta[2] with eta[2] psi[22]
-# factor means
+## means
   eta[1] on 1 alpha[1]
   eta[2] on 1 alpha[2]
 "</span></code></pre></div>
@@ -257,18 +260,18 @@
 <span class="co">#&gt; 4      eta[2]   by         y4          1         1</span>
 <span class="co">#&gt; 5      eta[2]   by         y5 lambda[y5]        p3</span>
 <span class="co">#&gt; 6      eta[2]   by         y6 lambda[y6]        p4</span>
-<span class="co">#&gt; 7  epsilon[1]   by         y1          1         1</span>
-<span class="co">#&gt; 8  epsilon[2]   by         y2          1         1</span>
-<span class="co">#&gt; 9  epsilon[3]   by         y3          1         1</span>
-<span class="co">#&gt; 10 epsilon[4]   by         y4          1         1</span>
-<span class="co">#&gt; 11 epsilon[5]   by         y5          1         1</span>
-<span class="co">#&gt; 12 epsilon[6]   by         y6          1         1</span>
-<span class="co">#&gt; 13         y1   on          1     nu[y1]        p5</span>
-<span class="co">#&gt; 14         y2   on          1     nu[y2]        p6</span>
-<span class="co">#&gt; 15         y3   on          1     nu[y3]        p7</span>
-<span class="co">#&gt; 16         y4   on          1     nu[y4]        p8</span>
-<span class="co">#&gt; 17         y5   on          1     nu[y5]        p9</span>
-<span class="co">#&gt; 18         y6   on          1     nu[y6]       p10</span>
+<span class="co">#&gt; 7          y1   on          1     nu[y1]        p5</span>
+<span class="co">#&gt; 8          y2   on          1     nu[y2]        p6</span>
+<span class="co">#&gt; 9          y3   on          1     nu[y3]        p7</span>
+<span class="co">#&gt; 10         y4   on          1     nu[y4]        p8</span>
+<span class="co">#&gt; 11         y5   on          1     nu[y5]        p9</span>
+<span class="co">#&gt; 12         y6   on          1     nu[y6]       p10</span>
+<span class="co">#&gt; 13 epsilon[1]   by         y1          1         1</span>
+<span class="co">#&gt; 14 epsilon[2]   by         y2          1         1</span>
+<span class="co">#&gt; 15 epsilon[3]   by         y3          1         1</span>
+<span class="co">#&gt; 16 epsilon[4]   by         y4          1         1</span>
+<span class="co">#&gt; 17 epsilon[5]   by         y5          1         1</span>
+<span class="co">#&gt; 18 epsilon[6]   by         y6          1         1</span>
 <span class="co">#&gt; 19 epsilon[1] with epsilon[1]  theta[y1]       p11</span>
 <span class="co">#&gt; 20 epsilon[2] with epsilon[2]  theta[y2]       p12</span>
 <span class="co">#&gt; 21 epsilon[3] with epsilon[3]  theta[y3]       p13</span>
@@ -302,8 +305,12 @@
 <p>The <code><a href="../reference/Eq2Expectations.html">Eq2Expectations()</a></code> function constructs the mean and covariance expectations.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Expectations</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../reference/Eq2Expectations.html">Eq2Expectations</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span></code></pre></div>
+<p>The covariance expectations for all the variables are given below.</p>
+<p><span class="math display">\[\begin{align*}\mathbf{C}=\left( \begin{array}{cccccccccccccc} \psi  _{11} + \theta  _{y_{1}} &amp; \psi  _{11} \lambda  _{y_{2}} &amp; \psi  _{11} \lambda  _{y_{3}} &amp; \psi  _{12} &amp; \psi  _{12} \lambda  _{y_{5}} &amp; \psi  _{12} \lambda  _{y_{6}} &amp; \psi  _{11} &amp; \psi  _{12} &amp; \theta  _{y_{1}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \lambda  _{y_{2}} \psi  _{11} &amp; \psi  _{11} \lambda  _{y_{2}} ^{2} + \theta  _{y_{2}} &amp; \lambda  _{y_{2}} \psi  _{11} \lambda  _{y_{3}} &amp; \lambda  _{y_{2}} \psi  _{12} &amp; \lambda  _{y_{2}} \psi  _{12} \lambda  _{y_{5}} &amp; \lambda  _{y_{2}} \psi  _{12} \lambda  _{y_{6}} &amp; \lambda  _{y_{2}} \psi  _{11} &amp; \lambda  _{y_{2}} \psi  _{12} &amp; 0 &amp; \theta  _{y_{2}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \lambda  _{y_{3}} \psi  _{11} &amp; \lambda  _{y_{3}} \psi  _{11} \lambda  _{y_{2}} &amp; \psi  _{11} \lambda  _{y_{3}} ^{2} + \theta  _{y_{3}} &amp; \lambda  _{y_{3}} \psi  _{12} &amp; \lambda  _{y_{3}} \psi  _{12} \lambda  _{y_{5}} &amp; \lambda  _{y_{3}} \psi  _{12} \lambda  _{y_{6}} &amp; \lambda  _{y_{3}} \psi  _{11} &amp; \lambda  _{y_{3}} \psi  _{12} &amp; 0 &amp; 0 &amp; \theta  _{y_{3}} &amp; 0 &amp; 0 &amp; 0 \\ \psi  _{12} &amp; \psi  _{12} \lambda  _{y_{2}} &amp; \psi  _{12} \lambda  _{y_{3}} &amp; \psi  _{22} + \theta  _{y_{4}} &amp; \psi  _{22} \lambda  _{y_{5}} &amp; \psi  _{22} \lambda  _{y_{6}} &amp; \psi  _{12} &amp; \psi  _{22} &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{4}} &amp; 0 &amp; 0 \\ \lambda  _{y_{5}} \psi  _{12} &amp; \lambda  _{y_{5}} \psi  _{12} \lambda  _{y_{2}} &amp; \lambda  _{y_{5}} \psi  _{12} \lambda  _{y_{3}} &amp; \lambda  _{y_{5}} \psi  _{22} &amp; \psi  _{22} \lambda  _{y_{5}} ^{2} + \theta  _{y_{5}} &amp; \lambda  _{y_{5}} \psi  _{22} \lambda  _{y_{6}} &amp; \lambda  _{y_{5}} \psi  _{12} &amp; \lambda  _{y_{5}} \psi  _{22} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{5}} &amp; 0 \\ \lambda  _{y_{6}} \psi  _{12} &amp; \lambda  _{y_{6}} \psi  _{12} \lambda  _{y_{2}} &amp; \lambda  _{y_{6}} \psi  _{12} \lambda  _{y_{3}} &amp; \lambda  _{y_{6}} \psi  _{22} &amp; \lambda  _{y_{6}} \psi  _{22} \lambda  _{y_{5}} &amp; \psi  _{22} \lambda  _{y_{6}} ^{2} + \theta  _{y_{6}} &amp; \lambda  _{y_{6}} \psi  _{12} &amp; \lambda  _{y_{6}} \psi  _{22} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{6}} \\ \psi  _{11} &amp; \psi  _{11} \lambda  _{y_{2}} &amp; \psi  _{11} \lambda  _{y_{3}} &amp; \psi  _{12} &amp; \psi  _{12} \lambda  _{y_{5}} &amp; \psi  _{12} \lambda  _{y_{6}} &amp; \psi  _{11} &amp; \psi  _{12} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \psi  _{12} &amp; \psi  _{12} \lambda  _{y_{2}} &amp; \psi  _{12} \lambda  _{y_{3}} &amp; \psi  _{22} &amp; \psi  _{22} \lambda  _{y_{5}} &amp; \psi  _{22} \lambda  _{y_{6}} &amp; \psi  _{12} &amp; \psi  _{22} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \theta  _{y_{1}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{1}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; \theta  _{y_{2}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{2}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; \theta  _{y_{3}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{3}} &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{4}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{4}} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{5}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{5}} &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{6}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{6}} \end{array} \right)\end{align*}\]</span></p>
 <p>The covariance expectations for the observed variables <code>y1</code> to <code>y6</code> are given below.</p>
 <p><span class="math display">\[\begin{align*}\mathbf{M}=\left( \begin{array}{cccccc} \psi  _{11} + \theta  _{y_{1}} &amp; \psi  _{11} \lambda  _{y_{2}} &amp; \psi  _{11} \lambda  _{y_{3}} &amp; \psi  _{12} &amp; \psi  _{12} \lambda  _{y_{5}} &amp; \psi  _{12} \lambda  _{y_{6}} \\ \lambda  _{y_{2}} \psi  _{11} &amp; \psi  _{11} \lambda  _{y_{2}} ^{2} + \theta  _{y_{2}} &amp; \lambda  _{y_{2}} \psi  _{11} \lambda  _{y_{3}} &amp; \lambda  _{y_{2}} \psi  _{12} &amp; \lambda  _{y_{2}} \psi  _{12} \lambda  _{y_{5}} &amp; \lambda  _{y_{2}} \psi  _{12} \lambda  _{y_{6}} \\ \lambda  _{y_{3}} \psi  _{11} &amp; \lambda  _{y_{3}} \psi  _{11} \lambda  _{y_{2}} &amp; \psi  _{11} \lambda  _{y_{3}} ^{2} + \theta  _{y_{3}} &amp; \lambda  _{y_{3}} \psi  _{12} &amp; \lambda  _{y_{3}} \psi  _{12} \lambda  _{y_{5}} &amp; \lambda  _{y_{3}} \psi  _{12} \lambda  _{y_{6}} \\ \psi  _{12} &amp; \psi  _{12} \lambda  _{y_{2}} &amp; \psi  _{12} \lambda  _{y_{3}} &amp; \psi  _{22} + \theta  _{y_{4}} &amp; \psi  _{22} \lambda  _{y_{5}} &amp; \psi  _{22} \lambda  _{y_{6}} \\ \lambda  _{y_{5}} \psi  _{12} &amp; \lambda  _{y_{5}} \psi  _{12} \lambda  _{y_{2}} &amp; \lambda  _{y_{5}} \psi  _{12} \lambda  _{y_{3}} &amp; \lambda  _{y_{5}} \psi  _{22} &amp; \psi  _{22} \lambda  _{y_{5}} ^{2} + \theta  _{y_{5}} &amp; \lambda  _{y_{5}} \psi  _{22} \lambda  _{y_{6}} \\ \lambda  _{y_{6}} \psi  _{12} &amp; \lambda  _{y_{6}} \psi  _{12} \lambda  _{y_{2}} &amp; \lambda  _{y_{6}} \psi  _{12} \lambda  _{y_{3}} &amp; \lambda  _{y_{6}} \psi  _{22} &amp; \lambda  _{y_{6}} \psi  _{22} \lambda  _{y_{5}} &amp; \psi  _{22} \lambda  _{y_{6}} ^{2} + \theta  _{y_{6}} \end{array} \right)\end{align*}\]</span></p>
+<p>The mean expectations for all the variables are given below.</p>
+<p><span class="math display">\[\begin{align*}\mathbf{v}=\left( \begin{array}{c} \nu  _{y_{1}} + \alpha  _{1} \\ \nu  _{y_{2}} + \lambda  _{y_{2}} \alpha  _{1} \\ \nu  _{y_{3}} + \lambda  _{y_{3}} \alpha  _{1} \\ \nu  _{y_{4}} + \alpha  _{2} \\ \nu  _{y_{5}} + \lambda  _{y_{5}} \alpha  _{2} \\ \nu  _{y_{6}} + \lambda  _{y_{6}} \alpha  _{2} \\ \alpha  _{1} \\ \alpha  _{2} \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \end{array} \right)\end{align*}\]</span></p>
 <p>The mean expectations for the observed variables <code>y1</code> to <code>y6</code> are given below.</p>
 <p><span class="math display">\[\begin{align*}\mathbf{g}=\left( \begin{array}{c} \nu  _{y_{1}} + \alpha  _{1} \\ \nu  _{y_{2}} + \lambda  _{y_{2}} \alpha  _{1} \\ \nu  _{y_{3}} + \lambda  _{y_{3}} \alpha  _{1} \\ \nu  _{y_{4}} + \alpha  _{2} \\ \nu  _{y_{5}} + \lambda  _{y_{5}} \alpha  _{2} \\ \nu  _{y_{6}} + \lambda  _{y_{6}} \alpha  _{2} \end{array} \right)\end{align*}\]</span></p>
 </div>
@@ -314,39 +321,42 @@
 <p>Values can be placed on the <code>par.label</code> column.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">eq</span> <span class="op">&lt;-</span> <span class="st">"
-# loadings
+# items
+## loadings
   eta[1] by y1 1
   eta[1] by y2 1
   eta[1] by y3 1
   eta[2] by y4 1
   eta[2] by y5 1
   eta[2] by y6 1
-# errors
-  epsilon[1] by y1 1
-  epsilon[2] by y2 1
-  epsilon[3] by y3 1
-  epsilon[4] by y4 1
-  epsilon[5] by y5 1
-  epsilon[6] by y6 1
-# intercepts
+## intercepts
   y1 on 1 0
   y2 on 1 0
   y3 on 1 0
   y4 on 1 0
   y5 on 1 0
   y6 on 1 0
-# error variances
+# errors
+## Asymmetric - fixed to 1
+  epsilon[1] by y1 1
+  epsilon[2] by y2 1
+  epsilon[3] by y3 1
+  epsilon[4] by y4 1
+  epsilon[5] by y5 1
+  epsilon[6] by y6 1
+## Symmetric - error variances
   epsilon[1] with epsilon[1] 0.50
   epsilon[2] with epsilon[2] 0.50
   epsilon[3] with epsilon[3] 0.50
   epsilon[4] with epsilon[4] 0.50
   epsilon[5] with epsilon[5] 0.50
   epsilon[6] with epsilon[6] 0.50
-# factor variances and covariances
+# factors
+## variances and covariances
   eta[1] with eta[1] 1
   eta[1] with eta[2] 0.50
   eta[2] with eta[2] 1
-# factor means
+## means
   eta[1] on 1 0
   eta[2] on 1 0
 "</span></code></pre></div>
@@ -368,8 +378,12 @@
 <p>The <code><a href="../reference/Eq2Expectations.html">Eq2Expectations()</a></code> function constructs the mean and covariance expectations.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Expectations</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../reference/Eq2Expectations.html">Eq2Expectations</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span></code></pre></div>
+<p>The covariance expectations for all the variables are given below.</p>
+<p><span class="math display">\[\begin{align*}\mathbf{C}=\left( \begin{array}{cccccccccccccc} 1.5 &amp; 1 &amp; 1 &amp; 0.5 &amp; 0.5 &amp; 0.5 &amp; 1 &amp; 0.5 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 1 &amp; 1.5 &amp; 1 &amp; 0.5 &amp; 0.5 &amp; 0.5 &amp; 1 &amp; 0.5 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 1 &amp; 1 &amp; 1.5 &amp; 0.5 &amp; 0.5 &amp; 0.5 &amp; 1 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 \\ 0.5 &amp; 0.5 &amp; 0.5 &amp; 1.5 &amp; 1 &amp; 1 &amp; 0.5 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 \\ 0.5 &amp; 0.5 &amp; 0.5 &amp; 1 &amp; 1.5 &amp; 1 &amp; 0.5 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 \\ 0.5 &amp; 0.5 &amp; 0.5 &amp; 1 &amp; 1 &amp; 1.5 &amp; 0.5 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 \\ 1 &amp; 1 &amp; 1 &amp; 0.5 &amp; 0.5 &amp; 0.5 &amp; 1 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0.5 &amp; 0.5 &amp; 0.5 &amp; 1 &amp; 1 &amp; 1 &amp; 0.5 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 \end{array} \right)\end{align*}\]</span></p>
 <p>The covariance expectations for the observed variables <code>y1</code> to <code>y6</code> are given below.</p>
 <p><span class="math display">\[\begin{align*}\mathbf{M}=\left( \begin{array}{cccccc} 1.5 &amp; 1 &amp; 1 &amp; 0.5 &amp; 0.5 &amp; 0.5 \\ 1 &amp; 1.5 &amp; 1 &amp; 0.5 &amp; 0.5 &amp; 0.5 \\ 1 &amp; 1 &amp; 1.5 &amp; 0.5 &amp; 0.5 &amp; 0.5 \\ 0.5 &amp; 0.5 &amp; 0.5 &amp; 1.5 &amp; 1 &amp; 1 \\ 0.5 &amp; 0.5 &amp; 0.5 &amp; 1 &amp; 1.5 &amp; 1 \\ 0.5 &amp; 0.5 &amp; 0.5 &amp; 1 &amp; 1 &amp; 1.5 \end{array} \right)\end{align*}\]</span></p>
+<p>The mean expectations for all the variables are given below.</p>
+<p><span class="math display">\[\begin{align*}\mathbf{v}=\left( \begin{array}{c} 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \end{array} \right)\end{align*}\]</span></p>
 <p>The mean expectations for the observed variables <code>y1</code> to <code>y6</code> are given below.</p>
 <p><span class="math display">\[\begin{align*}\mathbf{g}=\left( \begin{array}{c} 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \end{array} \right)\end{align*}\]</span></p>
 </div>
@@ -380,23 +394,23 @@
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Data</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../reference/Eq2Data.html">Eq2Data</a></span><span class="op">(</span><span class="va">eq</span>, n <span class="op">=</span> <span class="fl">100000</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">Data</span><span class="op">)</span>
-<span class="co">#&gt;  num [1:100000, 1:6] -0.687 -0.704 2.154 1.403 3.402 ...</span>
+<span class="co">#&gt;  num [1:100000, 1:6] -1.0128 1.1065 -0.7636 1.936 -0.0219 ...</span>
 <span class="co">#&gt;  - attr(*, "dimnames")=List of 2</span>
 <span class="co">#&gt;   ..$ : NULL</span>
 <span class="co">#&gt;   ..$ : chr [1:6] "y1" "y2" "y3" "y4" ...</span>
 <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">Data</span><span class="op">)</span>
 <span class="co">#&gt;           y1        y2        y3        y4        y5        y6</span>
-<span class="co">#&gt; y1 1.5065657 1.0000717 1.0009943 0.5054975 0.5010400 0.5027803</span>
-<span class="co">#&gt; y2 1.0000717 1.4982915 0.9975093 0.5039295 0.5031920 0.4999331</span>
-<span class="co">#&gt; y3 1.0009943 0.9975093 1.4981664 0.5046765 0.4987765 0.4952268</span>
-<span class="co">#&gt; y4 0.5054975 0.5039295 0.5046765 1.4994462 0.9975161 0.9951422</span>
-<span class="co">#&gt; y5 0.5010400 0.5031920 0.4987765 0.9975161 1.5019665 0.9914139</span>
-<span class="co">#&gt; y6 0.5027803 0.4999331 0.4952268 0.9951422 0.9914139 1.4855586</span>
+<span class="co">#&gt; y1 1.4951239 0.9946823 0.9995948 0.4895707 0.4935680 0.4915444</span>
+<span class="co">#&gt; y2 0.9946823 1.4948920 1.0037762 0.4919293 0.4937383 0.4962395</span>
+<span class="co">#&gt; y3 0.9995948 1.0037762 1.5010880 0.4900519 0.4933458 0.4931063</span>
+<span class="co">#&gt; y4 0.4895707 0.4919293 0.4900519 1.5002230 1.0000090 0.9948229</span>
+<span class="co">#&gt; y5 0.4935680 0.4937383 0.4933458 1.0000090 1.5031161 0.9989302</span>
+<span class="co">#&gt; y6 0.4915444 0.4962395 0.4931063 0.9948229 0.9989302 1.4963098</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">colMeans</a></span><span class="op">(</span><span class="va">Data</span><span class="op">)</span>
 <span class="co">#&gt;            y1            y2            y3            y4            y5 </span>
-<span class="co">#&gt; -0.0041984983 -0.0038490927 -0.0005441697 -0.0010960887 -0.0018983216 </span>
+<span class="co">#&gt;  0.0016000918 -0.0004018226 -0.0014139492  0.0001770020  0.0030182035 </span>
 <span class="co">#&gt;            y6 </span>
-<span class="co">#&gt; -0.0036685194</span></code></pre></div>
+<span class="co">#&gt;  0.0041066452</span></code></pre></div>
 </div>
 </div>
 </div>

@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-`Eq*` functions in the `ramR` package requires an input 
+`Eq*` functions in the `ramR` package require an input 
 which is a character string that specifies the associations between the variables.
 Each line in the character string is a structural equation linking two variables at a time.
 
@@ -98,39 +98,42 @@ The structural equations can be defined as follows
 
 ```{r}
 eq <- "
-# loadings
+# items
+## loadings
   eta[1] by y1 1
   eta[1] by y2 lambda[y2]
   eta[1] by y3 lambda[y3]
   eta[2] by y4 1
   eta[2] by y5 lambda[y5]
   eta[2] by y6 lambda[y6]
-# errors
-  epsilon[1] by y1 1
-  epsilon[2] by y2 1
-  epsilon[3] by y3 1
-  epsilon[4] by y4 1
-  epsilon[5] by y5 1
-  epsilon[6] by y6 1
-# intercepts
+## intercepts
   y1 on 1 nu[y1]
   y2 on 1 nu[y2]
   y3 on 1 nu[y3]
   y4 on 1 nu[y4]
   y5 on 1 nu[y5]
   y6 on 1 nu[y6]
-# error variances
+# errors
+## Asymmetric - fixed to 1
+  epsilon[1] by y1 1
+  epsilon[2] by y2 1
+  epsilon[3] by y3 1
+  epsilon[4] by y4 1
+  epsilon[5] by y5 1
+  epsilon[6] by y6 1
+## Symmetric - error variances
   epsilon[1] with epsilon[1] theta[y1]
   epsilon[2] with epsilon[2] theta[y2]
   epsilon[3] with epsilon[3] theta[y3]
   epsilon[4] with epsilon[4] theta[y4]
   epsilon[5] with epsilon[5] theta[y5]
   epsilon[6] with epsilon[6] theta[y6]
-# factor variances and covariances
+# factors
+## variances and covariances
   eta[1] with eta[1] psi[11]
   eta[1] with eta[2] psi[12]
   eta[2] with eta[2] psi[22]
-# factor means
+## means
   eta[1] on 1 alpha[1]
   eta[2] on 1 alpha[2]
 "
@@ -215,6 +218,20 @@ mean and covariance expectations.
 Expectations <- ramR::Eq2Expectations(eq)
 ```
 
+The covariance expectations for all the variables
+are given below.
+
+```{r, echo = FALSE, results = "asis"} 
+latex <- ramR::Eq2Expectations(eq, format = "tex")
+cat(
+  "\\begin{align*}",
+  "\\mathbf{C}=",
+  latex$C,
+  "\\end{align*}",
+  sep = ""
+)
+```
+
 The covariance expectations for the observed variables `y1` to `y6`
 are given below.
 
@@ -224,6 +241,19 @@ cat(
   "\\begin{align*}",
   "\\mathbf{M}=",
   latex$M,
+  "\\end{align*}",
+  sep = ""
+)
+```
+
+The mean expectations for all the variables
+are given below.
+
+```{r, echo = FALSE, results = "asis"} 
+cat(
+  "\\begin{align*}",
+  "\\mathbf{v}=",
+  latex$v,
   "\\end{align*}",
   sep = ""
 )
@@ -248,39 +278,42 @@ Values can be placed on the `par.label` column.
 
 ```{r}
 eq <- "
-# loadings
+# items
+## loadings
   eta[1] by y1 1
   eta[1] by y2 1
   eta[1] by y3 1
   eta[2] by y4 1
   eta[2] by y5 1
   eta[2] by y6 1
-# errors
-  epsilon[1] by y1 1
-  epsilon[2] by y2 1
-  epsilon[3] by y3 1
-  epsilon[4] by y4 1
-  epsilon[5] by y5 1
-  epsilon[6] by y6 1
-# intercepts
+## intercepts
   y1 on 1 0
   y2 on 1 0
   y3 on 1 0
   y4 on 1 0
   y5 on 1 0
   y6 on 1 0
-# error variances
+# errors
+## Asymmetric - fixed to 1
+  epsilon[1] by y1 1
+  epsilon[2] by y2 1
+  epsilon[3] by y3 1
+  epsilon[4] by y4 1
+  epsilon[5] by y5 1
+  epsilon[6] by y6 1
+## Symmetric - error variances
   epsilon[1] with epsilon[1] 0.50
   epsilon[2] with epsilon[2] 0.50
   epsilon[3] with epsilon[3] 0.50
   epsilon[4] with epsilon[4] 0.50
   epsilon[5] with epsilon[5] 0.50
   epsilon[6] with epsilon[6] 0.50
-# factor variances and covariances
+# factors
+## variances and covariances
   eta[1] with eta[1] 1
   eta[1] with eta[2] 0.50
   eta[2] with eta[2] 1
-# factor means
+## means
   eta[1] on 1 0
   eta[2] on 1 0
 "
@@ -354,6 +387,19 @@ mean and covariance expectations.
 Expectations <- ramR::Eq2Expectations(eq)
 ```
 
+The covariance expectations for all the variables
+are given below.
+
+```{r, echo = FALSE, results = "asis"} 
+cat(
+  "\\begin{align*}",
+  "\\mathbf{C}=",
+  yacR::as.tex(Expectations$C),
+  "\\end{align*}",
+  sep = ""
+)
+```
+
 The covariance expectations for the observed variables `y1` to `y6`
 are given below.
 
@@ -361,7 +407,20 @@ are given below.
 cat(
   "\\begin{align*}",
   "\\mathbf{M}=",
-  Ryacas::tex(Ryacas::ysym(Expectations$M)),
+  yacR::as.tex(Expectations$M),
+  "\\end{align*}",
+  sep = ""
+)
+```
+
+The mean expectations for all the variables
+are given below.
+
+```{r, echo = FALSE, results = "asis"} 
+cat(
+  "\\begin{align*}",
+  "\\mathbf{v}=",
+  yacR::as.tex(Expectations$v),
   "\\end{align*}",
   sep = ""
 )
@@ -374,7 +433,7 @@ are given below.
 cat(
   "\\begin{align*}",
   "\\mathbf{g}=",
-  Ryacas::tex(Ryacas::ysym(Expectations$g)),
+  yacR::as.tex(Expectations$g),
   "\\end{align*}",
   sep = ""
 )
