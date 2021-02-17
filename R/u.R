@@ -116,7 +116,7 @@ u.yac_symbol <- function(A,
     Aysym,
     "))"
   )
-  vysym <- RVector2Yac(v, col = TRUE)
+  vysym <- yacR::as.ysym.mat(v)
   ADimensions <- as.numeric(
     Ryacas::yac_str(
       paste0(

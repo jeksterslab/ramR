@@ -250,7 +250,7 @@ Expectations.yac_symbol <- function(A,
     simplify = simplify
   )
   Sout <- yacR::Exe(
-    R2Yac(S),
+    yacR::as.ysym(S),
     R = R,
     format = format,
     simplify = simplify
@@ -270,7 +270,7 @@ Expectations.yac_symbol <- function(A,
     )
   }
   Filterout <- yacR::Exe(
-    R2Yac(Filter),
+    yacR::as.ysym(Filter),
     R = R,
     format = format,
     simplify = simplify
@@ -279,7 +279,7 @@ Expectations.yac_symbol <- function(A,
     uout <- u
   } else {
     uout <- yacR::Exe(
-      RVector2Yac(u),
+      yacR::as.ysym.mat(u),
       R = R,
       format = format,
       simplify = simplify

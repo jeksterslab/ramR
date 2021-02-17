@@ -159,7 +159,7 @@ M.yac_symbol <- function(A,
   if (is.null(Filter)) {
     expr <- Cysym
   } else {
-    Filterysym <- RMatrix2Yac(Filter)
+    Filterysym <- yacR::as.ysym.mat(Filter)
     FilterDimensions <- as.numeric(
       Ryacas::yac_str(
         paste0(

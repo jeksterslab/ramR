@@ -33,6 +33,7 @@
 #'     }
 #'   }
 #'
+#' @section Operations:
 #'   The associations are defined by the following operations
 #'
 #'   \describe{

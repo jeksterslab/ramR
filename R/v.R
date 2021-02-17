@@ -112,7 +112,7 @@ v.yac_symbol <- function(A,
     A = A,
     exe = FALSE
   )
-  uysym <- RVector2Yac(u, col = TRUE)
+  uysym <- yacR::as.ysym.mat(u)
   expr <- paste0(
     Eysym,
     "*",
