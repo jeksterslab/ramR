@@ -140,7 +140,8 @@
 
     
     
-<p><code>Eq*</code> functions in the <code>ramR</code> package require an input which is a character string that specifies the associations between the variables. Each line in the character string is a structural equation linking two variables at a time.</p>
+<p><code>Eq*</code> functions in the <code>ramR</code> package require<br>
+a character string input that specifies the associations between the variables. Each line in the character string is a structural equation linking two variables at a time.</p>
 <div id="defining-structural-equations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#defining-structural-equations" class="anchor"></a>Defining Structural Equations</h2>
@@ -205,7 +206,7 @@
 <div id="confirmatory-factor-analysis-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#confirmatory-factor-analysis-example" class="anchor"></a>Confirmatory Factor Analysis Example</h2>
-<p>In the following example, let <code>y1</code> to <code>y6</code> be observed variables, <code>eta[1]</code> and <code>eta[2]</code> be latent variables, and <code>epsilon[1]</code> to <code>epsilon[6]</code> be error terms. Let <code>y1</code> to <code>y3</code> be indicators of <code>eta[1]</code>, and <code>y4</code> to <code>y6</code> of <code>eta[2]</code>. The first indicator of the latent variable has a factor loading of <span class="math inline">\(1\)</span>. The latent variables are correlated. The factor loadings are labeled with <code>lambda[*]</code>, the intercepts are labeled with <code>nu[*]</code>, the error variances are labeled with <code>theta[*]</code>, the latent variable variances and covariances are labeled with <code>psi[*]</code>, and the latent variable means are labeled with <code>alpha[*]</code>. The structural equations can be defined as follows</p>
+<p>In the following example, let <code>y1</code> to <code>y6</code> be observed variables, <code>eta[1]</code> and <code>eta[2]</code> be latent variables, and <code>epsilon[1]</code> to <code>epsilon[6]</code> be error terms. Let <code>y1</code> to <code>y3</code> be indicators of <code>eta[1]</code>, and <code>y4</code> to <code>y6</code> of <code>eta[2]</code>. The first indicator of the latent variable has a factor loading of <span class="math inline">\(1\)</span>. The latent variables are correlated. The factor loadings are labeled with <code>lambda[*]</code>, the intercepts are labeled with <code>nu[*]</code>, the error variances are labeled with <code>theta[*]</code>, the latent variable variances and covariances are labeled with <code>psi[*]</code>, and the latent variable means are labeled with <code>alpha[*]</code>. You can use any string variable names and labels. These names and labels were chosen to conform to typical structural equation modeling notation. The structural equations can be defined as follows.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">eq</span> <span class="op">&lt;-</span> <span class="st">"
 # items
@@ -232,57 +233,62 @@
   epsilon[5] by y5 1
   epsilon[6] by y6 1
 ## Symmetric - error variances
-  epsilon[1] with epsilon[1] theta[y1]
-  epsilon[2] with epsilon[2] theta[y2]
-  epsilon[3] with epsilon[3] theta[y3]
-  epsilon[4] with epsilon[4] theta[y4]
-  epsilon[5] with epsilon[5] theta[y5]
-  epsilon[6] with epsilon[6] theta[y6]
+  epsilon[1] with epsilon[1] theta[epsilon[1]]
+  epsilon[2] with epsilon[2] theta[epsilon[2]]
+  epsilon[3] with epsilon[3] theta[epsilon[3]]
+  epsilon[4] with epsilon[4] theta[epsilon[4]]
+  epsilon[5] with epsilon[5] theta[epsilon[5]]
+  epsilon[6] with epsilon[6] theta[epsilon[6]]
 # factors
 ## variances and covariances
-  eta[1] with eta[1] psi[11]
-  eta[1] with eta[2] psi[12]
-  eta[2] with eta[2] psi[22]
+  eta[1] with eta[1] psi[eta[11]]
+  eta[1] with eta[2] psi[eta[12]]
+  eta[2] with eta[2] psi[eta[22]]
 ## means
-  eta[1] on 1 alpha[1]
-  eta[2] on 1 alpha[2]
+  eta[1] on 1 alpha[eta[1]]
+  eta[2] on 1 alpha[eta[2]]
 "</span></code></pre></div>
+<div class="figure">
+<img src="figure1-1.png" alt="Two-Factor Confirmatory Factor Analysis Model" width="70%"><p class="caption">
+Two-Factor Confirmatory Factor Analysis Model
+</p>
+</div>
 <div id="eqparse" class="section level3">
 <h3 class="hasAnchor">
 <a href="#eqparse" class="anchor"></a>EqParse</h3>
 <p>The <code><a href="../reference/EqParse.html">EqParse()</a></code> function can parse the defined equation and setup labels for the unknown parameters.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../reference/EqParse.html">EqParse</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span>
-<span class="co">#&gt;           lhs   op        rhs  par.label par.index</span>
-<span class="co">#&gt; 1      eta[1]   by         y1          1         1</span>
-<span class="co">#&gt; 2      eta[1]   by         y2 lambda[y2]        p1</span>
-<span class="co">#&gt; 3      eta[1]   by         y3 lambda[y3]        p2</span>
-<span class="co">#&gt; 4      eta[2]   by         y4          1         1</span>
-<span class="co">#&gt; 5      eta[2]   by         y5 lambda[y5]        p3</span>
-<span class="co">#&gt; 6      eta[2]   by         y6 lambda[y6]        p4</span>
-<span class="co">#&gt; 7          y1   on          1     nu[y1]        p5</span>
-<span class="co">#&gt; 8          y2   on          1     nu[y2]        p6</span>
-<span class="co">#&gt; 9          y3   on          1     nu[y3]        p7</span>
-<span class="co">#&gt; 10         y4   on          1     nu[y4]        p8</span>
-<span class="co">#&gt; 11         y5   on          1     nu[y5]        p9</span>
-<span class="co">#&gt; 12         y6   on          1     nu[y6]       p10</span>
-<span class="co">#&gt; 13 epsilon[1]   by         y1          1         1</span>
-<span class="co">#&gt; 14 epsilon[2]   by         y2          1         1</span>
-<span class="co">#&gt; 15 epsilon[3]   by         y3          1         1</span>
-<span class="co">#&gt; 16 epsilon[4]   by         y4          1         1</span>
-<span class="co">#&gt; 17 epsilon[5]   by         y5          1         1</span>
-<span class="co">#&gt; 18 epsilon[6]   by         y6          1         1</span>
-<span class="co">#&gt; 19 epsilon[1] with epsilon[1]  theta[y1]       p11</span>
-<span class="co">#&gt; 20 epsilon[2] with epsilon[2]  theta[y2]       p12</span>
-<span class="co">#&gt; 21 epsilon[3] with epsilon[3]  theta[y3]       p13</span>
-<span class="co">#&gt; 22 epsilon[4] with epsilon[4]  theta[y4]       p14</span>
-<span class="co">#&gt; 23 epsilon[5] with epsilon[5]  theta[y5]       p15</span>
-<span class="co">#&gt; 24 epsilon[6] with epsilon[6]  theta[y6]       p16</span>
-<span class="co">#&gt; 25     eta[1] with     eta[1]    psi[11]       p17</span>
-<span class="co">#&gt; 26     eta[1] with     eta[2]    psi[12]       p18</span>
-<span class="co">#&gt; 27     eta[2] with     eta[2]    psi[22]       p19</span>
-<span class="co">#&gt; 28     eta[1]   on          1   alpha[1]       p20</span>
-<span class="co">#&gt; 29     eta[2]   on          1   alpha[2]       p21</span></code></pre></div>
+<span class="co">#&gt;           lhs   op        rhs         par.label par.index</span>
+<span class="co">#&gt; 1      eta[1]   by         y1                 1         1</span>
+<span class="co">#&gt; 2      eta[1]   by         y2        lambda[y2]        p1</span>
+<span class="co">#&gt; 3      eta[1]   by         y3        lambda[y3]        p2</span>
+<span class="co">#&gt; 4      eta[2]   by         y4                 1         1</span>
+<span class="co">#&gt; 5      eta[2]   by         y5        lambda[y5]        p3</span>
+<span class="co">#&gt; 6      eta[2]   by         y6        lambda[y6]        p4</span>
+<span class="co">#&gt; 7          y1   on          1            nu[y1]        p5</span>
+<span class="co">#&gt; 8          y2   on          1            nu[y2]        p6</span>
+<span class="co">#&gt; 9          y3   on          1            nu[y3]        p7</span>
+<span class="co">#&gt; 10         y4   on          1            nu[y4]        p8</span>
+<span class="co">#&gt; 11         y5   on          1            nu[y5]        p9</span>
+<span class="co">#&gt; 12         y6   on          1            nu[y6]       p10</span>
+<span class="co">#&gt; 13 epsilon[1]   by         y1                 1         1</span>
+<span class="co">#&gt; 14 epsilon[2]   by         y2                 1         1</span>
+<span class="co">#&gt; 15 epsilon[3]   by         y3                 1         1</span>
+<span class="co">#&gt; 16 epsilon[4]   by         y4                 1         1</span>
+<span class="co">#&gt; 17 epsilon[5]   by         y5                 1         1</span>
+<span class="co">#&gt; 18 epsilon[6]   by         y6                 1         1</span>
+<span class="co">#&gt; 19 epsilon[1] with epsilon[1] theta[epsilon[1]]       p11</span>
+<span class="co">#&gt; 20 epsilon[2] with epsilon[2] theta[epsilon[2]]       p12</span>
+<span class="co">#&gt; 21 epsilon[3] with epsilon[3] theta[epsilon[3]]       p13</span>
+<span class="co">#&gt; 22 epsilon[4] with epsilon[4] theta[epsilon[4]]       p14</span>
+<span class="co">#&gt; 23 epsilon[5] with epsilon[5] theta[epsilon[5]]       p15</span>
+<span class="co">#&gt; 24 epsilon[6] with epsilon[6] theta[epsilon[6]]       p16</span>
+<span class="co">#&gt; 25     eta[1] with     eta[1]      psi[eta[11]]       p17</span>
+<span class="co">#&gt; 26     eta[1] with     eta[2]      psi[eta[12]]       p18</span>
+<span class="co">#&gt; 27     eta[2] with     eta[2]      psi[eta[22]]       p19</span>
+<span class="co">#&gt; 28     eta[1]   on          1     alpha[eta[1]]       p20</span>
+<span class="co">#&gt; 29     eta[2]   on          1     alpha[eta[2]]       p21</span></code></pre></div>
 </div>
 <div id="symbolic" class="section level3">
 <h3 class="hasAnchor">
@@ -295,8 +301,8 @@
 <code class="sourceCode R"><span class="va">RAM</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../reference/Eq2RAM.html">Eq2RAM</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span></code></pre></div>
 <p><span class="math display">\[\begin{align*}\mathrm{variables}=\left( \begin{array}{c} y_{1} \\ y_{2} \\ y_{3} \\ y_{4} \\ y_{5} \\ y_{6} \\ \eta  _{1} \\ \eta  _{2} \\ \epsilon  _{1} \\ \epsilon  _{2} \\ \epsilon  _{3} \\ \epsilon  _{4} \\ \epsilon  _{5} \\ \epsilon  _{6} \end{array} \right)\end{align*}\]</span></p>
 <p><span class="math display">\[\begin{align*}\mathbf{A}=\left( \begin{array}{cccccccccccccc} 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \lambda  _{y_{2}} &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \lambda  _{y_{3}} &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \lambda  _{y_{5}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \lambda  _{y_{6}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
-<p><span class="math display">\[\begin{align*}\mathbf{S}=\left( \begin{array}{cccccccccccccc} 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \psi  _{11} &amp; \psi  _{12} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \psi  _{12} &amp; \psi  _{22} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{1}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{2}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{3}} &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{4}} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{5}} &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{6}} \end{array} \right)\end{align*}\]</span></p>
-<p><span class="math display">\[\begin{align*}\mathbf{u}=\left( \begin{array}{c} \nu  _{y_{1}} \\ \nu  _{y_{2}} \\ \nu  _{y_{3}} \\ \nu  _{y_{4}} \\ \nu  _{y_{5}} \\ \nu  _{y_{6}} \\ \alpha  _{1} \\ \alpha  _{2} \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{S}=\left( \begin{array}{cccccccccccccc} 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \psi  _{\eta  _{11}} &amp; \psi  _{\eta  _{12}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \psi  _{\eta  _{12}} &amp; \psi  _{\eta  _{22}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{1}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{2}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{3}} &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{4}} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{5}} &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{6}} \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{u}=\left( \begin{array}{c} \nu  _{y_{1}} \\ \nu  _{y_{2}} \\ \nu  _{y_{3}} \\ \nu  _{y_{4}} \\ \nu  _{y_{5}} \\ \nu  _{y_{6}} \\ \alpha  _{\eta  _{1}} \\ \alpha  _{\eta  _{2}} \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \end{array} \right)\end{align*}\]</span></p>
 <p><span class="math display">\[\begin{align*}\mathbf{F}=\left( \begin{array}{cccccccccccccc} 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
 </div>
 <div id="eq2expectations" class="section level4">
@@ -306,13 +312,13 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Expectations</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../reference/Eq2Expectations.html">Eq2Expectations</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span></code></pre></div>
 <p>The covariance expectations for all the variables are given below.</p>
-<p><span class="math display">\[\begin{align*}\mathbf{C}=\left( \begin{array}{cccccccccccccc} \psi  _{11} + \theta  _{y_{1}} &amp; \psi  _{11} \lambda  _{y_{2}} &amp; \psi  _{11} \lambda  _{y_{3}} &amp; \psi  _{12} &amp; \psi  _{12} \lambda  _{y_{5}} &amp; \psi  _{12} \lambda  _{y_{6}} &amp; \psi  _{11} &amp; \psi  _{12} &amp; \theta  _{y_{1}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \lambda  _{y_{2}} \psi  _{11} &amp; \psi  _{11} \lambda  _{y_{2}} ^{2} + \theta  _{y_{2}} &amp; \lambda  _{y_{2}} \psi  _{11} \lambda  _{y_{3}} &amp; \lambda  _{y_{2}} \psi  _{12} &amp; \lambda  _{y_{2}} \psi  _{12} \lambda  _{y_{5}} &amp; \lambda  _{y_{2}} \psi  _{12} \lambda  _{y_{6}} &amp; \lambda  _{y_{2}} \psi  _{11} &amp; \lambda  _{y_{2}} \psi  _{12} &amp; 0 &amp; \theta  _{y_{2}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \lambda  _{y_{3}} \psi  _{11} &amp; \lambda  _{y_{3}} \psi  _{11} \lambda  _{y_{2}} &amp; \psi  _{11} \lambda  _{y_{3}} ^{2} + \theta  _{y_{3}} &amp; \lambda  _{y_{3}} \psi  _{12} &amp; \lambda  _{y_{3}} \psi  _{12} \lambda  _{y_{5}} &amp; \lambda  _{y_{3}} \psi  _{12} \lambda  _{y_{6}} &amp; \lambda  _{y_{3}} \psi  _{11} &amp; \lambda  _{y_{3}} \psi  _{12} &amp; 0 &amp; 0 &amp; \theta  _{y_{3}} &amp; 0 &amp; 0 &amp; 0 \\ \psi  _{12} &amp; \psi  _{12} \lambda  _{y_{2}} &amp; \psi  _{12} \lambda  _{y_{3}} &amp; \psi  _{22} + \theta  _{y_{4}} &amp; \psi  _{22} \lambda  _{y_{5}} &amp; \psi  _{22} \lambda  _{y_{6}} &amp; \psi  _{12} &amp; \psi  _{22} &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{4}} &amp; 0 &amp; 0 \\ \lambda  _{y_{5}} \psi  _{12} &amp; \lambda  _{y_{5}} \psi  _{12} \lambda  _{y_{2}} &amp; \lambda  _{y_{5}} \psi  _{12} \lambda  _{y_{3}} &amp; \lambda  _{y_{5}} \psi  _{22} &amp; \psi  _{22} \lambda  _{y_{5}} ^{2} + \theta  _{y_{5}} &amp; \lambda  _{y_{5}} \psi  _{22} \lambda  _{y_{6}} &amp; \lambda  _{y_{5}} \psi  _{12} &amp; \lambda  _{y_{5}} \psi  _{22} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{5}} &amp; 0 \\ \lambda  _{y_{6}} \psi  _{12} &amp; \lambda  _{y_{6}} \psi  _{12} \lambda  _{y_{2}} &amp; \lambda  _{y_{6}} \psi  _{12} \lambda  _{y_{3}} &amp; \lambda  _{y_{6}} \psi  _{22} &amp; \lambda  _{y_{6}} \psi  _{22} \lambda  _{y_{5}} &amp; \psi  _{22} \lambda  _{y_{6}} ^{2} + \theta  _{y_{6}} &amp; \lambda  _{y_{6}} \psi  _{12} &amp; \lambda  _{y_{6}} \psi  _{22} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{6}} \\ \psi  _{11} &amp; \psi  _{11} \lambda  _{y_{2}} &amp; \psi  _{11} \lambda  _{y_{3}} &amp; \psi  _{12} &amp; \psi  _{12} \lambda  _{y_{5}} &amp; \psi  _{12} \lambda  _{y_{6}} &amp; \psi  _{11} &amp; \psi  _{12} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \psi  _{12} &amp; \psi  _{12} \lambda  _{y_{2}} &amp; \psi  _{12} \lambda  _{y_{3}} &amp; \psi  _{22} &amp; \psi  _{22} \lambda  _{y_{5}} &amp; \psi  _{22} \lambda  _{y_{6}} &amp; \psi  _{12} &amp; \psi  _{22} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \theta  _{y_{1}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{1}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; \theta  _{y_{2}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{2}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; \theta  _{y_{3}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{3}} &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{4}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{4}} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{5}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{5}} &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{6}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{y_{6}} \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{C}=\left( \begin{array}{cccccccccccccc} \psi  _{\eta  _{11}} + \theta  _{\epsilon  _{1}} &amp; \psi  _{\eta  _{11}} \lambda  _{y_{2}} &amp; \psi  _{\eta  _{11}} \lambda  _{y_{3}} &amp; \psi  _{\eta  _{12}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{5}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{6}} &amp; \psi  _{\eta  _{11}} &amp; \psi  _{\eta  _{12}} &amp; \theta  _{\epsilon  _{1}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \lambda  _{y_{2}} \psi  _{\eta  _{11}} &amp; \psi  _{\eta  _{11}} \lambda  _{y_{2}} ^{2} + \theta  _{\epsilon  _{2}} &amp; \lambda  _{y_{2}} \psi  _{\eta  _{11}} \lambda  _{y_{3}} &amp; \lambda  _{y_{2}} \psi  _{\eta  _{12}} &amp; \lambda  _{y_{2}} \psi  _{\eta  _{12}} \lambda  _{y_{5}} &amp; \lambda  _{y_{2}} \psi  _{\eta  _{12}} \lambda  _{y_{6}} &amp; \lambda  _{y_{2}} \psi  _{\eta  _{11}} &amp; \lambda  _{y_{2}} \psi  _{\eta  _{12}} &amp; 0 &amp; \theta  _{\epsilon  _{2}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \lambda  _{y_{3}} \psi  _{\eta  _{11}} &amp; \lambda  _{y_{3}} \psi  _{\eta  _{11}} \lambda  _{y_{2}} &amp; \psi  _{\eta  _{11}} \lambda  _{y_{3}} ^{2} + \theta  _{\epsilon  _{3}} &amp; \lambda  _{y_{3}} \psi  _{\eta  _{12}} &amp; \lambda  _{y_{3}} \psi  _{\eta  _{12}} \lambda  _{y_{5}} &amp; \lambda  _{y_{3}} \psi  _{\eta  _{12}} \lambda  _{y_{6}} &amp; \lambda  _{y_{3}} \psi  _{\eta  _{11}} &amp; \lambda  _{y_{3}} \psi  _{\eta  _{12}} &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{3}} &amp; 0 &amp; 0 &amp; 0 \\ \psi  _{\eta  _{12}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{2}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{3}} &amp; \psi  _{\eta  _{22}} + \theta  _{\epsilon  _{4}} &amp; \psi  _{\eta  _{22}} \lambda  _{y_{5}} &amp; \psi  _{\eta  _{22}} \lambda  _{y_{6}} &amp; \psi  _{\eta  _{12}} &amp; \psi  _{\eta  _{22}} &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{4}} &amp; 0 &amp; 0 \\ \lambda  _{y_{5}} \psi  _{\eta  _{12}} &amp; \lambda  _{y_{5}} \psi  _{\eta  _{12}} \lambda  _{y_{2}} &amp; \lambda  _{y_{5}} \psi  _{\eta  _{12}} \lambda  _{y_{3}} &amp; \lambda  _{y_{5}} \psi  _{\eta  _{22}} &amp; \psi  _{\eta  _{22}} \lambda  _{y_{5}} ^{2} + \theta  _{\epsilon  _{5}} &amp; \lambda  _{y_{5}} \psi  _{\eta  _{22}} \lambda  _{y_{6}} &amp; \lambda  _{y_{5}} \psi  _{\eta  _{12}} &amp; \lambda  _{y_{5}} \psi  _{\eta  _{22}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{5}} &amp; 0 \\ \lambda  _{y_{6}} \psi  _{\eta  _{12}} &amp; \lambda  _{y_{6}} \psi  _{\eta  _{12}} \lambda  _{y_{2}} &amp; \lambda  _{y_{6}} \psi  _{\eta  _{12}} \lambda  _{y_{3}} &amp; \lambda  _{y_{6}} \psi  _{\eta  _{22}} &amp; \lambda  _{y_{6}} \psi  _{\eta  _{22}} \lambda  _{y_{5}} &amp; \psi  _{\eta  _{22}} \lambda  _{y_{6}} ^{2} + \theta  _{\epsilon  _{6}} &amp; \lambda  _{y_{6}} \psi  _{\eta  _{12}} &amp; \lambda  _{y_{6}} \psi  _{\eta  _{22}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{6}} \\ \psi  _{\eta  _{11}} &amp; \psi  _{\eta  _{11}} \lambda  _{y_{2}} &amp; \psi  _{\eta  _{11}} \lambda  _{y_{3}} &amp; \psi  _{\eta  _{12}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{5}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{6}} &amp; \psi  _{\eta  _{11}} &amp; \psi  _{\eta  _{12}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \psi  _{\eta  _{12}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{2}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{3}} &amp; \psi  _{\eta  _{22}} &amp; \psi  _{\eta  _{22}} \lambda  _{y_{5}} &amp; \psi  _{\eta  _{22}} \lambda  _{y_{6}} &amp; \psi  _{\eta  _{12}} &amp; \psi  _{\eta  _{22}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \theta  _{\epsilon  _{1}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{1}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; \theta  _{\epsilon  _{2}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{2}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; \theta  _{\epsilon  _{3}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{3}} &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{4}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{4}} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{5}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{5}} &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{6}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{6}} \end{array} \right)\end{align*}\]</span></p>
 <p>The covariance expectations for the observed variables <code>y1</code> to <code>y6</code> are given below.</p>
-<p><span class="math display">\[\begin{align*}\mathbf{M}=\left( \begin{array}{cccccc} \psi  _{11} + \theta  _{y_{1}} &amp; \psi  _{11} \lambda  _{y_{2}} &amp; \psi  _{11} \lambda  _{y_{3}} &amp; \psi  _{12} &amp; \psi  _{12} \lambda  _{y_{5}} &amp; \psi  _{12} \lambda  _{y_{6}} \\ \lambda  _{y_{2}} \psi  _{11} &amp; \psi  _{11} \lambda  _{y_{2}} ^{2} + \theta  _{y_{2}} &amp; \lambda  _{y_{2}} \psi  _{11} \lambda  _{y_{3}} &amp; \lambda  _{y_{2}} \psi  _{12} &amp; \lambda  _{y_{2}} \psi  _{12} \lambda  _{y_{5}} &amp; \lambda  _{y_{2}} \psi  _{12} \lambda  _{y_{6}} \\ \lambda  _{y_{3}} \psi  _{11} &amp; \lambda  _{y_{3}} \psi  _{11} \lambda  _{y_{2}} &amp; \psi  _{11} \lambda  _{y_{3}} ^{2} + \theta  _{y_{3}} &amp; \lambda  _{y_{3}} \psi  _{12} &amp; \lambda  _{y_{3}} \psi  _{12} \lambda  _{y_{5}} &amp; \lambda  _{y_{3}} \psi  _{12} \lambda  _{y_{6}} \\ \psi  _{12} &amp; \psi  _{12} \lambda  _{y_{2}} &amp; \psi  _{12} \lambda  _{y_{3}} &amp; \psi  _{22} + \theta  _{y_{4}} &amp; \psi  _{22} \lambda  _{y_{5}} &amp; \psi  _{22} \lambda  _{y_{6}} \\ \lambda  _{y_{5}} \psi  _{12} &amp; \lambda  _{y_{5}} \psi  _{12} \lambda  _{y_{2}} &amp; \lambda  _{y_{5}} \psi  _{12} \lambda  _{y_{3}} &amp; \lambda  _{y_{5}} \psi  _{22} &amp; \psi  _{22} \lambda  _{y_{5}} ^{2} + \theta  _{y_{5}} &amp; \lambda  _{y_{5}} \psi  _{22} \lambda  _{y_{6}} \\ \lambda  _{y_{6}} \psi  _{12} &amp; \lambda  _{y_{6}} \psi  _{12} \lambda  _{y_{2}} &amp; \lambda  _{y_{6}} \psi  _{12} \lambda  _{y_{3}} &amp; \lambda  _{y_{6}} \psi  _{22} &amp; \lambda  _{y_{6}} \psi  _{22} \lambda  _{y_{5}} &amp; \psi  _{22} \lambda  _{y_{6}} ^{2} + \theta  _{y_{6}} \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{M}=\left( \begin{array}{cccccc} \psi  _{\eta  _{11}} + \theta  _{\epsilon  _{1}} &amp; \psi  _{\eta  _{11}} \lambda  _{y_{2}} &amp; \psi  _{\eta  _{11}} \lambda  _{y_{3}} &amp; \psi  _{\eta  _{12}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{5}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{6}} \\ \lambda  _{y_{2}} \psi  _{\eta  _{11}} &amp; \psi  _{\eta  _{11}} \lambda  _{y_{2}} ^{2} + \theta  _{\epsilon  _{2}} &amp; \lambda  _{y_{2}} \psi  _{\eta  _{11}} \lambda  _{y_{3}} &amp; \lambda  _{y_{2}} \psi  _{\eta  _{12}} &amp; \lambda  _{y_{2}} \psi  _{\eta  _{12}} \lambda  _{y_{5}} &amp; \lambda  _{y_{2}} \psi  _{\eta  _{12}} \lambda  _{y_{6}} \\ \lambda  _{y_{3}} \psi  _{\eta  _{11}} &amp; \lambda  _{y_{3}} \psi  _{\eta  _{11}} \lambda  _{y_{2}} &amp; \psi  _{\eta  _{11}} \lambda  _{y_{3}} ^{2} + \theta  _{\epsilon  _{3}} &amp; \lambda  _{y_{3}} \psi  _{\eta  _{12}} &amp; \lambda  _{y_{3}} \psi  _{\eta  _{12}} \lambda  _{y_{5}} &amp; \lambda  _{y_{3}} \psi  _{\eta  _{12}} \lambda  _{y_{6}} \\ \psi  _{\eta  _{12}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{2}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{3}} &amp; \psi  _{\eta  _{22}} + \theta  _{\epsilon  _{4}} &amp; \psi  _{\eta  _{22}} \lambda  _{y_{5}} &amp; \psi  _{\eta  _{22}} \lambda  _{y_{6}} \\ \lambda  _{y_{5}} \psi  _{\eta  _{12}} &amp; \lambda  _{y_{5}} \psi  _{\eta  _{12}} \lambda  _{y_{2}} &amp; \lambda  _{y_{5}} \psi  _{\eta  _{12}} \lambda  _{y_{3}} &amp; \lambda  _{y_{5}} \psi  _{\eta  _{22}} &amp; \psi  _{\eta  _{22}} \lambda  _{y_{5}} ^{2} + \theta  _{\epsilon  _{5}} &amp; \lambda  _{y_{5}} \psi  _{\eta  _{22}} \lambda  _{y_{6}} \\ \lambda  _{y_{6}} \psi  _{\eta  _{12}} &amp; \lambda  _{y_{6}} \psi  _{\eta  _{12}} \lambda  _{y_{2}} &amp; \lambda  _{y_{6}} \psi  _{\eta  _{12}} \lambda  _{y_{3}} &amp; \lambda  _{y_{6}} \psi  _{\eta  _{22}} &amp; \lambda  _{y_{6}} \psi  _{\eta  _{22}} \lambda  _{y_{5}} &amp; \psi  _{\eta  _{22}} \lambda  _{y_{6}} ^{2} + \theta  _{\epsilon  _{6}} \end{array} \right)\end{align*}\]</span></p>
 <p>The mean expectations for all the variables are given below.</p>
-<p><span class="math display">\[\begin{align*}\mathbf{v}=\left( \begin{array}{c} \nu  _{y_{1}} + \alpha  _{1} \\ \nu  _{y_{2}} + \lambda  _{y_{2}} \alpha  _{1} \\ \nu  _{y_{3}} + \lambda  _{y_{3}} \alpha  _{1} \\ \nu  _{y_{4}} + \alpha  _{2} \\ \nu  _{y_{5}} + \lambda  _{y_{5}} \alpha  _{2} \\ \nu  _{y_{6}} + \lambda  _{y_{6}} \alpha  _{2} \\ \alpha  _{1} \\ \alpha  _{2} \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{v}=\left( \begin{array}{c} \nu  _{y_{1}} + \alpha  _{\eta  _{1}} \\ \nu  _{y_{2}} + \lambda  _{y_{2}} \alpha  _{\eta  _{1}} \\ \nu  _{y_{3}} + \lambda  _{y_{3}} \alpha  _{\eta  _{1}} \\ \nu  _{y_{4}} + \alpha  _{\eta  _{2}} \\ \nu  _{y_{5}} + \lambda  _{y_{5}} \alpha  _{\eta  _{2}} \\ \nu  _{y_{6}} + \lambda  _{y_{6}} \alpha  _{\eta  _{2}} \\ \alpha  _{\eta  _{1}} \\ \alpha  _{\eta  _{2}} \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \end{array} \right)\end{align*}\]</span></p>
 <p>The mean expectations for the observed variables <code>y1</code> to <code>y6</code> are given below.</p>
-<p><span class="math display">\[\begin{align*}\mathbf{g}=\left( \begin{array}{c} \nu  _{y_{1}} + \alpha  _{1} \\ \nu  _{y_{2}} + \lambda  _{y_{2}} \alpha  _{1} \\ \nu  _{y_{3}} + \lambda  _{y_{3}} \alpha  _{1} \\ \nu  _{y_{4}} + \alpha  _{2} \\ \nu  _{y_{5}} + \lambda  _{y_{5}} \alpha  _{2} \\ \nu  _{y_{6}} + \lambda  _{y_{6}} \alpha  _{2} \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{g}=\left( \begin{array}{c} \nu  _{y_{1}} + \alpha  _{\eta  _{1}} \\ \nu  _{y_{2}} + \lambda  _{y_{2}} \alpha  _{\eta  _{1}} \\ \nu  _{y_{3}} + \lambda  _{y_{3}} \alpha  _{\eta  _{1}} \\ \nu  _{y_{4}} + \alpha  _{\eta  _{2}} \\ \nu  _{y_{5}} + \lambda  _{y_{5}} \alpha  _{\eta  _{2}} \\ \nu  _{y_{6}} + \lambda  _{y_{6}} \alpha  _{\eta  _{2}} \end{array} \right)\end{align*}\]</span></p>
 </div>
 </div>
 <div id="numerical" class="section level3">
@@ -394,23 +400,21 @@
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Data</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../reference/Eq2Data.html">Eq2Data</a></span><span class="op">(</span><span class="va">eq</span>, n <span class="op">=</span> <span class="fl">100000</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">Data</span><span class="op">)</span>
-<span class="co">#&gt;  num [1:100000, 1:6] -1.0128 1.1065 -0.7636 1.936 -0.0219 ...</span>
+<span class="co">#&gt;  num [1:100000, 1:6] 0.122 -0.0211 0.598 0.2624 -1.3755 ...</span>
 <span class="co">#&gt;  - attr(*, "dimnames")=List of 2</span>
 <span class="co">#&gt;   ..$ : NULL</span>
 <span class="co">#&gt;   ..$ : chr [1:6] "y1" "y2" "y3" "y4" ...</span>
 <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">Data</span><span class="op">)</span>
 <span class="co">#&gt;           y1        y2        y3        y4        y5        y6</span>
-<span class="co">#&gt; y1 1.4951239 0.9946823 0.9995948 0.4895707 0.4935680 0.4915444</span>
-<span class="co">#&gt; y2 0.9946823 1.4948920 1.0037762 0.4919293 0.4937383 0.4962395</span>
-<span class="co">#&gt; y3 0.9995948 1.0037762 1.5010880 0.4900519 0.4933458 0.4931063</span>
-<span class="co">#&gt; y4 0.4895707 0.4919293 0.4900519 1.5002230 1.0000090 0.9948229</span>
-<span class="co">#&gt; y5 0.4935680 0.4937383 0.4933458 1.0000090 1.5031161 0.9989302</span>
-<span class="co">#&gt; y6 0.4915444 0.4962395 0.4931063 0.9948229 0.9989302 1.4963098</span>
+<span class="co">#&gt; y1 1.4979128 0.9978756 0.9977997 0.4866886 0.4898786 0.4920584</span>
+<span class="co">#&gt; y2 0.9978756 1.5032843 0.9987387 0.4912032 0.4938287 0.4983176</span>
+<span class="co">#&gt; y3 0.9977997 0.9987387 1.4984341 0.4957171 0.4981866 0.5021780</span>
+<span class="co">#&gt; y4 0.4866886 0.4912032 0.4957171 1.4920803 0.9953580 0.9955759</span>
+<span class="co">#&gt; y5 0.4898786 0.4938287 0.4981866 0.9953580 1.4949859 0.9939414</span>
+<span class="co">#&gt; y6 0.4920584 0.4983176 0.5021780 0.9955759 0.9939414 1.4929262</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">colMeans</a></span><span class="op">(</span><span class="va">Data</span><span class="op">)</span>
-<span class="co">#&gt;            y1            y2            y3            y4            y5 </span>
-<span class="co">#&gt;  0.0016000918 -0.0004018226 -0.0014139492  0.0001770020  0.0030182035 </span>
-<span class="co">#&gt;            y6 </span>
-<span class="co">#&gt;  0.0041066452</span></code></pre></div>
+<span class="co">#&gt;           y1           y2           y3           y4           y5           y6 </span>
+<span class="co">#&gt;  0.001256945  0.002457795 -0.001815429 -0.001195308 -0.002107705 -0.000284585</span></code></pre></div>
 </div>
 </div>
 </div>

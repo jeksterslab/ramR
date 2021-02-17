@@ -20,8 +20,8 @@ knitr::opts_chunk$set(
 )
 ```
 
-`Eq*` functions in the `ramR` package require an input 
-which is a character string that specifies the associations between the variables.
+`Eq*` functions in the `ramR` package require  
+a character string input that specifies the associations between the variables.
 Each line in the character string is a structural equation linking two variables at a time.
 
 ## Defining Structural Equations
@@ -94,7 +94,10 @@ the intercepts are labeled with `nu[*]`,
 the error variances are labeled with `theta[*]`,
 the latent variable variances and covariances are labeled with `psi[*]`,
 and the latent variable means are labeled with `alpha[*]`.
-The structural equations can be defined as follows
+You can use any string variable names and labels.
+These names and labels were chosen to conform
+to typical structural equation modeling notation. 
+The structural equations can be defined as follows.
 
 ```{r}
 eq <- "
@@ -122,21 +125,25 @@ eq <- "
   epsilon[5] by y5 1
   epsilon[6] by y6 1
 ## Symmetric - error variances
-  epsilon[1] with epsilon[1] theta[y1]
-  epsilon[2] with epsilon[2] theta[y2]
-  epsilon[3] with epsilon[3] theta[y3]
-  epsilon[4] with epsilon[4] theta[y4]
-  epsilon[5] with epsilon[5] theta[y5]
-  epsilon[6] with epsilon[6] theta[y6]
+  epsilon[1] with epsilon[1] theta[epsilon[1]]
+  epsilon[2] with epsilon[2] theta[epsilon[2]]
+  epsilon[3] with epsilon[3] theta[epsilon[3]]
+  epsilon[4] with epsilon[4] theta[epsilon[4]]
+  epsilon[5] with epsilon[5] theta[epsilon[5]]
+  epsilon[6] with epsilon[6] theta[epsilon[6]]
 # factors
 ## variances and covariances
-  eta[1] with eta[1] psi[11]
-  eta[1] with eta[2] psi[12]
-  eta[2] with eta[2] psi[22]
+  eta[1] with eta[1] psi[eta[11]]
+  eta[1] with eta[2] psi[eta[12]]
+  eta[2] with eta[2] psi[eta[22]]
 ## means
-  eta[1] on 1 alpha[1]
-  eta[2] on 1 alpha[2]
+  eta[1] on 1 alpha[eta[1]]
+  eta[2] on 1 alpha[eta[2]]
 "
+```
+
+```{r, echo = FALSE, out.width = "70%", fig.cap="Two-Factor Confirmatory Factor Analysis Model"}
+knitr::include_graphics("figure1-1.png")
 ```
 
 ### EqParse
