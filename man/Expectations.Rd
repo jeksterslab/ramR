@@ -59,24 +59,6 @@ returns symbolic result as LaTeX math.}
 Returns a list with the following elements
 
 \describe{
-\item{A}{
-\verb{t by t} matrix \eqn{\mathbf{A}}.
-Asymmetric paths (single-headed arrows),
-such as regression coefficients and factor loadings.
-}
-\item{S}{
-\verb{t by t} numeric matrix \eqn{\mathbf{S}}.
-Symmetric paths (double-headed arrows),
-such as variances and covariances.
-}
-\item{u}{
-\verb{t by 1} matrix \eqn{\mathbf{u}} of mean structure parameters.
-}
-\item{Filter}{
-\verb{p by t} numeric matrix
-\eqn{\mathbf{F}}.
-Filter matrix used to select observed variables.
-}
 \item{v}{
 \verb{t by 1} matrix \eqn{\mathbf{v}}
 of expected values.
@@ -162,10 +144,6 @@ Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "ysym")
 Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "str")
 Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "tex")
 (Expectations <- Expectations(Ryacas::ysym(A), S, u, Filter, R = TRUE))
-eval(Expectations$A)
-eval(Expectations$S)
-eval(Expectations$u)
-eval(Expectations$Filter)
 eval(Expectations$v)
 eval(Expectations$g)
 eval(Expectations$C)

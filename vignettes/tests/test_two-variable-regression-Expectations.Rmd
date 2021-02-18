@@ -76,10 +76,6 @@ g <- as.matrix(
 
 ```{r numeric}
 Numeric <- ramR::Expectations(A, S, u, Filter)
-NumericA <- round(Numeric$A, digits = 4)
-NumericS <- round(Numeric$S, digits = 4)
-Numericu <- round(Numeric$u, digits = 4)
-NumericFilter <- round(Numeric$Filter, digits = 4)
 NumericC <- round(Numeric$C, digits = 4)
 NumericM <- round(Numeric$M, digits = 4)
 Numericv <- round(Numeric$v, digits = 4)
@@ -90,10 +86,6 @@ Numericg <- round(Numeric$g, digits = 4)
 
 ```{r numeric_u_NULL}
 NumericuNull <- ramR::Expectations(A, S, u = NULL, Filter)
-NumericuNullA <- round(NumericuNull$A, digits = 4)
-NumericuNullS <- round(NumericuNull$S, digits = 4)
-NumericuNullu <- NumericuNull$u
-NumericuNullFilter <- round(NumericuNull$Filter, digits = 4)
 NumericuNullC <- round(NumericuNull$C, digits = 4)
 NumericuNullM <- round(NumericuNull$M, digits = 4)
 NumericuNullv <- NumericuNull$v
@@ -104,10 +96,6 @@ NumericuNullg <- NumericuNull$g
 
 ```{r numeric_Filter_NULL}
 NumericFilterNull <- ramR::Expectations(A, S, u, Filter = NULL)
-NumericFilterNullA <- round(NumericFilterNull$A, digits = 4)
-NumericFilterNullS <- round(NumericFilterNull$S, digits = 4)
-NumericFilterNullu <- round(NumericFilterNull$u, digits = 4)
-NumericFilterNullFilter <- round(NumericFilterNull$Filter, digits = 4)
 NumericFilterNullC <- round(NumericFilterNull$C, digits = 4)
 NumericFilterNullM <- round(NumericFilterNull$M, digits = 4)
 NumericFilterNullv <- round(NumericFilterNull$v, digits = 4)
@@ -118,10 +106,6 @@ NumericFilterNullg <- round(NumericFilterNull$g, digits = 4)
 
 ```{r symbolic}
 Symbolic <- ramR::Expectations(Ryacas::ysym(A), S, u, Filter)
-SymbolicA <- round(Ryacas::as_r(Symbolic$A), digits = 4)
-SymbolicS <- round(Ryacas::as_r(Symbolic$S), digits = 4)
-Symbolicu <- round(Ryacas::as_r(Symbolic$u), digits = 4)
-SymbolicFilter <- round(Ryacas::as_r(Symbolic$Filter), digits = 4)
 SymbolicC <- round(Ryacas::as_r(Symbolic$C), digits = 4)
 SymbolicM <- round(Ryacas::as_r(Symbolic$M), digits = 4)
 Symbolicv <- round(Ryacas::as_r(Symbolic$v), digits = 4)
@@ -185,15 +169,6 @@ SymbolicuNull <- ramR::Expectations(
   u = NULL,
   Filter
 )
-SymbolicuNullA <- round(Ryacas::as_r(SymbolicuNull$A), digits = 4)
-SymbolicuNullS <- round(Ryacas::as_r(SymbolicuNull$S), digits = 4)
-SymbolicuNullu <- SymbolicuNull$u
-SymbolicuNullFilter <- round(
-  Ryacas::as_r(
-    SymbolicuNull$Filter
-  ),
-  digits = 4
-)
 SymbolicuNullC <- round(Ryacas::as_r(SymbolicuNull$C), digits = 4)
 SymbolicuNullM <- round(Ryacas::as_r(SymbolicuNull$M), digits = 4)
 SymbolicuNullv <- SymbolicuNull$v
@@ -225,30 +200,6 @@ SymbolicFilterNull <- ramR::Expectations(
   S,
   u,
   Filter = NULL
-)
-SymbolicFilterNullA <- round(
-  Ryacas::as_r(
-    SymbolicFilterNull$A
-  ),
-  digits = 4
-)
-SymbolicFilterNullS <- round(
-  Ryacas::as_r(
-    SymbolicFilterNull$S
-  ),
-  digits = 4
-)
-SymbolicFilterNullu <- round(
-  Ryacas::as_r(
-    SymbolicFilterNull$u
-  ),
-  digits = 4
-)
-SymbolicFilterNullFilter <- round(
-  Ryacas::as_r(
-    SymbolicFilterNull$Filter
-  ),
-  digits = 4
 )
 SymbolicFilterNullC <- round(
   Ryacas::as_r(
@@ -313,34 +264,6 @@ SymbolicFilterNullExprg <- round(
 ```{r tex, results = "asis"}
 cat(
   "\\begin{align*}",
-  "\\mathbf{A} = ",
-  ExpectationsTex$A,
-  "\\end{align*}",
-  sep = ""
-)
-cat(
-  "\\begin{align*}",
-  "\\mathbf{S} = ",
-  ExpectationsTex$S,
-  "\\end{align*}",
-  sep = ""
-)
-cat(
-  "\\begin{align*}",
-  "\\mathbf{u} = ",
-  ExpectationsTex$u,
-  "\\end{align*}",
-  sep = ""
-)
-cat(
-  "\\begin{align*}",
-  "\\mathbf{F} = ",
-  ExpectationsTex$Filter,
-  "\\end{align*}",
-  sep = ""
-)
-cat(
-  "\\begin{align*}",
   "\\mathbf{v} = ",
   ExpectationsTex$v,
   "\\end{align*}",
@@ -372,10 +295,6 @@ cat(
 
 
 ```{r round_source}
-A <- round(A, digits = 4)
-S <- round(S, digits = 4)
-u <- round(u, digits = 4)
-Filter <- round(Filter, digits = 4)
 C <- round(C, digits = 4)
 M <- round(M, digits = 4)
 v <- round(v, digits = 4)
@@ -385,83 +304,6 @@ g <- round(g, digits = 4)
 
 
 ```{r testthat}
-testthat::test_that("A.", {
-  for (i in seq_len(nrow(A))) {
-    for (j in seq_len(ncol(A))) {
-      testthat::expect_equal(
-        A[i, j],
-        NumericA[i, j],
-        NumericuNullA[i, j],
-        NumericFilterNullA[i, j],
-        SymbolicA[i, j],
-        SymbolicuNullA[i, j],
-        SymbolicFilterNullA[i, j],
-        check.attributes = FALSE
-      )
-    }
-  }
-})
-testthat::test_that("S.", {
-  for (i in seq_len(nrow(S))) {
-    for (j in seq_len(ncol(S))) {
-      testthat::expect_equal(
-        S[i, j],
-        NumericS[i, j],
-        NumericuNullS[i, j],
-        NumericFilterNullS[i, j],
-        SymbolicS[i, j],
-        SymbolicuNullS[i, j],
-        SymbolicFilterNullS[i, j],
-        check.attributes = FALSE
-      )
-    }
-  }
-})
-testthat::test_that("u.", {
-  for (i in seq_len(nrow(u))) {
-    for (j in seq_len(ncol(u))) {
-      testthat::expect_equal(
-        u[i, j],
-        Numericu[i, j],
-        NumericFilterNullu[i, j],
-        Symbolicu[i, j],
-        SymbolicFilterNullu[i, j],
-        check.attributes = FALSE
-      )
-    }
-  }
-  testthat::expect_true(
-    is.null(NumericuNullu)
-  )
-  testthat::expect_true(
-    is.null(SymbolicuNullu)
-  )
-})
-testthat::test_that("Filter.", {
-  for (i in seq_len(nrow(Filter))) {
-    for (j in seq_len(ncol(Filter))) {
-      testthat::expect_equal(
-        Filter[i, j],
-        NumericFilter[i, j],
-        NumericuNullFilter[i, j],
-        SymbolicFilter[i, j],
-        SymbolicuNullFilter[i, j],
-        check.attributes = FALSE
-      )
-    }
-  }
-  Identity <- diag(dim(A)[1])
-  for (i in seq_len(nrow(Identity))) {
-    for (j in seq_len(ncol(Identity))) {
-      testthat::expect_equal(
-        Identity[i, j],
-        NumericFilterNullFilter[i, j],
-        SymbolicFilterNullFilter[i, j],
-        check.attributes = FALSE
-      )
-    }
-  }
-})
 testthat::test_that("C.", {
   for (i in seq_len(nrow(C))) {
     for (j in seq_len(ncol(C))) {

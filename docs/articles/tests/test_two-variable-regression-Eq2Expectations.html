@@ -183,49 +183,13 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
-  <span class="st">"\\mathbf{A} = "</span>,
-  <span class="va">SymbolicLabelsTex</span><span class="op">$</span><span class="va">A</span>,
-  <span class="st">"\\end{align*}"</span>,
-  sep <span class="op">=</span> <span class="st">""</span>
-<span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{A} = \left( \begin{array}{ccc} 0 &amp; \beta  &amp; 1 \\ 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
-  <span class="st">"\\begin{align*}"</span>,
-  <span class="st">"\\mathbf{S} = "</span>,
-  <span class="va">SymbolicLabelsTex</span><span class="op">$</span><span class="va">S</span>,
-  <span class="st">"\\end{align*}"</span>,
-  sep <span class="op">=</span> <span class="st">""</span>
-<span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{S} = \left( \begin{array}{ccc} 0 &amp; 0 &amp; 0 \\ 0 &amp; \sigma  _{x} ^{2} &amp; 0 \\ 0 &amp; 0 &amp; \sigma  _{\epsilon } ^{2} \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
-  <span class="st">"\\begin{align*}"</span>,
-  <span class="st">"\\mathbf{u} = "</span>,
-  <span class="va">SymbolicLabelsTex</span><span class="op">$</span><span class="va">u</span>,
-  <span class="st">"\\end{align*}"</span>,
-  sep <span class="op">=</span> <span class="st">""</span>
-<span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{u} = \left( \begin{array}{c} \alpha  \\ \mu  _{x} \\ 0 \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
-  <span class="st">"\\begin{align*}"</span>,
-  <span class="st">"\\mathbf{F} = "</span>,
-  <span class="va">SymbolicLabelsTex</span><span class="op">$</span><span class="va">Filter</span>,
-  <span class="st">"\\end{align*}"</span>,
-  sep <span class="op">=</span> <span class="st">""</span>
-<span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{F} = \left( \begin{array}{ccc} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
-  <span class="st">"\\begin{align*}"</span>,
   <span class="st">"\\mathbf{v} = "</span>,
   <span class="va">SymbolicLabelsTex</span><span class="op">$</span><span class="va">v</span>,
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
 <p><span class="math display">\[\begin{align*}\mathbf{v} = \left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \\ 0 \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
   <span class="st">"\\mathbf{g} = "</span>,
@@ -234,7 +198,7 @@
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
 <p><span class="math display">\[\begin{align*}\mathbf{g} = \left( \begin{array}{c} \alpha  + \beta  \mu  _{x} \\ \mu  _{x} \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
   <span class="st">"\\mathbf{C} = "</span>,
@@ -243,7 +207,7 @@
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
 <p><span class="math display">\[\begin{align*}\mathbf{C} = \left( \begin{array}{ccc} \sigma  _{x} ^{2} \beta  ^{2} + \sigma  _{\epsilon } ^{2} &amp; \beta  \sigma  _{x} ^{2} &amp; \sigma  _{\epsilon } ^{2} \\ \sigma  _{x} ^{2} \beta  &amp; \sigma  _{x} ^{2} &amp; 0 \\ \sigma  _{\epsilon } ^{2} &amp; 0 &amp; \sigma  _{\epsilon } ^{2} \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
   <span class="st">"\\mathbf{M} = "</span>,
@@ -252,43 +216,7 @@
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
 <p><span class="math display">\[\begin{align*}\mathbf{M} = \left( \begin{array}{cc} \sigma  _{x} ^{2} \beta  ^{2} + \sigma  _{\epsilon } ^{2} &amp; \beta  \sigma  _{x} ^{2} \\ \sigma  _{x} ^{2} \beta  &amp; \sigma  _{x} ^{2} \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
-  <span class="st">"\\begin{align*}"</span>,
-  <span class="st">"\\mathbf{A} = "</span>,
-  <span class="va">SymbolicParsTex</span><span class="op">$</span><span class="va">A</span>,
-  <span class="st">"\\end{align*}"</span>,
-  sep <span class="op">=</span> <span class="st">""</span>
-<span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{A} = \left( \begin{array}{ccc} 0 &amp; p_{1} &amp; 1 \\ 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
-  <span class="st">"\\begin{align*}"</span>,
-  <span class="st">"\\mathbf{S} = "</span>,
-  <span class="va">SymbolicParsTex</span><span class="op">$</span><span class="va">S</span>,
-  <span class="st">"\\end{align*}"</span>,
-  sep <span class="op">=</span> <span class="st">""</span>
-<span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{S} = \left( \begin{array}{ccc} 0 &amp; 0 &amp; 0 \\ 0 &amp; p_{3} &amp; 0 \\ 0 &amp; 0 &amp; p_{2} \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
-  <span class="st">"\\begin{align*}"</span>,
-  <span class="st">"\\mathbf{u} = "</span>,
-  <span class="va">SymbolicParsTex</span><span class="op">$</span><span class="va">u</span>,
-  <span class="st">"\\end{align*}"</span>,
-  sep <span class="op">=</span> <span class="st">""</span>
-<span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{u} = \left( \begin{array}{c} p_{4} \\ p_{5} \\ 0 \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
-  <span class="st">"\\begin{align*}"</span>,
-  <span class="st">"\\mathbf{F} = "</span>,
-  <span class="va">SymbolicParsTex</span><span class="op">$</span><span class="va">Filter</span>,
-  <span class="st">"\\end{align*}"</span>,
-  sep <span class="op">=</span> <span class="st">""</span>
-<span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{F} = \left( \begin{array}{ccc} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
   <span class="st">"\\mathbf{v} = "</span>,
@@ -297,7 +225,7 @@
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
 <p><span class="math display">\[\begin{align*}\mathbf{v} = \left( \begin{array}{c} p_{4} + p_{1} p_{5} \\ p_{5} \\ 0 \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
   <span class="st">"\\mathbf{g} = "</span>,
@@ -306,7 +234,7 @@
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
 <p><span class="math display">\[\begin{align*}\mathbf{g} = \left( \begin{array}{c} p_{4} + p_{1} p_{5} \\ p_{5} \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
   <span class="st">"\\mathbf{C} = "</span>,
@@ -315,7 +243,7 @@
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
 <p><span class="math display">\[\begin{align*}\mathbf{C} = \left( \begin{array}{ccc} p_{3} p_{1} ^{2} + p_{2} &amp; p_{1} p_{3} &amp; p_{2} \\ p_{3} p_{1} &amp; p_{3} &amp; 0 \\ p_{2} &amp; 0 &amp; p_{2} \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
   <span class="st">"\\mathbf{M} = "</span>,
@@ -324,7 +252,7 @@
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
 <p><span class="math display">\[\begin{align*}\mathbf{M} = \left( \begin{array}{cc} p_{3} p_{1} ^{2} + p_{2} &amp; p_{1} p_{3} \\ p_{3} p_{1} &amp; p_{3} \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span>, min <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, max <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="va">beta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span>, min <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, max <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="va">sigmax2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
@@ -369,34 +297,26 @@
 <p><span class="math display">\[\begin{equation}
   \begin{split}
     y &amp;= \alpha + \beta x + \varepsilon \\
-    y &amp;= 0.9490195 + \left( -0.1035077 \right) x + \varepsilon
+    y &amp;= 0.8857418 + \left( 0.7712087 \right) x + \varepsilon
   \end{split}
 \end{equation}\]</span></p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">SymbolicLabelsA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="va">SymbolicLabels</span><span class="op">$</span><span class="va">A</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">SymbolicLabelsS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="va">SymbolicLabels</span><span class="op">$</span><span class="va">S</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">SymbolicLabelsu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="va">SymbolicLabels</span><span class="op">$</span><span class="va">u</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">SymbolicLabelsFilter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="va">SymbolicLabels</span><span class="op">$</span><span class="va">Filter</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">SymbolicLabelsv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="va">SymbolicLabels</span><span class="op">$</span><span class="va">v</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">SymbolicLabelsv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="va">SymbolicLabels</span><span class="op">$</span><span class="va">v</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">SymbolicLabelsg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="va">SymbolicLabels</span><span class="op">$</span><span class="va">g</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">SymbolicLabelsC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="va">SymbolicLabels</span><span class="op">$</span><span class="va">C</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">SymbolicLabelsM</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="va">SymbolicLabels</span><span class="op">$</span><span class="va">M</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">beta</span>, <span class="va">sigmae2</span>, <span class="va">sigmax2</span>, <span class="va">alpha</span>, <span class="va">mux</span><span class="op">)</span>
 <span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
 <span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>
 <span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>
 <span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">p</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>
 <span class="va">p5</span> <span class="op">&lt;-</span> <span class="va">p</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span>
-<span class="va">SymbolicParsA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="va">SymbolicPars</span><span class="op">$</span><span class="va">A</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">SymbolicParsS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="va">SymbolicPars</span><span class="op">$</span><span class="va">S</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">SymbolicParsu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="va">SymbolicPars</span><span class="op">$</span><span class="va">u</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">SymbolicParsFilter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="va">SymbolicPars</span><span class="op">$</span><span class="va">Filter</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">SymbolicParsv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="va">SymbolicPars</span><span class="op">$</span><span class="va">v</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">SymbolicParsg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="va">SymbolicPars</span><span class="op">$</span><span class="va">g</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">SymbolicParsC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="va">SymbolicPars</span><span class="op">$</span><span class="va">C</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">SymbolicParsM</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html">eval</a></span><span class="op">(</span><span class="va">SymbolicPars</span><span class="op">$</span><span class="va">M</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">eq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span>
   <span class="st">"e by y 1"</span>, <span class="st">"\n"</span>,
   <span class="st">"y on x"</span>, <span class="va">beta</span>, <span class="st">"\n"</span>,
@@ -407,95 +327,23 @@
 <span class="op">)</span>
 <span class="va">NumericLabels</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/Eq2Expectations.html">Eq2Expectations</a></span><span class="op">(</span><span class="va">eq</span>, par <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="va">NumericPars</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/Eq2Expectations.html">Eq2Expectations</a></span><span class="op">(</span><span class="va">eq</span>, par <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">NumericLabelsA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericLabels</span><span class="op">$</span><span class="va">A</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">NumericLabelsS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericLabels</span><span class="op">$</span><span class="va">S</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">NumericLabelsu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericLabels</span><span class="op">$</span><span class="va">u</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">NumericLabelsFilter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericLabels</span><span class="op">$</span><span class="va">Filter</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">NumericLabelsv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericLabels</span><span class="op">$</span><span class="va">v</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">NumericLabelsv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericLabels</span><span class="op">$</span><span class="va">v</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">NumericLabelsg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericLabels</span><span class="op">$</span><span class="va">g</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">NumericLabelsC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericLabels</span><span class="op">$</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">NumericLabelsM</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericLabels</span><span class="op">$</span><span class="va">M</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">NumericParsA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericPars</span><span class="op">$</span><span class="va">A</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">NumericParsS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericPars</span><span class="op">$</span><span class="va">S</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">NumericParsu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericPars</span><span class="op">$</span><span class="va">u</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">NumericParsFilter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericPars</span><span class="op">$</span><span class="va">Filter</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">NumericParsv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericPars</span><span class="op">$</span><span class="va">v</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">NumericParsv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericPars</span><span class="op">$</span><span class="va">v</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">NumericParsg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericPars</span><span class="op">$</span><span class="va">g</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">NumericParsC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericPars</span><span class="op">$</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">NumericParsM</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericPars</span><span class="op">$</span><span class="va">M</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">A</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">S</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">S</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">u</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">Filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">Filter</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">C</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">C</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">M</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">v</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">g</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"A."</span>, <span class="op">{</span>
-  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-      <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
-        <span class="va">A</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">NumericLabelsA</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">NumericParsA</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">SymbolicLabelsA</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">SymbolicParsA</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        check.attributes <span class="op">=</span> <span class="cn">FALSE</span>
-      <span class="op">)</span>
-    <span class="op">}</span>
-  <span class="op">}</span>
-<span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🎉</span>
-<span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"S."</span>, <span class="op">{</span>
-  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-      <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
-        <span class="va">S</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">NumericLabelsS</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">NumericParsS</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">SymbolicLabelsS</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">SymbolicParsS</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        check.attributes <span class="op">=</span> <span class="cn">FALSE</span>
-      <span class="op">)</span>
-    <span class="op">}</span>
-  <span class="op">}</span>
-<span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 😸</span>
-<span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"u."</span>, <span class="op">{</span>
-  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-      <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
-        <span class="va">u</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">NumericLabelsu</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">NumericParsu</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">SymbolicLabelsu</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">SymbolicParsu</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        check.attributes <span class="op">=</span> <span class="cn">FALSE</span>
-      <span class="op">)</span>
-    <span class="op">}</span>
-  <span class="op">}</span>
-<span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🥇</span>
-<span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"Filter."</span>, <span class="op">{</span>
-  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">Filter</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">Filter</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-      <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
-        <span class="va">Filter</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">NumericLabelsFilter</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">NumericParsFilter</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">SymbolicLabelsFilter</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">SymbolicParsFilter</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        check.attributes <span class="op">=</span> <span class="cn">FALSE</span>
-      <span class="op">)</span>
-    <span class="op">}</span>
-  <span class="op">}</span>
-<span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 😀</span>
-<span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"C."</span>, <span class="op">{</span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"C."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">C</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">C</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
       <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
@@ -509,7 +357,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 😸</span>
+<span class="co">#&gt; Test passed 🌈</span>
 <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"M."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">M</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">M</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -539,7 +387,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🎊</span>
+<span class="co">#&gt; Test passed 🥳</span>
 <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"g."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -554,7 +402,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🎊</span></code></pre></div>
+<span class="co">#&gt; Test passed 🥇</span></code></pre></div>
 </div>
   </div>
 

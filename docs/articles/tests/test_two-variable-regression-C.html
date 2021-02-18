@@ -184,7 +184,7 @@
 <p><span class="math display">\[\begin{equation}
   \begin{split}
     y &amp;= \alpha + \beta x + \varepsilon \\
-    y &amp;= 0.1003476 + \left( -7.2588585\times 10^{-4} x \right) + \varepsilon
+    y &amp;= 0.0164494 + \left( 0.3719127 x \right) + \varepsilon
   \end{split}
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -222,9 +222,9 @@
   ysym <span class="op">=</span> <span class="cn">FALSE</span>,
   simplify <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
-<span class="co">#&gt; {{  0.465479552, -0.0001668268,  0.4654794309},</span>
-<span class="co">#&gt;  {-0.0001668268,  0.2298251926,             0},</span>
-<span class="co">#&gt;  { 0.4654794309,             0,  0.4654794309}}</span></code></pre></div>
+<span class="co">#&gt; {{1.1131880022,  0.370316514, 0.9754625745},</span>
+<span class="co">#&gt;  { 0.370316514, 0.9957080751,            0},</span>
+<span class="co">#&gt;  {0.9754625745,            0, 0.9754625745}}</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
@@ -237,7 +237,7 @@
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\left( \begin{array}{ccc} 0.465479552 &amp; -0.0001668268 &amp; 0.4654794309 \\ -0.0001668268 &amp; 0.2298251926 &amp; 0 \\ 0.4654794309 &amp; 0 &amp; 0.4654794309 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\left( \begin{array}{ccc} 1.1131880022 &amp; 0.370316514 &amp; 0.9754625745 \\ 0.370316514 &amp; 0.9957080751 &amp; 0 \\ 0.9754625745 &amp; 0 &amp; 0.9754625745 \end{array} \right)\end{align*}\]</span></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">C</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -254,14 +254,14 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🌈</span></code></pre></div>
+<span class="co">#&gt; Test passed 🎉</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/C.html">C</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span>,
   exe <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "Inverse(Identity(Length({{0,-0.0007258858,1},{0,0,0},{0,0,0}}))-{{0,-0.0007258858,1},{0,0,0},{0,0,0}})*{{0,0,0},{0,0.229825192596763,0},{0,0,0.465479430975392}}*Transpose(Inverse(Identity(Length({{0,-0.0007258858,1},{0,0,0},{0,0,0}}))-{{0,-0.0007258858,1},{0,0,0},{0,0,0}}))"</span></code></pre></div>
+<span class="co">#&gt; [1] "Inverse(Identity(Length({{0,0.371912735514343,1},{0,0,0},{0,0,0}}))-{{0,0.371912735514343,1},{0,0,0},{0,0,0}})*{{0,0,0},{0,0.995708075119182,0},{0,0,0.975462574511766}}*Transpose(Inverse(Identity(Length({{0,0.371912735514343,1},{0,0,0},{0,0,0}}))-{{0,0.371912735514343,1},{0,0,0},{0,0,0}}))"</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

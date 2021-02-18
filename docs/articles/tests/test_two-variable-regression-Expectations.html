@@ -184,45 +184,29 @@
 <p><span class="math display">\[\begin{equation}
   \begin{split}
     y &amp;= \alpha + \beta x + \varepsilon \\
-    y &amp;= -0.005452 + \left( -0.475731 x \right) + \varepsilon
+    y &amp;= -0.6120416 + \left( 0.0593159 x \right) + \varepsilon
   \end{split}
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Numeric</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/Expectations.html">Expectations</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span>, <span class="va">u</span>, <span class="va">Filter</span><span class="op">)</span>
-<span class="va">NumericA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">Numeric</span><span class="op">$</span><span class="va">A</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">NumericS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">Numeric</span><span class="op">$</span><span class="va">S</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">Numericu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">Numeric</span><span class="op">$</span><span class="va">u</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">NumericFilter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">Numeric</span><span class="op">$</span><span class="va">Filter</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">NumericC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">Numeric</span><span class="op">$</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">NumericM</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">Numeric</span><span class="op">$</span><span class="va">M</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">Numericv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">Numeric</span><span class="op">$</span><span class="va">v</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">Numericg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">Numeric</span><span class="op">$</span><span class="va">g</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">NumericuNull</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/Expectations.html">Expectations</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span>, u <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">Filter</span><span class="op">)</span>
-<span class="va">NumericuNullA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericuNull</span><span class="op">$</span><span class="va">A</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">NumericuNullS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericuNull</span><span class="op">$</span><span class="va">S</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">NumericuNullu</span> <span class="op">&lt;-</span> <span class="va">NumericuNull</span><span class="op">$</span><span class="va">u</span>
-<span class="va">NumericuNullFilter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericuNull</span><span class="op">$</span><span class="va">Filter</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">NumericuNullC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericuNull</span><span class="op">$</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">NumericuNullM</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericuNull</span><span class="op">$</span><span class="va">M</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">NumericuNullv</span> <span class="op">&lt;-</span> <span class="va">NumericuNull</span><span class="op">$</span><span class="va">v</span>
 <span class="va">NumericuNullg</span> <span class="op">&lt;-</span> <span class="va">NumericuNull</span><span class="op">$</span><span class="va">g</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">NumericFilterNull</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/Expectations.html">Expectations</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">S</span>, <span class="va">u</span>, Filter <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-<span class="va">NumericFilterNullA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericFilterNull</span><span class="op">$</span><span class="va">A</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">NumericFilterNullS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericFilterNull</span><span class="op">$</span><span class="va">S</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">NumericFilterNullu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericFilterNull</span><span class="op">$</span><span class="va">u</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">NumericFilterNullFilter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericFilterNull</span><span class="op">$</span><span class="va">Filter</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">NumericFilterNullC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericFilterNull</span><span class="op">$</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">NumericFilterNullM</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericFilterNull</span><span class="op">$</span><span class="va">M</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">NumericFilterNullv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericFilterNull</span><span class="op">$</span><span class="va">v</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">NumericFilterNullg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">NumericFilterNull</span><span class="op">$</span><span class="va">g</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Symbolic</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/Expectations.html">Expectations</a></span><span class="op">(</span><span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>, <span class="va">S</span>, <span class="va">u</span>, <span class="va">Filter</span><span class="op">)</span>
-<span class="va">SymbolicA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="va">Symbolic</span><span class="op">$</span><span class="va">A</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">SymbolicS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="va">Symbolic</span><span class="op">$</span><span class="va">S</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">Symbolicu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="va">Symbolic</span><span class="op">$</span><span class="va">u</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">SymbolicFilter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="va">Symbolic</span><span class="op">$</span><span class="va">Filter</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">SymbolicC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="va">Symbolic</span><span class="op">$</span><span class="va">C</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">SymbolicM</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="va">Symbolic</span><span class="op">$</span><span class="va">M</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">Symbolicv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="va">Symbolic</span><span class="op">$</span><span class="va">v</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
@@ -248,42 +232,23 @@
   ysym <span class="op">=</span> <span class="cn">FALSE</span>,
   simplify <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
-<span class="co">#&gt; $A</span>
-<span class="co">#&gt; {{            0, -0.4757310454,             1},</span>
-<span class="co">#&gt;  {            0,             0,             0},</span>
-<span class="co">#&gt;  {            0,             0,             0}} </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $S</span>
-<span class="co">#&gt; {{           0,            0,            0},</span>
-<span class="co">#&gt;  {           0, 0.5271544014,            0},</span>
-<span class="co">#&gt;  {           0,            0,  0.274326808}} </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $u</span>
-<span class="co">#&gt; {{-0.0054519781},</span>
-<span class="co">#&gt;  { 0.9272588957},</span>
-<span class="co">#&gt;  {            0}} </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $Filter</span>
-<span class="co">#&gt; {{1, 0, 0},</span>
-<span class="co">#&gt;  {0, 1, 0}} </span>
-<span class="co">#&gt; </span>
 <span class="co">#&gt; $v</span>
-<span class="co">#&gt; {{-0.4465778219},</span>
-<span class="co">#&gt;  { 0.9272588957},</span>
+<span class="co">#&gt; {{-0.5667771012},</span>
+<span class="co">#&gt;  { 0.7631093678},</span>
 <span class="co">#&gt;  {            0}} </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $g</span>
-<span class="co">#&gt; {{-0.4465778219},</span>
-<span class="co">#&gt;  { 0.9272588957}} </span>
+<span class="co">#&gt; {{-0.5667771012},</span>
+<span class="co">#&gt;  { 0.7631093678}} </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $C</span>
-<span class="co">#&gt; {{ 0.3936324067, -0.2507837144,   0.274326808},</span>
-<span class="co">#&gt;  {-0.2507837144,  0.5271544014,             0},</span>
-<span class="co">#&gt;  {  0.274326808,             0,   0.274326808}} </span>
+<span class="co">#&gt; {{0.0964884046, 0.0335667306, 0.0944973644},</span>
+<span class="co">#&gt;  {0.0335667306, 0.5658978929,            0},</span>
+<span class="co">#&gt;  {0.0944973644,            0, 0.0944973644}} </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $M</span>
-<span class="co">#&gt; {{ 0.3936324067, -0.2507837144},</span>
-<span class="co">#&gt;  {-0.2507837144,  0.5271544014}}</span>
+<span class="co">#&gt; {{0.0964884046, 0.0335667306},</span>
+<span class="co">#&gt;  {0.0335667306, 0.5658978929}}</span>
 <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/Expectations.html">Expectations</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
   <span class="va">S</span>,
@@ -293,24 +258,6 @@
   ysym <span class="op">=</span> <span class="cn">FALSE</span>,
   simplify <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
-<span class="co">#&gt; $A</span>
-<span class="co">#&gt; {{            0, -0.4757310454,             1},</span>
-<span class="co">#&gt;  {            0,             0,             0},</span>
-<span class="co">#&gt;  {            0,             0,             0}} </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $S</span>
-<span class="co">#&gt; {{           0,            0,            0},</span>
-<span class="co">#&gt;  {           0, 0.5271544014,            0},</span>
-<span class="co">#&gt;  {           0,            0,  0.274326808}} </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $u</span>
-<span class="co">#&gt; NULL</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $Filter</span>
-<span class="co">#&gt; {{1, 0, 0},</span>
-<span class="co">#&gt;  {0, 1, 0},</span>
-<span class="co">#&gt;  {0, 0, 1}} </span>
-<span class="co">#&gt; </span>
 <span class="co">#&gt; $v</span>
 <span class="co">#&gt; NULL</span>
 <span class="co">#&gt; </span>
@@ -318,14 +265,14 @@
 <span class="co">#&gt; NULL</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $C</span>
-<span class="co">#&gt; {{ 0.3936324067, -0.2507837144,   0.274326808},</span>
-<span class="co">#&gt;  {-0.2507837144,  0.5271544014,             0},</span>
-<span class="co">#&gt;  {  0.274326808,             0,   0.274326808}} </span>
+<span class="co">#&gt; {{0.0964884046, 0.0335667306, 0.0944973644},</span>
+<span class="co">#&gt;  {0.0335667306, 0.5658978929,            0},</span>
+<span class="co">#&gt;  {0.0944973644,            0, 0.0944973644}} </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $M</span>
-<span class="co">#&gt; {{ 0.3936324067, -0.2507837144,   0.274326808},</span>
-<span class="co">#&gt;  {-0.2507837144,  0.5271544014,             0},</span>
-<span class="co">#&gt;  {  0.274326808,             0,   0.274326808}}</span>
+<span class="co">#&gt; {{0.0964884046, 0.0335667306, 0.0944973644},</span>
+<span class="co">#&gt;  {0.0335667306, 0.5658978929,            0},</span>
+<span class="co">#&gt;  {0.0944973644,            0, 0.0944973644}}</span>
 <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/Expectations.html">Expectations</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
   <span class="va">S</span>,
@@ -335,18 +282,6 @@
   format <span class="op">=</span> <span class="st">"tex"</span>,
   simplify <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
-<span class="co">#&gt; $A</span>
-<span class="co">#&gt; [1] "\\left( \\begin{array}{ccc} 0 &amp; -0.4757310454 &amp; 1 \\\\ 0 &amp; 0 &amp; 0 \\\\ 0 &amp; 0 &amp; 0 \\end{array} \\right)"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $S</span>
-<span class="co">#&gt; [1] "\\left( \\begin{array}{ccc} 0 &amp; 0 &amp; 0 \\\\ 0 &amp; 0.5271544014 &amp; 0 \\\\ 0 &amp; 0 &amp; 0.274326808 \\end{array} \\right)"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $u</span>
-<span class="co">#&gt; NULL</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $Filter</span>
-<span class="co">#&gt; [1] "\\left( \\begin{array}{ccc} 1 &amp; 0 &amp; 0 \\\\ 0 &amp; 1 &amp; 0 \\\\ 0 &amp; 0 &amp; 1 \\end{array} \\right)"</span>
-<span class="co">#&gt; </span>
 <span class="co">#&gt; $v</span>
 <span class="co">#&gt; NULL</span>
 <span class="co">#&gt; </span>
@@ -354,10 +289,10 @@
 <span class="co">#&gt; NULL</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $C</span>
-<span class="co">#&gt; [1] "\\left( \\begin{array}{ccc} 0.3936324067 &amp; -0.2507837144 &amp; 0.274326808 \\\\ -0.2507837144 &amp; 0.5271544014 &amp; 0 \\\\ 0.274326808 &amp; 0 &amp; 0.274326808 \\end{array} \\right)"</span>
+<span class="co">#&gt; [1] "\\left( \\begin{array}{ccc} 0.0964884046 &amp; 0.0335667306 &amp; 0.0944973644 \\\\ 0.0335667306 &amp; 0.5658978929 &amp; 0 \\\\ 0.0944973644 &amp; 0 &amp; 0.0944973644 \\end{array} \\right)"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $M</span>
-<span class="co">#&gt; [1] "\\left( \\begin{array}{ccc} 0.3936324067 &amp; -0.2507837144 &amp; 0.274326808 \\\\ -0.2507837144 &amp; 0.5271544014 &amp; 0 \\\\ 0.274326808 &amp; 0 &amp; 0.274326808 \\end{array} \\right)"</span>
+<span class="co">#&gt; [1] "\\left( \\begin{array}{ccc} 0.0964884046 &amp; 0.0335667306 &amp; 0.0944973644 \\\\ 0.0335667306 &amp; 0.5658978929 &amp; 0 \\\\ 0.0944973644 &amp; 0 &amp; 0.0944973644 \\end{array} \\right)"</span>
 <span class="va">ExpectationsTex</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/Expectations.html">Expectations</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
   <span class="va">S</span>,
@@ -373,15 +308,6 @@
   <span class="va">S</span>,
   u <span class="op">=</span> <span class="cn">NULL</span>,
   <span class="va">Filter</span>
-<span class="op">)</span>
-<span class="va">SymbolicuNullA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="va">SymbolicuNull</span><span class="op">$</span><span class="va">A</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">SymbolicuNullS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="va">SymbolicuNull</span><span class="op">$</span><span class="va">S</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">SymbolicuNullu</span> <span class="op">&lt;-</span> <span class="va">SymbolicuNull</span><span class="op">$</span><span class="va">u</span>
-<span class="va">SymbolicuNullFilter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>
-  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span>
-    <span class="va">SymbolicuNull</span><span class="op">$</span><span class="va">Filter</span>
-  <span class="op">)</span>,
-  digits <span class="op">=</span> <span class="fl">4</span>
 <span class="op">)</span>
 <span class="va">SymbolicuNullC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="va">SymbolicuNull</span><span class="op">$</span><span class="va">C</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">SymbolicuNullM</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span><span class="va">SymbolicuNull</span><span class="op">$</span><span class="va">M</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
@@ -410,30 +336,6 @@
   <span class="va">S</span>,
   <span class="va">u</span>,
   Filter <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span>
-<span class="va">SymbolicFilterNullA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>
-  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span>
-    <span class="va">SymbolicFilterNull</span><span class="op">$</span><span class="va">A</span>
-  <span class="op">)</span>,
-  digits <span class="op">=</span> <span class="fl">4</span>
-<span class="op">)</span>
-<span class="va">SymbolicFilterNullS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>
-  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span>
-    <span class="va">SymbolicFilterNull</span><span class="op">$</span><span class="va">S</span>
-  <span class="op">)</span>,
-  digits <span class="op">=</span> <span class="fl">4</span>
-<span class="op">)</span>
-<span class="va">SymbolicFilterNullu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>
-  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span>
-    <span class="va">SymbolicFilterNull</span><span class="op">$</span><span class="va">u</span>
-  <span class="op">)</span>,
-  digits <span class="op">=</span> <span class="fl">4</span>
-<span class="op">)</span>
-<span class="va">SymbolicFilterNullFilter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>
-  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span>
-    <span class="va">SymbolicFilterNull</span><span class="op">$</span><span class="va">Filter</span>
-  <span class="op">)</span>,
-  digits <span class="op">=</span> <span class="fl">4</span>
 <span class="op">)</span>
 <span class="va">SymbolicFilterNullC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span>
@@ -494,49 +396,13 @@
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
-  <span class="st">"\\mathbf{A} = "</span>,
-  <span class="va">ExpectationsTex</span><span class="op">$</span><span class="va">A</span>,
-  <span class="st">"\\end{align*}"</span>,
-  sep <span class="op">=</span> <span class="st">""</span>
-<span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{A} = \left( \begin{array}{ccc} 0 &amp; -0.4757310454 &amp; 1 \\ 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
-  <span class="st">"\\begin{align*}"</span>,
-  <span class="st">"\\mathbf{S} = "</span>,
-  <span class="va">ExpectationsTex</span><span class="op">$</span><span class="va">S</span>,
-  <span class="st">"\\end{align*}"</span>,
-  sep <span class="op">=</span> <span class="st">""</span>
-<span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{S} = \left( \begin{array}{ccc} 0 &amp; 0 &amp; 0 \\ 0 &amp; 0.5271544014 &amp; 0 \\ 0 &amp; 0 &amp; 0.274326808 \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
-  <span class="st">"\\begin{align*}"</span>,
-  <span class="st">"\\mathbf{u} = "</span>,
-  <span class="va">ExpectationsTex</span><span class="op">$</span><span class="va">u</span>,
-  <span class="st">"\\end{align*}"</span>,
-  sep <span class="op">=</span> <span class="st">""</span>
-<span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{u} = \left( \begin{array}{c} -0.0054519781 \\ 0.9272588957 \\ 0 \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
-  <span class="st">"\\begin{align*}"</span>,
-  <span class="st">"\\mathbf{F} = "</span>,
-  <span class="va">ExpectationsTex</span><span class="op">$</span><span class="va">Filter</span>,
-  <span class="st">"\\end{align*}"</span>,
-  sep <span class="op">=</span> <span class="st">""</span>
-<span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{F} = \left( \begin{array}{ccc} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
-  <span class="st">"\\begin{align*}"</span>,
   <span class="st">"\\mathbf{v} = "</span>,
   <span class="va">ExpectationsTex</span><span class="op">$</span><span class="va">v</span>,
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{v} = \left( \begin{array}{c} -0.4465778219 \\ 0.9272588957 \\ 0 \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<p><span class="math display">\[\begin{align*}\mathbf{v} = \left( \begin{array}{c} -0.5667771012 \\ 0.7631093678 \\ 0 \end{array} \right)\end{align*}\]</span></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
   <span class="st">"\\mathbf{g} = "</span>,
@@ -544,8 +410,8 @@
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{g} = \left( \begin{array}{c} -0.4465778219 \\ 0.9272588957 \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<p><span class="math display">\[\begin{align*}\mathbf{g} = \left( \begin{array}{c} -0.5667771012 \\ 0.7631093678 \end{array} \right)\end{align*}\]</span></p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
   <span class="st">"\\mathbf{C} = "</span>,
@@ -553,8 +419,8 @@
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{C} = \left( \begin{array}{ccc} 0.3936324067 &amp; -0.2507837144 &amp; 0.274326808 \\ -0.2507837144 &amp; 0.5271544014 &amp; 0 \\ 0.274326808 &amp; 0 &amp; 0.274326808 \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<p><span class="math display">\[\begin{align*}\mathbf{C} = \left( \begin{array}{ccc} 0.0964884046 &amp; 0.0335667306 &amp; 0.0944973644 \\ 0.0335667306 &amp; 0.5658978929 &amp; 0 \\ 0.0944973644 &amp; 0 &amp; 0.0944973644 \end{array} \right)\end{align*}\]</span></p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
   <span class="st">"\\mathbf{M} = "</span>,
@@ -562,99 +428,14 @@
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{M} = \left( \begin{array}{cc} 0.3936324067 &amp; -0.2507837144 \\ -0.2507837144 &amp; 0.5271544014 \end{array} \right)\end{align*}\]</span></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">A</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">S</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">S</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">u</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">Filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">Filter</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">C</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<p><span class="math display">\[\begin{align*}\mathbf{M} = \left( \begin{array}{cc} 0.0964884046 &amp; 0.0335667306 \\ 0.0335667306 &amp; 0.5658978929 \end{array} \right)\end{align*}\]</span></p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">C</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">M</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">v</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">g</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"A."</span>, <span class="op">{</span>
-  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-      <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
-        <span class="va">A</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">NumericA</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">NumericuNullA</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">NumericFilterNullA</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">SymbolicA</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">SymbolicuNullA</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">SymbolicFilterNullA</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        check.attributes <span class="op">=</span> <span class="cn">FALSE</span>
-      <span class="op">)</span>
-    <span class="op">}</span>
-  <span class="op">}</span>
-<span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🎉</span>
-<span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"S."</span>, <span class="op">{</span>
-  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-      <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
-        <span class="va">S</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">NumericS</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">NumericuNullS</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">NumericFilterNullS</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">SymbolicS</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">SymbolicuNullS</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">SymbolicFilterNullS</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        check.attributes <span class="op">=</span> <span class="cn">FALSE</span>
-      <span class="op">)</span>
-    <span class="op">}</span>
-  <span class="op">}</span>
-<span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🌈</span>
-<span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"u."</span>, <span class="op">{</span>
-  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-      <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
-        <span class="va">u</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">Numericu</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">NumericFilterNullu</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">Symbolicu</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">SymbolicFilterNullu</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        check.attributes <span class="op">=</span> <span class="cn">FALSE</span>
-      <span class="op">)</span>
-    <span class="op">}</span>
-  <span class="op">}</span>
-  <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/logical-expectations.html">expect_true</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">NumericuNullu</span><span class="op">)</span>
-  <span class="op">)</span>
-  <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/logical-expectations.html">expect_true</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">SymbolicuNullu</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🥇</span>
-<span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"Filter."</span>, <span class="op">{</span>
-  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">Filter</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">Filter</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-      <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
-        <span class="va">Filter</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">NumericFilter</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">NumericuNullFilter</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">SymbolicFilter</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">SymbolicuNullFilter</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        check.attributes <span class="op">=</span> <span class="cn">FALSE</span>
-      <span class="op">)</span>
-    <span class="op">}</span>
-  <span class="op">}</span>
-  <span class="va">Identity</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
-  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">Identity</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">Identity</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-      <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
-        <span class="va">Identity</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">NumericFilterNullFilter</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        <span class="va">SymbolicFilterNullFilter</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span>,
-        check.attributes <span class="op">=</span> <span class="cn">FALSE</span>
-      <span class="op">)</span>
-    <span class="op">}</span>
-  <span class="op">}</span>
-<span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🌈</span>
-<span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"C."</span>, <span class="op">{</span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"C."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">C</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">C</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
       <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span>
@@ -674,7 +455,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 😀</span>
+<span class="co">#&gt; Test passed 🥇</span>
 <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"M."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">M</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">M</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -691,7 +472,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🥳</span>
+<span class="co">#&gt; Test passed 🌈</span>
 <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"v."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -717,7 +498,7 @@
     <span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">SymbolicuNullExprv</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🥳</span>
+<span class="co">#&gt; Test passed 🎉</span>
 <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"g."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -744,7 +525,7 @@
   <span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
 <span class="co">#&gt; Test passed 🥳</span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Symbolic</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/Expectations.html">Expectations</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span>,
