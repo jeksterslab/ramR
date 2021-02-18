@@ -6,24 +6,6 @@
 #' @return Returns a list with the following elements
 #'
 #'   \describe{
-#'     \item{A}{
-#'       `t by t` matrix \eqn{\mathbf{A}}.
-#'       Asymmetric paths (single-headed arrows),
-#'       such as regression coefficients and factor loadings.
-#'     }
-#'     \item{S}{
-#'       `t by t` numeric matrix \eqn{\mathbf{S}}.
-#'       Symmetric paths (double-headed arrows),
-#'       such as variances and covariances.
-#'     }
-#'     \item{u}{
-#'       `t by 1` matrix \eqn{\mathbf{u}} of mean structure parameters.
-#'     }
-#'     \item{Filter}{
-#'       `p by t` numeric matrix
-#'       \eqn{\mathbf{F}}.
-#'       Filter matrix used to select observed variables.
-#'     }
 #'     \item{v}{
 #'       `t by 1` matrix \eqn{\mathbf{v}}
 #'       of expected values.
@@ -94,10 +76,6 @@
 #' Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "str")
 #' Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "tex")
 #' (Expectations <- Expectations(Ryacas::ysym(A), S, u, Filter, R = TRUE))
-#' eval(Expectations$A)
-#' eval(Expectations$S)
-#' eval(Expectations$u)
-#' eval(Expectations$Filter)
 #' eval(Expectations$v)
 #' eval(Expectations$g)
 #' eval(Expectations$C)
@@ -150,17 +128,17 @@ Expectations.default <- function(A,
     v <- NULL
     g <- NULL
   }
-  if (is.null(Filter)) {
-    Filter <- matrixR::IdentityFrom(
-      A
-    )
-  }
+  # if (is.null(Filter)) {
+  #  Filter <- matrixR::IdentityFrom(
+  #    A
+  #  )
+  # }
   return(
     list(
-      A = A,
-      S = S,
-      u = u,
-      Filter = Filter,
+      # A = A,
+      # S = S,
+      # u = u,
+      # Filter = Filter,
       v = v,
       g = g,
       C = C,
@@ -242,55 +220,55 @@ Expectations.yac_symbol <- function(A,
       )
     }
   }
-  # make input the same format as output
-  Aout <- yacR::Exe(
-    A,
-    R = R,
-    format = format,
-    simplify = simplify
-  )
-  Sout <- yacR::Exe(
-    yacR::as.ysym(S),
-    R = R,
-    format = format,
-    simplify = simplify
-  )
-  if (is.null(Filter)) {
-    # Filter as identity matrix
-    Filter <- diag(
-      as.numeric(
-        Ryacas::yac_str(
-          paste0(
-            "Length(",
-            A,
-            ")"
-          )
-        )
-      )
-    )
-  }
-  Filterout <- yacR::Exe(
-    yacR::as.ysym(Filter),
-    R = R,
-    format = format,
-    simplify = simplify
-  )
-  if (is.null(u)) {
-    uout <- u
-  } else {
-    uout <- yacR::Exe(
-      yacR::as.ysym.mat(u),
-      R = R,
-      format = format,
-      simplify = simplify
-    )
-  }
+  #  # make input the same format as output
+  #  Aout <- yacR::Exe(
+  #    A,
+  #    R = R,
+  #    format = format,
+  #    simplify = simplify
+  #  )
+  #  Sout <- yacR::Exe(
+  #    yacR::as.ysym(S),
+  #    R = R,
+  #    format = format,
+  #    simplify = simplify
+  #  )
+  #  if (is.null(Filter)) {
+  #    # Filter as identity matrix
+  #    Filter <- diag(
+  #      as.numeric(
+  #        Ryacas::yac_str(
+  #          paste0(
+  #            "Length(",
+  #            A,
+  #            ")"
+  #          )
+  #        )
+  #      )
+  #    )
+  #  }
+  #  Filterout <- yacR::Exe(
+  #    yacR::as.ysym(Filter),
+  #    R = R,
+  #    format = format,
+  #    simplify = simplify
+  #  )
+  #  if (is.null(u)) {
+  #    uout <- u
+  #  } else {
+  #    uout <- yacR::Exe(
+  #      yacR::as.ysym.mat(u),
+  #      R = R,
+  #      format = format,
+  #      simplify = simplify
+  #    )
+  #  }
   return(
     list(
-      A = Aout,
-      S = Sout,
-      u = uout,
-      Filter = Filterout,
+      # A = Aout,
+      # S = Sout,
+      # u = uout,
+      # Filter = Filterout,
       v = vout,
       g = gout,
       C = Cout,
