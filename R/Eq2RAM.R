@@ -128,7 +128,11 @@
 #' @export
 Eq2RAM <- function(eq,
                    par = FALSE) {
-  par.table <- EqParse(eq)
+  if (methods::is(eq, "ParameterTable")) {
+    par.table <- eq
+  } else {
+    par.table <- EqParse(eq)
+  }
   if (par) {
     par.table[, "par.label"] <- par.table[, "par.index"]
   }

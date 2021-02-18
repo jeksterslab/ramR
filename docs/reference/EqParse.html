@@ -273,13 +273,13 @@ that is, parameters with the same <code>par.label</code>.</p>
     x   on   1   mux
 "</span>
 <span class='fu'>EqParse</span><span class='op'>(</span><span class='va'>eq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   lhs   op rhs par.label par.index
-#&gt; 1   e   by   y         1         1
-#&gt; 2   y   on   x      beta        p1
-#&gt; 3   e with   e   sigmae2        p2
-#&gt; 4   x with   x   sigmax2        p3
-#&gt; 5   y   on   1     alpha        p4
-#&gt; 6   x   on   1       mux        p5</div><div class='input'>
+</div><div class='output co'>#&gt;   lhs   op rhs par.label par.index par.names
+#&gt; 1   e   by   y         1         1      &lt;NA&gt;
+#&gt; 2   y   on   x      beta        p1      beta
+#&gt; 3   e with   e   sigmae2        p2   sigmae2
+#&gt; 4   x with   x   sigmax2        p3   sigmax2
+#&gt; 5   y   on   1     alpha        p4     alpha
+#&gt; 6   x   on   1       mux        p5       mux</div><div class='input'>
 <span class='va'>eq</span> <span class='op'>&lt;-</span> <span class='st'>"
   # lhs op   rhs value
     e   by   y   1
@@ -290,13 +290,13 @@ that is, parameters with the same <code>par.label</code>.</p>
     x   on   1   0.50
 "</span>
 <span class='fu'>EqParse</span><span class='op'>(</span><span class='va'>eq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   lhs   op rhs par.label par.index
-#&gt; 1   e   by   y      1.00      1.00
-#&gt; 2   y   on   x      1.00      1.00
-#&gt; 3   e with   e      1.00      1.00
-#&gt; 4   x with   x      0.25      0.25
-#&gt; 5   y   on   1      0.00      0.00
-#&gt; 6   x   on   1      0.50      0.50</div><div class='input'>
+</div><div class='output co'>#&gt;   lhs   op rhs par.label par.index par.names
+#&gt; 1   e   by   y      1.00      1.00        NA
+#&gt; 2   y   on   x      1.00      1.00        NA
+#&gt; 3   e with   e      1.00      1.00        NA
+#&gt; 4   x with   x      0.25      0.25        NA
+#&gt; 5   y   on   1      0.00      0.00        NA
+#&gt; 6   x   on   1      0.50      0.50        NA</div><div class='input'>
 <span class='va'>eq</span> <span class='op'>&lt;-</span> <span class='st'>"
   # lhs op   rhs par.label par.start
     e   by   y   1         NA
@@ -307,13 +307,13 @@ that is, parameters with the same <code>par.label</code>.</p>
     x   on   1   mux       0.50
 "</span>
 <span class='fu'>EqParse</span><span class='op'>(</span><span class='va'>eq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   lhs   op rhs par.label par.start par.index
-#&gt; 1   e   by   y         1        NA         1
-#&gt; 2   y   on   x      beta      0.00        p1
-#&gt; 3   e with   e   sigmae2      1.25        p2
-#&gt; 4   x with   x   sigmax2      0.25        p3
-#&gt; 5   y   on   1     alpha      0.00        p4
-#&gt; 6   x   on   1       mux      0.50        p5</div><div class='input'>
+</div><div class='output co'>#&gt;   lhs   op rhs par.label par.index par.names par.start par.free
+#&gt; 1   e   by   y         1         1      &lt;NA&gt;        NA    FALSE
+#&gt; 2   y   on   x      beta        p1      beta      0.00     TRUE
+#&gt; 3   e with   e   sigmae2        p2   sigmae2      1.25     TRUE
+#&gt; 4   x with   x   sigmax2        p3   sigmax2      0.25     TRUE
+#&gt; 5   y   on   1     alpha        p4     alpha      0.00     TRUE
+#&gt; 6   x   on   1       mux        p5       mux      0.50     TRUE</div><div class='input'>
 <span class='co'># \n as line breaks------------------------------------------------</span>
 
 <span class='va'>eq</span> <span class='op'>&lt;-</span> <span class='st'>"
@@ -322,13 +322,13 @@ that is, parameters with the same <code>par.label</code>.</p>
   y on 1 alpha 0.00 \n x on 1 mux 0.50
 "</span>
 <span class='fu'>EqParse</span><span class='op'>(</span><span class='va'>eq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   lhs   op rhs par.label par.start par.index
-#&gt; 1   e   by   y         1        NA         1
-#&gt; 2   y   on   x      beta      0.00        p1
-#&gt; 3   e with   e   sigmae2      1.25        p2
-#&gt; 4   x with   x   sigmax2      0.25        p3
-#&gt; 5   y   on   1     alpha      0.00        p4
-#&gt; 6   x   on   1       mux      0.50        p5</div><div class='input'>
+</div><div class='output co'>#&gt;   lhs   op rhs par.label par.index par.names par.start par.free
+#&gt; 1   e   by   y         1         1      &lt;NA&gt;        NA    FALSE
+#&gt; 2   y   on   x      beta        p1      beta      0.00     TRUE
+#&gt; 3   e with   e   sigmae2        p2   sigmae2      1.25     TRUE
+#&gt; 4   x with   x   sigmax2        p3   sigmax2      0.25     TRUE
+#&gt; 5   y   on   1     alpha        p4     alpha      0.00     TRUE
+#&gt; 6   x   on   1       mux        p5       mux      0.50     TRUE</div><div class='input'>
 <span class='co'># ; as line breaks------------------------------------------------</span>
 
 <span class='va'>eq</span> <span class='op'>&lt;-</span> <span class='st'>"
@@ -337,13 +337,13 @@ that is, parameters with the same <code>par.label</code>.</p>
   y on 1 alpha 0.00; x on 1 mux 0.50
 "</span>
 <span class='fu'>EqParse</span><span class='op'>(</span><span class='va'>eq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   lhs   op rhs par.label par.start par.index
-#&gt; 1   e   by   y         1        NA         1
-#&gt; 2   y   on   x      beta      0.00        p1
-#&gt; 3   e with   e   sigmae2      1.25        p2
-#&gt; 4   x with   x   sigmax2      0.25        p3
-#&gt; 5   y   on   1     alpha      0.00        p4
-#&gt; 6   x   on   1       mux      0.50        p5</div></pre>
+</div><div class='output co'>#&gt;   lhs   op rhs par.label par.index par.names par.start par.free
+#&gt; 1   e   by   y         1         1      &lt;NA&gt;        NA    FALSE
+#&gt; 2   y   on   x      beta        p1      beta      0.00     TRUE
+#&gt; 3   e with   e   sigmae2        p2   sigmae2      1.25     TRUE
+#&gt; 4   x with   x   sigmax2        p3   sigmax2      0.25     TRUE
+#&gt; 5   y   on   1     alpha        p4     alpha      0.00     TRUE
+#&gt; 6   x   on   1       mux        p5       mux      0.50     TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

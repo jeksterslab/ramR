@@ -150,13 +150,13 @@
     x   on   1   mux       0.50
 "</span>
 <span class="fu">ramR</span><span class="fu">:::</span><span class="fu"><a href="../../reference/EqParse.html">EqParse</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span>
-<span class="co">#&gt;   lhs   op rhs par.label par.start par.index</span>
-<span class="co">#&gt; 1   e   by   y         1        NA         1</span>
-<span class="co">#&gt; 2   y   on   x      beta      0.00        p1</span>
-<span class="co">#&gt; 3   e with   e   sigmae2      1.25        p2</span>
-<span class="co">#&gt; 4   x with   x   sigmax2      0.25        p3</span>
-<span class="co">#&gt; 5   y   on   1     alpha      0.00        p4</span>
-<span class="co">#&gt; 6   x   on   1       mux      0.50        p5</span></code></pre></div>
+<span class="co">#&gt;   lhs   op rhs par.label par.index par.names par.start par.free</span>
+<span class="co">#&gt; 1   e   by   y         1         1      &lt;NA&gt;        NA    FALSE</span>
+<span class="co">#&gt; 2   y   on   x      beta        p1      beta      0.00     TRUE</span>
+<span class="co">#&gt; 3   e with   e   sigmae2        p2   sigmae2      1.25     TRUE</span>
+<span class="co">#&gt; 4   x with   x   sigmax2        p3   sigmax2      0.25     TRUE</span>
+<span class="co">#&gt; 5   y   on   1     alpha        p4     alpha      0.00     TRUE</span>
+<span class="co">#&gt; 6   x   on   1       mux        p5       mux      0.50     TRUE</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">eq</span> <span class="op">&lt;-</span> <span class="st">"
   # lhs op   rhs value
@@ -168,13 +168,13 @@
     x   on   1   0.50
 "</span>
 <span class="fu">ramR</span><span class="fu">:::</span><span class="fu"><a href="../../reference/EqParse.html">EqParse</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span>
-<span class="co">#&gt;   lhs   op rhs par.label par.index</span>
-<span class="co">#&gt; 1   e   by   y      1.00      1.00</span>
-<span class="co">#&gt; 2   y   on   x      1.00      1.00</span>
-<span class="co">#&gt; 3   e with   e      1.00      1.00</span>
-<span class="co">#&gt; 4   x with   x      0.25      0.25</span>
-<span class="co">#&gt; 5   y   on   1      0.00      0.00</span>
-<span class="co">#&gt; 6   x   on   1      0.50      0.50</span></code></pre></div>
+<span class="co">#&gt;   lhs   op rhs par.label par.index par.names</span>
+<span class="co">#&gt; 1   e   by   y      1.00      1.00        NA</span>
+<span class="co">#&gt; 2   y   on   x      1.00      1.00        NA</span>
+<span class="co">#&gt; 3   e with   e      1.00      1.00        NA</span>
+<span class="co">#&gt; 4   x with   x      0.25      0.25        NA</span>
+<span class="co">#&gt; 5   y   on   1      0.00      0.00        NA</span>
+<span class="co">#&gt; 6   x   on   1      0.50      0.50        NA</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># equality constraint</span>
 <span class="co"># starting values should be identical</span>
@@ -189,13 +189,13 @@
     x   on   1   mux       0.50
 "</span>
 <span class="fu">ramR</span><span class="fu">:::</span><span class="fu"><a href="../../reference/EqParse.html">EqParse</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span>
-<span class="co">#&gt;   lhs   op rhs par.label par.start par.index</span>
-<span class="co">#&gt; 1   e   by   y         1        NA         1</span>
-<span class="co">#&gt; 2   y   on   x      beta      0.00        p1</span>
-<span class="co">#&gt; 3   e with   e   sigmax2      1.25        p2</span>
-<span class="co">#&gt; 4   x with   x   sigmax2      1.25        p2</span>
-<span class="co">#&gt; 5   y   on   1     alpha      0.00        p3</span>
-<span class="co">#&gt; 6   x   on   1       mux      0.50        p4</span></code></pre></div>
+<span class="co">#&gt;   lhs   op rhs par.label par.index par.names par.start par.free</span>
+<span class="co">#&gt; 1   e   by   y         1         1      &lt;NA&gt;        NA    FALSE</span>
+<span class="co">#&gt; 2   y   on   x      beta        p1      beta      0.00     TRUE</span>
+<span class="co">#&gt; 3   e with   e   sigmax2        p2   sigmax2      1.25     TRUE</span>
+<span class="co">#&gt; 4   x with   x   sigmax2        p2   sigmax2      1.25     TRUE</span>
+<span class="co">#&gt; 5   y   on   1     alpha        p3     alpha      0.00     TRUE</span>
+<span class="co">#&gt; 6   x   on   1       mux        p4       mux      0.50     TRUE</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># `\n` and `;` as line breaks</span>
 <span class="va">eq</span> <span class="op">&lt;-</span> <span class="st">"
@@ -204,13 +204,13 @@
     y   on   1   alpha   0.00 \n x   on   1   mux     0.50 ;
 "</span>
 <span class="fu">ramR</span><span class="fu">:::</span><span class="fu"><a href="../../reference/EqParse.html">EqParse</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span>
-<span class="co">#&gt;   lhs   op rhs par.label par.start par.index</span>
-<span class="co">#&gt; 1   e   by   y         1        NA         1</span>
-<span class="co">#&gt; 2   y   on   x      beta      0.00        p1</span>
-<span class="co">#&gt; 3   e with   e   sigmae2      1.25        p2</span>
-<span class="co">#&gt; 4   x with   x   sigmax2      0.25        p3</span>
-<span class="co">#&gt; 5   y   on   1     alpha      0.00        p4</span>
-<span class="co">#&gt; 6   x   on   1       mux      0.50        p5</span></code></pre></div>
+<span class="co">#&gt;   lhs   op rhs par.label par.index par.names par.start par.free</span>
+<span class="co">#&gt; 1   e   by   y         1         1      &lt;NA&gt;        NA    FALSE</span>
+<span class="co">#&gt; 2   y   on   x      beta        p1      beta      0.00     TRUE</span>
+<span class="co">#&gt; 3   e with   e   sigmae2        p2   sigmae2      1.25     TRUE</span>
+<span class="co">#&gt; 4   x with   x   sigmax2        p3   sigmax2      0.25     TRUE</span>
+<span class="co">#&gt; 5   y   on   1     alpha        p4     alpha      0.00     TRUE</span>
+<span class="co">#&gt; 6   x   on   1       mux        p5       mux      0.50     TRUE</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
