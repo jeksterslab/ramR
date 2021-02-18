@@ -3,8 +3,10 @@
 #' Generates data from a multivariate normal distribution
 #' from model equations using the [MASS::mvrnorm()] function.
 #'
-#' The input is a character string
+#' The argument `eq` is a character string
 #' that specifies the associations between the variables.
+#' See `Syntax`, `Operations`, `par.label`,
+#' `Line breaks`, and `Comments` below.
 #'
 #' The multivariate normal distribution is given by
 #'   \deqn{
@@ -99,6 +101,13 @@
 #'     \mathbf{F}^{\mathsf{T}}
 #'   }
 #'
+#' @return \eqn{n} variates from \eqn{ \mathbf{X} \sim \mathcal{N}_{k}
+#'     \left(
+#'       \boldsymbol{\mu} \left( \boldsymbol{\theta} \right),
+#'       \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
+#'     \right) .
+#'   }
+#'
 #' @section Syntax:
 #'   Each line should follow the syntax below
 #'
@@ -139,13 +148,6 @@
 #'     \item{on 1}{
 #'       `left-hand side` regressed **on 1** for mean structure.
 #'     }
-#'   }
-#'
-#' @return \eqn{n} variates from \eqn{ \mathbf{X} \sim \mathcal{N}_{k}
-#'     \left(
-#'       \boldsymbol{\mu} \left( \boldsymbol{\theta} \right),
-#'       \boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
-#'     \right) .
 #'   }
 #'
 #' @section par.label:

@@ -2,8 +2,10 @@
 #'
 #' Parse equations and return a parameter table (`par.table`).
 #'
-#' The input is a character string
+#' The argument `eq` is a character string
 #' that specifies the associations between the variables.
+#' See `Syntax`, `Operations`, `par.label`,
+#' `par.start`, `Line breaks`, and `Comments` below.
 #'
 #' @section Syntax:
 #'   Each line should follow the syntax below

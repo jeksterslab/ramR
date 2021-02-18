@@ -134,7 +134,7 @@ C.yac_symbol <- function(A,
   )
   # IsSymmetric unsafe for nonnumeric input
   Sysym <- matrixR::MatrixCheck(
-    A = yacR::as.ysym(S),
+    A = yacR::as.ysym.mat(S),
     IsSquareMatrix = TRUE
   )
   ADimensions <- as.numeric(

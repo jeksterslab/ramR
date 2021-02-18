@@ -27,8 +27,10 @@ Generates data from a multivariate normal distribution
 from model equations using the \code{\link[MASS:mvrnorm]{MASS::mvrnorm()}} function.
 }
 \details{
-The input is a character string
+The argument \code{eq} is a character string
 that specifies the associations between the variables.
+See \code{Syntax}, \code{Operations}, \code{par.label},
+\verb{Line breaks}, and \code{Comments} below.
 
 The multivariate normal distribution is given by
 \deqn{

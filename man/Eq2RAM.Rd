@@ -45,8 +45,10 @@ Filter matrix used to select observed variables.
 Converts model equations to RAM matrices.
 }
 \details{
-The input is a character string
+The argument \code{eq} is a character string
 that specifies the associations between the variables.
+See \code{Syntax}, \code{Operations}, \code{par.label},
+\verb{Line breaks}, and \code{Comments} below.
 }
 \section{Syntax}{
 
