@@ -211,11 +211,18 @@ EqParse <- function(eq) {
     x = NA,
     length = length(par.label)
   )
+  par.names <- rep(
+    x = NA,
+    length = length(par.label)
+  )
   for (i in seq_along(par.label)) {
     for (j in seq_along(unique.par.label)) {
       if (unique.par.label[j] == par.label[i]) {
         par.index[i] <- index[j]
       }
+    }
+    if (is.na(suppressWarnings(as.numeric(par.label[i])))) {
+      par.names[i] <- par.label[i]
     }
   }
   for (i in seq_along(par.index)) {
@@ -242,12 +249,30 @@ EqParse <- function(eq) {
     FUN = to.numeric
   )
   par.table$par.index <- par.index
+  par.table$par.names <- par.names
   if ("par.start" %in% colnames(par.table)) {
     par.start <- sapply(
       X = par.table$par.start,
       FUN = function(x) suppressWarnings(as.numeric(x))
     )
     par.table$par.start <- par.start
+    par.free <- ifelse(
+      test = is.na(par.start),
+      yes = FALSE,
+      no = TRUE
+    )
+    par.table$par.free <- par.free
+    par.table <- par.table[, c(
+      "lhs",
+      "op",
+      "rhs",
+      "par.label",
+      "par.index",
+      "par.names",
+      "par.start",
+      "par.free"
+    )]
   }
+  class(par.table) <- c("ParameterTable", class(par.table))
   return(par.table)
 }
