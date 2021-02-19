@@ -161,9 +161,15 @@ ramR::EqParse(eq)
 
 The `Eq2RAM()` function constructs
 the RAM notation matrix representation of the model.
+It also updates the parameter table to include
+RAM notation information.
 
 ```{r}
 RAM <- ramR::Eq2RAM(eq)
+```
+
+```{r}
+RAM$par.table
 ```
 
 ```{r, echo = FALSE, results = "asis"} 

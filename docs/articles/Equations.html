@@ -131,7 +131,7 @@
       <h1 data-toc-skip>Equations</h1>
                         <h4 class="author">Ivan Jacob Agaloos Pesigan</h4>
             
-            <h4 class="date">2021-02-18</h4>
+            <h4 class="date">2021-02-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jeksterslab/ramR/blob/master/vignettes/Equations.Rmd"><code>vignettes/Equations.Rmd</code></a></small>
       <div class="hidden name"><code>Equations.Rmd</code></div>
@@ -296,9 +296,71 @@ Two-Factor Confirmatory Factor Analysis Model
 <div id="eq2ram" class="section level4">
 <h4 class="hasAnchor">
 <a href="#eq2ram" class="anchor"></a>Eq2RAM</h4>
-<p>The <code><a href="../reference/Eq2RAM.html">Eq2RAM()</a></code> function constructs the RAM notation matrix representation of the model.</p>
+<p>The <code><a href="../reference/Eq2RAM.html">Eq2RAM()</a></code> function constructs the RAM notation matrix representation of the model. It also updates the parameter table to include RAM notation information.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">RAM</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../reference/Eq2RAM.html">Eq2RAM</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">RAM</span><span class="op">$</span><span class="va">par.table</span>
+<span class="co">#&gt;           lhs   op        rhs         par.label par.index         par.names</span>
+<span class="co">#&gt; 1      eta[1]   by         y1                 1         1              &lt;NA&gt;</span>
+<span class="co">#&gt; 2      eta[1]   by         y2        lambda[y2]        p1        lambda[y2]</span>
+<span class="co">#&gt; 3      eta[1]   by         y3        lambda[y3]        p2        lambda[y3]</span>
+<span class="co">#&gt; 4      eta[2]   by         y4                 1         1              &lt;NA&gt;</span>
+<span class="co">#&gt; 5      eta[2]   by         y5        lambda[y5]        p3        lambda[y5]</span>
+<span class="co">#&gt; 6      eta[2]   by         y6        lambda[y6]        p4        lambda[y6]</span>
+<span class="co">#&gt; 7          y1   on          1            nu[y1]        p5            nu[y1]</span>
+<span class="co">#&gt; 8          y2   on          1            nu[y2]        p6            nu[y2]</span>
+<span class="co">#&gt; 9          y3   on          1            nu[y3]        p7            nu[y3]</span>
+<span class="co">#&gt; 10         y4   on          1            nu[y4]        p8            nu[y4]</span>
+<span class="co">#&gt; 11         y5   on          1            nu[y5]        p9            nu[y5]</span>
+<span class="co">#&gt; 12         y6   on          1            nu[y6]       p10            nu[y6]</span>
+<span class="co">#&gt; 13 epsilon[1]   by         y1                 1         1              &lt;NA&gt;</span>
+<span class="co">#&gt; 14 epsilon[2]   by         y2                 1         1              &lt;NA&gt;</span>
+<span class="co">#&gt; 15 epsilon[3]   by         y3                 1         1              &lt;NA&gt;</span>
+<span class="co">#&gt; 16 epsilon[4]   by         y4                 1         1              &lt;NA&gt;</span>
+<span class="co">#&gt; 17 epsilon[5]   by         y5                 1         1              &lt;NA&gt;</span>
+<span class="co">#&gt; 18 epsilon[6]   by         y6                 1         1              &lt;NA&gt;</span>
+<span class="co">#&gt; 19 epsilon[1] with epsilon[1] theta[epsilon[1]]       p11 theta[epsilon[1]]</span>
+<span class="co">#&gt; 20 epsilon[2] with epsilon[2] theta[epsilon[2]]       p12 theta[epsilon[2]]</span>
+<span class="co">#&gt; 21 epsilon[3] with epsilon[3] theta[epsilon[3]]       p13 theta[epsilon[3]]</span>
+<span class="co">#&gt; 22 epsilon[4] with epsilon[4] theta[epsilon[4]]       p14 theta[epsilon[4]]</span>
+<span class="co">#&gt; 23 epsilon[5] with epsilon[5] theta[epsilon[5]]       p15 theta[epsilon[5]]</span>
+<span class="co">#&gt; 24 epsilon[6] with epsilon[6] theta[epsilon[6]]       p16 theta[epsilon[6]]</span>
+<span class="co">#&gt; 25     eta[1] with     eta[1]      psi[eta[11]]       p17      psi[eta[11]]</span>
+<span class="co">#&gt; 26     eta[1] with     eta[2]      psi[eta[12]]       p18      psi[eta[12]]</span>
+<span class="co">#&gt; 27     eta[2] with     eta[2]      psi[eta[22]]       p19      psi[eta[22]]</span>
+<span class="co">#&gt; 28     eta[1]   on          1     alpha[eta[1]]       p20     alpha[eta[1]]</span>
+<span class="co">#&gt; 29     eta[2]   on          1     alpha[eta[2]]       p21     alpha[eta[2]]</span>
+<span class="co">#&gt;               par.type RAM RAM.row RAM.col</span>
+<span class="co">#&gt; 1              loading   A       1       7</span>
+<span class="co">#&gt; 2              loading   A       2       7</span>
+<span class="co">#&gt; 3              loading   A       3       7</span>
+<span class="co">#&gt; 4              loading   A       4       8</span>
+<span class="co">#&gt; 5              loading   A       5       8</span>
+<span class="co">#&gt; 6              loading   A       6       8</span>
+<span class="co">#&gt; 7       mean/intercept   u       1       1</span>
+<span class="co">#&gt; 8       mean/intercept   u       2       1</span>
+<span class="co">#&gt; 9       mean/intercept   u       3       1</span>
+<span class="co">#&gt; 10      mean/intercept   u       4       1</span>
+<span class="co">#&gt; 11      mean/intercept   u       5       1</span>
+<span class="co">#&gt; 12      mean/intercept   u       6       1</span>
+<span class="co">#&gt; 13             loading   A       1       9</span>
+<span class="co">#&gt; 14             loading   A       2      10</span>
+<span class="co">#&gt; 15             loading   A       3      11</span>
+<span class="co">#&gt; 16             loading   A       4      12</span>
+<span class="co">#&gt; 17             loading   A       5      13</span>
+<span class="co">#&gt; 18             loading   A       6      14</span>
+<span class="co">#&gt; 19 variance/covariance   S       9       9</span>
+<span class="co">#&gt; 20 variance/covariance   S      10      10</span>
+<span class="co">#&gt; 21 variance/covariance   S      11      11</span>
+<span class="co">#&gt; 22 variance/covariance   S      12      12</span>
+<span class="co">#&gt; 23 variance/covariance   S      13      13</span>
+<span class="co">#&gt; 24 variance/covariance   S      14      14</span>
+<span class="co">#&gt; 25 variance/covariance   S       7       7</span>
+<span class="co">#&gt; 26 variance/covariance   S       7       8</span>
+<span class="co">#&gt; 27 variance/covariance   S       8       8</span>
+<span class="co">#&gt; 28      mean/intercept   u       7       1</span>
+<span class="co">#&gt; 29      mean/intercept   u       8       1</span></code></pre></div>
 <p><span class="math display">\[\begin{align*}\mathrm{variables}=\left( \begin{array}{c} y_{1} \\ y_{2} \\ y_{3} \\ y_{4} \\ y_{5} \\ y_{6} \\ \eta  _{1} \\ \eta  _{2} \\ \epsilon  _{1} \\ \epsilon  _{2} \\ \epsilon  _{3} \\ \epsilon  _{4} \\ \epsilon  _{5} \\ \epsilon  _{6} \end{array} \right)\end{align*}\]</span></p>
 <p><span class="math display">\[\begin{align*}\mathbf{A}=\left( \begin{array}{cccccccccccccc} 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \lambda  _{y_{2}} &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \lambda  _{y_{3}} &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \lambda  _{y_{5}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \lambda  _{y_{6}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
 <p><span class="math display">\[\begin{align*}\mathbf{S}=\left( \begin{array}{cccccccccccccc} 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \psi  _{\eta  _{11}} &amp; \psi  _{\eta  _{12}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \psi  _{\eta  _{12}} &amp; \psi  _{\eta  _{22}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{1}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{2}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{3}} &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{4}} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{5}} &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{6}} \end{array} \right)\end{align*}\]</span></p>
@@ -309,7 +371,7 @@ Two-Factor Confirmatory Factor Analysis Model
 <h4 class="hasAnchor">
 <a href="#eq2expectations" class="anchor"></a>Eq2Expectations</h4>
 <p>The <code><a href="../reference/Eq2Expectations.html">Eq2Expectations()</a></code> function constructs the mean and covariance expectations.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Expectations</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../reference/Eq2Expectations.html">Eq2Expectations</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span></code></pre></div>
 <p>The covariance expectations for all the variables are given below.</p>
 <p><span class="math display">\[\begin{align*}\mathbf{C}=\left( \begin{array}{cccccccccccccc} \psi  _{\eta  _{11}} + \theta  _{\epsilon  _{1}} &amp; \psi  _{\eta  _{11}} \lambda  _{y_{2}} &amp; \psi  _{\eta  _{11}} \lambda  _{y_{3}} &amp; \psi  _{\eta  _{12}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{5}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{6}} &amp; \psi  _{\eta  _{11}} &amp; \psi  _{\eta  _{12}} &amp; \theta  _{\epsilon  _{1}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \lambda  _{y_{2}} \psi  _{\eta  _{11}} &amp; \psi  _{\eta  _{11}} \lambda  _{y_{2}} ^{2} + \theta  _{\epsilon  _{2}} &amp; \lambda  _{y_{2}} \psi  _{\eta  _{11}} \lambda  _{y_{3}} &amp; \lambda  _{y_{2}} \psi  _{\eta  _{12}} &amp; \lambda  _{y_{2}} \psi  _{\eta  _{12}} \lambda  _{y_{5}} &amp; \lambda  _{y_{2}} \psi  _{\eta  _{12}} \lambda  _{y_{6}} &amp; \lambda  _{y_{2}} \psi  _{\eta  _{11}} &amp; \lambda  _{y_{2}} \psi  _{\eta  _{12}} &amp; 0 &amp; \theta  _{\epsilon  _{2}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \lambda  _{y_{3}} \psi  _{\eta  _{11}} &amp; \lambda  _{y_{3}} \psi  _{\eta  _{11}} \lambda  _{y_{2}} &amp; \psi  _{\eta  _{11}} \lambda  _{y_{3}} ^{2} + \theta  _{\epsilon  _{3}} &amp; \lambda  _{y_{3}} \psi  _{\eta  _{12}} &amp; \lambda  _{y_{3}} \psi  _{\eta  _{12}} \lambda  _{y_{5}} &amp; \lambda  _{y_{3}} \psi  _{\eta  _{12}} \lambda  _{y_{6}} &amp; \lambda  _{y_{3}} \psi  _{\eta  _{11}} &amp; \lambda  _{y_{3}} \psi  _{\eta  _{12}} &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{3}} &amp; 0 &amp; 0 &amp; 0 \\ \psi  _{\eta  _{12}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{2}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{3}} &amp; \psi  _{\eta  _{22}} + \theta  _{\epsilon  _{4}} &amp; \psi  _{\eta  _{22}} \lambda  _{y_{5}} &amp; \psi  _{\eta  _{22}} \lambda  _{y_{6}} &amp; \psi  _{\eta  _{12}} &amp; \psi  _{\eta  _{22}} &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{4}} &amp; 0 &amp; 0 \\ \lambda  _{y_{5}} \psi  _{\eta  _{12}} &amp; \lambda  _{y_{5}} \psi  _{\eta  _{12}} \lambda  _{y_{2}} &amp; \lambda  _{y_{5}} \psi  _{\eta  _{12}} \lambda  _{y_{3}} &amp; \lambda  _{y_{5}} \psi  _{\eta  _{22}} &amp; \psi  _{\eta  _{22}} \lambda  _{y_{5}} ^{2} + \theta  _{\epsilon  _{5}} &amp; \lambda  _{y_{5}} \psi  _{\eta  _{22}} \lambda  _{y_{6}} &amp; \lambda  _{y_{5}} \psi  _{\eta  _{12}} &amp; \lambda  _{y_{5}} \psi  _{\eta  _{22}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{5}} &amp; 0 \\ \lambda  _{y_{6}} \psi  _{\eta  _{12}} &amp; \lambda  _{y_{6}} \psi  _{\eta  _{12}} \lambda  _{y_{2}} &amp; \lambda  _{y_{6}} \psi  _{\eta  _{12}} \lambda  _{y_{3}} &amp; \lambda  _{y_{6}} \psi  _{\eta  _{22}} &amp; \lambda  _{y_{6}} \psi  _{\eta  _{22}} \lambda  _{y_{5}} &amp; \psi  _{\eta  _{22}} \lambda  _{y_{6}} ^{2} + \theta  _{\epsilon  _{6}} &amp; \lambda  _{y_{6}} \psi  _{\eta  _{12}} &amp; \lambda  _{y_{6}} \psi  _{\eta  _{22}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{6}} \\ \psi  _{\eta  _{11}} &amp; \psi  _{\eta  _{11}} \lambda  _{y_{2}} &amp; \psi  _{\eta  _{11}} \lambda  _{y_{3}} &amp; \psi  _{\eta  _{12}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{5}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{6}} &amp; \psi  _{\eta  _{11}} &amp; \psi  _{\eta  _{12}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \psi  _{\eta  _{12}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{2}} &amp; \psi  _{\eta  _{12}} \lambda  _{y_{3}} &amp; \psi  _{\eta  _{22}} &amp; \psi  _{\eta  _{22}} \lambda  _{y_{5}} &amp; \psi  _{\eta  _{22}} \lambda  _{y_{6}} &amp; \psi  _{\eta  _{12}} &amp; \psi  _{\eta  _{22}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ \theta  _{\epsilon  _{1}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{1}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; \theta  _{\epsilon  _{2}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{2}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; \theta  _{\epsilon  _{3}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{3}} &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{4}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{4}} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{5}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{5}} &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{6}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \theta  _{\epsilon  _{6}} \end{array} \right)\end{align*}\]</span></p>
@@ -325,7 +387,7 @@ Two-Factor Confirmatory Factor Analysis Model
 <h3 class="hasAnchor">
 <a href="#numerical" class="anchor"></a>Numerical</h3>
 <p>Values can be placed on the <code>par.label</code> column.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">eq</span> <span class="op">&lt;-</span> <span class="st">"
 # items
 ## loadings
@@ -370,7 +432,7 @@ Two-Factor Confirmatory Factor Analysis Model
 <h4 class="hasAnchor">
 <a href="#eq2ram-1" class="anchor"></a>Eq2RAM</h4>
 <p>The <code><a href="../reference/Eq2RAM.html">Eq2RAM()</a></code> function constructs the RAM notation matrix representation of the model.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">RAM</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../reference/Eq2RAM.html">Eq2RAM</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span></code></pre></div>
 <p><span class="math display">\[\begin{align*}\mathrm{variables}=\left( \begin{array}{c} y_{1} \\ y_{2} \\ y_{3} \\ y_{4} \\ y_{5} \\ y_{6} \\ \eta  _{1} \\ \eta  _{2} \\ \epsilon  _{1} \\ \epsilon  _{2} \\ \epsilon  _{3} \\ \epsilon  _{4} \\ \epsilon  _{5} \\ \epsilon  _{6} \end{array} \right)\end{align*}\]</span></p>
 <p><span class="math display">\[\begin{align*}\mathbf{A}=\left( \begin{array}{cccccccccccccc} 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
@@ -382,7 +444,7 @@ Two-Factor Confirmatory Factor Analysis Model
 <h4 class="hasAnchor">
 <a href="#eq2expectations-1" class="anchor"></a>Eq2Expectations</h4>
 <p>The <code><a href="../reference/Eq2Expectations.html">Eq2Expectations()</a></code> function constructs the mean and covariance expectations.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Expectations</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../reference/Eq2Expectations.html">Eq2Expectations</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span></code></pre></div>
 <p>The covariance expectations for all the variables are given below.</p>
 <p><span class="math display">\[\begin{align*}\mathbf{C}=\left( \begin{array}{cccccccccccccc} 1.5 &amp; 1 &amp; 1 &amp; 0.5 &amp; 0.5 &amp; 0.5 &amp; 1 &amp; 0.5 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 1 &amp; 1.5 &amp; 1 &amp; 0.5 &amp; 0.5 &amp; 0.5 &amp; 1 &amp; 0.5 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 1 &amp; 1 &amp; 1.5 &amp; 0.5 &amp; 0.5 &amp; 0.5 &amp; 1 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 \\ 0.5 &amp; 0.5 &amp; 0.5 &amp; 1.5 &amp; 1 &amp; 1 &amp; 0.5 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 \\ 0.5 &amp; 0.5 &amp; 0.5 &amp; 1 &amp; 1.5 &amp; 1 &amp; 0.5 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 \\ 0.5 &amp; 0.5 &amp; 0.5 &amp; 1 &amp; 1 &amp; 1.5 &amp; 0.5 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 \\ 1 &amp; 1 &amp; 1 &amp; 0.5 &amp; 0.5 &amp; 0.5 &amp; 1 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0.5 &amp; 0.5 &amp; 0.5 &amp; 1 &amp; 1 &amp; 1 &amp; 0.5 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.5 \end{array} \right)\end{align*}\]</span></p>
@@ -397,26 +459,24 @@ Two-Factor Confirmatory Factor Analysis Model
 <h4 class="hasAnchor">
 <a href="#eq2data" class="anchor"></a>Eq2Data</h4>
 <p>The <code><a href="../reference/Eq2Data.html">Eq2Data()</a></code> function simulates data from the multivariate normal distribution.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Data</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../reference/Eq2Data.html">Eq2Data</a></span><span class="op">(</span><span class="va">eq</span>, n <span class="op">=</span> <span class="fl">100000</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">Data</span><span class="op">)</span>
-<span class="co">#&gt;  num [1:100000, 1:6] 0.6748 0.5864 -0.3865 -0.2744 -0.0262 ...</span>
+<span class="co">#&gt;  num [1:100000, 1:6] 0.0207 1.7516 -0.7644 -0.03 -1.1803 ...</span>
 <span class="co">#&gt;  - attr(*, "dimnames")=List of 2</span>
 <span class="co">#&gt;   ..$ : NULL</span>
 <span class="co">#&gt;   ..$ : chr [1:6] "y1" "y2" "y3" "y4" ...</span>
 <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">Data</span><span class="op">)</span>
 <span class="co">#&gt;           y1        y2        y3        y4        y5        y6</span>
-<span class="co">#&gt; y1 1.5084458 1.0050915 1.0060677 0.4963137 0.4974336 0.4943493</span>
-<span class="co">#&gt; y2 1.0050915 1.5044612 1.0052615 0.4962652 0.4990555 0.4957802</span>
-<span class="co">#&gt; y3 1.0060677 1.0052615 1.5070603 0.5013130 0.4967914 0.4983523</span>
-<span class="co">#&gt; y4 0.4963137 0.4962652 0.5013130 1.4897540 0.9935996 0.9942360</span>
-<span class="co">#&gt; y5 0.4974336 0.4990555 0.4967914 0.9935996 1.4953389 0.9957583</span>
-<span class="co">#&gt; y6 0.4943493 0.4957802 0.4983523 0.9942360 0.9957583 1.5002025</span>
+<span class="co">#&gt; y1 1.4918460 0.9934808 0.9905271 0.5006997 0.4959041 0.5024931</span>
+<span class="co">#&gt; y2 0.9934808 1.4950867 0.9937697 0.4995493 0.4931101 0.4952611</span>
+<span class="co">#&gt; y3 0.9905271 0.9937697 1.4955391 0.5011199 0.4999908 0.5016352</span>
+<span class="co">#&gt; y4 0.5006997 0.4995493 0.5011199 1.4978193 0.9968353 0.9981485</span>
+<span class="co">#&gt; y5 0.4959041 0.4931101 0.4999908 0.9968353 1.4970382 0.9972835</span>
+<span class="co">#&gt; y6 0.5024931 0.4952611 0.5016352 0.9981485 0.9972835 1.5013119</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">colMeans</a></span><span class="op">(</span><span class="va">Data</span><span class="op">)</span>
-<span class="co">#&gt;            y1            y2            y3            y4            y5 </span>
-<span class="co">#&gt;  0.0059136673  0.0011709618  0.0099047063 -0.0010315224  0.0003530957 </span>
-<span class="co">#&gt;            y6 </span>
-<span class="co">#&gt; -0.0010709220</span></code></pre></div>
+<span class="co">#&gt;           y1           y2           y3           y4           y5           y6 </span>
+<span class="co">#&gt;  0.002802707 -0.002463602  0.002945361  0.007655829  0.004836994  0.006355192</span></code></pre></div>
 </div>
 </div>
 </div>

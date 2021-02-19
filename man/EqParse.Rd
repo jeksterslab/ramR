@@ -9,6 +9,32 @@ EqParse(eq)
 \arguments{
 \item{eq}{Character string. Equations. See Details.}
 }
+\value{
+Returns a data.frame with the following columns
+
+\describe{
+\item{lhs}{
+is the variable on the \strong{left-hand side},
+}
+\item{rhs}{
+is the variable on the \strong{right-hand side},
+}
+\item{op}{
+is the \strong{operation} between \code{lhs} and \code{rhs},
+}
+\item{par.label}{
+is the column of \strong{parameter label},
+}
+\item{par.start}{
+is the column of \strong{starting values} for estimation
+if \code{eq} has a fifth colulmn, and
+}
+\item{par.names}{
+is the column of \strong{parameter label}
+with \code{NAs} on fixed parameters.
+}
+}
+}
 \description{
 Parse equations and return a parameter table (\code{par.table}).
 }

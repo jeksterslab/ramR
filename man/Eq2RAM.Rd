@@ -40,6 +40,44 @@ such as variances and covariances.
 Filter matrix used to select observed variables.
 }
 }
+
+\code{par.tables} in the list is a data.frame
+with the following columns
+
+\describe{
+\item{lhs}{
+is the variable on the \strong{left-hand side},
+}
+\item{rhs}{
+is the variable on the \strong{right-hand side},
+}
+\item{op}{
+is the \strong{operation} between \code{lhs} and \code{rhs},
+}
+\item{par.label}{
+is the column of \strong{parameter label},
+}
+\item{par.start}{
+is the column of \strong{starting values} for estimation
+if \code{eq} has a fifth colulmn, and
+}
+\item{par.names}{
+is the column of \strong{parameter label
+with \code{NAs} on fixed parameters},
+}
+\item{par.type}{
+is the type of the parameter,
+}
+\item{RAM}{
+is the RAM matrix used to represent the parameter,
+}
+\item{RAM.row}{
+is the row index in the RAM matrix for the parameter, and
+}
+\item{RAM.col}{
+is the column index in the RAM matrix for the parameter.
+}
+}
 }
 \description{
 Converts model equations to RAM matrices.
