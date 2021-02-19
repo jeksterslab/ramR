@@ -89,6 +89,44 @@
 #'     }
 #'   }
 #'
+#' `par.tables` in the list is a data.frame
+#' with the following columns
+#'
+#'   \describe{
+#'     \item{lhs}{
+#'       is the variable on the **left-hand side**,
+#'     }
+#'     \item{rhs}{
+#'       is the variable on the **right-hand side**,
+#'     }
+#'     \item{op}{
+#'       is the **operation** between `lhs` and `rhs`,
+#'     }
+#'     \item{par.label}{
+#'       is the column of **parameter label**,
+#'     }
+#'     \item{par.start}{
+#'       is the column of **starting values** for estimation
+#'       if `eq` has a fifth colulmn, and
+#'     }
+#'     \item{par.names}{
+#'       is the column of **parameter label
+#'       with `NAs` on fixed parameters**,
+#'     }
+#'     \item{par.type}{
+#'       is the type of the parameter,
+#'     }
+#'     \item{RAM}{
+#'       is the RAM matrix used to represent the parameter,
+#'     }
+#'     \item{RAM.row}{
+#'       is the row index in the RAM matrix for the parameter, and
+#'     }
+#'     \item{RAM.col}{
+#'       is the column index in the RAM matrix for the parameter.
+#'     }
+#'   }
+#'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
 #' @family eq functions
@@ -259,16 +297,17 @@ Eq2RAM <- function(eq,
   par.table$RAM <- temp$RAM
   par.table$RAM.row <- temp$RAM.row
   par.table$RAM.col <- temp$RAM.col
-  return(
-    list(
-      par.table = par.table,
-      variables = v,
-      g.variables = g,
-      h.variables = h,
-      A = A,
-      S = S,
-      u = u,
-      Filter = Filter
-    )
+  class(par.table) <- c("ParameterTable", class(par.table))
+  out <- list(
+    par.table = par.table,
+    variables = v,
+    g.variables = g,
+    h.variables = h,
+    A = A,
+    S = S,
+    u = u,
+    Filter = Filter
   )
+  class(out) <- c("RAM", class(out))
+  return(out)
 }

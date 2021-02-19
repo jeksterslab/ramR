@@ -73,6 +73,31 @@
 #' @section Comments:
 #'   Comments can be written after a hash (`#`) sign.
 #'
+#' @return Returns a data.frame with the following columns
+#'
+#'   \describe{
+#'     \item{lhs}{
+#'       is the variable on the **left-hand side**,
+#'     }
+#'     \item{rhs}{
+#'       is the variable on the **right-hand side**,
+#'     }
+#'     \item{op}{
+#'       is the **operation** between `lhs` and `rhs`,
+#'     }
+#'     \item{par.label}{
+#'       is the column of **parameter label**,
+#'     }
+#'     \item{par.start}{
+#'       is the column of **starting values** for estimation
+#'       if `eq` has a fifth colulmn, and
+#'     }
+#'     \item{par.names}{
+#'       is the column of **parameter label**
+#'       with `NAs` on fixed parameters.
+#'     }
+#'   }
+#'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
 #' @family eq functions
@@ -133,6 +158,10 @@
 #' EqParse(eq)
 #' @export
 EqParse <- function(eq) {
+  # TODO: check duplicates in `by` and `on`
+  # TODO: check feedback loops in `by` and `on`
+  # TODO: check duplicates in `with`
+  # e1 with e2 and e2 with e1 are considered duplicates
   par.table <- gsub(
     pattern = "#[^\\\n]*",
     replacement = "",
