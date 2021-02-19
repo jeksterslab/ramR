@@ -133,25 +133,26 @@ Eq2RAM <- function(eq,
   } else {
     par.table <- EqParse(eq)
   }
+  temp <- par.table
   if (par) {
-    par.table[, "par.label"] <- par.table[, "par.index"]
+    temp[, "par.label"] <- par.table[, "par.index"]
   }
-  by <- par.table[which(
-    par.table[, "op"] == "by"
+  by <- temp[which(
+    temp[, "op"] == "by"
   ), , drop = FALSE]
-  with <- par.table[which(
-    par.table[, "op"] == "with"
+  with <- temp[which(
+    temp[, "op"] == "with"
   ), , drop = FALSE]
-  on <- par.table[which(
-    par.table[, "op"] == "on" & par.table[, "rhs"] != "1"
+  on <- temp[which(
+    temp[, "op"] == "on" & temp[, "rhs"] != "1"
   ), , drop = FALSE]
-  one <- par.table[which(
-    par.table[, "op"] == "on" & par.table[, "rhs"] == "1"
+  one <- temp[which(
+    temp[, "op"] == "on" & temp[, "rhs"] == "1"
   ), , drop = FALSE]
   v <- unique(
     c(
-      par.table[, "lhs"],
-      par.table[, "rhs"]
+      temp[, "lhs"],
+      temp[, "rhs"]
     )
   )
   v <- v[which(v != "1")]
@@ -184,6 +185,10 @@ Eq2RAM <- function(eq,
     A[loadings[, "rhs"], loadings[, "lhs"]] <- to.numeric(
       loadings[, "par.label"]
     )
+    by$par.type[i] <- "loading"
+    by$RAM[i] <- "A"
+    by$RAM.row[i] <- loadings[, "rhs"]
+    by$RAM.col[i] <- loadings[, "lhs"]
   }
   # regressions
   for (i in seq_len(dim(on)[1])) {
@@ -191,6 +196,10 @@ Eq2RAM <- function(eq,
     A[regressions[, "lhs"], regressions[, "rhs"]] <- to.numeric(
       regressions[, "par.label"]
     )
+    on$par.type[i] <- "regression"
+    on$RAM[i] <- "A"
+    on$RAM.row[i] <- regressions[, "lhs"]
+    on$RAM.col[i] <- regressions[, "rhs"]
   }
   # variances
   for (i in seq_len(dim(with)[1])) {
@@ -201,6 +210,10 @@ Eq2RAM <- function(eq,
     S[variances[, "rhs"], variances[, "lhs"]] <- to.numeric(
       variances[, "par.label"]
     )
+    with$par.type[i] <- "variance/covariance"
+    with$RAM[i] <- "S"
+    with$RAM.row[i] <- variances[, "lhs"]
+    with$RAM.col[i] <- variances[, "rhs"]
   }
   # means
   if (dim(one)[1] > 0) {
@@ -216,10 +229,36 @@ Eq2RAM <- function(eq,
       u[means[, "lhs"], 1] <- to.numeric(
         means[, "par.label"]
       )
+      one$par.type[i] <- "mean/intercept"
+      one$RAM[i] <- "u"
+      one$RAM.row[i] <- means[, "lhs"]
+      one$RAM.col[i] <- 1
     }
   } else {
     u <- NULL
   }
+  # RAM matrices indices
+  temp <- rbind(
+    by,
+    on,
+    with,
+    one
+  )
+  for (i in seq_len(nrow(temp))) {
+    for (j in seq_along(v)) {
+      if (temp$RAM.row[i] == v[j]) {
+        temp$RAM.row[i] <- j
+      }
+      if (temp$RAM.col[i] == v[j]) {
+        temp$RAM.col[i] <- j
+      }
+    }
+  }
+  temp <- temp[order(as.numeric(rownames(temp))), ]
+  par.table$par.type <- temp$par.type
+  par.table$RAM <- temp$RAM
+  par.table$RAM.row <- temp$RAM.row
+  par.table$RAM.col <- temp$RAM.col
   return(
     list(
       par.table = par.table,
