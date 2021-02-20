@@ -158,10 +158,6 @@
 #' EqParse(eq)
 #' @export
 EqParse <- function(eq) {
-  # TODO: check duplicates in `by` and `on`
-  # TODO: check feedback loops in `by` and `on`
-  # TODO: check duplicates in `with`
-  # e1 with e2 and e2 with e1 are considered duplicates
   par.table <- gsub(
     pattern = "#[^\\\n]*",
     replacement = "",
@@ -180,12 +176,32 @@ EqParse <- function(eq) {
       x = par.table
     )
   )
-  par.table <- do.call(
-    what = "rbind",
-    args = strsplit(
-      x = par.table,
-      split = " "
-    )
+  tryCatch(
+    expr = {
+      par.table <- do.call(
+        what = "rbind",
+        args = strsplit(
+          x = par.table,
+          split = " "
+        )
+      )
+    },
+    # error = function(e) {
+    #  stop(
+    #    paste(
+    #      "\nCheck for errors in `eq`.",
+    #      "\nFollow the appropriate syntax."
+    #    )
+    #  )
+    # },
+    warning = function(w) {
+      stop(
+        paste(
+          "\nCheck for errors in `eq`.",
+          "\nFollow the appropriate syntax."
+        )
+      )
+    }
   )
   if (dim(par.table)[2] == 5) {
     colnames(par.table) <- c(
@@ -206,6 +222,132 @@ EqParse <- function(eq) {
   par.table[, "op"] <- tolower(
     par.table[, "op"]
   )
+  # check for duplicates -----------------------------------------------
+  if (
+    isFALSE(
+      all(
+        !(
+          duplicated(
+            paste0(
+              par.table[, "lhs"],
+              par.table[, "op"],
+              par.table[, "rhs"]
+            )
+          )
+        )
+      )
+    )
+  ) {
+    stop("\nCheck `eq` for duplicated entries.")
+  }
+  # check for specification errors in A --------------------------------
+  tempA <- par.table[
+    which(
+      par.table[, "op"] == "by" | par.table[, "op"] == "on"
+    ),
+  ]
+  for (i in seq_len(nrow(tempA))) {
+    # A diagonal should be zero ----------------------------------------
+    if (tempA[i, "lhs"] == tempA[i, "rhs"]) {
+      stop(
+        paste0(
+          "`",
+          tempA[i, "lhs"],
+          " ",
+          tempA[i, "op"],
+          " ",
+          tempA[i, "rhs"],
+          "`",
+          " is not allowed.",
+          "\nA variable cannot be measured `by` or regressed `on` itself."
+        )
+      )
+    }
+    # No feedback loops ------------------------------------------------
+    if (
+      paste0(
+        tempA[i, "rhs"],
+        tempA[i, "op"],
+        tempA[i, "lhs"]
+      ) %in% paste0(
+        tempA[, "lhs"],
+        tempA[, "op"],
+        tempA[, "rhs"]
+      )
+    ) {
+      stop(
+        paste0(
+          "`",
+          tempA[i, "rhs"],
+          " ",
+          tempA[i, "op"],
+          " ",
+          tempA[i, "lhs"],
+          "`",
+          " and ",
+          "`",
+          tempA[i, "lhs"],
+          " ",
+          tempA[i, "op"],
+          " ",
+          tempA[i, "rhs"],
+          "`",
+          " cannot be specified at the same time.",
+          "\nFeedback loops are not allowed."
+        )
+      )
+    }
+  }
+  # check for specification errors in S --------------------------------
+  tempS <- par.table[
+    which(
+      par.table[, "op"] == "with"
+    ),
+  ]
+  for (i in seq_len(nrow(tempS))) {
+    # No duplicates ----------------------------------------------------
+    orig <- paste0(
+      tempS[, "lhs"],
+      tempS[, "op"],
+      tempS[, "rhs"]
+    )
+    with <- gsub(
+      pattern = paste0(
+        tempS[i, "lhs"],
+        tempS[i, "op"],
+        tempS[i, "rhs"]
+      ),
+      replacement = "",
+      x = orig
+    )
+    if (tempS[i, "lhs"] != tempS[i, "rhs"] & paste0(
+      tempS[i, "rhs"],
+      tempS[i, "op"],
+      tempS[i, "lhs"]
+    ) %in% with) {
+      stop(
+        paste0(
+          "`",
+          tempS[i, "rhs"],
+          " ",
+          tempS[i, "op"],
+          " ",
+          tempS[i, "lhs"],
+          "`",
+          " and ",
+          "`",
+          tempS[i, "lhs"],
+          " ",
+          tempS[i, "op"],
+          " ",
+          tempS[i, "rhs"],
+          "`",
+          " are duplicates.",
+          "\nConsider dropping one."
+        )
+      )
+    }
+  }
   # par.index-----------------------------------------------------------
   par.label <- as.vector(
     par.table[, "par.label"]
@@ -250,7 +392,13 @@ EqParse <- function(eq) {
         par.index[i] <- index[j]
       }
     }
-    if (is.na(suppressWarnings(as.numeric(par.label[i])))) {
+    if (
+      is.na(
+        suppressWarnings(
+          as.numeric(par.label[i])
+        )
+      )
+    ) {
       par.names[i] <- par.label[i]
     }
   }
@@ -302,6 +450,9 @@ EqParse <- function(eq) {
       "par.free"
     )]
   }
-  class(par.table) <- c("ParameterTable", class(par.table))
+  class(par.table) <- c(
+    "ParameterTable",
+    class(par.table)
+  )
   return(par.table)
 }
