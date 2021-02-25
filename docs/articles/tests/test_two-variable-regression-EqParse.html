@@ -211,6 +211,155 @@
 <span class="co">#&gt; 4   x with   x   sigmax2        p3   sigmax2      0.25     TRUE</span>
 <span class="co">#&gt; 5   y   on   1     alpha        p4     alpha      0.00     TRUE</span>
 <span class="co">#&gt; 6   x   on   1       mux        p5       mux      0.50     TRUE</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">eq</span> <span class="op">&lt;-</span> <span class="st">"
+  # lhs op   rhs par.label par.start
+    e   by   y
+    y   on   x   beta      0.00
+    e   with e   sigmax2   1.25
+    x   with x   sigmax2   1.25
+    y   on   1   alpha     0.00
+    x   on   1   mux       0.50
+"</span>
+<span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"incomplete eq - trigger warning in do.call rbind"</span>, <span class="op">{</span>
+  <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
+    <span class="fu">ramR</span><span class="fu">:::</span><span class="fu"><a href="../../reference/EqParse.html">EqParse</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🥇</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">eq</span> <span class="op">&lt;-</span> <span class="st">"
+  # lhs op   rhs par.label par.start
+    e   by   y   1         NA
+    e   by   y   1         NA
+    y   on   x   beta      0.00
+    e   with e   sigmax2   1.25
+    x   with x   sigmax2   1.25
+    y   on   1   alpha     0.00
+    x   on   1   mux       0.50
+"</span>
+<span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"e by y"</span>, <span class="op">{</span>
+  <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
+    <span class="fu">ramR</span><span class="fu">:::</span><span class="fu"><a href="../../reference/EqParse.html">EqParse</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🥇</span>
+<span class="va">eq</span> <span class="op">&lt;-</span> <span class="st">"
+  # lhs op   rhs par.label par.start
+    e   by   y   1         NA
+    y   on   x   beta      0.00
+    y   on   x   beta      0.00
+    e   with e   sigmax2   1.25
+    x   with x   sigmax2   1.25
+    y   on   1   alpha     0.00
+    x   on   1   mux       0.50
+"</span>
+<span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"y on x"</span>, <span class="op">{</span>
+  <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
+    <span class="fu">ramR</span><span class="fu">:::</span><span class="fu"><a href="../../reference/EqParse.html">EqParse</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🥇</span>
+<span class="va">eq</span> <span class="op">&lt;-</span> <span class="st">"
+  # lhs op   rhs par.label par.start
+    e   by   y   1         NA
+    y   on   x   beta      0.00
+    e   with e   sigmax2   1.25
+    e   with e   sigmax2   1.25
+    x   with x   sigmax2   1.25
+    y   on   1   alpha     0.00
+    x   on   1   mux       0.50
+"</span>
+<span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"e with e"</span>, <span class="op">{</span>
+  <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
+    <span class="fu">ramR</span><span class="fu">:::</span><span class="fu"><a href="../../reference/EqParse.html">EqParse</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🥇</span>
+<span class="va">eq</span> <span class="op">&lt;-</span> <span class="st">"
+  # lhs op   rhs par.label par.start
+    e   by   y   1         NA
+    y   on   x   beta      0.00
+    e   with e   sigmax2   1.25
+    x   with x   sigmax2   1.25
+    y   on   1   alpha     0.00
+    y   on   1   alpha     0.00
+    x   on   1   mux       0.50
+"</span>
+<span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"y on 1"</span>, <span class="op">{</span>
+  <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
+    <span class="fu">ramR</span><span class="fu">:::</span><span class="fu"><a href="../../reference/EqParse.html">EqParse</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🎉</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">eq</span> <span class="op">&lt;-</span> <span class="st">"
+  # lhs op   rhs par.label par.start
+    e   by   e   1         NA
+    e   by   y   1         NA
+    y   on   x   beta     0.00
+    e   with e   sigmax2   1.25
+    x   with x   sigmax2   1.25
+    y   on   1   alpha     0.00
+    x   on   1   mux       0.50
+"</span>
+<span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"e on e"</span>, <span class="op">{</span>
+  <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
+    <span class="fu">ramR</span><span class="fu">:::</span><span class="fu"><a href="../../reference/EqParse.html">EqParse</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🎉</span>
+<span class="va">eq</span> <span class="op">&lt;-</span> <span class="st">"
+  # lhs op   rhs par.label par.start
+    e   by   y   1         NA
+    y   on   x   beta1     0.00
+    y   on   y   beta2     0.00
+    e   with e   sigmax2   1.25
+    x   with x   sigmax2   1.25
+    y   on   1   alpha     0.00
+    x   on   1   mux       0.50
+"</span>
+<span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"y on y"</span>, <span class="op">{</span>
+  <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
+    <span class="fu">ramR</span><span class="fu">:::</span><span class="fu"><a href="../../reference/EqParse.html">EqParse</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🥇</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">eq</span> <span class="op">&lt;-</span> <span class="st">"
+  # lhs op   rhs par.label par.start
+    e   by   y   1         NA
+    y   on   x   beta1     0.00
+    x   on   y   beta2     0.00
+    e   with e   sigmax2   1.25
+    x   with x   sigmax2   1.25
+    y   on   1   alpha     0.00
+    x   on   1   mux       0.50
+"</span>
+<span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"y on x and x on y"</span>, <span class="op">{</span>
+  <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
+    <span class="fu">ramR</span><span class="fu">:::</span><span class="fu"><a href="../../reference/EqParse.html">EqParse</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 😸</span>
+<span class="co"># + duplicates_S</span>
+<span class="va">eq</span> <span class="op">&lt;-</span> <span class="st">"
+  # lhs op   rhs par.label par.start
+    e   by   y   1         NA
+    y   on   x   beta1     0.00
+    e   with e   sigmax2   1.25
+    x   with x   sigmax2   1.25
+    e   with x   sigmaex   1.25
+    x   with e   sigmaex   1.25
+    y   on   1   alpha     0.00
+    x   on   1   mux       0.50
+ "</span>
+<span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"e with x and x with e"</span>, <span class="op">{</span>
+  <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span>
+    <span class="fu">ramR</span><span class="fu">:::</span><span class="fu"><a href="../../reference/EqParse.html">EqParse</a></span><span class="op">(</span><span class="va">eq</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; Test passed 🎊</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

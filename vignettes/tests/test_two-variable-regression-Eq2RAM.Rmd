@@ -376,3 +376,9 @@ testthat::test_that("upars.", {
 })
 ```
 
+
+
+```{r coverage}
+ramR::Eq2RAM(ramR::EqParse(eq))
+```
+

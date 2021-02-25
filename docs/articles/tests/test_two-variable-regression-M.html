@@ -184,7 +184,7 @@
 <p><span class="math display">\[\begin{equation}
   \begin{split}
     y &amp;= \alpha + \beta x + \varepsilon \\
-    y &amp;= -0.3234905 + \left( -0.2142374 x \right) + \varepsilon
+    y &amp;= -0.7800596 + \left( 0.3821366 x \right) + \varepsilon
   \end{split}
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -253,8 +253,8 @@
   ysym <span class="op">=</span> <span class="cn">FALSE</span>,
   simplify <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
-<span class="co">#&gt; {{ 0.2647549044, -0.1805704887},</span>
-<span class="co">#&gt;  {-0.1805704887,  0.8428523349}}</span></code></pre></div>
+<span class="co">#&gt; {{0.4153270443, 0.1557929119},</span>
+<span class="co">#&gt;  {0.1557929119, 0.4076890384}}</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
@@ -268,7 +268,7 @@
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\left( \begin{array}{cc} 0.2647549044 &amp; -0.1805704887 \\ -0.1805704887 &amp; 0.8428523349 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\left( \begin{array}{cc} 0.4153270443 &amp; 0.1557929119 \\ 0.1557929119 &amp; 0.4076890384 \end{array} \right)\end{align*}\]</span></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">M</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">C</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
@@ -286,7 +286,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🥇</span>
+<span class="co">#&gt; Test passed 😀</span>
 <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"C."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">C</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">C</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -308,7 +308,7 @@
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">Filter</span><span class="op">)</span>,
   exe <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "{{1,0,0},{0,1,0}}*Inverse(Identity(Length({{0,-0.2142373952,1},{0,0,0},{0,0,0}}))-{{0,-0.2142373952,1},{0,0,0},{0,0,0}})*{{0,0,0},{0,0.84285233495757,0},{0,0,0.226069953292608}}*Transpose(Inverse(Identity(Length({{0,-0.2142373952,1},{0,0,0},{0,0,0}}))-{{0,-0.2142373952,1},{0,0,0},{0,0,0}}))*Transpose({{1,0,0},{0,1,0}})"</span></code></pre></div>
+<span class="co">#&gt; [1] "{{1,0,0},{0,1,0}}*Inverse(Identity(Length({{0,0.382136621978134,1},{0,0,0},{0,0,0}}))-{{0,0.382136621978134,1},{0,0,0},{0,0,0}})*{{0,0,0},{0,0.407689038431272,0},{0,0,0.355792867252603}}*Transpose(Inverse(Identity(Length({{0,0.382136621978134,1},{0,0,0},{0,0,0}}))-{{0,0.382136621978134,1},{0,0,0},{0,0,0}}))*Transpose({{1,0,0},{0,1,0}})"</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

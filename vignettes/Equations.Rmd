@@ -21,8 +21,10 @@ knitr::opts_chunk$set(
 ```
 
 `Eq*` functions in the `ramR` package require  
-a character string input that specifies the associations between the variables.
-Each line in the character string is a structural equation linking two variables at a time.
+a character string input
+that specifies the associations between the variables.
+Each line in the character string
+is a structural equation linking two variables at a time.
 
 ## Defining Structural Equations
 
@@ -454,7 +456,8 @@ cat(
 
 #### Eq2Data
 
-The `Eq2Data()` function simulates data from the multivariate normal distribution.
+The `Eq2Data()` function simulates data
+from the multivariate normal distribution.
 
 ```{r}
 Data <- ramR::Eq2Data(eq, n = 100000)

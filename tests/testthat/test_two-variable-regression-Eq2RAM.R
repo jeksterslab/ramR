@@ -349,3 +349,6 @@ testthat::test_that("upars.", {
     is.null(pars$u),
   )
 })
+#'
+#+ coverage
+ramR::Eq2RAM(ramR::EqParse(eq))

@@ -79,3 +79,150 @@ eq <- "
 ramR:::EqParse(eq)
 ```
 
+
+
+```{r malformed_eq}
+eq <- "
+  # lhs op   rhs par.label par.start
+    e   by   y
+    y   on   x   beta      0.00
+    e   with e   sigmax2   1.25
+    x   with x   sigmax2   1.25
+    y   on   1   alpha     0.00
+    x   on   1   mux       0.50
+"
+testthat::test_that("incomplete eq - trigger warning in do.call rbind", {
+  testthat::expect_error(
+    ramR:::EqParse(eq)
+  )
+})
+```
+```{r duplicates}
+eq <- "
+  # lhs op   rhs par.label par.start
+    e   by   y   1         NA
+    e   by   y   1         NA
+    y   on   x   beta      0.00
+    e   with e   sigmax2   1.25
+    x   with x   sigmax2   1.25
+    y   on   1   alpha     0.00
+    x   on   1   mux       0.50
+"
+testthat::test_that("e by y", {
+  testthat::expect_error(
+    ramR:::EqParse(eq)
+  )
+})
+eq <- "
+  # lhs op   rhs par.label par.start
+    e   by   y   1         NA
+    y   on   x   beta      0.00
+    y   on   x   beta      0.00
+    e   with e   sigmax2   1.25
+    x   with x   sigmax2   1.25
+    y   on   1   alpha     0.00
+    x   on   1   mux       0.50
+"
+testthat::test_that("y on x", {
+  testthat::expect_error(
+    ramR:::EqParse(eq)
+  )
+})
+eq <- "
+  # lhs op   rhs par.label par.start
+    e   by   y   1         NA
+    y   on   x   beta      0.00
+    e   with e   sigmax2   1.25
+    e   with e   sigmax2   1.25
+    x   with x   sigmax2   1.25
+    y   on   1   alpha     0.00
+    x   on   1   mux       0.50
+"
+testthat::test_that("e with e", {
+  testthat::expect_error(
+    ramR:::EqParse(eq)
+  )
+})
+eq <- "
+  # lhs op   rhs par.label par.start
+    e   by   y   1         NA
+    y   on   x   beta      0.00
+    e   with e   sigmax2   1.25
+    x   with x   sigmax2   1.25
+    y   on   1   alpha     0.00
+    y   on   1   alpha     0.00
+    x   on   1   mux       0.50
+"
+testthat::test_that("y on 1", {
+  testthat::expect_error(
+    ramR:::EqParse(eq)
+  )
+})
+```
+```{r arrow_self}
+eq <- "
+  # lhs op   rhs par.label par.start
+    e   by   e   1         NA
+    e   by   y   1         NA
+    y   on   x   beta     0.00
+    e   with e   sigmax2   1.25
+    x   with x   sigmax2   1.25
+    y   on   1   alpha     0.00
+    x   on   1   mux       0.50
+"
+testthat::test_that("e on e", {
+  testthat::expect_error(
+    ramR:::EqParse(eq)
+  )
+})
+eq <- "
+  # lhs op   rhs par.label par.start
+    e   by   y   1         NA
+    y   on   x   beta1     0.00
+    y   on   y   beta2     0.00
+    e   with e   sigmax2   1.25
+    x   with x   sigmax2   1.25
+    y   on   1   alpha     0.00
+    x   on   1   mux       0.50
+"
+testthat::test_that("y on y", {
+  testthat::expect_error(
+    ramR:::EqParse(eq)
+  )
+})
+```
+```{r feedback_loop}
+eq <- "
+  # lhs op   rhs par.label par.start
+    e   by   y   1         NA
+    y   on   x   beta1     0.00
+    x   on   y   beta2     0.00
+    e   with e   sigmax2   1.25
+    x   with x   sigmax2   1.25
+    y   on   1   alpha     0.00
+    x   on   1   mux       0.50
+"
+testthat::test_that("y on x and x on y", {
+  testthat::expect_error(
+    ramR:::EqParse(eq)
+  )
+})
+# + duplicates_S
+eq <- "
+  # lhs op   rhs par.label par.start
+    e   by   y   1         NA
+    y   on   x   beta1     0.00
+    e   with e   sigmax2   1.25
+    x   with x   sigmax2   1.25
+    e   with x   sigmaex   1.25
+    x   with e   sigmaex   1.25
+    y   on   1   alpha     0.00
+    x   on   1   mux       0.50
+ "
+testthat::test_that("e with x and x with e", {
+  testthat::expect_error(
+    ramR:::EqParse(eq)
+  )
+})
+```
+
