@@ -99,6 +99,9 @@ from the Reticular Action Model (RAM) matrices." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/Equations-short.html">Equations-short</a>
+    </li>
+    <li>
       <a href="../articles/Equations.html">Equations</a>
     </li>
     <li>
@@ -130,6 +133,9 @@ from the Reticular Action Model (RAM) matrices." />
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-RAM2Data.html">Test: Two-Variable Linear Regression - RAM2Data</a>
+    </li>
+    <li>
+      <a href="../articles/tests/test_two-variable-regression-RAMScaled.html">Test: Two-Variable Linear Regression - RAMScaled</a>
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-S.html">Test: Two-Variable Linear Regression - S</a>
@@ -179,10 +185,10 @@ from the Reticular Action Model (RAM) matrices." />
 from the Reticular Action Model (RAM) matrices.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Expectations</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>S</span>, u <span class='op'>=</span> <span class='cn'>NULL</span>, Filter <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>Expectations</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>S</span>, u <span class='op'>=</span> <span class='cn'>NULL</span>, Filter <span class='op'>=</span> <span class='cn'>NULL</span>, check <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>Expectations</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>S</span>, u <span class='op'>=</span> <span class='cn'>NULL</span>, Filter <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>Expectations</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>S</span>, u <span class='op'>=</span> <span class='cn'>NULL</span>, Filter <span class='op'>=</span> <span class='cn'>NULL</span>, check <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for yac_symbol</span>
 <span class='fu'>Expectations</span><span class='op'>(</span>
@@ -190,6 +196,7 @@ from the Reticular Action Model (RAM) matrices.</p>
   <span class='va'>S</span>,
   u <span class='op'>=</span> <span class='cn'>NULL</span>,
   Filter <span class='op'>=</span> <span class='cn'>NULL</span>,
+  check <span class='op'>=</span> <span class='cn'>TRUE</span>,
   R <span class='op'>=</span> <span class='cn'>FALSE</span>,
   format <span class='op'>=</span> <span class='st'>"ysym"</span>,
   simplify <span class='op'>=</span> <span class='cn'>FALSE</span>,
@@ -221,6 +228,12 @@ Mean structure parameters.</p></td>
       <td><p><code>p by t</code> numeric matrix
 \(\mathbf{F}\).
 Filter matrix used to select observed variables.</p></td>
+    </tr>
+    <tr>
+      <th>check</th>
+      <td><p>Logical.
+If <code>check = TRUE</code> do some preprocessing
+with input matrices using <code><a href='CheckRAMMatrices.html'>CheckRAMMatrices()</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -262,31 +275,142 @@ of expected values of observed variables.</p></dd>
 of expected covariances.</p></dd>
 <dt>M</dt><dd><p><code>p by p</code> matrix \(\mathbf{M}\)
 of expected covariances of observed variables.</p></dd>
+<dt>C.scaled</dt><dd><p><code>t by t</code> matrix \(\mathbf{C}\)
+of scaled/standardized expected covariances
+(also known as correlations).</p></dd>
+<dt>M.scaled</dt><dd><p><code>p by p</code> matrix \(\mathbf{M}\)
+of scaled/standardized expected covariances
+(also known as correlations)
+of observed variables.</p></dd>
 
 </dl>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The vector of mean structure parameters \(\mathbf{v}\)
+    <p>The vector of expected values \(\mathbf{v}\)
 as a function of Reticular Action Model (RAM) matrices
 is given by</p>
 <p>$$
-    \mathbf{u}
+    \mathbf{v}
     =
     \left(
       \mathbf{I} - \mathbf{A}
-    \right)
-    \mathbf{v} \\
+    \right)^{\mathsf{T}}
+    \mathbf{u} \\
     =
-    \mathbf{E}^{-1}
+    \mathbf{E}
+    \mathbf{u}
+  $$</p>
+<p>The vector of expected values
+of observed variables \(\mathbf{g}\)
+as a function of Reticular Action Model (RAM) matrices
+is given by</p>
+<p>$$
+    \mathbf{g}
+    =
+    \mathbf{F}
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{\mathsf{T}}
+    \mathbf{u} \\
+    =
+    \mathbf{F}
+    \mathbf{E}
+    \mathbf{u} \\
+    =
+    \mathbf{F}
     \mathbf{v}
   $$</p>
+<p>The matrix of covariance expectations \(\mathbf{C}\)
+as a function of Reticular Action Model (RAM) matrices is given by</p>
+<p>$$
+    \mathbf{C}
+    =
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{-1}
+    \mathbf{S}
+    \left[
+      \left(
+        \mathbf{I} - \mathbf{A}
+      \right)^{-1}
+    \right]^{\mathsf{T}} \\
+    =
+    \mathbf{E}
+    \mathbf{S}
+    \mathbf{E}^{\mathsf{T}}
+  $$</p>
+<p>The matrix of covariance expectations
+for given variables \(\mathbf{M}\)
+as a function of Reticular Action Model (RAM) matrices
+is given by</p>
+<p>$$
+    \mathbf{M}
+    =
+    \mathbf{F}
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{-1}
+    \mathbf{S}
+    \left[
+      \left(
+        \mathbf{I} - \mathbf{A}
+      \right)^{-1}
+    \right]^{\mathsf{T}}
+    \mathbf{F}^{\mathsf{T}} \\
+    =
+    \mathbf{F}
+    \mathbf{E}
+    \mathbf{S}
+    \mathbf{E}^{\mathsf{T}}
+    \mathbf{F}^{\mathsf{T}} \\
+    =
+    \mathbf{F}
+    \mathbf{C}
+    \mathbf{F}^{\mathsf{T}}
+  $$</p>
+<p>The matrix of scaled/standardized covariance expectations
+\(\mathbf{C}_{\mathrm{scaled}}\)
+(also known as correlations)
+is given by</p>
+<p>$$
+    \mathbf{C}_{\mathrm{scaled}}
+    =
+    \mathbf{D}^{-1}
+    \mathbf{C}
+    \mathbf{D}^{-1}
+  $$</p>
+<p>The matrix of scaled/standardized covariance expectations
+for given variables
+\(\mathbf{M}_{\mathrm{scaled}}\)
+(also known as correlations)
+is given by</p>
+<p>$$
+    \mathbf{M}_{\mathrm{scaled}}
+    =
+    \mathbf{F}
+    \mathbf{C}_{\mathrm{scaled}}
+    \mathbf{F}^{\mathsf{T}}
+  $$</p>
 <p>where</p><ul>
+<li><p>\(\mathbf{u}_{t \times 1}\) vector of parameters
+for the mean structure,</p></li>
 <li><p>\(\mathbf{A}_{t \times t}\) represents asymmetric paths
 (single-headed arrows),
 such as regression coefficients and factor loadings,</p></li>
-<li><p>\(\mathbf{I}_{t \times t}\) represents an identity matrix, and</p></li>
-<li><p>\(\mathbf{v}_{t \times 1}\) vector of expected values.</p></li>
+<li><p>\(\mathbf{S}_{t \times t}\) represents symmetric paths
+(double-headed arrows),
+such as variances and covariances,</p></li>
+<li><p>\(\mathbf{F}_{p \times t}\) represents the filter matrix
+used to select the observed variables,</p></li>
+<li><p>\(\mathbf{I}_{t \times t}\) represents an identity matrix,</p></li>
+<li><p>\(\mathbf{D}_{t \times t}\) represents a diagonal matrix
+who diagonal elements are the square root of the diagonal elements
+of \(\mathbf{C}\),</p></li>
+<li><p>\(p\) number of observed variables,</p></li>
+<li><p>\(q\) number of latent variables, and</p></li>
+<li><p>\(t\) number of observed and latent variables,
+that is \(p + q\) .</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
@@ -304,6 +428,7 @@ of the Reticular Action Model for moment structures.
 <code><a href='E.html'>E</a>()</code>,
 <code><a href='IminusA.html'>IminusA</a>()</code>,
 <code><a href='M.html'>M</a>()</code>,
+<code><a href='RAMScaled.html'>RAMScaled</a>()</code>,
 <code><a href='S.html'>S</a>()</code>,
 <code><a href='g.html'>g</a>()</code>,
 <code><a href='u.html'>u</a>()</code>,
@@ -334,9 +459,9 @@ of the Reticular Action Model for moment structures.
 #&gt; e 0.0
 #&gt; 
 #&gt; $g
-#&gt;        g
-#&gt; [1,] 0.5
-#&gt; [2,] 0.5
+#&gt;     g
+#&gt; y 0.5
+#&gt; x 0.5
 #&gt; 
 #&gt; $C
 #&gt;      y    x e
@@ -345,9 +470,20 @@ of the Reticular Action Model for moment structures.
 #&gt; e 1.00 0.00 1
 #&gt; 
 #&gt; $M
-#&gt;      [,1] [,2]
-#&gt; [1,] 1.25 0.25
-#&gt; [2,] 0.25 0.25
+#&gt;      y    x
+#&gt; y 1.25 0.25
+#&gt; x 0.25 0.25
+#&gt; 
+#&gt; $C.scaled
+#&gt;           y         x         e
+#&gt; y 1.0000000 0.4472136 0.8944272
+#&gt; x 0.4472136 1.0000000 0.0000000
+#&gt; e 0.8944272 0.0000000 1.0000000
+#&gt; 
+#&gt; $M.scaled
+#&gt;           y         x
+#&gt; y 1.0000000 0.4472136
+#&gt; x 0.4472136 1.0000000
 #&gt; </div><div class='input'>
 <span class='co'># Symbolic ----------------------------------------------------------</span>
 <span class='va'>A</span> <span class='op'>&lt;-</span> <span class='va'>S</span> <span class='op'>&lt;-</span> <span class='fu'>matrixR</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/matrixR/man/ZeroMatrix.html'>ZeroMatrix</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>
@@ -372,6 +508,15 @@ of the Reticular Action Model for moment structures.
 #&gt; $M
 #&gt; {{sigmax2*beta^2+sigmae2,           beta*sigmax2},
 #&gt;  {          sigmax2*beta,                sigmax2}} 
+#&gt; 
+#&gt; $C.scaled
+#&gt; {{                                                          1, (sigmax2*beta)/(Sqrt(sigmax2)*Sqrt(sigmax2*beta^2+sigmae2)),        sigmae2/(Sqrt(sigmae2)*Sqrt(sigmax2*beta^2+sigmae2))},
+#&gt;  {(beta*sigmax2)/(Sqrt(sigmax2*beta^2+sigmae2)*Sqrt(sigmax2)),                                                           1,                                                           0},
+#&gt;  {       sigmae2/(Sqrt(sigmax2*beta^2+sigmae2)*Sqrt(sigmae2)),                                                           0,                                                           1}} 
+#&gt; 
+#&gt; $M.scaled
+#&gt; {{                                                          1, (sigmax2*beta)/(Sqrt(sigmax2)*Sqrt(sigmax2*beta^2+sigmae2))},
+#&gt;  {(beta*sigmax2)/(Sqrt(sigmax2*beta^2+sigmae2)*Sqrt(sigmax2)),                                                           1}} 
 #&gt; </div><div class='input'><span class='fu'>Expectations</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>S</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, R <span class='op'>=</span> <span class='cn'>FALSE</span>, format <span class='op'>=</span> <span class='st'>"str"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $v
 #&gt; [1] "{{alpha+beta*mux},{mux},{0}}"
@@ -384,6 +529,12 @@ of the Reticular Action Model for moment structures.
 #&gt; 
 #&gt; $M
 #&gt; [1] "{{sigmax2*beta^2+sigmae2,beta*sigmax2},{sigmax2*beta,sigmax2}}"
+#&gt; 
+#&gt; $C.scaled
+#&gt; [1] "{{1,(sigmax2*beta)/(Sqrt(sigmax2)*Sqrt(sigmax2*beta^2+sigmae2)),sigmae2/(Sqrt(sigmae2)*Sqrt(sigmax2*beta^2+sigmae2))},{(beta*sigmax2)/(Sqrt(sigmax2*beta^2+sigmae2)*Sqrt(sigmax2)),1,0},{sigmae2/(Sqrt(sigmax2*beta^2+sigmae2)*Sqrt(sigmae2)),0,1}}"
+#&gt; 
+#&gt; $M.scaled
+#&gt; [1] "{{1,(sigmax2*beta)/(Sqrt(sigmax2)*Sqrt(sigmax2*beta^2+sigmae2))},{(beta*sigmax2)/(Sqrt(sigmax2*beta^2+sigmae2)*Sqrt(sigmax2)),1}}"
 #&gt; </div><div class='input'><span class='fu'>Expectations</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>S</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, R <span class='op'>=</span> <span class='cn'>FALSE</span>, format <span class='op'>=</span> <span class='st'>"tex"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $v
 #&gt; [1] "\\left( \\begin{array}{c} \\alpha  + \\beta  \\mathrm{ mux } \\\\ \\mathrm{ mux } \\\\ 0 \\end{array} \\right)"
@@ -396,6 +547,12 @@ of the Reticular Action Model for moment structures.
 #&gt; 
 #&gt; $M
 #&gt; [1] "\\left( \\begin{array}{cc} \\mathrm{ sigmax2 } \\beta  ^{2} + \\mathrm{ sigmae2 } &amp; \\beta  \\mathrm{ sigmax2 } \\\\ \\mathrm{ sigmax2 } \\beta  &amp; \\mathrm{ sigmax2 } \\end{array} \\right)"
+#&gt; 
+#&gt; $C.scaled
+#&gt; [1] "\\left( \\begin{array}{ccc} 1 &amp; \\frac{\\mathrm{ sigmax2 } \\beta }{\\sqrt{\\mathrm{ sigmax2 }} \\sqrt{\\mathrm{ sigmax2 } \\beta  ^{2} + \\mathrm{ sigmae2 }}}  &amp; \\frac{\\mathrm{ sigmae2 }}{\\sqrt{\\mathrm{ sigmae2 }} \\sqrt{\\mathrm{ sigmax2 } \\beta  ^{2} + \\mathrm{ sigmae2 }}}  \\\\ \\frac{\\beta  \\mathrm{ sigmax2 }}{\\sqrt{\\mathrm{ sigmax2 } \\beta  ^{2} + \\mathrm{ sigmae2 }} \\sqrt{\\mathrm{ sigmax2 }}}  &amp; 1 &amp; 0 \\\\ \\frac{\\mathrm{ sigmae2 }}{\\sqrt{\\mathrm{ sigmax2 } \\beta  ^{2} + \\mathrm{ sigmae2 }} \\sqrt{\\mathrm{ sigmae2 }}}  &amp; 0 &amp; 1 \\end{array} \\right)"
+#&gt; 
+#&gt; $M.scaled
+#&gt; [1] "\\left( \\begin{array}{cc} 1 &amp; \\frac{\\mathrm{ sigmax2 } \\beta }{\\sqrt{\\mathrm{ sigmax2 }} \\sqrt{\\mathrm{ sigmax2 } \\beta  ^{2} + \\mathrm{ sigmae2 }}}  \\\\ \\frac{\\beta  \\mathrm{ sigmax2 }}{\\sqrt{\\mathrm{ sigmax2 } \\beta  ^{2} + \\mathrm{ sigmae2 }} \\sqrt{\\mathrm{ sigmax2 }}}  &amp; 1 \\end{array} \\right)"
 #&gt; </div><div class='input'><span class='fu'>Expectations</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>S</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, R <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $v
 #&gt; expression(rbind(c(alpha + beta * mux), c(mux), c(0)))
@@ -410,6 +567,18 @@ of the Reticular Action Model for moment structures.
 #&gt; $M
 #&gt; expression(rbind(c(sigmax2 * beta^2 + sigmae2, beta * sigmax2), 
 #&gt;     c(sigmax2 * beta, sigmax2)))
+#&gt; 
+#&gt; $C.scaled
+#&gt; expression(rbind(c(1, (sigmax2 * beta)/(sqrt(sigmax2) * sqrt(sigmax2 * 
+#&gt;     beta^2 + sigmae2)), sigmae2/(sqrt(sigmae2) * sqrt(sigmax2 * 
+#&gt;     beta^2 + sigmae2))), c((beta * sigmax2)/(sqrt(sigmax2 * beta^2 + 
+#&gt;     sigmae2) * sqrt(sigmax2)), 1, 0), c(sigmae2/(sqrt(sigmax2 * 
+#&gt;     beta^2 + sigmae2) * sqrt(sigmae2)), 0, 1)))
+#&gt; 
+#&gt; $M.scaled
+#&gt; expression(rbind(c(1, (sigmax2 * beta)/(sqrt(sigmax2) * sqrt(sigmax2 * 
+#&gt;     beta^2 + sigmae2))), c((beta * sigmax2)/(sqrt(sigmax2 * beta^2 + 
+#&gt;     sigmae2) * sqrt(sigmax2)), 1)))
 #&gt; </div><div class='input'>
 <span class='co'># Assigning values to symbols</span>
 
@@ -418,6 +587,7 @@ of the Reticular Action Model for moment structures.
 <span class='va'>sigmax2</span> <span class='op'>&lt;-</span> <span class='fl'>0.25</span>
 <span class='va'>sigmae2</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
 <span class='va'>mux</span> <span class='op'>&lt;-</span> <span class='fl'>0.50</span>
+
 <span class='fu'>Expectations</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>S</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, R <span class='op'>=</span> <span class='cn'>FALSE</span>, format <span class='op'>=</span> <span class='st'>"ysym"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $v
 #&gt; {{alpha+beta*mux},
@@ -436,6 +606,15 @@ of the Reticular Action Model for moment structures.
 #&gt; $M
 #&gt; {{sigmax2*beta^2+sigmae2,           beta*sigmax2},
 #&gt;  {          sigmax2*beta,                sigmax2}} 
+#&gt; 
+#&gt; $C.scaled
+#&gt; {{                                                          1, (sigmax2*beta)/(Sqrt(sigmax2)*Sqrt(sigmax2*beta^2+sigmae2)),        sigmae2/(Sqrt(sigmae2)*Sqrt(sigmax2*beta^2+sigmae2))},
+#&gt;  {(beta*sigmax2)/(Sqrt(sigmax2*beta^2+sigmae2)*Sqrt(sigmax2)),                                                           1,                                                           0},
+#&gt;  {       sigmae2/(Sqrt(sigmax2*beta^2+sigmae2)*Sqrt(sigmae2)),                                                           0,                                                           1}} 
+#&gt; 
+#&gt; $M.scaled
+#&gt; {{                                                          1, (sigmax2*beta)/(Sqrt(sigmax2)*Sqrt(sigmax2*beta^2+sigmae2))},
+#&gt;  {(beta*sigmax2)/(Sqrt(sigmax2*beta^2+sigmae2)*Sqrt(sigmax2)),                                                           1}} 
 #&gt; </div><div class='input'><span class='fu'>Expectations</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>S</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, R <span class='op'>=</span> <span class='cn'>FALSE</span>, format <span class='op'>=</span> <span class='st'>"str"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $v
 #&gt; [1] "{{alpha+beta*mux},{mux},{0}}"
@@ -448,6 +627,12 @@ of the Reticular Action Model for moment structures.
 #&gt; 
 #&gt; $M
 #&gt; [1] "{{sigmax2*beta^2+sigmae2,beta*sigmax2},{sigmax2*beta,sigmax2}}"
+#&gt; 
+#&gt; $C.scaled
+#&gt; [1] "{{1,(sigmax2*beta)/(Sqrt(sigmax2)*Sqrt(sigmax2*beta^2+sigmae2)),sigmae2/(Sqrt(sigmae2)*Sqrt(sigmax2*beta^2+sigmae2))},{(beta*sigmax2)/(Sqrt(sigmax2*beta^2+sigmae2)*Sqrt(sigmax2)),1,0},{sigmae2/(Sqrt(sigmax2*beta^2+sigmae2)*Sqrt(sigmae2)),0,1}}"
+#&gt; 
+#&gt; $M.scaled
+#&gt; [1] "{{1,(sigmax2*beta)/(Sqrt(sigmax2)*Sqrt(sigmax2*beta^2+sigmae2))},{(beta*sigmax2)/(Sqrt(sigmax2*beta^2+sigmae2)*Sqrt(sigmax2)),1}}"
 #&gt; </div><div class='input'><span class='fu'>Expectations</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>S</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, R <span class='op'>=</span> <span class='cn'>FALSE</span>, format <span class='op'>=</span> <span class='st'>"tex"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $v
 #&gt; [1] "\\left( \\begin{array}{c} \\alpha  + \\beta  \\mathrm{ mux } \\\\ \\mathrm{ mux } \\\\ 0 \\end{array} \\right)"
@@ -460,6 +645,12 @@ of the Reticular Action Model for moment structures.
 #&gt; 
 #&gt; $M
 #&gt; [1] "\\left( \\begin{array}{cc} \\mathrm{ sigmax2 } \\beta  ^{2} + \\mathrm{ sigmae2 } &amp; \\beta  \\mathrm{ sigmax2 } \\\\ \\mathrm{ sigmax2 } \\beta  &amp; \\mathrm{ sigmax2 } \\end{array} \\right)"
+#&gt; 
+#&gt; $C.scaled
+#&gt; [1] "\\left( \\begin{array}{ccc} 1 &amp; \\frac{\\mathrm{ sigmax2 } \\beta }{\\sqrt{\\mathrm{ sigmax2 }} \\sqrt{\\mathrm{ sigmax2 } \\beta  ^{2} + \\mathrm{ sigmae2 }}}  &amp; \\frac{\\mathrm{ sigmae2 }}{\\sqrt{\\mathrm{ sigmae2 }} \\sqrt{\\mathrm{ sigmax2 } \\beta  ^{2} + \\mathrm{ sigmae2 }}}  \\\\ \\frac{\\beta  \\mathrm{ sigmax2 }}{\\sqrt{\\mathrm{ sigmax2 } \\beta  ^{2} + \\mathrm{ sigmae2 }} \\sqrt{\\mathrm{ sigmax2 }}}  &amp; 1 &amp; 0 \\\\ \\frac{\\mathrm{ sigmae2 }}{\\sqrt{\\mathrm{ sigmax2 } \\beta  ^{2} + \\mathrm{ sigmae2 }} \\sqrt{\\mathrm{ sigmae2 }}}  &amp; 0 &amp; 1 \\end{array} \\right)"
+#&gt; 
+#&gt; $M.scaled
+#&gt; [1] "\\left( \\begin{array}{cc} 1 &amp; \\frac{\\mathrm{ sigmax2 } \\beta }{\\sqrt{\\mathrm{ sigmax2 }} \\sqrt{\\mathrm{ sigmax2 } \\beta  ^{2} + \\mathrm{ sigmae2 }}}  \\\\ \\frac{\\beta  \\mathrm{ sigmax2 }}{\\sqrt{\\mathrm{ sigmax2 } \\beta  ^{2} + \\mathrm{ sigmae2 }} \\sqrt{\\mathrm{ sigmax2 }}}  &amp; 1 \\end{array} \\right)"
 #&gt; </div><div class='input'><span class='op'>(</span><span class='va'>Expectations</span> <span class='op'>&lt;-</span> <span class='fu'>Expectations</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>S</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, R <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $v
 #&gt; expression(rbind(c(alpha + beta * mux), c(mux), c(0)))
@@ -474,6 +665,18 @@ of the Reticular Action Model for moment structures.
 #&gt; $M
 #&gt; expression(rbind(c(sigmax2 * beta^2 + sigmae2, beta * sigmax2), 
 #&gt;     c(sigmax2 * beta, sigmax2)))
+#&gt; 
+#&gt; $C.scaled
+#&gt; expression(rbind(c(1, (sigmax2 * beta)/(sqrt(sigmax2) * sqrt(sigmax2 * 
+#&gt;     beta^2 + sigmae2)), sigmae2/(sqrt(sigmae2) * sqrt(sigmax2 * 
+#&gt;     beta^2 + sigmae2))), c((beta * sigmax2)/(sqrt(sigmax2 * beta^2 + 
+#&gt;     sigmae2) * sqrt(sigmax2)), 1, 0), c(sigmae2/(sqrt(sigmax2 * 
+#&gt;     beta^2 + sigmae2) * sqrt(sigmae2)), 0, 1)))
+#&gt; 
+#&gt; $M.scaled
+#&gt; expression(rbind(c(1, (sigmax2 * beta)/(sqrt(sigmax2) * sqrt(sigmax2 * 
+#&gt;     beta^2 + sigmae2))), c((beta * sigmax2)/(sqrt(sigmax2 * beta^2 + 
+#&gt;     sigmae2) * sqrt(sigmax2)), 1)))
 #&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>Expectations</span><span class='op'>$</span><span class='va'>v</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1]
 #&gt; [1,]  0.5
@@ -488,7 +691,14 @@ of the Reticular Action Model for moment structures.
 #&gt; [3,] 1.00 0.00    1</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>Expectations</span><span class='op'>$</span><span class='va'>M</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1] [,2]
 #&gt; [1,] 1.25 0.25
-#&gt; [2,] 0.25 0.25</div></pre>
+#&gt; [2,] 0.25 0.25</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>Expectations</span><span class='op'>$</span><span class='va'>C.scaled</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;           [,1]      [,2]      [,3]
+#&gt; [1,] 1.0000000 0.4472136 0.8944272
+#&gt; [2,] 0.4472136 1.0000000 0.0000000
+#&gt; [3,] 0.8944272 0.0000000 1.0000000</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='va'>Expectations</span><span class='op'>$</span><span class='va'>M.scaled</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;           [,1]      [,2]
+#&gt; [1,] 1.0000000 0.4472136
+#&gt; [2,] 0.4472136 1.0000000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -6,16 +6,28 @@
 \alias{IminusA.yac_symbol}
 \title{\eqn{\mathbf{I} - \mathbf{A}}}
 \usage{
-IminusA(A, ...)
+IminusA(A, check = TRUE, ...)
 
-\method{IminusA}{default}(A, ...)
+\method{IminusA}{default}(A, check = TRUE, ...)
 
-\method{IminusA}{yac_symbol}(A, exe = TRUE, R = FALSE, format = "ysym", simplify = FALSE, ...)
+\method{IminusA}{yac_symbol}(
+  A,
+  check = TRUE,
+  exe = TRUE,
+  R = FALSE,
+  format = "ysym",
+  simplify = FALSE,
+  ...
+)
 }
 \arguments{
 \item{A}{\verb{t by t} matrix \eqn{\mathbf{A}}.
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.}
+
+\item{check}{Logical.
+If \code{check = TRUE} do some preprocessing
+with input matrices using \code{\link[=CheckRAMMatrices]{CheckRAMMatrices()}}.}
 
 \item{...}{...}
 
@@ -67,6 +79,7 @@ such as regression coefficients and factor loadings, and
 # This is a numerical example for the model
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
+#--------------------------------------------------------------------
 
 A <- matrixR::ZeroMatrix(3)
 A[1, ] <- c(0, 1, 1)
@@ -76,20 +89,22 @@ IminusA(A)
 # This is a symbolic example for the model
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
+#--------------------------------------------------------------------
 
 A <- matrixR::ZeroMatrix(3)
 A[1, ] <- c(0, "beta", 1)
-IminusA(Ryacas::ysym(A), R = FALSE, format = "ysym")
-IminusA(Ryacas::ysym(A), R = FALSE, format = "str")
-IminusA(Ryacas::ysym(A), R = FALSE, format = "tex")
+IminusA(Ryacas::ysym(A))
+IminusA(Ryacas::ysym(A), format = "str")
+IminusA(Ryacas::ysym(A), format = "tex")
 IminusA(Ryacas::ysym(A), R = TRUE)
 
 # Assigning values to symbols
 
 beta <- 1
-IminusA(Ryacas::ysym(A), R = FALSE, format = "ysym")
-IminusA(Ryacas::ysym(A), R = FALSE, format = "str")
-IminusA(Ryacas::ysym(A), R = FALSE, format = "tex")
+
+IminusA(Ryacas::ysym(A))
+IminusA(Ryacas::ysym(A), format = "str")
+IminusA(Ryacas::ysym(A), format = "tex")
 IminusA(Ryacas::ysym(A), R = TRUE)
 eval(IminusA(Ryacas::ysym(A), R = TRUE))
 }
@@ -107,6 +122,7 @@ Other RAM matrices functions:
 \code{\link{Expectations}()},
 \code{\link{E}()},
 \code{\link{M}()},
+\code{\link{RAMScaled}()},
 \code{\link{S}()},
 \code{\link{g}()},
 \code{\link{u}()},

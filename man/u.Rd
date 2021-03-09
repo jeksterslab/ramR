@@ -6,11 +6,20 @@
 \alias{u.yac_symbol}
 \title{Vector of Mean Structure Parameters \eqn{\mathbf{u}}}
 \usage{
-u(A, v, ...)
+u(A, v, check = TRUE, ...)
 
-\method{u}{default}(A, v, ...)
+\method{u}{default}(A, v, check = TRUE, ...)
 
-\method{u}{yac_symbol}(A, v, exe = TRUE, R = FALSE, format = "ysym", simplify = FALSE, ...)
+\method{u}{yac_symbol}(
+  A,
+  v,
+  check = TRUE,
+  exe = TRUE,
+  R = FALSE,
+  format = "ysym",
+  simplify = FALSE,
+  ...
+)
 }
 \arguments{
 \item{A}{\verb{t by t} matrix \eqn{\mathbf{A}}.
@@ -19,6 +28,10 @@ such as regression coefficients and factor loadings.}
 
 \item{v}{vector of length \code{t} or \verb{t by 1} matrix.
 Expected values.}
+
+\item{check}{Logical.
+If \code{check = TRUE} do some preprocessing
+with input matrices using \code{\link[=CheckRAMMatrices]{CheckRAMMatrices()}}.}
 
 \item{...}{...}
 
@@ -84,6 +97,7 @@ such as regression coefficients and factor loadings,
 # This is a numerical example for the model
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
+#--------------------------------------------------------------------
 
 A <- matrixR::ZeroMatrix(3)
 A[1, ] <- c(0, 1, 1)
@@ -94,13 +108,14 @@ u(A, v)
 # This is a symbolic example for the model
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
+#--------------------------------------------------------------------
 
 A <- matrixR::ZeroMatrix(3)
 A[1, ] <- c(0, "beta", 1)
 v <- c("alpha+beta*mux", "mux", 0)
 u(Ryacas::ysym(A), v)
+u(Ryacas::ysym(A), v, format = "str")
 u(Ryacas::ysym(A), v, format = "tex")
-u(Ryacas::ysym(A), v, format = "ysym")
 u(Ryacas::ysym(A), v, R = TRUE)
 
 # Assigning values to symbols
@@ -108,9 +123,10 @@ u(Ryacas::ysym(A), v, R = TRUE)
 alpha <- 0
 beta <- 1
 mux <- 0.50
+
 u(Ryacas::ysym(A), v)
+u(Ryacas::ysym(A), v, format = "str")
 u(Ryacas::ysym(A), v, format = "tex")
-u(Ryacas::ysym(A), v, format = "ysym")
 u(Ryacas::ysym(A), v, R = TRUE)
 eval(u(Ryacas::ysym(A), v, R = TRUE))
 }
@@ -129,6 +145,7 @@ Other RAM matrices functions:
 \code{\link{E}()},
 \code{\link{IminusA}()},
 \code{\link{M}()},
+\code{\link{RAMScaled}()},
 \code{\link{S}()},
 \code{\link{g}()},
 \code{\link{v}()}

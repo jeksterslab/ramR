@@ -100,6 +100,9 @@ using the Reticular Action Model (RAM) notation." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/Equations-short.html">Equations-short</a>
+    </li>
+    <li>
       <a href="../articles/Equations.html">Equations</a>
     </li>
     <li>
@@ -131,6 +134,9 @@ using the Reticular Action Model (RAM) notation." />
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-RAM2Data.html">Test: Two-Variable Linear Regression - RAM2Data</a>
+    </li>
+    <li>
+      <a href="../articles/tests/test_two-variable-regression-RAMScaled.html">Test: Two-Variable Linear Regression - RAMScaled</a>
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-S.html">Test: Two-Variable Linear Regression - S</a>
@@ -181,16 +187,17 @@ of observed variables \(\mathbf{g}\)
 using the Reticular Action Model (RAM) notation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>g</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>u</span>, Filter <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>g</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>u</span>, Filter <span class='op'>=</span> <span class='cn'>NULL</span>, check <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>g</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>u</span>, Filter <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>g</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>u</span>, Filter <span class='op'>=</span> <span class='cn'>NULL</span>, check <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for yac_symbol</span>
 <span class='fu'>g</span><span class='op'>(</span>
   <span class='va'>A</span>,
   <span class='va'>u</span>,
   Filter <span class='op'>=</span> <span class='cn'>NULL</span>,
+  check <span class='op'>=</span> <span class='cn'>TRUE</span>,
   exe <span class='op'>=</span> <span class='cn'>TRUE</span>,
   R <span class='op'>=</span> <span class='cn'>FALSE</span>,
   format <span class='op'>=</span> <span class='st'>"ysym"</span>,
@@ -217,6 +224,12 @@ Mean structure parameters.</p></td>
       <td><p><code>p by t</code> numeric matrix
 \(\mathbf{F}\).
 Filter matrix used to select observed variables.</p></td>
+    </tr>
+    <tr>
+      <th>check</th>
+      <td><p>Logical.
+If <code>check = TRUE</code> do some preprocessing
+with input matrices using <code><a href='CheckRAMMatrices.html'>CheckRAMMatrices()</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -312,6 +325,7 @@ of the Reticular Action Model for moment structures.
 <code><a href='E.html'>E</a>()</code>,
 <code><a href='IminusA.html'>IminusA</a>()</code>,
 <code><a href='M.html'>M</a>()</code>,
+<code><a href='RAMScaled.html'>RAMScaled</a>()</code>,
 <code><a href='S.html'>S</a>()</code>,
 <code><a href='u.html'>u</a>()</code>,
 <code><a href='v.html'>v</a>()</code></p></div>
@@ -324,6 +338,7 @@ of the Reticular Action Model for moment structures.
 <span class='co'># This is a numerical example for the model</span>
 <span class='co'># y = alpha + beta * x + e</span>
 <span class='co'># y = 0 + 1 * x + e</span>
+<span class='co'>#--------------------------------------------------------------------</span>
 
 <span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'>matrixR</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/matrixR/man/ZeroMatrix.html'>ZeroMatrix</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>
 <span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>
@@ -332,34 +347,34 @@ of the Reticular Action Model for moment structures.
 <span class='va'>Filter</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>Filter</span>, <span class='fl'>0</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"y"</span>, <span class='st'>"x"</span>, <span class='st'>"e"</span><span class='op'>)</span>
 <span class='fu'>g</span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>u</span>, <span class='va'>Filter</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;        g
-#&gt; [1,] 0.5
-#&gt; [2,] 0.5</div><div class='input'><span class='co'># Symbolic ----------------------------------------------------------</span>
+</div><div class='output co'>#&gt;     g
+#&gt; y 0.5
+#&gt; x 0.5</div><div class='input'><span class='co'># Symbolic ----------------------------------------------------------</span>
 <span class='co'># This is a symbolic example for the model</span>
 <span class='co'># y = alpha + beta * x + e</span>
 <span class='co'># y = 0 + 1 * x + e</span>
+<span class='co'>#--------------------------------------------------------------------</span>
 
 <span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'>matrixR</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/matrixR/man/ZeroMatrix.html'>ZeroMatrix</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>
 <span class='va'>A</span><span class='op'>[</span><span class='fl'>1</span>, <span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='st'>"beta"</span>, <span class='fl'>1</span><span class='op'>)</span>
 <span class='va'>u</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"alpha"</span>, <span class='st'>"mux"</span>, <span class='fl'>0</span><span class='op'>)</span>
 <span class='fu'>g</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>u</span>, <span class='va'>Filter</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; {{alpha+beta*mux},
-#&gt;  {           mux}} </div><div class='input'><span class='fu'>g</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, format <span class='op'>=</span> <span class='st'>"tex"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "\\left( \\begin{array}{c} \\alpha  + \\beta  \\mathrm{ mux } \\\\ \\mathrm{ mux } \\end{array} \\right)"</div><div class='input'><span class='fu'>g</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, format <span class='op'>=</span> <span class='st'>"ysym"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {{alpha+beta*mux},
-#&gt;  {           mux}} </div><div class='input'><span class='fu'>g</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, R <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+#&gt;  {           mux}} </div><div class='input'><span class='fu'>g</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, format <span class='op'>=</span> <span class='st'>"str"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "{{alpha+beta*mux},{mux}}"</div><div class='input'><span class='fu'>g</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, format <span class='op'>=</span> <span class='st'>"tex"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "\\left( \\begin{array}{c} \\alpha  + \\beta  \\mathrm{ mux } \\\\ \\mathrm{ mux } \\end{array} \\right)"</div><div class='input'><span class='fu'>g</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, R <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; expression(rbind(c(alpha + beta * mux), c(mux)))</div><div class='input'>
 <span class='co'># Assigning values to symbols</span>
 
 <span class='va'>alpha</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
 <span class='va'>beta</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
 <span class='va'>mux</span> <span class='op'>&lt;-</span> <span class='fl'>0.50</span>
+
 <span class='fu'>g</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>u</span>, <span class='va'>Filter</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; {{alpha+beta*mux},
-#&gt;  {           mux}} </div><div class='input'><span class='fu'>g</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, format <span class='op'>=</span> <span class='st'>"tex"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "\\left( \\begin{array}{c} \\alpha  + \\beta  \\mathrm{ mux } \\\\ \\mathrm{ mux } \\end{array} \\right)"</div><div class='input'><span class='fu'>g</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, format <span class='op'>=</span> <span class='st'>"ysym"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {{alpha+beta*mux},
-#&gt;  {           mux}} </div><div class='input'><span class='fu'>g</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, R <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+#&gt;  {           mux}} </div><div class='input'><span class='fu'>g</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, format <span class='op'>=</span> <span class='st'>"str"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "{{alpha+beta*mux},{mux}}"</div><div class='input'><span class='fu'>g</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, format <span class='op'>=</span> <span class='st'>"tex"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "\\left( \\begin{array}{c} \\alpha  + \\beta  \\mathrm{ mux } \\\\ \\mathrm{ mux } \\end{array} \\right)"</div><div class='input'><span class='fu'>g</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, R <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; expression(rbind(c(alpha + beta * mux), c(mux)))</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/eval.html'>eval</a></span><span class='op'>(</span><span class='fu'>g</span><span class='op'>(</span><span class='fu'>Ryacas</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Ryacas/man/ysym.html'>ysym</a></span><span class='op'>(</span><span class='va'>A</span><span class='op'>)</span>, <span class='va'>u</span>, <span class='va'>Filter</span>, R <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      [,1]
 #&gt; [1,]  0.5

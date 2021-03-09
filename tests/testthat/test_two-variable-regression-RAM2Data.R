@@ -47,6 +47,7 @@ C <- Ryacas::as_r(
     solve(Ryacas::ysym(I) - Ryacas::ysym(A))
   )
 )
+C.scaled <- stats::cov2cor(C)
 M <- Ryacas::as_r(
   Ryacas::ysym(Filter) * solve(
     Ryacas::ysym(I) - Ryacas::ysym(A)
@@ -54,6 +55,7 @@ M <- Ryacas::as_r(
     solve(Ryacas::ysym(I) - Ryacas::ysym(A))
   ) * t(Ryacas::ysym(Filter))
 )
+M.scaled <- Filter %*% C.scaled %*% t(Filter)
 g <- as.matrix(
   Ryacas::as_r(
     Ryacas::ysym(Filter) * Ryacas::ysym(v)
@@ -72,6 +74,7 @@ n <- 100
 Data <- ramR::RAM2Data(n, A, S, u, Filter, empirical = TRUE)
 mu <- as.matrix(colMeans(Data))
 Sigma <- cov(Data)
+R <- cor(Data)
 #'
 #+ testthat
 testthat::test_that("g.", {
@@ -91,6 +94,17 @@ testthat::test_that("M.", {
       testthat::expect_equal(
         M[i, j],
         Sigma[i, j],
+        check.attributes = FALSE
+      )
+    }
+  }
+})
+testthat::test_that("M.scaled", {
+  for (i in seq_len(nrow(M.scaled))) {
+    for (j in seq_len(ncol(M.scaled))) {
+      testthat::expect_equal(
+        M.scaled[i, j],
+        R[i, j],
         check.attributes = FALSE
       )
     }

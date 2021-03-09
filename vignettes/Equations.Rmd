@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-`Eq*` functions in the `ramR` package require  
+`Eq*` functions in the `ramR` package require
 a character string input
 that specifies the associations between the variables.
 Each line in the character string
@@ -95,13 +95,13 @@ The factor loadings are labeled with `lambda[*]`,
 the intercepts are labeled with `nu[*]`,
 the error variances are labeled with `theta[*]`,
 the latent variable variances and covariances are labeled with `psi[*]`,
-and the latent variable means are labeled with `alpha[*]`.
+and the latent variable means are constrained to zero.
 You can use any string variable names and labels.
 These names and labels were chosen to conform
 to typical structural equation modeling notation. 
 The structural equations can be defined as follows.
 
-```{r}
+```
 eq <- "
 # items
 ## loadings
@@ -139,8 +139,51 @@ eq <- "
   eta[1] with eta[2] psi[eta[12]]
   eta[2] with eta[2] psi[eta[22]]
 ## means
-  eta[1] on 1 alpha[eta[1]]
-  eta[2] on 1 alpha[eta[2]]
+  eta[1] on 1 0 # There is no need to define equations for parameters constrained to zero.
+  eta[2] on 1 0 # The following equations were added for completeness.
+"
+```
+
+```{r, echo = FALSE}
+eq <- "
+# items
+## loadings
+  eta[1] by y1 1
+  eta[1] by y2 lambda[y2]
+  eta[1] by y3 lambda[y3]
+  eta[2] by y4 1
+  eta[2] by y5 lambda[y5]
+  eta[2] by y6 lambda[y6]
+## intercepts
+  y1 on 1 nu[y1]
+  y2 on 1 nu[y2]
+  y3 on 1 nu[y3]
+  y4 on 1 nu[y4]
+  y5 on 1 nu[y5]
+  y6 on 1 nu[y6]
+# errors
+## Asymmetric - fixed to 1
+  epsilon[1] by y1 1
+  epsilon[2] by y2 1
+  epsilon[3] by y3 1
+  epsilon[4] by y4 1
+  epsilon[5] by y5 1
+  epsilon[6] by y6 1
+## Symmetric - error variances
+  epsilon[1] with epsilon[1] theta[epsilon[1]]
+  epsilon[2] with epsilon[2] theta[epsilon[2]]
+  epsilon[3] with epsilon[3] theta[epsilon[3]]
+  epsilon[4] with epsilon[4] theta[epsilon[4]]
+  epsilon[5] with epsilon[5] theta[epsilon[5]]
+  epsilon[6] with epsilon[6] theta[epsilon[6]]
+# factors
+## variances and covariances
+  eta[1] with eta[1] psi[eta[11]]
+  eta[1] with eta[2] psi[eta[12]]
+  eta[2] with eta[2] psi[eta[22]]
+## means
+  eta[1] on 1 0 # There is no need to define equations for parameters constrained to zero.
+  eta[2] on 1 0 # The following equations were added for completeness. 
 "
 ```
 
@@ -247,11 +290,14 @@ cat(
 )
 ```
 
+The scaled/standardized $\mathbf{C}$ matrix is given below.
+
+$$`r latex$C.scaled`$$
+
 The covariance expectations for the observed variables `y1` to `y6`
 are given below.
 
 ```{r, echo = FALSE, results = "asis"} 
-latex <- ramR::Eq2Expectations(eq, format = "tex")
 cat(
   "\\begin{align*}",
   "\\mathbf{M}=",
@@ -260,6 +306,10 @@ cat(
   sep = ""
 )
 ```
+
+The scaled/standardized $\mathbf{M}$ matrix is given below.
+
+$$`r latex$M.scaled`$$
 
 The mean expectations for all the variables
 are given below.
@@ -286,6 +336,26 @@ cat(
   sep = ""
 )
 ```
+
+#### Scaled RAM Matrices
+
+```{r}
+RAM.scaled <- ramR::RAMScaled(
+  A = yacR::as.ysym(RAM$A),
+  S = RAM$S,
+  Filter = RAM$Filter,
+  C = Expectations$C,
+  C.scaled = Expectations$C.scaled
+)
+```
+
+$$
+\mathbf{A}_{\mathrm{scaled}} = `r yacR::as.tex(RAM.scaled$A.scaled)`
+$$
+
+$$
+\mathbf{S}_{\mathrm{scaled}} = `r yacR::as.tex(RAM.scaled$S.scaled)`
+$$
 
 ### Numerical
 
@@ -453,6 +523,26 @@ cat(
   sep = ""
 )
 ```
+
+#### Scaled RAM Matrices
+
+```{r}
+RAM.scaled <- ramR::RAMScaled(
+  A = RAM$A,
+  S = RAM$S,
+  Filter = RAM$Filter,
+  C = Expectations$C,
+  C.scaled = Expectations$C.scaled
+)
+```
+
+$$
+\mathbf{A}_{\mathrm{scaled}} = `r yacR::as.tex(RAM.scaled$A.scaled)`
+$$
+
+$$
+\mathbf{S}_{\mathrm{scaled}} = `r yacR::as.tex(RAM.scaled$S.scaled)`
+$$
 
 #### Eq2Data
 

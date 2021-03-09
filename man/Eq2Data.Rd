@@ -4,7 +4,7 @@
 \alias{Eq2Data}
 \title{Equations to Multivariate Normal Sample Data}
 \usage{
-Eq2Data(eq, n, ...)
+Eq2Data(eq, n, check = TRUE, ...)
 }
 \arguments{
 \item{eq}{Character string. Equations. See Details.}
@@ -12,7 +12,11 @@ Eq2Data(eq, n, ...)
 \item{n}{Integer.
 Sample size.}
 
-\item{...}{Additional arguments to pass to \code{\link[MASS:mvrnorm]{MASS::mvrnorm()}}.}
+\item{check}{Logical.
+If \code{check = TRUE} do some preprocessing
+with input matrices using \code{\link[=CheckRAMMatrices]{CheckRAMMatrices()}}.}
+
+\item{...}{...}
 }
 \value{
 \eqn{n} variates from \eqn{ \mathbf{X} \sim \mathcal{N}_{k}
@@ -25,13 +29,12 @@ Sample size.}
 \description{
 Generates data from a multivariate normal distribution
 from model equations using the \code{\link[MASS:mvrnorm]{MASS::mvrnorm()}} function.
-}
-\details{
 The argument \code{eq} is a character string
 that specifies the associations between the variables.
 See \code{Syntax}, \code{Operations}, \code{par.label},
 \verb{Line breaks}, and \code{Comments} below.
-
+}
+\details{
 The multivariate normal distribution is given by
 \deqn{
     \mathbf{X} \sim \mathcal{N}_{k}

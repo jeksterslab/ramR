@@ -6,11 +6,20 @@
 \alias{C.yac_symbol}
 \title{Matrix of Covariance Expectations \eqn{\mathbf{C}}}
 \usage{
-C(A, S, ...)
+C(A, S, check = TRUE, ...)
 
-\method{C}{default}(A, S, ...)
+\method{C}{default}(A, S, check = TRUE, ...)
 
-\method{C}{yac_symbol}(A, S, exe = TRUE, R = FALSE, format = "ysym", simplify = FALSE, ...)
+\method{C}{yac_symbol}(
+  A,
+  S,
+  check = TRUE,
+  exe = TRUE,
+  R = FALSE,
+  format = "ysym",
+  simplify = FALSE,
+  ...
+)
 }
 \arguments{
 \item{A}{\verb{t by t} matrix \eqn{\mathbf{A}}.
@@ -20,6 +29,10 @@ such as regression coefficients and factor loadings.}
 \item{S}{\verb{t by t} numeric matrix \eqn{\mathbf{S}}.
 Symmetric paths (double-headed arrows),
 such as variances and covariances.}
+
+\item{check}{Logical.
+If \code{check = TRUE} do some preprocessing
+with input matrices using \code{\link[=CheckRAMMatrices]{CheckRAMMatrices()}}.}
 
 \item{...}{...}
 
@@ -48,7 +61,9 @@ returns symbolic result as LaTeX math.}
 \item{simplify}{Logical. Simplify symbolic results.}
 }
 \value{
-\eqn{\mathbf{C} = \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}}}
+\eqn{
+  \mathbf{C} = \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}}
+}
 }
 \description{
 Derives the matrix of covariance expectations \eqn{\mathbf{C}}.
@@ -91,6 +106,7 @@ such as variances and covariances, and
 # This is a numerical example for the model
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
+#--------------------------------------------------------------------
 
 A <- S <- matrixR::ZeroMatrix(3)
 A[1, ] <- c(0, 1, 1)
@@ -101,13 +117,14 @@ C(A, S)
 # This is a symbolic example for the model
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
+#--------------------------------------------------------------------
 
 A <- S <- matrixR::ZeroMatrix(3)
 A[1, ] <- c(0, "beta", 1)
 diag(S) <- c(0, "sigmax2", "sigmae2")
-C(Ryacas::ysym(A), S, R = FALSE, format = "ysym")
-C(Ryacas::ysym(A), S, R = FALSE, format = "str")
-C(Ryacas::ysym(A), S, R = FALSE, format = "tex")
+C(Ryacas::ysym(A), S)
+C(Ryacas::ysym(A), S, format = "str")
+C(Ryacas::ysym(A), S, format = "tex")
 C(Ryacas::ysym(A), S, R = TRUE)
 
 # Assigning values to symbols
@@ -116,9 +133,9 @@ beta <- 1
 sigmax2 <- 0.25
 sigmae2 <- 1
 
-C(Ryacas::ysym(A), S, R = FALSE, format = "ysym")
-C(Ryacas::ysym(A), S, R = FALSE, format = "str")
-C(Ryacas::ysym(A), S, R = FALSE, format = "tex")
+C(Ryacas::ysym(A), S)
+C(Ryacas::ysym(A), S, format = "str")
+C(Ryacas::ysym(A), S, format = "tex")
 C(Ryacas::ysym(A), S, R = TRUE)
 eval(C(Ryacas::ysym(A), S, R = TRUE))
 }
@@ -136,6 +153,7 @@ Other RAM matrices functions:
 \code{\link{E}()},
 \code{\link{IminusA}()},
 \code{\link{M}()},
+\code{\link{RAMScaled}()},
 \code{\link{S}()},
 \code{\link{g}()},
 \code{\link{u}()},

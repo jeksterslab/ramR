@@ -4,7 +4,14 @@
 \alias{Eq2Expectations}
 \title{Equations to Expectations}
 \usage{
-Eq2Expectations(eq, par = FALSE, R = FALSE, format = "ysym", simplify = FALSE)
+Eq2Expectations(
+  eq,
+  par = FALSE,
+  check = TRUE,
+  R = FALSE,
+  format = "ysym",
+  simplify = FALSE
+)
 }
 \arguments{
 \item{eq}{Character string. Equations. See Details.}
@@ -12,6 +19,10 @@ Eq2Expectations(eq, par = FALSE, R = FALSE, format = "ysym", simplify = FALSE)
 \item{par}{Logical.
 If \code{par = TRUE}, use \code{par.index} as labels.
 If \code{par = FALSE}, use \code{par.label} as labels.}
+
+\item{check}{Logical.
+If \code{check = TRUE} do some preprocessing
+with input matrices using \code{\link[=CheckRAMMatrices]{CheckRAMMatrices()}}.}
 
 \item{R}{Logical.
 If \code{R = TRUE}, returns symbolic result as an \code{R} expression.
@@ -75,12 +86,150 @@ of expected covariances of observed variables.
 }
 \description{
 Converts equations to expectations.
-}
-\details{
 The argument \code{eq} is a character string
 that specifies the associations between the variables.
 See \code{Syntax}, \code{Operations}, \code{par.label},
 \verb{Line breaks}, and \code{Comments} below.
+}
+\details{
+The vector of expected values \eqn{\mathbf{v}}
+as a function of Reticular Action Model (RAM) matrices
+is given by
+
+\deqn{
+    \mathbf{v}
+    =
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{\mathsf{T}}
+    \mathbf{u} \\
+    =
+    \mathbf{E}
+    \mathbf{u}
+  }
+
+The vector of expected values
+of observed variables \eqn{\mathbf{g}}
+as a function of Reticular Action Model (RAM) matrices
+is given by
+
+\deqn{
+    \mathbf{g}
+    =
+    \mathbf{F}
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{\mathsf{T}}
+    \mathbf{u} \\
+    =
+    \mathbf{F}
+    \mathbf{E}
+    \mathbf{u} \\
+    =
+    \mathbf{F}
+    \mathbf{v}
+  }
+
+The matrix of covariance expectations \eqn{\mathbf{C}}
+as a function of Reticular Action Model (RAM) matrices is given by
+
+\deqn{
+    \mathbf{C}
+    =
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{-1}
+    \mathbf{S}
+    \left[
+      \left(
+        \mathbf{I} - \mathbf{A}
+      \right)^{-1}
+    \right]^{\mathsf{T}} \\
+    =
+    \mathbf{E}
+    \mathbf{S}
+    \mathbf{E}^{\mathsf{T}}
+  }
+
+The matrix of covariance expectations
+for given variables \eqn{\mathbf{M}}
+as a function of Reticular Action Model (RAM) matrices
+is given by
+
+\deqn{
+    \mathbf{M}
+    =
+    \mathbf{F}
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{-1}
+    \mathbf{S}
+    \left[
+      \left(
+        \mathbf{I} - \mathbf{A}
+      \right)^{-1}
+    \right]^{\mathsf{T}}
+    \mathbf{F}^{\mathsf{T}} \\
+    =
+    \mathbf{F}
+    \mathbf{E}
+    \mathbf{S}
+    \mathbf{E}^{\mathsf{T}}
+    \mathbf{F}^{\mathsf{T}} \\
+    =
+    \mathbf{F}
+    \mathbf{C}
+    \mathbf{F}^{\mathsf{T}}
+  }
+
+The matrix of scaled/standardized covariance expectations
+\eqn{\mathbf{C}_{\mathrm{scaled}}}
+(also known as correlations)
+is given by
+
+\deqn{
+    \mathbf{C}_{\mathrm{scaled}}
+    =
+    \mathbf{D}^{-1}
+    \mathbf{C}
+    \mathbf{D}^{-1}
+  }
+
+The matrix of scaled/standardized covariance expectations
+for given variables
+\eqn{\mathbf{M}_{\mathrm{scaled}}}
+(also known as correlations)
+is given by
+
+\deqn{
+    \mathbf{M}_{\mathrm{scaled}}
+    =
+    \mathbf{F}
+    \mathbf{C}_{\mathrm{scaled}}
+    \mathbf{F}^{\mathsf{T}}
+  }
+
+where
+\itemize{
+\item \eqn{\mathbf{u}_{t \times 1}} vector of parameters
+for the mean structure,
+\item \eqn{\mathbf{A}_{t \times t}} represents asymmetric paths
+(single-headed arrows),
+such as regression coefficients and factor loadings,
+\item \eqn{\mathbf{S}_{t \times t}} represents symmetric paths
+(double-headed arrows),
+such as variances and covariances,
+\item \eqn{\mathbf{F}_{p \times t}} represents the filter matrix
+used to select the observed variables,
+\item \eqn{\mathbf{I}_{t \times t}} represents an identity matrix,
+\item \eqn{\mathbf{D}_{t \times t}} represents a diagonal matrix
+who diagonal elements are the square root of the diagonal elements
+of \eqn{\mathbf{C}},
+\item \eqn{p} number of observed variables,
+\item \eqn{q} number of latent variables, and
+\item \eqn{t} number of observed and latent variables,
+that is \eqn{p + q} .
+}
 }
 \section{Syntax}{
 

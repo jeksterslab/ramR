@@ -86,7 +86,7 @@ eq <- "
   # lhs op   rhs par.label par.start
     e   by   y
     y   on   x   beta      0.00
-    e   with e   sigmax2   1.25
+    e   with e
     x   with x   sigmax2   1.25
     y   on   1   alpha     0.00
     x   on   1   mux       0.50
@@ -139,6 +139,21 @@ eq <- "
     x   on   1   mux       0.50
 "
 testthat::test_that("e with e", {
+  testthat::expect_error(
+    ramR:::EqParse(eq)
+  )
+})
+eq <- "
+  # lhs op   rhs par.label par.start
+    e   by   y   1         NA
+    y   on   x   beta      0.00
+    x   with e   sigmax2   1.25
+    e   with x   sigmax2   1.25
+    x   with x   sigmax2   1.25
+    y   on   1   alpha     0.00
+    x   on   1   mux       0.50
+"
+testthat::test_that("e with x and x with e", {
   testthat::expect_error(
     ramR:::EqParse(eq)
   )

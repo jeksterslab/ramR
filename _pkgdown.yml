@@ -18,3 +18,11 @@ reference:
   desc: RAM matrices functions.
 - contents:
   - has_keyword("ram")
+- title: Preprocess
+  desc: Preprocess functions.
+- contents:
+  - has_keyword("preprocess")
+- title: Utilities
+  desc: Utility functions.
+- contents:
+  - has_keyword("utils")

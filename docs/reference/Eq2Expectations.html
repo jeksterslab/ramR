@@ -40,7 +40,11 @@
 
 
 <meta property="og:title" content="Equations to Expectations — Eq2Expectations" />
-<meta property="og:description" content="Converts equations to expectations." />
+<meta property="og:description" content="Converts equations to expectations.
+The argument eq is a character string
+that specifies the associations between the variables.
+See Syntax, Operations, par.label,
+Line breaks, and Comments below." />
 
 
 
@@ -98,6 +102,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/Equations-short.html">Equations-short</a>
+    </li>
+    <li>
       <a href="../articles/Equations.html">Equations</a>
     </li>
     <li>
@@ -129,6 +136,9 @@
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-RAM2Data.html">Test: Two-Variable Linear Regression - RAM2Data</a>
+    </li>
+    <li>
+      <a href="../articles/tests/test_two-variable-regression-RAMScaled.html">Test: Two-Variable Linear Regression - RAMScaled</a>
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-S.html">Test: Two-Variable Linear Regression - S</a>
@@ -174,10 +184,21 @@
     </div>
 
     <div class="ref-description">
-    <p>Converts equations to expectations.</p>
+    <p>Converts equations to expectations.
+The argument <code>eq</code> is a character string
+that specifies the associations between the variables.
+See <code>Syntax</code>, <code>Operations</code>, <code>par.label</code>,
+<code>Line breaks</code>, and <code>Comments</code> below.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Eq2Expectations</span><span class='op'>(</span><span class='va'>eq</span>, par <span class='op'>=</span> <span class='cn'>FALSE</span>, R <span class='op'>=</span> <span class='cn'>FALSE</span>, format <span class='op'>=</span> <span class='st'>"ysym"</span>, simplify <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>Eq2Expectations</span><span class='op'>(</span>
+  <span class='va'>eq</span>,
+  par <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  check <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  R <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  format <span class='op'>=</span> <span class='st'>"ysym"</span>,
+  simplify <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,6 +212,12 @@
       <td><p>Logical.
 If <code>par = TRUE</code>, use <code>par.index</code> as labels.
 If <code>par = FALSE</code>, use <code>par.label</code> as labels.</p></td>
+    </tr>
+    <tr>
+      <th>check</th>
+      <td><p>Logical.
+If <code>check = TRUE</code> do some preprocessing
+with input matrices using <code><a href='CheckRAMMatrices.html'>CheckRAMMatrices()</a></code>.</p></td>
     </tr>
     <tr>
       <th>R</th>
@@ -247,10 +274,132 @@ of expected covariances of observed variables.</p></dd>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The argument <code>eq</code> is a character string
-that specifies the associations between the variables.
-See <code>Syntax</code>, <code>Operations</code>, <code>par.label</code>,
-<code>Line breaks</code>, and <code>Comments</code> below.</p>
+    <p>The vector of expected values \(\mathbf{v}\)
+as a function of Reticular Action Model (RAM) matrices
+is given by</p>
+<p>$$
+    \mathbf{v}
+    =
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{\mathsf{T}}
+    \mathbf{u} \\
+    =
+    \mathbf{E}
+    \mathbf{u}
+  $$</p>
+<p>The vector of expected values
+of observed variables \(\mathbf{g}\)
+as a function of Reticular Action Model (RAM) matrices
+is given by</p>
+<p>$$
+    \mathbf{g}
+    =
+    \mathbf{F}
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{\mathsf{T}}
+    \mathbf{u} \\
+    =
+    \mathbf{F}
+    \mathbf{E}
+    \mathbf{u} \\
+    =
+    \mathbf{F}
+    \mathbf{v}
+  $$</p>
+<p>The matrix of covariance expectations \(\mathbf{C}\)
+as a function of Reticular Action Model (RAM) matrices is given by</p>
+<p>$$
+    \mathbf{C}
+    =
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{-1}
+    \mathbf{S}
+    \left[
+      \left(
+        \mathbf{I} - \mathbf{A}
+      \right)^{-1}
+    \right]^{\mathsf{T}} \\
+    =
+    \mathbf{E}
+    \mathbf{S}
+    \mathbf{E}^{\mathsf{T}}
+  $$</p>
+<p>The matrix of covariance expectations
+for given variables \(\mathbf{M}\)
+as a function of Reticular Action Model (RAM) matrices
+is given by</p>
+<p>$$
+    \mathbf{M}
+    =
+    \mathbf{F}
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{-1}
+    \mathbf{S}
+    \left[
+      \left(
+        \mathbf{I} - \mathbf{A}
+      \right)^{-1}
+    \right]^{\mathsf{T}}
+    \mathbf{F}^{\mathsf{T}} \\
+    =
+    \mathbf{F}
+    \mathbf{E}
+    \mathbf{S}
+    \mathbf{E}^{\mathsf{T}}
+    \mathbf{F}^{\mathsf{T}} \\
+    =
+    \mathbf{F}
+    \mathbf{C}
+    \mathbf{F}^{\mathsf{T}}
+  $$</p>
+<p>The matrix of scaled/standardized covariance expectations
+\(\mathbf{C}_{\mathrm{scaled}}\)
+(also known as correlations)
+is given by</p>
+<p>$$
+    \mathbf{C}_{\mathrm{scaled}}
+    =
+    \mathbf{D}^{-1}
+    \mathbf{C}
+    \mathbf{D}^{-1}
+  $$</p>
+<p>The matrix of scaled/standardized covariance expectations
+for given variables
+\(\mathbf{M}_{\mathrm{scaled}}\)
+(also known as correlations)
+is given by</p>
+<p>$$
+    \mathbf{M}_{\mathrm{scaled}}
+    =
+    \mathbf{F}
+    \mathbf{C}_{\mathrm{scaled}}
+    \mathbf{F}^{\mathsf{T}}
+  $$</p>
+<p>where</p><ul>
+<li><p>\(\mathbf{u}_{t \times 1}\) vector of parameters
+for the mean structure,</p></li>
+<li><p>\(\mathbf{A}_{t \times t}\) represents asymmetric paths
+(single-headed arrows),
+such as regression coefficients and factor loadings,</p></li>
+<li><p>\(\mathbf{S}_{t \times t}\) represents symmetric paths
+(double-headed arrows),
+such as variances and covariances,</p></li>
+<li><p>\(\mathbf{F}_{p \times t}\) represents the filter matrix
+used to select the observed variables,</p></li>
+<li><p>\(\mathbf{I}_{t \times t}\) represents an identity matrix,</p></li>
+<li><p>\(\mathbf{D}_{t \times t}\) represents a diagonal matrix
+who diagonal elements are the square root of the diagonal elements
+of \(\mathbf{C}\),</p></li>
+<li><p>\(p\) number of observed variables,</p></li>
+<li><p>\(q\) number of latent variables, and</p></li>
+<li><p>\(t\) number of observed and latent variables,
+that is \(p + q\) .</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="syntax"><a class="anchor" href="#syntax"></a>Syntax</h2>
 
     
@@ -374,6 +523,17 @@ of the Reticular Action Model for moment structures.
 #&gt;      y    x
 #&gt; y 1.25 0.25
 #&gt; x 0.25 0.25
+#&gt; 
+#&gt; $C.scaled
+#&gt;           y         x         e
+#&gt; y 1.0000000 0.4472136 0.8944272
+#&gt; x 0.4472136 1.0000000 0.0000000
+#&gt; e 0.8944272 0.0000000 1.0000000
+#&gt; 
+#&gt; $M.scaled
+#&gt;           y         x
+#&gt; y 1.0000000 0.4472136
+#&gt; x 0.4472136 1.0000000
 #&gt; </div><div class='input'>
 <span class='co'># Symbolic ----------------------------------------------------------</span>
 <span class='va'>eq</span> <span class='op'>&lt;-</span> <span class='st'>"
@@ -428,6 +588,15 @@ of the Reticular Action Model for moment structures.
 #&gt; $M
 #&gt; {{sigmax2*beta^2+sigmae2,           beta*sigmax2},
 #&gt;  {          sigmax2*beta,                sigmax2}} 
+#&gt; 
+#&gt; $C.scaled
+#&gt; {{                                                          1, (sigmax2*beta)/(Sqrt(sigmax2)*Sqrt(sigmax2*beta^2+sigmae2)),        sigmae2/(Sqrt(sigmae2)*Sqrt(sigmax2*beta^2+sigmae2))},
+#&gt;  {(beta*sigmax2)/(Sqrt(sigmax2*beta^2+sigmae2)*Sqrt(sigmax2)),                                                           1,                                                           0},
+#&gt;  {       sigmae2/(Sqrt(sigmax2*beta^2+sigmae2)*Sqrt(sigmae2)),                                                           0,                                                           1}} 
+#&gt; 
+#&gt; $M.scaled
+#&gt; {{                                                          1, (sigmax2*beta)/(Sqrt(sigmax2)*Sqrt(sigmax2*beta^2+sigmae2))},
+#&gt;  {(beta*sigmax2)/(Sqrt(sigmax2*beta^2+sigmae2)*Sqrt(sigmax2)),                                                           1}} 
 #&gt; </div><div class='input'><span class='fu'>Eq2Expectations</span><span class='op'>(</span><span class='va'>eq</span>, par <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $par.table
 #&gt;   lhs   op rhs par.label par.index par.names            par.type RAM RAM.row
@@ -471,6 +640,15 @@ of the Reticular Action Model for moment structures.
 #&gt; $M
 #&gt; {{p3*p1^2+p2,      p1*p3},
 #&gt;  {     p3*p1,         p3}} 
+#&gt; 
+#&gt; $C.scaled
+#&gt; {{                                  1, (p3*p1)/(Sqrt(p3)*Sqrt(p3*p1^2+p2)),      p2/(Sqrt(p2)*Sqrt(p3*p1^2+p2))},
+#&gt;  {(p1*p3)/(Sqrt(p3*p1^2+p2)*Sqrt(p3)),                                   1,                                   0},
+#&gt;  {     p2/(Sqrt(p3*p1^2+p2)*Sqrt(p2)),                                   0,                                   1}} 
+#&gt; 
+#&gt; $M.scaled
+#&gt; {{                                  1, (p3*p1)/(Sqrt(p3)*Sqrt(p3*p1^2+p2))},
+#&gt;  {(p1*p3)/(Sqrt(p3*p1^2+p2)*Sqrt(p3)),                                   1}} 
 #&gt; </div><div class='input'>
 <span class='co'># Expressions using `par.label`</span>
 

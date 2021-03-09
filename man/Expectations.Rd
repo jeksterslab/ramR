@@ -6,15 +6,16 @@
 \alias{Expectations.yac_symbol}
 \title{Expectations from the Reticular Action Model (RAM) Matrices}
 \usage{
-Expectations(A, S, u = NULL, Filter = NULL, ...)
+Expectations(A, S, u = NULL, Filter = NULL, check = TRUE, ...)
 
-\method{Expectations}{default}(A, S, u = NULL, Filter = NULL, ...)
+\method{Expectations}{default}(A, S, u = NULL, Filter = NULL, check = TRUE, ...)
 
 \method{Expectations}{yac_symbol}(
   A,
   S,
   u = NULL,
   Filter = NULL,
+  check = TRUE,
   R = FALSE,
   format = "ysym",
   simplify = FALSE,
@@ -36,6 +37,10 @@ Mean structure parameters.}
 \item{Filter}{\verb{p by t} numeric matrix
 \eqn{\mathbf{F}}.
 Filter matrix used to select observed variables.}
+
+\item{check}{Logical.
+If \code{check = TRUE} do some preprocessing
+with input matrices using \code{\link[=CheckRAMMatrices]{CheckRAMMatrices()}}.}
 
 \item{...}{...}
 
@@ -75,6 +80,17 @@ of expected covariances.
 \verb{p by p} matrix \eqn{\mathbf{M}}
 of expected covariances of observed variables.
 }
+\item{C.scaled}{
+\verb{t by t} matrix \eqn{\mathbf{C}}
+of scaled/standardized expected covariances
+(also known as correlations).
+}
+\item{M.scaled}{
+\verb{p by p} matrix \eqn{\mathbf{M}}
+of scaled/standardized expected covariances
+(also known as correlations)
+of observed variables.
+}
 }
 }
 \description{
@@ -82,29 +98,143 @@ Derives the mean and covariance expectations
 from the Reticular Action Model (RAM) matrices.
 }
 \details{
-The vector of mean structure parameters \eqn{\mathbf{v}}
+The vector of expected values \eqn{\mathbf{v}}
 as a function of Reticular Action Model (RAM) matrices
 is given by
 
 \deqn{
-    \mathbf{u}
+    \mathbf{v}
     =
     \left(
       \mathbf{I} - \mathbf{A}
-    \right)
-    \mathbf{v} \\
+    \right)^{\mathsf{T}}
+    \mathbf{u} \\
     =
-    \mathbf{E}^{-1}
+    \mathbf{E}
+    \mathbf{u}
+  }
+
+The vector of expected values
+of observed variables \eqn{\mathbf{g}}
+as a function of Reticular Action Model (RAM) matrices
+is given by
+
+\deqn{
+    \mathbf{g}
+    =
+    \mathbf{F}
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{\mathsf{T}}
+    \mathbf{u} \\
+    =
+    \mathbf{F}
+    \mathbf{E}
+    \mathbf{u} \\
+    =
+    \mathbf{F}
     \mathbf{v}
+  }
+
+The matrix of covariance expectations \eqn{\mathbf{C}}
+as a function of Reticular Action Model (RAM) matrices is given by
+
+\deqn{
+    \mathbf{C}
+    =
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{-1}
+    \mathbf{S}
+    \left[
+      \left(
+        \mathbf{I} - \mathbf{A}
+      \right)^{-1}
+    \right]^{\mathsf{T}} \\
+    =
+    \mathbf{E}
+    \mathbf{S}
+    \mathbf{E}^{\mathsf{T}}
+  }
+
+The matrix of covariance expectations
+for given variables \eqn{\mathbf{M}}
+as a function of Reticular Action Model (RAM) matrices
+is given by
+
+\deqn{
+    \mathbf{M}
+    =
+    \mathbf{F}
+    \left(
+      \mathbf{I} - \mathbf{A}
+    \right)^{-1}
+    \mathbf{S}
+    \left[
+      \left(
+        \mathbf{I} - \mathbf{A}
+      \right)^{-1}
+    \right]^{\mathsf{T}}
+    \mathbf{F}^{\mathsf{T}} \\
+    =
+    \mathbf{F}
+    \mathbf{E}
+    \mathbf{S}
+    \mathbf{E}^{\mathsf{T}}
+    \mathbf{F}^{\mathsf{T}} \\
+    =
+    \mathbf{F}
+    \mathbf{C}
+    \mathbf{F}^{\mathsf{T}}
+  }
+
+The matrix of scaled/standardized covariance expectations
+\eqn{\mathbf{C}_{\mathrm{scaled}}}
+(also known as correlations)
+is given by
+
+\deqn{
+    \mathbf{C}_{\mathrm{scaled}}
+    =
+    \mathbf{D}^{-1}
+    \mathbf{C}
+    \mathbf{D}^{-1}
+  }
+
+The matrix of scaled/standardized covariance expectations
+for given variables
+\eqn{\mathbf{M}_{\mathrm{scaled}}}
+(also known as correlations)
+is given by
+
+\deqn{
+    \mathbf{M}_{\mathrm{scaled}}
+    =
+    \mathbf{F}
+    \mathbf{C}_{\mathrm{scaled}}
+    \mathbf{F}^{\mathsf{T}}
   }
 
 where
 \itemize{
+\item \eqn{\mathbf{u}_{t \times 1}} vector of parameters
+for the mean structure,
 \item \eqn{\mathbf{A}_{t \times t}} represents asymmetric paths
 (single-headed arrows),
 such as regression coefficients and factor loadings,
-\item \eqn{\mathbf{I}_{t \times t}} represents an identity matrix, and
-\item \eqn{\mathbf{v}_{t \times 1}} vector of expected values.
+\item \eqn{\mathbf{S}_{t \times t}} represents symmetric paths
+(double-headed arrows),
+such as variances and covariances,
+\item \eqn{\mathbf{F}_{p \times t}} represents the filter matrix
+used to select the observed variables,
+\item \eqn{\mathbf{I}_{t \times t}} represents an identity matrix,
+\item \eqn{\mathbf{D}_{t \times t}} represents a diagonal matrix
+who diagonal elements are the square root of the diagonal elements
+of \eqn{\mathbf{C}},
+\item \eqn{p} number of observed variables,
+\item \eqn{q} number of latent variables, and
+\item \eqn{t} number of observed and latent variables,
+that is \eqn{p + q} .
 }
 }
 \examples{
@@ -140,6 +270,7 @@ beta <- 1
 sigmax2 <- 0.25
 sigmae2 <- 1
 mux <- 0.50
+
 Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "ysym")
 Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "str")
 Expectations(Ryacas::ysym(A), S, u, Filter, R = FALSE, format = "tex")
@@ -148,6 +279,8 @@ eval(Expectations$v)
 eval(Expectations$g)
 eval(Expectations$C)
 eval(Expectations$M)
+eval(Expectations$C.scaled)
+eval(Expectations$M.scaled)
 }
 \references{
 McArdle, J. J., & McDonald, R. P. (1984).
@@ -163,6 +296,7 @@ Other RAM matrices functions:
 \code{\link{E}()},
 \code{\link{IminusA}()},
 \code{\link{M}()},
+\code{\link{RAMScaled}()},
 \code{\link{S}()},
 \code{\link{g}()},
 \code{\link{u}()},

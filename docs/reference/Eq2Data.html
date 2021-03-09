@@ -41,7 +41,11 @@
 
 <meta property="og:title" content="Equations to Multivariate Normal Sample Data — Eq2Data" />
 <meta property="og:description" content="Generates data from a multivariate normal distribution
-from model equations using the MASS::mvrnorm() function." />
+from model equations using the MASS::mvrnorm() function.
+The argument eq is a character string
+that specifies the associations between the variables.
+See Syntax, Operations, par.label,
+Line breaks, and Comments below." />
 
 
 
@@ -99,6 +103,9 @@ from model equations using the MASS::mvrnorm() function." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/Equations-short.html">Equations-short</a>
+    </li>
+    <li>
       <a href="../articles/Equations.html">Equations</a>
     </li>
     <li>
@@ -130,6 +137,9 @@ from model equations using the MASS::mvrnorm() function." />
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-RAM2Data.html">Test: Two-Variable Linear Regression - RAM2Data</a>
+    </li>
+    <li>
+      <a href="../articles/tests/test_two-variable-regression-RAMScaled.html">Test: Two-Variable Linear Regression - RAMScaled</a>
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-S.html">Test: Two-Variable Linear Regression - S</a>
@@ -176,10 +186,14 @@ from model equations using the MASS::mvrnorm() function." />
 
     <div class="ref-description">
     <p>Generates data from a multivariate normal distribution
-from model equations using the <code><a href='https://rdrr.io/pkg/MASS/man/mvrnorm.html'>MASS::mvrnorm()</a></code> function.</p>
+from model equations using the <code><a href='https://rdrr.io/pkg/MASS/man/mvrnorm.html'>MASS::mvrnorm()</a></code> function.
+The argument <code>eq</code> is a character string
+that specifies the associations between the variables.
+See <code>Syntax</code>, <code>Operations</code>, <code>par.label</code>,
+<code>Line breaks</code>, and <code>Comments</code> below.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Eq2Data</span><span class='op'>(</span><span class='va'>eq</span>, <span class='va'>n</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>Eq2Data</span><span class='op'>(</span><span class='va'>eq</span>, <span class='va'>n</span>, check <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,8 +208,14 @@ from model equations using the <code><a href='https://rdrr.io/pkg/MASS/man/mvrno
 Sample size.</p></td>
     </tr>
     <tr>
+      <th>check</th>
+      <td><p>Logical.
+If <code>check = TRUE</code> do some preprocessing
+with input matrices using <code><a href='CheckRAMMatrices.html'>CheckRAMMatrices()</a></code>.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
-      <td><p>Additional arguments to pass to <code><a href='https://rdrr.io/pkg/MASS/man/mvrnorm.html'>MASS::mvrnorm()</a></code>.</p></td>
+      <td><p>...</p></td>
     </tr>
     </table>
 
@@ -209,11 +229,7 @@ Sample size.</p></td>
   \)</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The argument <code>eq</code> is a character string
-that specifies the associations between the variables.
-See <code>Syntax</code>, <code>Operations</code>, <code>par.label</code>,
-<code>Line breaks</code>, and <code>Comments</code> below.</p>
-<p>The multivariate normal distribution is given by
+    <p>The multivariate normal distribution is given by
 $$
     \mathbf{X} \sim \mathcal{N}_{k}
     \left(

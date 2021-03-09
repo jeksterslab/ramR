@@ -6,16 +6,28 @@
 \alias{E.yac_symbol}
 \title{Matrix of Total Effects \eqn{\mathbf{E}}}
 \usage{
-E(A, ...)
+E(A, check = TRUE, ...)
 
-\method{E}{default}(A, ...)
+\method{E}{default}(A, check = TRUE, ...)
 
-\method{E}{yac_symbol}(A, exe = TRUE, R = FALSE, format = "ysym", simplify = FALSE, ...)
+\method{E}{yac_symbol}(
+  A,
+  check = TRUE,
+  exe = TRUE,
+  R = FALSE,
+  format = "ysym",
+  simplify = FALSE,
+  ...
+)
 }
 \arguments{
 \item{A}{\verb{t by t} matrix \eqn{\mathbf{A}}.
 Asymmetric paths (single-headed arrows),
 such as regression coefficients and factor loadings.}
+
+\item{check}{Logical.
+If \code{check = TRUE} do some preprocessing
+with input matrices using \code{\link[=CheckRAMMatrices]{CheckRAMMatrices()}}.}
 
 \item{...}{...}
 
@@ -44,7 +56,9 @@ returns symbolic result as LaTeX math.}
 \item{simplify}{Logical. Simplify symbolic results.}
 }
 \value{
-\eqn{\mathbf{E} = \left( \mathbf{I} - \mathbf{A} \right)^{-1}}
+\eqn{
+  \mathbf{E} = \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+}
 }
 \description{
 Derives the matrix of total effects \eqn{\mathbf{E}}.
@@ -75,6 +89,7 @@ such as regression coefficients and factor loadings, and
 # This is a numerical example for the model
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
+#--------------------------------------------------------------------
 
 A <- matrixR::ZeroMatrix(3)
 A[1, ] <- c(0, 1, 1)
@@ -84,20 +99,22 @@ E(A)
 # This is a symbolic example for the model
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
+#--------------------------------------------------------------------
 
 A <- matrixR::ZeroMatrix(3)
 A[1, ] <- c(0, "beta", 1)
-E(Ryacas::ysym(A), R = FALSE, format = "ysym")
-E(Ryacas::ysym(A), R = FALSE, format = "str")
-E(Ryacas::ysym(A), R = FALSE, format = "tex")
+E(Ryacas::ysym(A))
+E(Ryacas::ysym(A), format = "str")
+E(Ryacas::ysym(A), format = "tex")
 E(Ryacas::ysym(A), R = TRUE)
 
 # Assigning values to symbols
 
 beta <- 1
-E(Ryacas::ysym(A), R = FALSE, format = "ysym")
-E(Ryacas::ysym(A), R = FALSE, format = "str")
-E(Ryacas::ysym(A), R = FALSE, format = "tex")
+
+E(Ryacas::ysym(A))
+E(Ryacas::ysym(A), format = "str")
+E(Ryacas::ysym(A), format = "tex")
 E(Ryacas::ysym(A), R = TRUE)
 eval(E(Ryacas::ysym(A), R = TRUE))
 }
@@ -115,6 +132,7 @@ Other RAM matrices functions:
 \code{\link{Expectations}()},
 \code{\link{IminusA}()},
 \code{\link{M}()},
+\code{\link{RAMScaled}()},
 \code{\link{S}()},
 \code{\link{g}()},
 \code{\link{u}()},

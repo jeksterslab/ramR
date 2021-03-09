@@ -47,6 +47,7 @@ C <- Ryacas::as_r(
     solve(Ryacas::ysym(I) - Ryacas::ysym(A))
   )
 )
+C.scaled <- stats::cov2cor(C)
 M <- Ryacas::as_r(
   Ryacas::ysym(Filter) * solve(
     Ryacas::ysym(I) - Ryacas::ysym(A)
@@ -54,6 +55,7 @@ M <- Ryacas::as_r(
     solve(Ryacas::ysym(I) - Ryacas::ysym(A))
   ) * t(Ryacas::ysym(Filter))
 )
+M.scaled <- Filter %*% C.scaled %*% t(Filter)
 g <- as.matrix(
   Ryacas::as_r(
     Ryacas::ysym(Filter) * Ryacas::ysym(v)
@@ -134,5 +136,6 @@ testthat::test_that("E.", {
 #+ coverage
 ramR::E(
   Ryacas::ysym(A),
-  exe = FALSE
+  exe = FALSE,
+  check = FALSE
 )

@@ -7,14 +7,15 @@
 \title{Matrix of Covariance Expectations of Observed Variables
 \eqn{\mathbf{M}}}
 \usage{
-M(A, S, Filter = NULL, ...)
+M(A, S, Filter = NULL, check = TRUE, ...)
 
-\method{M}{default}(A, S, Filter = NULL, ...)
+\method{M}{default}(A, S, Filter = NULL, check = TRUE, ...)
 
 \method{M}{yac_symbol}(
   A,
   S,
   Filter = NULL,
+  check = TRUE,
   exe = TRUE,
   R = FALSE,
   format = "ysym",
@@ -34,6 +35,10 @@ such as variances and covariances.}
 \item{Filter}{\verb{p by t} numeric matrix
 \eqn{\mathbf{F}}.
 Filter matrix used to select observed variables.}
+
+\item{check}{Logical.
+If \code{check = TRUE} do some preprocessing
+with input matrices using \code{\link[=CheckRAMMatrices]{CheckRAMMatrices()}}.}
 
 \item{...}{...}
 
@@ -62,7 +67,9 @@ returns symbolic result as LaTeX math.}
 \item{simplify}{Logical. Simplify symbolic results.}
 }
 \value{
-\eqn{\mathbf{M} = \mathbf{F} \mathbf{C} \mathbf{F}^{\mathsf{T}}}
+\eqn{
+  \mathbf{M} = \mathbf{F} \mathbf{C} \mathbf{F}^{\mathsf{T}}
+}
 }
 \description{
 Derives the matrix of covariance expectations
@@ -122,6 +129,7 @@ that is \eqn{p + q} .
 # This is a numerical example for the model
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
+#--------------------------------------------------------------------
 
 A <- S <- matrixR::ZeroMatrix(3)
 A[1, ] <- c(0, 1, 1)
@@ -135,13 +143,14 @@ M(A, S, Filter)
 # This is a symbolic example for the model
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
+#--------------------------------------------------------------------
 
 A <- S <- matrixR::ZeroMatrix(3)
 A[1, ] <- c(0, "beta", 1)
 diag(S) <- c(0, "sigmax2", "sigmae2")
 M(Ryacas::ysym(A), S, Filter)
+M(Ryacas::ysym(A), S, Filter, format = "str")
 M(Ryacas::ysym(A), S, Filter, format = "tex")
-M(Ryacas::ysym(A), S, Filter, format = "ysym")
 M(Ryacas::ysym(A), S, Filter, R = TRUE)
 
 # Assigning values to symbols
@@ -149,9 +158,10 @@ M(Ryacas::ysym(A), S, Filter, R = TRUE)
 beta <- 1
 sigmax2 <- 0.25
 sigmae2 <- 1
+
 M(Ryacas::ysym(A), S, Filter)
+M(Ryacas::ysym(A), S, Filter, format = "str")
 M(Ryacas::ysym(A), S, Filter, format = "tex")
-M(Ryacas::ysym(A), S, Filter, format = "ysym")
 M(Ryacas::ysym(A), S, Filter, R = TRUE)
 eval(M(Ryacas::ysym(A), S, Filter, R = TRUE))
 }
@@ -169,6 +179,7 @@ Other RAM matrices functions:
 \code{\link{Expectations}()},
 \code{\link{E}()},
 \code{\link{IminusA}()},
+\code{\link{RAMScaled}()},
 \code{\link{S}()},
 \code{\link{g}()},
 \code{\link{u}()},

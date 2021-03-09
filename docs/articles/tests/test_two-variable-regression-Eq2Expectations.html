@@ -57,6 +57,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../../articles/Equations-short.html">Equations-short</a>
+    </li>
+    <li>
       <a href="../../articles/Equations.html">Equations</a>
     </li>
     <li>
@@ -88,6 +91,9 @@
     </li>
     <li>
       <a href="../../articles/tests/test_two-variable-regression-RAM2Data.html">Test: Two-Variable Linear Regression - RAM2Data</a>
+    </li>
+    <li>
+      <a href="../../articles/tests/test_two-variable-regression-RAMScaled.html">Test: Two-Variable Linear Regression - RAMScaled</a>
     </li>
     <li>
       <a href="../../articles/tests/test_two-variable-regression-S.html">Test: Two-Variable Linear Regression - S</a>
@@ -130,7 +136,7 @@
       <h1 data-toc-skip>Test: Two-Variable Linear Regression - Eq2Expectations</h1>
                         <h4 class="author">Ivan Jacob Agaloos Pesigan</h4>
             
-            <h4 class="date">2021-02-20</h4>
+            <h4 class="date">2021-03-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jeksterslab/ramR/blob/master/vignettes/tests/test_two-variable-regression-Eq2Expectations.Rmd"><code>vignettes/tests/test_two-variable-regression-Eq2Expectations.Rmd</code></a></small>
       <div class="hidden name"><code>test_two-variable-regression-Eq2Expectations.Rmd</code></div>
@@ -282,6 +288,7 @@
     <span class="fu"><a href="https://rdrr.io/r/base/solve.html">solve</a></span><span class="op">(</span><span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">I</span><span class="op">)</span> <span class="op">-</span> <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="op">)</span>
+<span class="va">C.scaled</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov2cor</a></span><span class="op">(</span><span class="va">C</span><span class="op">)</span>
 <span class="va">M</span> <span class="op">&lt;-</span> <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">Filter</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/solve.html">solve</a></span><span class="op">(</span>
     <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">I</span><span class="op">)</span> <span class="op">-</span> <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>
@@ -289,6 +296,7 @@
     <span class="fu"><a href="https://rdrr.io/r/base/solve.html">solve</a></span><span class="op">(</span><span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">I</span><span class="op">)</span> <span class="op">-</span> <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">Filter</span><span class="op">)</span><span class="op">)</span>
 <span class="op">)</span>
+<span class="va">M.scaled</span> <span class="op">&lt;-</span> <span class="va">Filter</span> <span class="op">%*%</span> <span class="va">C.scaled</span> <span class="op">%*%</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">Filter</span><span class="op">)</span>
 <span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/as_r.html">as_r</a></span><span class="op">(</span>
     <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">Filter</span><span class="op">)</span> <span class="op">*</span> <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span>
@@ -297,7 +305,7 @@
 <p><span class="math display">\[\begin{equation}
   \begin{split}
     y &amp;= \alpha + \beta x + \varepsilon \\
-    y &amp;= -0.9286284 + \left( -0.1317295 \right) x + \varepsilon
+    y &amp;= 0.6677204 + \left( -0.7378815 \right) x + \varepsilon
   \end{split}
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -357,7 +365,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🥳</span>
+<span class="co">#&gt; Test passed 🎉</span>
 <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"M."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">M</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">M</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -372,7 +380,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🥇</span>
+<span class="co">#&gt; Test passed 🥳</span>
 <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"v."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -387,7 +395,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🎊</span>
+<span class="co">#&gt; Test passed 😀</span>
 <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"g."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -402,7 +410,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 😸</span></code></pre></div>
+<span class="co">#&gt; Test passed 🥳</span></code></pre></div>
 </div>
   </div>
 

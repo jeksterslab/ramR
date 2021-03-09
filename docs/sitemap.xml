@@ -4,7 +4,13 @@
     <loc>https://github.com/jeksterslab/ramR//index.html</loc>
   </url>
   <url>
+    <loc>https://github.com/jeksterslab/ramR//reference/AsNumeric.html</loc>
+  </url>
+  <url>
     <loc>https://github.com/jeksterslab/ramR//reference/C.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//reference/CheckRAMMatrices.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ramR//reference/E.html</loc>
@@ -34,6 +40,9 @@
     <loc>https://github.com/jeksterslab/ramR//reference/RAM2Data.html</loc>
   </url>
   <url>
+    <loc>https://github.com/jeksterslab/ramR//reference/RAMScaled.html</loc>
+  </url>
+  <url>
     <loc>https://github.com/jeksterslab/ramR//reference/S.html</loc>
   </url>
   <url>
@@ -47,6 +56,9 @@
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ramR//reference/v.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//articles/Equations-short.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ramR//articles/Equations.html</loc>
@@ -83,6 +95,9 @@
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-RAM2Data.html</loc>
+  </url>
+  <url>
+    <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-RAMScaled.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/ramR//articles/tests/test_two-variable-regression-S.html</loc>

@@ -6,11 +6,20 @@
 \alias{S.yac_symbol}
 \title{Matrix of Symmetric Paths \eqn{\mathbf{S}}}
 \usage{
-S(A, C, ...)
+S(A, C, check = TRUE, ...)
 
-\method{S}{default}(A, C, ...)
+\method{S}{default}(A, C, check = TRUE, ...)
 
-\method{S}{yac_symbol}(A, C, exe = TRUE, R = FALSE, format = "ysym", simplify = FALSE, ...)
+\method{S}{yac_symbol}(
+  A,
+  C,
+  check = TRUE,
+  exe = TRUE,
+  R = FALSE,
+  format = "ysym",
+  simplify = FALSE,
+  ...
+)
 }
 \arguments{
 \item{A}{\verb{t by t} matrix \eqn{\mathbf{A}}.
@@ -19,6 +28,10 @@ such as regression coefficients and factor loadings.}
 
 \item{C}{\verb{t by t} numeric matrix \eqn{\mathbf{C}}.
 Model-implied variance-covariance matrix.}
+
+\item{check}{Logical.
+If \code{check = TRUE} do some preprocessing
+with input matrices using \code{\link[=CheckRAMMatrices]{CheckRAMMatrices()}}.}
 
 \item{...}{...}
 
@@ -55,7 +68,8 @@ Derives the matrix of symmetric paths (double-headed arrows)
 \eqn{\mathbf{S}} using the Reticular Action Model (RAM) notation.
 }
 \details{
-The matrix of symmetric paths (double-headed arrows) \eqn{\mathbf{S}}
+The matrix of symmetric paths (double-headed arrows)
+\eqn{\mathbf{S}}
 as a function of Reticular Action Model (RAM) matrices
 is given by
 
@@ -92,6 +106,7 @@ the model-implied variance-covariance matrix, and
 # This is a numerical example for the model
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
+#--------------------------------------------------------------------
 
 A <- matrixR::ZeroMatrix(3)
 A[1, ] <- c(0, 1, 1)
@@ -109,6 +124,7 @@ S(A, C)
 # This is a symbolic example for the model
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
+#--------------------------------------------------------------------
 
 A <- matrixR::ZeroMatrix(3)
 A[1, ] <- c(0, "beta", 1)
@@ -120,9 +136,9 @@ C <- matrix(
   ),
   nrow = dim(A)[1]
 )
-S(Ryacas::ysym(A), C, R = FALSE, format = "ysym")
-S(Ryacas::ysym(A), C, R = FALSE, format = "str")
-S(Ryacas::ysym(A), C, R = FALSE, format = "tex")
+S(Ryacas::ysym(A), C)
+S(Ryacas::ysym(A), C, format = "str")
+S(Ryacas::ysym(A), C, format = "tex")
 S(Ryacas::ysym(A), C, R = TRUE)
 
 # Assigning values to symbols
@@ -130,9 +146,10 @@ S(Ryacas::ysym(A), C, R = TRUE)
 beta <- 1
 sigmax2 <- 0.25
 sigmae2 <- 1
-S(Ryacas::ysym(A), C, R = FALSE, format = "ysym")
-S(Ryacas::ysym(A), C, R = FALSE, format = "str")
-S(Ryacas::ysym(A), C, R = FALSE, format = "tex")
+
+S(Ryacas::ysym(A), C)
+S(Ryacas::ysym(A), C, format = "str")
+S(Ryacas::ysym(A), C, format = "tex")
 S(Ryacas::ysym(A), C, R = TRUE)
 eval(S(Ryacas::ysym(A), C, R = TRUE))
 }
@@ -151,6 +168,7 @@ Other RAM matrices functions:
 \code{\link{E}()},
 \code{\link{IminusA}()},
 \code{\link{M}()},
+\code{\link{RAMScaled}()},
 \code{\link{g}()},
 \code{\link{u}()},
 \code{\link{v}()}

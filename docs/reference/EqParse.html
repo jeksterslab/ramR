@@ -40,7 +40,11 @@
 
 
 <meta property="og:title" content="Equations Parser — EqParse" />
-<meta property="og:description" content="Parse equations and return a parameter table (par.table)." />
+<meta property="og:description" content="Parse equations and return a parameter table (par.table).
+The argument eq is a character string
+that specifies the associations between the variables.
+See Syntax, Operations, par.label,
+par.start, Line breaks, and Comments below." />
 
 
 
@@ -98,6 +102,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/Equations-short.html">Equations-short</a>
+    </li>
+    <li>
       <a href="../articles/Equations.html">Equations</a>
     </li>
     <li>
@@ -129,6 +136,9 @@
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-RAM2Data.html">Test: Two-Variable Linear Regression - RAM2Data</a>
+    </li>
+    <li>
+      <a href="../articles/tests/test_two-variable-regression-RAMScaled.html">Test: Two-Variable Linear Regression - RAMScaled</a>
     </li>
     <li>
       <a href="../articles/tests/test_two-variable-regression-S.html">Test: Two-Variable Linear Regression - S</a>
@@ -174,7 +184,11 @@
     </div>
 
     <div class="ref-description">
-    <p>Parse equations and return a parameter table (<code>par.table</code>).</p>
+    <p>Parse equations and return a parameter table (<code>par.table</code>).
+The argument <code>eq</code> is a character string
+that specifies the associations between the variables.
+See <code>Syntax</code>, <code>Operations</code>, <code>par.label</code>,
+<code>par.start</code>, <code>Line breaks</code>, and <code>Comments</code> below.</p>
     </div>
 
     <pre class="usage"><span class='fu'>EqParse</span><span class='op'>(</span><span class='va'>eq</span><span class='op'>)</span></pre>
@@ -203,12 +217,6 @@ with <code>NAs</code> on fixed parameters.</p></dd>
 
 </dl>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The argument <code>eq</code> is a character string
-that specifies the associations between the variables.
-See <code>Syntax</code>, <code>Operations</code>, <code>par.label</code>,
-<code>par.start</code>, <code>Line breaks</code>, and <code>Comments</code> below.</p>
     <h2 class="hasAnchor" id="syntax"><a class="anchor" href="#syntax"></a>Syntax</h2>
 
     

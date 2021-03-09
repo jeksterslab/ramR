@@ -6,14 +6,15 @@
 \alias{g.yac_symbol}
 \title{Vector of Expected Values of Observed Variables \eqn{\mathbf{g}}}
 \usage{
-g(A, u, Filter = NULL, ...)
+g(A, u, Filter = NULL, check = TRUE, ...)
 
-\method{g}{default}(A, u, Filter = NULL, ...)
+\method{g}{default}(A, u, Filter = NULL, check = TRUE, ...)
 
 \method{g}{yac_symbol}(
   A,
   u,
   Filter = NULL,
+  check = TRUE,
   exe = TRUE,
   R = FALSE,
   format = "ysym",
@@ -32,6 +33,10 @@ Mean structure parameters.}
 \item{Filter}{\verb{p by t} numeric matrix
 \eqn{\mathbf{F}}.
 Filter matrix used to select observed variables.}
+
+\item{check}{Logical.
+If \code{check = TRUE} do some preprocessing
+with input matrices using \code{\link[=CheckRAMMatrices]{CheckRAMMatrices()}}.}
 
 \item{...}{...}
 
@@ -111,6 +116,7 @@ that is \eqn{p + q} .
 # This is a numerical example for the model
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
+#--------------------------------------------------------------------
 
 A <- matrixR::ZeroMatrix(3)
 A[1, ] <- c(0, 1, 1)
@@ -123,13 +129,14 @@ g(A, u, Filter)
 # This is a symbolic example for the model
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
+#--------------------------------------------------------------------
 
 A <- matrixR::ZeroMatrix(3)
 A[1, ] <- c(0, "beta", 1)
 u <- c("alpha", "mux", 0)
 g(Ryacas::ysym(A), u, Filter)
+g(Ryacas::ysym(A), u, Filter, format = "str")
 g(Ryacas::ysym(A), u, Filter, format = "tex")
-g(Ryacas::ysym(A), u, Filter, format = "ysym")
 g(Ryacas::ysym(A), u, Filter, R = TRUE)
 
 # Assigning values to symbols
@@ -137,9 +144,10 @@ g(Ryacas::ysym(A), u, Filter, R = TRUE)
 alpha <- 0
 beta <- 1
 mux <- 0.50
+
 g(Ryacas::ysym(A), u, Filter)
+g(Ryacas::ysym(A), u, Filter, format = "str")
 g(Ryacas::ysym(A), u, Filter, format = "tex")
-g(Ryacas::ysym(A), u, Filter, format = "ysym")
 g(Ryacas::ysym(A), u, Filter, R = TRUE)
 eval(g(Ryacas::ysym(A), u, Filter, R = TRUE))
 }
@@ -158,6 +166,7 @@ Other RAM matrices functions:
 \code{\link{E}()},
 \code{\link{IminusA}()},
 \code{\link{M}()},
+\code{\link{RAMScaled}()},
 \code{\link{S}()},
 \code{\link{u}()},
 \code{\link{v}()}

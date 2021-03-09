@@ -6,11 +6,20 @@
 \alias{v.yac_symbol}
 \title{Vector of Expected Values \eqn{\mathbf{v}}}
 \usage{
-v(A, u, ...)
+v(A, u, check = TRUE, ...)
 
-\method{v}{default}(A, u, ...)
+\method{v}{default}(A, u, check = TRUE, ...)
 
-\method{v}{yac_symbol}(A, u, exe = TRUE, R = FALSE, format = "ysym", simplify = FALSE, ...)
+\method{v}{yac_symbol}(
+  A,
+  u,
+  check = TRUE,
+  exe = TRUE,
+  R = FALSE,
+  format = "ysym",
+  simplify = FALSE,
+  ...
+)
 }
 \arguments{
 \item{A}{\verb{t by t} matrix \eqn{\mathbf{A}}.
@@ -19,6 +28,10 @@ such as regression coefficients and factor loadings.}
 
 \item{u}{vector of length \code{t} or \verb{t by 1} matrix.
 Mean structure parameters.}
+
+\item{check}{Logical.
+If \code{check = TRUE} do some preprocessing
+with input matrices using \code{\link[=CheckRAMMatrices]{CheckRAMMatrices()}}.}
 
 \item{...}{...}
 
@@ -85,6 +98,7 @@ for the mean structure.
 # This is a numerical example for the model
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
+#--------------------------------------------------------------------
 
 A <- matrixR::ZeroMatrix(3)
 A[1, ] <- c(0, 1, 1)
@@ -95,13 +109,14 @@ v(A, u)
 # This is a symbolic example for the model
 # y = alpha + beta * x + e
 # y = 0 + 1 * x + e
+#--------------------------------------------------------------------
 
 A <- matrixR::ZeroMatrix(3)
 A[1, ] <- c(0, "beta", 1)
 u <- c("alpha", "mux", 0)
 v(Ryacas::ysym(A), u)
+v(Ryacas::ysym(A), u, format = "str")
 v(Ryacas::ysym(A), u, format = "tex")
-v(Ryacas::ysym(A), u, format = "ysym")
 v(Ryacas::ysym(A), u, R = TRUE)
 
 # Assigning values to symbols
@@ -109,9 +124,10 @@ v(Ryacas::ysym(A), u, R = TRUE)
 alpha <- 0
 beta <- 1
 mux <- 0.50
+
 v(Ryacas::ysym(A), u)
+v(Ryacas::ysym(A), u, format = "str")
 v(Ryacas::ysym(A), u, format = "tex")
-v(Ryacas::ysym(A), u, format = "ysym")
 v(Ryacas::ysym(A), u, R = TRUE)
 eval(v(Ryacas::ysym(A), u, R = TRUE))
 }
@@ -130,6 +146,7 @@ Other RAM matrices functions:
 \code{\link{E}()},
 \code{\link{IminusA}()},
 \code{\link{M}()},
+\code{\link{RAMScaled}()},
 \code{\link{S}()},
 \code{\link{g}()},
 \code{\link{u}()}
