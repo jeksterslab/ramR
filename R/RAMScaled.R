@@ -44,9 +44,6 @@
 #'
 #' @inheritParams CheckRAMMatrices
 #' @inheritParams IminusA
-#' @param C.scaled `t by t` numeric matrix
-#'   \eqn{\mathbf{C}_{\mathrm{scaled}}}.
-#'   Scaled/standardized model-implied variance-covariance matrix.
 #' @export
 RAMScaled <- function(A,
                       S,
@@ -91,12 +88,14 @@ RAMScaled.default <- function(A,
       A = A,
       S = S,
       Filter = Filter,
-      C = C
+      C = C,
+      C.scaled = C.scaled
     )
     A <- RAM$A
     S <- RAM$S
     Filter <- RAM$Filter
     C <- RAM$C
+    C.scaled <- RAM$C.scaled
   }
   if (is.null(C) || is.null(C.scaled)) {
     Expectations <- Expectations(
@@ -180,12 +179,14 @@ RAMScaled.yac_symbol <- function(A,
       A = A,
       S = S,
       Filter = Filter,
-      C = C
+      C = C,
+      C.scaled = C.scaled
     )
     A <- RAM$A
     S <- RAM$S
     Filter <- RAM$Filter
     C <- RAM$C
+    C.scaled <- RAM$C.scaled
   } else {
     S <- yacR::as.ysym(S)
     if (!is.null(Filter)) {
