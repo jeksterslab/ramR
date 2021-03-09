@@ -192,7 +192,7 @@
 <p><span class="math display">\[\begin{equation}
   \begin{split}
     y &amp;= \alpha + \beta x + \varepsilon \\
-    y &amp;= 0.7695425 + \left( -0.2557894 x \right) + \varepsilon
+    y &amp;= 0.5344822 + \left( 0.3303454 x \right) + \varepsilon
   \end{split}
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -241,31 +241,31 @@
   simplify <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
 <span class="co">#&gt; $v</span>
-<span class="co">#&gt; {{ 0.9348526964},</span>
-<span class="co">#&gt;  {-0.6462746714},</span>
+<span class="co">#&gt; {{ 0.4050177737},</span>
+<span class="co">#&gt;  {-0.3919063373},</span>
 <span class="co">#&gt;  {            0}} </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $g</span>
-<span class="co">#&gt; {{ 0.9348526964},</span>
-<span class="co">#&gt;  {-0.6462746714}} </span>
+<span class="co">#&gt; {{ 0.4050177737},</span>
+<span class="co">#&gt;  {-0.3919063373}} </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $C</span>
-<span class="co">#&gt; {{ 0.8067152791, -0.0085919796,   0.804517542},</span>
-<span class="co">#&gt;  {-0.0085919796,  0.0335900569,             0},</span>
-<span class="co">#&gt;  {  0.804517542,             0,   0.804517542}} </span>
+<span class="co">#&gt; {{0.0831538287, 0.0846750401, 0.0551818199},</span>
+<span class="co">#&gt;  {0.0846750401, 0.2563227573,            0},</span>
+<span class="co">#&gt;  {0.0551818199,            0, 0.0551818199}} </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $M</span>
-<span class="co">#&gt; {{ 0.8067152791, -0.0085919796},</span>
-<span class="co">#&gt;  {-0.0085919796,  0.0335900569}} </span>
+<span class="co">#&gt; {{0.0831538287, 0.0846750401},</span>
+<span class="co">#&gt;  {0.0846750401, 0.2563227573}} </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $C.scaled</span>
-<span class="co">#&gt; {{(Sqrt(0.5987302485e-5)+Sqrt(0.8023257922))*Sqrt(1/0.8067152791),                                          -Sqrt(0.2724303313e-2),                                              Sqrt(0.9972756966)},</span>
-<span class="co">#&gt;  {                                         -Sqrt(0.2724303313e-2),                                                        Sqrt(1.),                                                               0},</span>
-<span class="co">#&gt;  {                                             Sqrt(0.9972756966),                                                               0,                                                        Sqrt(1.)}} </span>
+<span class="co">#&gt; {{(Sqrt(0.9409467824e-2)+Sqrt(0.3661927897e-1))*Sqrt(1/0.0831538287),                                                 Sqrt(0.3363887053),                                                 Sqrt(0.6636112946)},</span>
+<span class="co">#&gt;  {                                                Sqrt(0.3363887053),                                                           Sqrt(1.),                                                                  0},</span>
+<span class="co">#&gt;  {                                                Sqrt(0.6636112946),                                                                  0,                                                           Sqrt(1.)}} </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $M.scaled</span>
-<span class="co">#&gt; {{(Sqrt(0.5987302485e-5)+Sqrt(0.8023257922))*Sqrt(1/0.8067152791),                                          -Sqrt(0.2724303313e-2)},</span>
-<span class="co">#&gt;  {                                         -Sqrt(0.2724303313e-2),                                                        Sqrt(1.)}}</span>
+<span class="co">#&gt; {{(Sqrt(0.9409467824e-2)+Sqrt(0.3661927897e-1))*Sqrt(1/0.0831538287),                                                 Sqrt(0.3363887053)},</span>
+<span class="co">#&gt;  {                                                Sqrt(0.3363887053),                                                           Sqrt(1.)}}</span>
 <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/Expectations.html">Expectations</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
   <span class="va">S</span>,
@@ -282,24 +282,24 @@
 <span class="co">#&gt; NULL</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $C</span>
-<span class="co">#&gt; {{ 0.8067152791, -0.0085919796,   0.804517542},</span>
-<span class="co">#&gt;  {-0.0085919796,  0.0335900569,             0},</span>
-<span class="co">#&gt;  {  0.804517542,             0,   0.804517542}} </span>
+<span class="co">#&gt; {{0.0831538287, 0.0846750401, 0.0551818199},</span>
+<span class="co">#&gt;  {0.0846750401, 0.2563227573,            0},</span>
+<span class="co">#&gt;  {0.0551818199,            0, 0.0551818199}} </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $M</span>
-<span class="co">#&gt; {{ 0.8067152791, -0.0085919796,   0.804517542},</span>
-<span class="co">#&gt;  {-0.0085919796,  0.0335900569,             0},</span>
-<span class="co">#&gt;  {  0.804517542,             0,   0.804517542}} </span>
+<span class="co">#&gt; {{0.0831538287, 0.0846750401, 0.0551818199},</span>
+<span class="co">#&gt;  {0.0846750401, 0.2563227573,            0},</span>
+<span class="co">#&gt;  {0.0551818199,            0, 0.0551818199}} </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $C.scaled</span>
-<span class="co">#&gt; {{(Sqrt(0.5987302485e-5)+Sqrt(0.8023257922))*Sqrt(1/0.8067152791),                                          -Sqrt(0.2724303313e-2),                                              Sqrt(0.9972756966)},</span>
-<span class="co">#&gt;  {                                         -Sqrt(0.2724303313e-2),                                                        Sqrt(1.),                                                               0},</span>
-<span class="co">#&gt;  {                                             Sqrt(0.9972756966),                                                               0,                                                        Sqrt(1.)}} </span>
+<span class="co">#&gt; {{(Sqrt(0.9409467824e-2)+Sqrt(0.3661927897e-1))*Sqrt(1/0.0831538287),                                                 Sqrt(0.3363887053),                                                 Sqrt(0.6636112946)},</span>
+<span class="co">#&gt;  {                                                Sqrt(0.3363887053),                                                           Sqrt(1.),                                                                  0},</span>
+<span class="co">#&gt;  {                                                Sqrt(0.6636112946),                                                                  0,                                                           Sqrt(1.)}} </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $M.scaled</span>
-<span class="co">#&gt; {{(Sqrt(0.5987302485e-5)+Sqrt(0.8023257922))*Sqrt(1/0.8067152791),                                          -Sqrt(0.2724303313e-2),                                              Sqrt(0.9972756966)},</span>
-<span class="co">#&gt;  {                                         -Sqrt(0.2724303313e-2),                                                        Sqrt(1.),                                                               0},</span>
-<span class="co">#&gt;  {                                             Sqrt(0.9972756966),                                                               0,                                                        Sqrt(1.)}}</span>
+<span class="co">#&gt; {{(Sqrt(0.9409467824e-2)+Sqrt(0.3661927897e-1))*Sqrt(1/0.0831538287),                                                 Sqrt(0.3363887053),                                                 Sqrt(0.6636112946)},</span>
+<span class="co">#&gt;  {                                                Sqrt(0.3363887053),                                                           Sqrt(1.),                                                                  0},</span>
+<span class="co">#&gt;  {                                                Sqrt(0.6636112946),                                                                  0,                                                           Sqrt(1.)}}</span>
 <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/Expectations.html">Expectations</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
   <span class="va">S</span>,
@@ -316,16 +316,16 @@
 <span class="co">#&gt; NULL</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $C</span>
-<span class="co">#&gt; [1] "\\left( \\begin{array}{ccc} 0.8067152791 &amp; -0.0085919796 &amp; 0.804517542 \\\\ -0.0085919796 &amp; 0.0335900569 &amp; 0 \\\\ 0.804517542 &amp; 0 &amp; 0.804517542 \\end{array} \\right)"</span>
+<span class="co">#&gt; [1] "\\left( \\begin{array}{ccc} 0.0831538287 &amp; 0.0846750401 &amp; 0.0551818199 \\\\ 0.0846750401 &amp; 0.2563227573 &amp; 0 \\\\ 0.0551818199 &amp; 0 &amp; 0.0551818199 \\end{array} \\right)"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $M</span>
-<span class="co">#&gt; [1] "\\left( \\begin{array}{ccc} 0.8067152791 &amp; -0.0085919796 &amp; 0.804517542 \\\\ -0.0085919796 &amp; 0.0335900569 &amp; 0 \\\\ 0.804517542 &amp; 0 &amp; 0.804517542 \\end{array} \\right)"</span>
+<span class="co">#&gt; [1] "\\left( \\begin{array}{ccc} 0.0831538287 &amp; 0.0846750401 &amp; 0.0551818199 \\\\ 0.0846750401 &amp; 0.2563227573 &amp; 0 \\\\ 0.0551818199 &amp; 0 &amp; 0.0551818199 \\end{array} \\right)"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $C.scaled</span>
-<span class="co">#&gt; [1] "\\left( \\begin{array}{ccc} \\left( \\sqrt{0.5987302485e-5} + \\sqrt{0.8023257922}\\right)  \\sqrt{\\frac{1}{0.8067152791} } &amp;  - \\sqrt{0.2724303313e-2} &amp; \\sqrt{0.9972756966} \\\\  - \\sqrt{0.2724303313e-2} &amp; \\sqrt{1.} &amp; 0 \\\\ \\sqrt{0.9972756966} &amp; 0 &amp; \\sqrt{1.} \\end{array} \\right)"</span>
+<span class="co">#&gt; [1] "\\left( \\begin{array}{ccc} \\left( \\sqrt{0.9409467824e-2} + \\sqrt{0.3661927897e-1}\\right)  \\sqrt{\\frac{1}{0.0831538287} } &amp; \\sqrt{0.3363887053} &amp; \\sqrt{0.6636112946} \\\\ \\sqrt{0.3363887053} &amp; \\sqrt{1.} &amp; 0 \\\\ \\sqrt{0.6636112946} &amp; 0 &amp; \\sqrt{1.} \\end{array} \\right)"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $M.scaled</span>
-<span class="co">#&gt; [1] "\\left( \\begin{array}{ccc} \\left( \\sqrt{0.5987302485e-5} + \\sqrt{0.8023257922}\\right)  \\sqrt{\\frac{1}{0.8067152791} } &amp;  - \\sqrt{0.2724303313e-2} &amp; \\sqrt{0.9972756966} \\\\  - \\sqrt{0.2724303313e-2} &amp; \\sqrt{1.} &amp; 0 \\\\ \\sqrt{0.9972756966} &amp; 0 &amp; \\sqrt{1.} \\end{array} \\right)"</span>
+<span class="co">#&gt; [1] "\\left( \\begin{array}{ccc} \\left( \\sqrt{0.9409467824e-2} + \\sqrt{0.3661927897e-1}\\right)  \\sqrt{\\frac{1}{0.0831538287} } &amp; \\sqrt{0.3363887053} &amp; \\sqrt{0.6636112946} \\\\ \\sqrt{0.3363887053} &amp; \\sqrt{1.} &amp; 0 \\\\ \\sqrt{0.6636112946} &amp; 0 &amp; \\sqrt{1.} \\end{array} \\right)"</span>
 <span class="va">ExpectationsTex</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/Expectations.html">Expectations</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
   <span class="va">S</span>,
@@ -434,7 +434,7 @@
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{v} = \left( \begin{array}{c} 0.9348526964 \\ -0.6462746714 \\ 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{v} = \left( \begin{array}{c} 0.4050177737 \\ -0.3919063373 \\ 0 \end{array} \right)\end{align*}\]</span></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
@@ -443,7 +443,7 @@
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{g} = \left( \begin{array}{c} 0.9348526964 \\ -0.6462746714 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{g} = \left( \begin{array}{c} 0.4050177737 \\ -0.3919063373 \end{array} \right)\end{align*}\]</span></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
@@ -452,7 +452,7 @@
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{C} = \left( \begin{array}{ccc} 0.8067152791 &amp; -0.0085919796 &amp; 0.804517542 \\ -0.0085919796 &amp; 0.0335900569 &amp; 0 \\ 0.804517542 &amp; 0 &amp; 0.804517542 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{C} = \left( \begin{array}{ccc} 0.0831538287 &amp; 0.0846750401 &amp; 0.0551818199 \\ 0.0846750401 &amp; 0.2563227573 &amp; 0 \\ 0.0551818199 &amp; 0 &amp; 0.0551818199 \end{array} \right)\end{align*}\]</span></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
@@ -461,7 +461,7 @@
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\mathbf{M} = \left( \begin{array}{cc} 0.8067152791 &amp; -0.0085919796 \\ -0.0085919796 &amp; 0.0335900569 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\mathbf{M} = \left( \begin{array}{cc} 0.0831538287 &amp; 0.0846750401 \\ 0.0846750401 &amp; 0.2563227573 \end{array} \right)\end{align*}\]</span></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">C</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">C</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">M</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
@@ -488,7 +488,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🎊</span>
+<span class="co">#&gt; Test passed 🎉</span>
 <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"M."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">M</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">M</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -505,7 +505,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🎊</span>
+<span class="co">#&gt; Test passed 😀</span>
 <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"v."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -531,7 +531,7 @@
     <span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">SymbolicuNullExprv</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🥳</span>
+<span class="co">#&gt; Test passed 🎊</span>
 <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"g."</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>

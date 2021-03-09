@@ -192,7 +192,7 @@
 <p><span class="math display">\[\begin{equation}
   \begin{split}
     y &amp;= \alpha + \beta x + \varepsilon \\
-    y &amp;= 0.7298906 + \left( 0.2506193 x \right) + \varepsilon
+    y &amp;= -0.6043376 + \left( -0.3837648 x \right) + \varepsilon
   \end{split}
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -236,14 +236,14 @@
   simplify <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
 <span class="co">#&gt; $A.scaled</span>
-<span class="co">#&gt; {{                 0, Sqrt(0.2420442308), Sqrt(0.7579557694)},</span>
-<span class="co">#&gt;  {                 0,                  0,                  0},</span>
-<span class="co">#&gt;  {                 0,                  0,                  0}} </span>
+<span class="co">#&gt; {{                  0, -Sqrt(0.2152354625),  Sqrt(0.7847645374)},</span>
+<span class="co">#&gt;  {                  0,                   0,                   0},</span>
+<span class="co">#&gt;  {                  0,                   0,                   0}} </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $S.scaled</span>
 <span class="co">#&gt; {{                 0,                  0,                  0},</span>
-<span class="co">#&gt;  {                 0, Sqrt(1.0000000003),                  0},</span>
-<span class="co">#&gt;  {                 0,                  0, Sqrt(1.0000000004)}}</span></code></pre></div>
+<span class="co">#&gt;  {                 0, Sqrt(1.0000000001),                  0},</span>
+<span class="co">#&gt;  {                 0,                  0, Sqrt(1.0000000003)}}</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">latex</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/RAMScaled.html">RAMScaled</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
@@ -258,7 +258,7 @@
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\left( \begin{array}{ccc} 0 &amp; \sqrt{0.2420442308} &amp; \sqrt{0.7579557694} \\ 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\left( \begin{array}{ccc} 0 &amp;  - \sqrt{0.2152354625} &amp; \sqrt{0.7847645374} \\ 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 \end{array} \right)\end{align*}\]</span></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
@@ -266,7 +266,7 @@
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\left( \begin{array}{ccc} 0 &amp; 0 &amp; 0 \\ 0 &amp; \sqrt{1.0000000003} &amp; 0 \\ 0 &amp; 0 &amp; \sqrt{1.0000000004} \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\left( \begin{array}{ccc} 0 &amp; 0 &amp; 0 \\ 0 &amp; \sqrt{1.0000000001} &amp; 0 \\ 0 &amp; 0 &amp; \sqrt{1.0000000003} \end{array} \right)\end{align*}\]</span></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">C.scaled</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">C.scaled</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">M.scaled</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">M.scaled</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
@@ -313,7 +313,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 😀</span>
+<span class="co">#&gt; Test passed 😸</span>
 <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"M.scaled"</span>, <span class="op">{</span>
   <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">M.scaled</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">M.scaled</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -332,7 +332,7 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 😀</span></code></pre></div>
+<span class="co">#&gt; Test passed 🌈</span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/RAMScaled.html">RAMScaled</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
@@ -342,14 +342,90 @@
   check <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
 <span class="co">#&gt; $A.scaled</span>
-<span class="co">#&gt; {{                 0, Sqrt(0.2420442308), Sqrt(0.7579557694)},</span>
-<span class="co">#&gt;  {                 0,                  0,                  0},</span>
-<span class="co">#&gt;  {                 0,                  0,                  0}} </span>
+<span class="co">#&gt; {{                  0, -Sqrt(0.2152354625),  Sqrt(0.7847645374)},</span>
+<span class="co">#&gt;  {                  0,                   0,                   0},</span>
+<span class="co">#&gt;  {                  0,                   0,                   0}} </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $S.scaled</span>
 <span class="co">#&gt; {{                 0,                  0,                  0},</span>
-<span class="co">#&gt;  {                 0, Sqrt(1.0000000003),                  0},</span>
-<span class="co">#&gt;  {                 0,                  0, Sqrt(1.0000000004)}}</span></code></pre></div>
+<span class="co">#&gt;  {                 0, Sqrt(1.0000000001),                  0},</span>
+<span class="co">#&gt;  {                 0,                  0, Sqrt(1.0000000003)}}</span>
+<span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/RAMScaled.html">RAMScaled</a></span><span class="op">(</span>
+  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
+  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span>,
+  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">Filter</span><span class="op">)</span>,
+  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">C</span><span class="op">)</span>,
+  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">C.scaled</span><span class="op">)</span>,
+  exe <span class="op">=</span> <span class="cn">FALSE</span>,
+  check <span class="op">=</span> <span class="cn">TRUE</span>
+<span class="op">)</span>
+<span class="co">#&gt; $A.scaled</span>
+<span class="co">#&gt; {{                  0, -Sqrt(0.2152354625),  Sqrt(0.7847645375)},</span>
+<span class="co">#&gt;  {                  0,                   0,                   0},</span>
+<span class="co">#&gt;  {                  0,                   0,                   0}} </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $S.scaled</span>
+<span class="co">#&gt; {{                 0,                  0,                  0},</span>
+<span class="co">#&gt;  {                 0, Sqrt(1.0000000001),                  0},</span>
+<span class="co">#&gt;  {                 0,                  0, Sqrt(1.0000000003)}}</span>
+<span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/RAMScaled.html">RAMScaled</a></span><span class="op">(</span>
+  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
+  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span>,
+  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">Filter</span><span class="op">)</span>,
+  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">C</span><span class="op">)</span>,
+  <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">C.scaled</span><span class="op">)</span>,
+  exe <span class="op">=</span> <span class="cn">FALSE</span>,
+  check <span class="op">=</span> <span class="cn">FALSE</span>
+<span class="op">)</span>
+<span class="co">#&gt; $A.scaled</span>
+<span class="co">#&gt; {{                  0, -Sqrt(0.2152354625),  Sqrt(0.7847645375)},</span>
+<span class="co">#&gt;  {                  0,                   0,                   0},</span>
+<span class="co">#&gt;  {                  0,                   0,                   0}} </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $S.scaled</span>
+<span class="co">#&gt; {{                 0,                  0,                  0},</span>
+<span class="co">#&gt;  {                 0, Sqrt(1.0000000001),                  0},</span>
+<span class="co">#&gt;  {                 0,                  0, Sqrt(1.0000000003)}}</span>
+<span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/RAMScaled.html">RAMScaled</a></span><span class="op">(</span>
+  <span class="va">A</span>,
+  <span class="va">S</span>,
+  <span class="va">Filter</span>,
+  <span class="va">C</span>,
+  <span class="va">C.scaled</span>,
+  exe <span class="op">=</span> <span class="cn">FALSE</span>,
+  check <span class="op">=</span> <span class="cn">TRUE</span>
+<span class="op">)</span>
+<span class="co">#&gt; $A.scaled</span>
+<span class="co">#&gt;   y          x         e</span>
+<span class="co">#&gt; y 0 -0.4639348 0.8858694</span>
+<span class="co">#&gt; x 0  0.0000000 0.0000000</span>
+<span class="co">#&gt; e 0  0.0000000 0.0000000</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $S.scaled</span>
+<span class="co">#&gt;   y x e</span>
+<span class="co">#&gt; y 0 0 0</span>
+<span class="co">#&gt; x 0 1 0</span>
+<span class="co">#&gt; e 0 0 1</span>
+<span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/RAMScaled.html">RAMScaled</a></span><span class="op">(</span>
+  <span class="va">A</span>,
+  <span class="va">S</span>,
+  <span class="va">Filter</span>,
+  <span class="va">C</span>,
+  <span class="va">C.scaled</span>,
+  exe <span class="op">=</span> <span class="cn">FALSE</span>,
+  check <span class="op">=</span> <span class="cn">FALSE</span>
+<span class="op">)</span>
+<span class="co">#&gt; $A.scaled</span>
+<span class="co">#&gt;   y          x         e</span>
+<span class="co">#&gt; y 0 -0.4639348 0.8858694</span>
+<span class="co">#&gt; x 0  0.0000000 0.0000000</span>
+<span class="co">#&gt; e 0  0.0000000 0.0000000</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $S.scaled</span>
+<span class="co">#&gt;   y x e</span>
+<span class="co">#&gt; y 0 0 0</span>
+<span class="co">#&gt; x 0 1 0</span>
+<span class="co">#&gt; e 0 0 1</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

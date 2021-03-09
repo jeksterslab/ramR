@@ -183,13 +183,40 @@
     <p>Checks if the input matrices are in the correct form.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>CheckRAMMatrices</span><span class='op'>(</span><span class='va'>A</span>, S <span class='op'>=</span> <span class='cn'>NULL</span>, u <span class='op'>=</span> <span class='cn'>NULL</span>, Filter <span class='op'>=</span> <span class='cn'>NULL</span>, C <span class='op'>=</span> <span class='cn'>NULL</span>, v <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>CheckRAMMatrices</span><span class='op'>(</span>
+  <span class='va'>A</span>,
+  S <span class='op'>=</span> <span class='cn'>NULL</span>,
+  u <span class='op'>=</span> <span class='cn'>NULL</span>,
+  Filter <span class='op'>=</span> <span class='cn'>NULL</span>,
+  C <span class='op'>=</span> <span class='cn'>NULL</span>,
+  C.scaled <span class='op'>=</span> <span class='cn'>NULL</span>,
+  v <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>CheckRAMMatrices</span><span class='op'>(</span><span class='va'>A</span>, S <span class='op'>=</span> <span class='cn'>NULL</span>, u <span class='op'>=</span> <span class='cn'>NULL</span>, Filter <span class='op'>=</span> <span class='cn'>NULL</span>, C <span class='op'>=</span> <span class='cn'>NULL</span>, v <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>CheckRAMMatrices</span><span class='op'>(</span>
+  <span class='va'>A</span>,
+  S <span class='op'>=</span> <span class='cn'>NULL</span>,
+  u <span class='op'>=</span> <span class='cn'>NULL</span>,
+  Filter <span class='op'>=</span> <span class='cn'>NULL</span>,
+  C <span class='op'>=</span> <span class='cn'>NULL</span>,
+  C.scaled <span class='op'>=</span> <span class='cn'>NULL</span>,
+  v <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for yac_symbol</span>
-<span class='fu'>CheckRAMMatrices</span><span class='op'>(</span><span class='va'>A</span>, S <span class='op'>=</span> <span class='cn'>NULL</span>, u <span class='op'>=</span> <span class='cn'>NULL</span>, Filter <span class='op'>=</span> <span class='cn'>NULL</span>, C <span class='op'>=</span> <span class='cn'>NULL</span>, v <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>CheckRAMMatrices</span><span class='op'>(</span>
+  <span class='va'>A</span>,
+  S <span class='op'>=</span> <span class='cn'>NULL</span>,
+  u <span class='op'>=</span> <span class='cn'>NULL</span>,
+  Filter <span class='op'>=</span> <span class='cn'>NULL</span>,
+  C <span class='op'>=</span> <span class='cn'>NULL</span>,
+  C.scaled <span class='op'>=</span> <span class='cn'>NULL</span>,
+  v <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -221,6 +248,12 @@ Filter matrix used to select observed variables.</p></td>
       <th>C</th>
       <td><p><code>t by t</code> numeric matrix \(\mathbf{C}\).
 Model-implied variance-covariance matrix.</p></td>
+    </tr>
+    <tr>
+      <th>C.scaled</th>
+      <td><p><code>t by t</code> numeric matrix
+\(\mathbf{C}_{\mathrm{scaled}}\).
+Scaled/standardized model-implied variance-covariance matrix.</p></td>
     </tr>
     <tr>
       <th>v</th>
@@ -296,6 +329,9 @@ Expected values.</p></td>
 #&gt; x 0.25 0.25 0
 #&gt; e 1.00 0.00 1
 #&gt; 
+#&gt; $C.scaled
+#&gt; NULL
+#&gt; 
 #&gt; $v
 #&gt;     v
 #&gt; y 0.5
@@ -350,6 +386,9 @@ Expected values.</p></td>
 #&gt; {{sigmax2*beta^2+sigmae2,           sigmax2*beta,                sigmae2},
 #&gt;  {          sigmax2*beta,                sigmax2,                      0},
 #&gt;  {               sigmae2,                      0,                sigmae2}} 
+#&gt; 
+#&gt; $C.scaled
+#&gt; NULL
 #&gt; 
 #&gt; $v
 #&gt; {{alpha+beta*mux},

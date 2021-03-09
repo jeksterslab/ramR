@@ -6,11 +6,38 @@
 \alias{CheckRAMMatrices.yac_symbol}
 \title{Check Matrices}
 \usage{
-CheckRAMMatrices(A, S = NULL, u = NULL, Filter = NULL, C = NULL, v = NULL, ...)
+CheckRAMMatrices(
+  A,
+  S = NULL,
+  u = NULL,
+  Filter = NULL,
+  C = NULL,
+  C.scaled = NULL,
+  v = NULL,
+  ...
+)
 
-\method{CheckRAMMatrices}{default}(A, S = NULL, u = NULL, Filter = NULL, C = NULL, v = NULL, ...)
+\method{CheckRAMMatrices}{default}(
+  A,
+  S = NULL,
+  u = NULL,
+  Filter = NULL,
+  C = NULL,
+  C.scaled = NULL,
+  v = NULL,
+  ...
+)
 
-\method{CheckRAMMatrices}{yac_symbol}(A, S = NULL, u = NULL, Filter = NULL, C = NULL, v = NULL, ...)
+\method{CheckRAMMatrices}{yac_symbol}(
+  A,
+  S = NULL,
+  u = NULL,
+  Filter = NULL,
+  C = NULL,
+  C.scaled = NULL,
+  v = NULL,
+  ...
+)
 }
 \arguments{
 \item{A}{\verb{t by t} matrix \eqn{\mathbf{A}}.
@@ -30,6 +57,10 @@ Filter matrix used to select observed variables.}
 
 \item{C}{\verb{t by t} numeric matrix \eqn{\mathbf{C}}.
 Model-implied variance-covariance matrix.}
+
+\item{C.scaled}{\verb{t by t} numeric matrix
+\eqn{\mathbf{C}_{\mathrm{scaled}}}.
+Scaled/standardized model-implied variance-covariance matrix.}
 
 \item{v}{vector of length \code{t} or \verb{t by 1} matrix.
 Expected values.}

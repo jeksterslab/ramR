@@ -225,5 +225,41 @@ ramR::RAMScaled(
   exe = FALSE,
   check = FALSE
 )
+ramR::RAMScaled(
+  Ryacas::ysym(A),
+  Ryacas::ysym(S),
+  Ryacas::ysym(Filter),
+  Ryacas::ysym(C),
+  Ryacas::ysym(C.scaled),
+  exe = FALSE,
+  check = TRUE
+)
+ramR::RAMScaled(
+  Ryacas::ysym(A),
+  Ryacas::ysym(S),
+  Ryacas::ysym(Filter),
+  Ryacas::ysym(C),
+  Ryacas::ysym(C.scaled),
+  exe = FALSE,
+  check = FALSE
+)
+ramR::RAMScaled(
+  A,
+  S,
+  Filter,
+  C,
+  C.scaled,
+  exe = FALSE,
+  check = TRUE
+)
+ramR::RAMScaled(
+  A,
+  S,
+  Filter,
+  C,
+  C.scaled,
+  exe = FALSE,
+  check = FALSE
+)
 ```
 

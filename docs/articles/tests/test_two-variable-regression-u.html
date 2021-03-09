@@ -192,7 +192,7 @@
 <p><span class="math display">\[\begin{equation}
   \begin{split}
     y &amp;= \alpha + \beta x + \varepsilon \\
-    y &amp;= -0.8145584 + \left( 0.9666659 x \right) + \varepsilon
+    y &amp;= 0.167233 + \left( -0.6147328 x \right) + \varepsilon
   \end{split}
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -230,9 +230,9 @@
   ysym <span class="op">=</span> <span class="cn">FALSE</span>,
   simplify <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
-<span class="co">#&gt; {{ -0.930893862},</span>
-<span class="co">#&gt;  {-0.1203471394},</span>
-<span class="co">#&gt;  {            0}}</span></code></pre></div>
+<span class="co">#&gt; {{0.0540676946},</span>
+<span class="co">#&gt;  {0.1840886576},</span>
+<span class="co">#&gt;  {           0}}</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span>
   <span class="st">"\\begin{align*}"</span>,
@@ -245,7 +245,7 @@
   <span class="st">"\\end{align*}"</span>,
   sep <span class="op">=</span> <span class="st">""</span>
 <span class="op">)</span></code></pre></div>
-<p><span class="math display">\[\begin{align*}\left( \begin{array}{c} -0.930893862 \\ -0.1203471394 \\ 0 \end{array} \right)\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}\left( \begin{array}{c} 0.0540676946 \\ 0.1840886576 \\ 0 \end{array} \right)\end{align*}\]</span></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">u</span>, digits <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -262,27 +262,27 @@
     <span class="op">}</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span>
-<span class="co">#&gt; Test passed 🌈</span></code></pre></div>
+<span class="co">#&gt; Test passed 😸</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/u.html">u</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
   <span class="va">v</span>,
   exe <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "Identity(\n    Length({{0,0.966665933839977,1},{0,0,0},{0,0,0}}))*{{-0.930893862},{-0.1203471394},{0}}"</span>
+<span class="co">#&gt; [1] "Identity(\n    Length({{0,-0.6147327632,1},{0,0,0},{0,0,0}}))*{{0.0540676946142164},{0.184088657610118},{0}}"</span>
 <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/u.html">u</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span><span class="op">)</span>,
   exe <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "Identity(\n    Length({{0,0.966665933839977,1},{0,0,0},{0,0,0}}))*{{-0.930893862},{-0.1203471394},{0}}"</span>
+<span class="co">#&gt; [1] "Identity(\n    Length({{0,-0.6147327632,1},{0,0,0},{0,0,0}}))*{{0.0540676946142164},{0.184088657610118},{0}}"</span>
 <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../../reference/u.html">u</a></span><span class="op">(</span>
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>,
   <span class="fu">Ryacas</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Ryacas/man/ysym.html">ysym</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span>,
   exe <span class="op">=</span> <span class="cn">FALSE</span>,
   check <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "Identity(\n    Length({{0,0.966665933839977,1},{0,0,0},{0,0,0}}))*{{-0.930893862},{-0.1203471394},{0}}"</span></code></pre></div>
+<span class="co">#&gt; [1] "Identity(\n    Length({{0,-0.6147327632,1},{0,0,0},{0,0,0}}))*{{0.0540676946142164},{0.184088657610118},{0}}"</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

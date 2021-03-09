@@ -20,7 +20,7 @@ articles:
   tests/test_two-variable-regression-g: test_two-variable-regression-g.html
   tests/test_two-variable-regression-u: test_two-variable-regression-u.html
   tests/test_two-variable-regression-v: test_two-variable-regression-v.html
-last_built: 2021-03-09T05:45Z
+last_built: 2021-03-09T07:23Z
 urls:
   reference: https://github.com/jeksterslab/ramR//reference
   article: https://github.com/jeksterslab/ramR//articles

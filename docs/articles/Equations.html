@@ -506,23 +506,23 @@ Two-Factor Confirmatory Factor Analysis Model
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Data</span> <span class="op">&lt;-</span> <span class="fu">ramR</span><span class="fu">::</span><span class="fu"><a href="../reference/Eq2Data.html">Eq2Data</a></span><span class="op">(</span><span class="va">eq</span>, n <span class="op">=</span> <span class="fl">100000</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">Data</span><span class="op">)</span>
-<span class="co">#&gt;  num [1:100000, 1:6] -0.782 -0.9361 -0.0644 0.9063 0.5438 ...</span>
+<span class="co">#&gt;  num [1:100000, 1:6] 1.873 2.423 -0.745 0.667 0.673 ...</span>
 <span class="co">#&gt;  - attr(*, "dimnames")=List of 2</span>
 <span class="co">#&gt;   ..$ : NULL</span>
 <span class="co">#&gt;   ..$ : chr [1:6] "y1" "y2" "y3" "y4" ...</span>
 <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">Data</span><span class="op">)</span>
 <span class="co">#&gt;           y1        y2        y3        y4        y5        y6</span>
-<span class="co">#&gt; y1 1.4909947 0.9982700 0.9906735 0.4968444 0.5006499 0.4923736</span>
-<span class="co">#&gt; y2 0.9982700 1.4995015 0.9927735 0.4970984 0.4998690 0.4934079</span>
-<span class="co">#&gt; y3 0.9906735 0.9927735 1.4846421 0.4927075 0.4998300 0.4926319</span>
-<span class="co">#&gt; y4 0.4968444 0.4970984 0.4927075 1.5038854 1.0009256 0.9971468</span>
-<span class="co">#&gt; y5 0.5006499 0.4998690 0.4998300 1.0009256 1.5056460 0.9999993</span>
-<span class="co">#&gt; y6 0.4923736 0.4934079 0.4926319 0.9971468 0.9999993 1.4956646</span>
+<span class="co">#&gt; y1 1.5000567 1.0055138 1.0043772 0.5019843 0.5027063 0.5008787</span>
+<span class="co">#&gt; y2 1.0055138 1.5084534 1.0111019 0.5108941 0.5097030 0.5035257</span>
+<span class="co">#&gt; y3 1.0043772 1.0111019 1.5078111 0.5129160 0.5121389 0.5074137</span>
+<span class="co">#&gt; y4 0.5019843 0.5108941 0.5129160 1.5116784 1.0098434 1.0062642</span>
+<span class="co">#&gt; y5 0.5027063 0.5097030 0.5121389 1.0098434 1.5115103 1.0039442</span>
+<span class="co">#&gt; y6 0.5008787 0.5035257 0.5074137 1.0062642 1.0039442 1.4980951</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">colMeans</a></span><span class="op">(</span><span class="va">Data</span><span class="op">)</span>
 <span class="co">#&gt;            y1            y2            y3            y4            y5 </span>
-<span class="co">#&gt;  0.0002462559  0.0009053576 -0.0007806729  0.0012040723 -0.0020901744 </span>
+<span class="co">#&gt; -0.0025641592  0.0005963711 -0.0005749747 -0.0055706087 -0.0045764213 </span>
 <span class="co">#&gt;            y6 </span>
-<span class="co">#&gt; -0.0005453291</span></code></pre></div>
+<span class="co">#&gt; -0.0006031611</span></code></pre></div>
 </div>
 </div>
 </div>
