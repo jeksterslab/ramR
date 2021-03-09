@@ -120,37 +120,6 @@ RAMScaled.default <- function(A,
   S.scaled <- InvD %*% S %*% InvD
   rownames(A.scaled) <- colnames(A.scaled) <- colnames(A)
   rownames(S.scaled) <- colnames(S.scaled) <- colnames(A)
-  # t <- dim(A)[1]
-  # S.scaled <- A.scaled <- matrix(
-  #  0,
-  #  nrow = t,
-  #  ncol = t
-  # )
-  # colnames(A.scaled) <- rownames(A.scaled) <- colnames(A)
-  # colnames(S.scaled) <- rownames(S.scaled) <- colnames(A)
-  # for (x in 1:t) {
-  #  for (y in 1:t) {
-  #    if (A[y, x] != 0) {
-  #      A.scaled[y, x] <- A[y, x] * sqrt(C[x, x]) / sqrt(C[y, y])
-  #    }
-  #  }
-  # }
-  ## diagonal elements
-  # for (y in 1:t) {
-  #  if (S[y, y] != 0) {
-  #    S.scaled[y, y] <- 1 - sum(A.scaled[y, ]^2)
-  #  }
-  # }
-  ## off-diagonal elements
-  # for (x in 1:t) {
-  #  for (y in 1:t) {
-  #    if (x != y) {
-  #      if (S[y, x] != 0) {
-  #        S.scaled[y, x] <- C.scaled[y, x]
-  #      }
-  #    }
-  #  }
-  # }
   return(
     list(
       A.scaled = A.scaled,
@@ -266,64 +235,6 @@ RAMScaled.yac_symbol <- function(A,
     "*",
     InvD
   )
-  # t <- Length(A)
-  # S.scaled <- A.scaled <- matrix(
-  #  0,
-  #  nrow = t,
-  #  ncol = t
-  # )
-  # for (x in 1:t) {
-  #  for (y in 1:t) {
-  #    a <- suppressWarnings(as.numeric(A[y, x]$yacas_cmd))
-  #    if (is.na(a) || a != 0) {
-  #      A.scaled[y, x] <- paste0(
-  #        "(",
-  #        "(",
-  #        A[y, x]$yacas_cmd,
-  #        ")",
-  #        "*",
-  #        "Sqrt(",
-  #        C[x, x]$yacas_cmd,
-  #        ")",
-  #        "/",
-  #        "Sqrt(",
-  #        C[y, y]$yacas_cmd,
-  #        ")",
-  #        ")"
-  #      )
-  #    }
-  #  }
-  # }
-  ## diagonal elements
-  # for (y in 1:t) {
-  #  s <- suppressWarnings(as.numeric(S[y, y]$yacas_cmd))
-  #  if (is.na(s) || s != 0) {
-  #    S.scaled[y, y] <- paste0(
-  #      "1",
-  #      "-",
-  #      "(",
-  #      paste0(
-  #        paste0(
-  #          A.scaled[y, ],
-  #          "^2"
-  #        ),
-  #        collapse = "+"
-  #      ),
-  #      ")"
-  #    )
-  #  }
-  # }
-  ## off-diagonal elements
-  # for (x in 1:t) {
-  #  for (y in 1:t) {
-  #    if (x != y) {
-  #      s <- suppressWarnings(as.numeric(S[y, x]$yacas_cmd))
-  #      if (is.na(s) || s != 0) {
-  #        S.scaled[y, x] <- C.scaled[y, x]$yacas_cmd
-  #      }
-  #    }
-  #  }
-  # }
   A.scaled <- yacR::as.ysym(A.scaled)
   S.scaled <- yacR::as.ysym(S.scaled)
   if (exe) {
