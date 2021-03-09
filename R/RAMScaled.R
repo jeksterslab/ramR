@@ -1,5 +1,27 @@
 #' Scaled/Standardized RAM Matrices
 #'
+#' Derives the scaled/standardized RAM matrices.
+#'
+#' The scaled/standardized \eqn{\mathbf{A}} and \eqn{\mathbf{S}}
+#' are  given by
+#'
+#' \deqn{
+#'   \mathbf{A}_{\mathrm{scaled}}
+#'   =
+#'   \mathbf{D} \mathbf{A} \mathbf{D}^{-1}
+#' }
+#'
+#' \deqn{
+#'   \mathbf{S}_{\mathrm{scaled}}
+#'   =
+#'   \mathbf{D} \mathbf{S} \mathbf{D}
+#' }
+#'
+#' where \eqn{\mathbf{D}} is a diagonal matrix
+#' whose diagonal elements are the diagonal elements of \eqn{\mathbf{C}}
+#' raised to \eqn{-\frac{1}{2}},
+#' that is, the inverse of the standard deviations of the variables.
+#'
 #' @family RAM matrices functions
 #' @keywords ram
 #'
