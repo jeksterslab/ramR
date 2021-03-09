@@ -20,6 +20,9 @@
 #'   Filter matrix used to select observed variables.
 #' @param C `t by t` numeric matrix \eqn{\mathbf{C}}.
 #'   Model-implied variance-covariance matrix.
+#' @param C.scaled `t by t` numeric matrix
+#'   \eqn{\mathbf{C}_{\mathrm{scaled}}}.
+#'   Scaled/standardized model-implied variance-covariance matrix.
 #' @param v vector of length `t` or `t by 1` matrix.
 #'   Expected values.
 #' @param ... ...
@@ -29,6 +32,7 @@ CheckRAMMatrices <- function(A,
                              u = NULL,
                              Filter = NULL,
                              C = NULL,
+                             C.scaled = NULL,
                              v = NULL,
                              ...) {
   UseMethod("CheckRAMMatrices")
@@ -71,6 +75,7 @@ CheckRAMMatrices.default <- function(A,
                                      u = NULL,
                                      Filter = NULL,
                                      C = NULL,
+                                     C.scaled = NULL,
                                      v = NULL,
                                      ...) {
   stopifnot(is.numeric(A))
@@ -109,6 +114,14 @@ CheckRAMMatrices.default <- function(A,
     C_dimensions <- dim(C)
     if (!is.null(names)) {
       colnames(C) <- rownames(C) <- names
+    }
+  }
+  if (!is.null(C.scaled)) {
+    stopifnot(is.numeric(C.scaled))
+    stopifnot(matrixR::IsSymmetric(round(C.scaled, digits = 4)))
+    C.scaled_dimensions <- dim(C.scaled)
+    if (!is.null(names)) {
+      colnames(C.scaled) <- rownames(C.scaled) <- names
     }
   }
   if (!is.null(v)) {
@@ -152,6 +165,14 @@ CheckRAMMatrices.default <- function(A,
       )
     )
   }
+  if (!is.null(C.scaled)) {
+    stopifnot(
+      identical(
+        C.scaled_dimensions,
+        A_dimensions
+      )
+    )
+  }
   if (!is.null(v)) {
     stopifnot(
       identical(
@@ -167,6 +188,7 @@ CheckRAMMatrices.default <- function(A,
       u = u,
       Filter = Filter,
       C = C,
+      C.scaled = C.scaled,
       v = v
     )
   )
@@ -206,6 +228,7 @@ CheckRAMMatrices.yac_symbol <- function(A,
                                         u = NULL,
                                         Filter = NULL,
                                         C = NULL,
+                                        C.scaled = NULL,
                                         v = NULL,
                                         ...) {
   stopifnot(matrixR::IsSquareMatrix(A))
@@ -231,6 +254,13 @@ CheckRAMMatrices.yac_symbol <- function(A,
     stopifnot(matrixR::IsSquareMatrix(C))
     C <- yacR::as.ysym.mat(C)
     C_dimensions <- Length(C)
+  }
+  if (!is.null(C.scaled)) {
+    # IsSymmetric is not safe for symbolic results.
+    # See https://github.com/grzegorzmazur/yacas/issues/327
+    stopifnot(matrixR::IsSquareMatrix(C.scaled))
+    C.scaled <- yacR::as.ysym.mat(C.scaled)
+    C.scaled_dimensions <- Length(C.scaled)
   }
   if (!is.null(v)) {
     v <- yacR::as.ysym.mat(v)
@@ -268,6 +298,14 @@ CheckRAMMatrices.yac_symbol <- function(A,
       )
     )
   }
+  if (!is.null(C.scaled)) {
+    stopifnot(
+      identical(
+        C.scaled_dimensions,
+        A_dimensions
+      )
+    )
+  }
   if (!is.null(v)) {
     stopifnot(
       identical(
@@ -283,6 +321,7 @@ CheckRAMMatrices.yac_symbol <- function(A,
       u = u,
       Filter = Filter,
       C = C,
+      C.scaled = C.scaled,
       v = v
     )
   )
