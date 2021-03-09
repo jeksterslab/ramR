@@ -220,7 +220,7 @@ Eq2RAM <- function(eq,
   # loadings
   for (i in seq_len(dim(by)[1])) {
     loadings <- by[i, , drop = FALSE]
-    A[loadings[, "rhs"], loadings[, "lhs"]] <- to.numeric(
+    A[loadings[, "rhs"], loadings[, "lhs"]] <- AsNumeric(
       loadings[, "par.label"]
     )
     by$par.type[i] <- "loading"
@@ -231,7 +231,7 @@ Eq2RAM <- function(eq,
   # regressions
   for (i in seq_len(dim(on)[1])) {
     regressions <- on[i, , drop = FALSE]
-    A[regressions[, "lhs"], regressions[, "rhs"]] <- to.numeric(
+    A[regressions[, "lhs"], regressions[, "rhs"]] <- AsNumeric(
       regressions[, "par.label"]
     )
     on$par.type[i] <- "regression"
@@ -242,10 +242,10 @@ Eq2RAM <- function(eq,
   # variances
   for (i in seq_len(dim(with)[1])) {
     variances <- with[i, , drop = FALSE]
-    S[variances[, "lhs"], variances[, "rhs"]] <- to.numeric(
+    S[variances[, "lhs"], variances[, "rhs"]] <- AsNumeric(
       variances[, "par.label"]
     )
-    S[variances[, "rhs"], variances[, "lhs"]] <- to.numeric(
+    S[variances[, "rhs"], variances[, "lhs"]] <- AsNumeric(
       variances[, "par.label"]
     )
     with$par.type[i] <- "variance/covariance"
@@ -264,7 +264,7 @@ Eq2RAM <- function(eq,
     colnames(u) <- "u"
     for (i in seq_len(dim(one)[1])) {
       means <- one[i, , drop = FALSE]
-      u[means[, "lhs"], 1] <- to.numeric(
+      u[means[, "lhs"], 1] <- AsNumeric(
         means[, "par.label"]
       )
       one$par.type[i] <- "mean/intercept"

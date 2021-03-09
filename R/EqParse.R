@@ -1,7 +1,6 @@
 #' Equations Parser
 #'
 #' Parse equations and return a parameter table (`par.table`).
-#'
 #' The argument `eq` is a character string
 #' that specifies the associations between the variables.
 #' See `Syntax`, `Operations`, `par.label`,
@@ -186,14 +185,14 @@ EqParse <- function(eq) {
         )
       )
     },
-    # error = function(e) {
-    #  stop(
-    #    paste(
-    #      "\nCheck for errors in `eq`.",
-    #      "\nFollow the appropriate syntax."
-    #    )
-    #  )
-    # },
+    error = function(e) {
+      stop(
+        paste(
+          "\nCheck for errors in `eq`.",
+          "\nFollow the appropriate syntax."
+        )
+      )
+    },
     warning = function(w) {
       stop(
         paste(
@@ -224,7 +223,7 @@ EqParse <- function(eq) {
   )
   # check for duplicates -----------------------------------------------
   if (
-    isFALSE(
+    !(
       all(
         !(
           duplicated(
@@ -416,25 +415,16 @@ EqParse <- function(eq) {
     par.table,
     stringsAsFactors = FALSE
   )
-  par.label <- sapply(
-    X = par.table$par.label,
-    FUN = to.numeric
-  )
-  par.table$par.label <- par.label
-  par.index <- sapply(
-    X = par.table$par.index,
-    FUN = to.numeric
-  )
-  par.table$par.index <- par.index
+  par.table$par.label <- AsNumeric(par.table$par.label)
+  par.table$par.index <- AsNumeric(par.table$par.index)
   par.table$par.names <- par.names
   if ("par.start" %in% colnames(par.table)) {
-    par.start <- sapply(
-      X = par.table$par.start,
-      FUN = function(x) suppressWarnings(as.numeric(x))
+    par.table$par.start <- AsNumeric(
+      par.table$par.start,
+      return_NA = TRUE
     )
-    par.table$par.start <- par.start
     par.free <- ifelse(
-      test = is.na(par.start),
+      test = is.na(par.table$par.start),
       yes = FALSE,
       no = TRUE
     )
