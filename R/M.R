@@ -51,7 +51,9 @@
 #'   - \eqn{t} number of observed and latent variables,
 #'     that is \eqn{p + q} .
 #'
-#' @return \eqn{\mathbf{M} = \mathbf{F} \mathbf{C} \mathbf{F}^{\mathsf{T}}}
+#' @return \eqn{
+#'   \mathbf{M} = \mathbf{F} \mathbf{C} \mathbf{F}^{\mathsf{T}}
+#' }
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
@@ -60,13 +62,12 @@
 #'
 #' @inherit ramR references
 #' @inheritParams C
-#' @param Filter `p by t` numeric matrix
-#'   \eqn{\mathbf{F}}.
-#'   Filter matrix used to select observed variables.
+#' @inheritParams CheckRAMMatrices
 #' @export
 M <- function(A,
               S,
               Filter = NULL,
+              check = TRUE,
               ...) {
   UseMethod("M")
 }
@@ -79,6 +80,7 @@ M <- function(A,
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
+#' #--------------------------------------------------------------------
 #'
 #' A <- S <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, 1, 1)
@@ -92,20 +94,26 @@ M <- function(A,
 M.default <- function(A,
                       S,
                       Filter = NULL,
+                      check = TRUE,
                       ...) {
+  if (check) {
+    RAM <- CheckRAMMatrices(
+      A = A,
+      S = S,
+      Filter = Filter
+    )
+    A <- RAM$A
+    S <- RAM$S
+    Filter <- RAM$Filter
+  }
   C <- C(
     A = A,
-    S = S
+    S = S,
+    check = FALSE
   )
   if (is.null(Filter)) {
     return(C)
   } else {
-    stopifnot(
-      identical(
-        dim(A)[1],
-        dim(Filter)[2]
-      )
-    )
     return(
       Filter %*% tcrossprod(
         x = C,
@@ -123,13 +131,14 @@ M.default <- function(A,
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
+#' #--------------------------------------------------------------------
 #'
 #' A <- S <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, "beta", 1)
 #' diag(S) <- c(0, "sigmax2", "sigmae2")
 #' M(Ryacas::ysym(A), S, Filter)
+#' M(Ryacas::ysym(A), S, Filter, format = "str")
 #' M(Ryacas::ysym(A), S, Filter, format = "tex")
-#' M(Ryacas::ysym(A), S, Filter, format = "ysym")
 #' M(Ryacas::ysym(A), S, Filter, R = TRUE)
 #'
 #' # Assigning values to symbols
@@ -137,60 +146,48 @@ M.default <- function(A,
 #' beta <- 1
 #' sigmax2 <- 0.25
 #' sigmae2 <- 1
+#'
 #' M(Ryacas::ysym(A), S, Filter)
+#' M(Ryacas::ysym(A), S, Filter, format = "str")
 #' M(Ryacas::ysym(A), S, Filter, format = "tex")
-#' M(Ryacas::ysym(A), S, Filter, format = "ysym")
 #' M(Ryacas::ysym(A), S, Filter, R = TRUE)
 #' eval(M(Ryacas::ysym(A), S, Filter, R = TRUE))
 #' @export
 M.yac_symbol <- function(A,
                          S,
                          Filter = NULL,
+                         check = TRUE,
                          exe = TRUE,
                          R = FALSE,
                          format = "ysym",
                          simplify = FALSE,
                          ...) {
-  Cysym <- C(
+  if (check) {
+    RAM <- CheckRAMMatrices(A = A, S = S, Filter = Filter)
+    S <- RAM$S
+    Filter <- RAM$Filter
+  } else {
+    S <- yacR::as.ysym.mat(S)
+    if (!is.null(Filter)) {
+      Filter <- yacR::as.ysym.mat(Filter)
+    }
+  }
+  C <- C(
     A = A,
     S = S,
+    check = FALSE,
     exe = FALSE
   )
   if (is.null(Filter)) {
-    expr <- Cysym
+    expr <- C
   } else {
-    Filterysym <- yacR::as.ysym.mat(Filter)
-    FilterDimensions <- as.numeric(
-      Ryacas::yac_str(
-        paste0(
-          "Length(Transpose(",
-          Filterysym,
-          "))"
-        )
-      )
-    )
-    ADimensions <- as.numeric(
-      Ryacas::yac_str(
-        paste0(
-          "Length(",
-          A,
-          ")"
-        )
-      )
-    )
-    stopifnot(
-      identical(
-        ADimensions,
-        FilterDimensions
-      )
-    )
     expr <- paste0(
-      Filterysym,
+      Filter,
       "*",
-      Cysym,
+      C,
       "*",
       "Transpose(",
-      Filterysym,
+      Filter,
       ")"
     )
   }

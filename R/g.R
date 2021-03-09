@@ -55,6 +55,7 @@
 g <- function(A,
               u,
               Filter = NULL,
+              check = TRUE,
               ...) {
   UseMethod("g")
 }
@@ -67,6 +68,7 @@ g <- function(A,
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
+#' #--------------------------------------------------------------------
 #'
 #' A <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, 1, 1)
@@ -79,23 +81,30 @@ g <- function(A,
 g.default <- function(A,
                       u,
                       Filter = NULL,
+                      check = TRUE,
                       ...) {
-  v <- v.default(
-    A = A,
-    u = u
-  )
-  if (isFALSE(
-    is.null(Filter)
-  )
-  ) {
-    out <- Filter %*% v
-    colnames(out) <- "g"
-    return(
-      out
+  if (check) {
+    RAM <- CheckRAMMatrices(
+      A = A,
+      u = u,
+      Filter = Filter
     )
-  } else {
+    A <- RAM$A
+    u <- RAM$u
+    Filter <- RAM$Filter
+  }
+  v <- v(
+    A = A,
+    u = u,
+    check = FALSE
+  )
+  if (is.null(Filter)) {
     colnames(v) <- "g"
     return(v)
+  } else {
+    g <- Filter %*% v
+    colnames(g) <- "g"
+    return(g)
   }
 }
 
@@ -107,13 +116,14 @@ g.default <- function(A,
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
+#' #--------------------------------------------------------------------
 #'
 #' A <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, "beta", 1)
 #' u <- c("alpha", "mux", 0)
 #' g(Ryacas::ysym(A), u, Filter)
+#' g(Ryacas::ysym(A), u, Filter, format = "str")
 #' g(Ryacas::ysym(A), u, Filter, format = "tex")
-#' g(Ryacas::ysym(A), u, Filter, format = "ysym")
 #' g(Ryacas::ysym(A), u, Filter, R = TRUE)
 #'
 #' # Assigning values to symbols
@@ -121,57 +131,49 @@ g.default <- function(A,
 #' alpha <- 0
 #' beta <- 1
 #' mux <- 0.50
+#'
 #' g(Ryacas::ysym(A), u, Filter)
+#' g(Ryacas::ysym(A), u, Filter, format = "str")
 #' g(Ryacas::ysym(A), u, Filter, format = "tex")
-#' g(Ryacas::ysym(A), u, Filter, format = "ysym")
 #' g(Ryacas::ysym(A), u, Filter, R = TRUE)
 #' eval(g(Ryacas::ysym(A), u, Filter, R = TRUE))
 #' @export
 g.yac_symbol <- function(A,
                          u,
                          Filter = NULL,
+                         check = TRUE,
                          exe = TRUE,
                          R = FALSE,
                          format = "ysym",
                          simplify = FALSE,
                          ...) {
-  vysym <- v(
+  if (check) {
+    RAM <- CheckRAMMatrices(
+      A = A,
+      u = u,
+      Filter = Filter
+    )
+    u <- RAM$u
+    Filter <- RAM$Filter
+  } else {
+    u <- yacR::as.ysym.mat(u)
+    if (!is.null(Filter)) {
+      Filter <- yacR::as.ysym.mat(Filter)
+    }
+  }
+  v <- v(
     A = A,
     u = u,
+    check = FALSE,
     exe = FALSE
   )
   if (is.null(Filter)) {
-    expr <- vysym
+    expr <- v
   } else {
-    Filterysym <- yacR::as.ysym.mat(Filter)
-    FilterDimensions <- as.numeric(
-      Ryacas::yac_str(
-        paste0(
-          "Length(Transpose(",
-          Filterysym,
-          "))"
-        )
-      )
-    )
-    ADimensions <- as.numeric(
-      Ryacas::yac_str(
-        paste0(
-          "Length(",
-          A,
-          ")"
-        )
-      )
-    )
-    stopifnot(
-      identical(
-        ADimensions,
-        FilterDimensions
-      )
-    )
     expr <- paste0(
-      Filterysym,
+      Filter,
       "*",
-      vysym
+      v
     )
   }
   if (exe) {

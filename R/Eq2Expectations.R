@@ -1,11 +1,12 @@
 #' Equations to Expectations
 #'
 #' Converts equations to expectations.
-#'
 #' The argument `eq` is a character string
 #' that specifies the associations between the variables.
 #' See `Syntax`, `Operations`, `par.label`,
 #' `Line breaks`, and `Comments` below.
+#'
+#' @inherit Expectations details
 #'
 #' @section Syntax:
 #'   Each line should follow the syntax below
@@ -166,6 +167,7 @@
 #' @export
 Eq2Expectations <- function(eq,
                             par = FALSE,
+                            check = TRUE,
                             R = FALSE,
                             format = "ysym",
                             simplify = FALSE) {
@@ -178,7 +180,8 @@ Eq2Expectations <- function(eq,
       A = Expectations$A,
       S = Expectations$S,
       u = Expectations$u,
-      Filter = Expectations$Filter
+      Filter = Expectations$Filter,
+      check = check
     )
   } else {
     out <- Expectations.yac_symbol(
@@ -186,6 +189,7 @@ Eq2Expectations <- function(eq,
       S = Expectations$S,
       u = Expectations$u,
       Filter = Expectations$Filter,
+      check = check,
       R = R,
       format = format,
       simplify = simplify

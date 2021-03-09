@@ -21,7 +21,9 @@
 #'     such as regression coefficients and factor loadings, and
 #'   - \eqn{\mathbf{I}_{t \times t}} represents an identity matrix.
 #'
-#' @return \eqn{\mathbf{E} = \left( \mathbf{I} - \mathbf{A} \right)^{-1}}
+#' @return \eqn{
+#'   \mathbf{E} = \left( \mathbf{I} - \mathbf{A} \right)^{-1}
+#' }
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
@@ -32,6 +34,7 @@
 #' @inheritParams IminusA
 #' @export
 E <- function(A,
+              check = TRUE,
               ...) {
   UseMethod("E")
 }
@@ -43,6 +46,7 @@ E <- function(A,
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
+#' #--------------------------------------------------------------------
 #'
 #' A <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, 1, 1)
@@ -50,10 +54,14 @@ E <- function(A,
 #' E(A)
 #' @export
 E.default <- function(A,
+                      check = TRUE,
                       ...) {
   return(
     solve(
-      IminusA(A)
+      IminusA(
+        A = A,
+        check = check
+      )
     )
   )
 }
@@ -65,36 +73,39 @@ E.default <- function(A,
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
+#' #--------------------------------------------------------------------
 #'
 #' A <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, "beta", 1)
-#' E(Ryacas::ysym(A), R = FALSE, format = "ysym")
-#' E(Ryacas::ysym(A), R = FALSE, format = "str")
-#' E(Ryacas::ysym(A), R = FALSE, format = "tex")
+#' E(Ryacas::ysym(A))
+#' E(Ryacas::ysym(A), format = "str")
+#' E(Ryacas::ysym(A), format = "tex")
 #' E(Ryacas::ysym(A), R = TRUE)
 #'
 #' # Assigning values to symbols
 #'
 #' beta <- 1
-#' E(Ryacas::ysym(A), R = FALSE, format = "ysym")
-#' E(Ryacas::ysym(A), R = FALSE, format = "str")
-#' E(Ryacas::ysym(A), R = FALSE, format = "tex")
+#'
+#' E(Ryacas::ysym(A))
+#' E(Ryacas::ysym(A), format = "str")
+#' E(Ryacas::ysym(A), format = "tex")
 #' E(Ryacas::ysym(A), R = TRUE)
 #' eval(E(Ryacas::ysym(A), R = TRUE))
 #' @export
 E.yac_symbol <- function(A,
+                         check = TRUE,
                          exe = TRUE,
                          R = FALSE,
                          format = "ysym",
                          simplify = FALSE,
                          ...) {
-  IminusAsym <- IminusA(
-    A = A,
-    exe = FALSE
-  )
   expr <- paste0(
     "Inverse(",
-    IminusAsym,
+    IminusA(
+      A = A,
+      check = check,
+      exe = FALSE
+    ),
     ")"
   )
   if (exe) {

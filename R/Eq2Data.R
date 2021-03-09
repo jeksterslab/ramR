@@ -2,7 +2,6 @@
 #'
 #' Generates data from a multivariate normal distribution
 #' from model equations using the [MASS::mvrnorm()] function.
-#'
 #' The argument `eq` is a character string
 #' that specifies the associations between the variables.
 #' See `Syntax`, `Operations`, `par.label`,
@@ -167,6 +166,7 @@
 #'
 #' @inherit ramR references
 #'
+#' @inheritParams Expectations
 #' @inheritParams Eq2RAM
 #' @inheritParams RAM2Data
 #'
@@ -184,6 +184,7 @@
 #' @export
 Eq2Data <- function(eq,
                     n,
+                    check = TRUE,
                     ...) {
   Expectations <- Eq2RAM(
     eq,
@@ -194,11 +195,12 @@ Eq2Data <- function(eq,
       Expectations$par.table$par.label
     )
   )
-  Expectations <- Expectations.default(
+  Expectations <- Expectations(
     A = Expectations$A,
     S = Expectations$S,
     u = Expectations$u,
-    Filter = Expectations$Filter
+    Filter = Expectations$Filter,
+    check = check
   )
   return(
     MASS::mvrnorm(

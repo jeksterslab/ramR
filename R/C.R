@@ -33,7 +33,9 @@
 #'     such as variances and covariances, and
 #'   - \eqn{\mathbf{I}_{t \times t}} represents an identity matrix.
 #'
-#' @return \eqn{\mathbf{C} = \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}}}
+#' @return \eqn{
+#'   \mathbf{C} = \mathbf{E} \mathbf{S} \mathbf{E}^{\mathsf{T}}
+#' }
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
@@ -42,12 +44,11 @@
 #'
 #' @inherit ramR references
 #' @inheritParams IminusA
-#' @param S `t by t` numeric matrix \eqn{\mathbf{S}}.
-#'   Symmetric paths (double-headed arrows),
-#'   such as variances and covariances.
+#' @inheritParams CheckRAMMatrices
 #' @export
 C <- function(A,
               S,
+              check = TRUE,
               ...) {
   UseMethod("C")
 }
@@ -60,6 +61,7 @@ C <- function(A,
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
+#' #--------------------------------------------------------------------
 #'
 #' A <- S <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, 1, 1)
@@ -69,20 +71,20 @@ C <- function(A,
 #' @export
 C.default <- function(A,
                       S,
+                      check = TRUE,
                       ...) {
-  stopifnot(is.numeric(S))
-  stopifnot(
-    matrixR::IsSymmetric(
-      round(S, digits = 4)
+  if (check) {
+    RAM <- CheckRAMMatrices(
+      A = A,
+      S = S
     )
+    A <- RAM$A
+    S <- RAM$S
+  }
+  E <- E(
+    A = A,
+    check = FALSE
   )
-  stopifnot(
-    identical(
-      dim(A),
-      dim(S)
-    )
-  )
-  E <- E(A)
   STinvIminusA <- tcrossprod(
     x = S,
     y = E
@@ -100,13 +102,14 @@ C.default <- function(A,
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
+#' #--------------------------------------------------------------------
 #'
 #' A <- S <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, "beta", 1)
 #' diag(S) <- c(0, "sigmax2", "sigmae2")
-#' C(Ryacas::ysym(A), S, R = FALSE, format = "ysym")
-#' C(Ryacas::ysym(A), S, R = FALSE, format = "str")
-#' C(Ryacas::ysym(A), S, R = FALSE, format = "tex")
+#' C(Ryacas::ysym(A), S)
+#' C(Ryacas::ysym(A), S, format = "str")
+#' C(Ryacas::ysym(A), S, format = "tex")
 #' C(Ryacas::ysym(A), S, R = TRUE)
 #'
 #' # Assigning values to symbols
@@ -115,59 +118,40 @@ C.default <- function(A,
 #' sigmax2 <- 0.25
 #' sigmae2 <- 1
 #'
-#' C(Ryacas::ysym(A), S, R = FALSE, format = "ysym")
-#' C(Ryacas::ysym(A), S, R = FALSE, format = "str")
-#' C(Ryacas::ysym(A), S, R = FALSE, format = "tex")
+#' C(Ryacas::ysym(A), S)
+#' C(Ryacas::ysym(A), S, format = "str")
+#' C(Ryacas::ysym(A), S, format = "tex")
 #' C(Ryacas::ysym(A), S, R = TRUE)
 #' eval(C(Ryacas::ysym(A), S, R = TRUE))
 #' @export
 C.yac_symbol <- function(A,
                          S,
+                         check = TRUE,
                          exe = TRUE,
                          R = FALSE,
                          format = "ysym",
                          simplify = FALSE,
                          ...) {
-  Eysym <- E(
+  if (check) {
+    S <- CheckRAMMatrices(
+      A = A,
+      S = S
+    )$S
+  } else {
+    S <- yacR::as.ysym.mat(S)
+  }
+  E <- E(
     A = A,
+    check = FALSE,
     exe = FALSE
   )
-  # IsSymmetric unsafe for nonnumeric input
-  Sysym <- matrixR::MatrixCheck(
-    A = yacR::as.ysym.mat(S),
-    IsSquareMatrix = TRUE
-  )
-  ADimensions <- as.numeric(
-    Ryacas::yac_str(
-      paste0(
-        "Length(",
-        A,
-        ")"
-      )
-    )
-  )
-  SDimensions <- as.numeric(
-    Ryacas::yac_str(
-      paste0(
-        "Length(",
-        Sysym,
-        ")"
-      )
-    )
-  )
-  stopifnot(
-    identical(
-      ADimensions,
-      SDimensions
-    )
-  )
   expr <- paste0(
-    Eysym,
+    E,
     "*",
-    Sysym,
+    S,
     "*",
     "Transpose(",
-    Eysym,
+    E,
     ")"
   )
   if (exe) {

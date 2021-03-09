@@ -36,11 +36,11 @@
 #'
 #' @inherit ramR references
 #' @inheritParams IminusA
-#' @param v vector of length `t` or `t by 1` matrix.
-#'   Expected values.
+#' @inheritParams CheckRAMMatrices
 #' @export
 u <- function(A,
               v,
+              check = TRUE,
               ...) {
   UseMethod("u")
 }
@@ -53,6 +53,7 @@ u <- function(A,
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
+#' #--------------------------------------------------------------------
 #'
 #' A <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, 1, 1)
@@ -62,11 +63,20 @@ u <- function(A,
 #' @export
 u.default <- function(A,
                       v,
+                      check = TRUE,
                       ...) {
-  IminusA <- IminusA(A)
-  stopifnot(is.numeric(v))
-  v <- as.matrix(v)
-  stopifnot(identical(dim(A)[1], dim(v)[1]))
+  if (check) {
+    RAM <- CheckRAMMatrices(
+      A = A,
+      v = v
+    )
+    A <- RAM$A
+    v <- RAM$v
+  }
+  IminusA <- IminusA(
+    A = A,
+    check = FALSE
+  )
   u <- as.matrix(IminusA %*% v)
   colnames(u) <- "u"
   return(u)
@@ -80,13 +90,14 @@ u.default <- function(A,
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
+#' #--------------------------------------------------------------------
 #'
 #' A <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, "beta", 1)
 #' v <- c("alpha+beta*mux", "mux", 0)
 #' u(Ryacas::ysym(A), v)
+#' u(Ryacas::ysym(A), v, format = "str")
 #' u(Ryacas::ysym(A), v, format = "tex")
-#' u(Ryacas::ysym(A), v, format = "ysym")
 #' u(Ryacas::ysym(A), v, R = TRUE)
 #'
 #' # Assigning values to symbols
@@ -94,57 +105,37 @@ u.default <- function(A,
 #' alpha <- 0
 #' beta <- 1
 #' mux <- 0.50
+#'
 #' u(Ryacas::ysym(A), v)
+#' u(Ryacas::ysym(A), v, format = "str")
 #' u(Ryacas::ysym(A), v, format = "tex")
-#' u(Ryacas::ysym(A), v, format = "ysym")
 #' u(Ryacas::ysym(A), v, R = TRUE)
 #' eval(u(Ryacas::ysym(A), v, R = TRUE))
 #' @export
 u.yac_symbol <- function(A,
                          v,
+                         check = TRUE,
                          exe = TRUE,
                          R = FALSE,
                          format = "ysym",
                          simplify = FALSE,
                          ...) {
-  Aysym <- matrixR::MatrixCheck(
-    A,
-    IsSquareMatrix = TRUE
-  )
-  Iysym <- paste0(
-    "Identity(Length(",
-    Aysym,
-    "))"
-  )
-  vysym <- yacR::as.ysym.mat(v)
-  ADimensions <- as.numeric(
-    Ryacas::yac_str(
-      paste0(
-        "Length(",
-        Aysym,
-        ")"
-      )
-    )
-  )
-  vDimensions <- as.numeric(
-    Ryacas::yac_str(
-      paste0(
-        "Length(",
-        vysym,
-        ")"
-      )
-    )
-  )
-  stopifnot(
-    identical(
-      ADimensions,
-      vDimensions
-    )
-  )
+  if (check) {
+    v <- CheckRAMMatrices(
+      A = A,
+      v = v
+    )$v
+  } else {
+    v <- yacR::as.ysym.mat(v)
+  }
   expr <- paste0(
-    Iysym,
+    "Identity(", "
+    Length(",
+    A,
+    ")",
+    ")",
     "*",
-    vysym
+    v
   )
   if (exe) {
     return(

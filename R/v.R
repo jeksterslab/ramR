@@ -37,11 +37,11 @@
 #'
 #' @inherit ramR references
 #' @inheritParams IminusA
-#' @param u vector of length `t` or `t by 1` matrix.
-#'   Mean structure parameters.
+#' @inheritParams CheckRAMMatrices
 #' @export
 v <- function(A,
               u,
+              check = TRUE,
               ...) {
   UseMethod("v")
 }
@@ -54,6 +54,7 @@ v <- function(A,
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
+#' #--------------------------------------------------------------------
 #'
 #' A <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, 1, 1)
@@ -63,11 +64,20 @@ v <- function(A,
 #' @export
 v.default <- function(A,
                       u,
+                      check = TRUE,
                       ...) {
-  E <- E(A)
-  stopifnot(is.numeric(u))
-  u <- as.matrix(u)
-  stopifnot(identical(dim(A)[1], dim(u)[1]))
+  if (check) {
+    RAM <- CheckRAMMatrices(
+      A = A,
+      u = u
+    )
+    A <- RAM$A
+    u <- RAM$u
+  }
+  E <- E(
+    A = A,
+    check = FALSE
+  ) # A is already checked
   v <- as.matrix(E %*% u)
   colnames(v) <- "v"
   return(v)
@@ -81,13 +91,14 @@ v.default <- function(A,
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
+#' #--------------------------------------------------------------------
 #'
 #' A <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, "beta", 1)
 #' u <- c("alpha", "mux", 0)
 #' v(Ryacas::ysym(A), u)
+#' v(Ryacas::ysym(A), u, format = "str")
 #' v(Ryacas::ysym(A), u, format = "tex")
-#' v(Ryacas::ysym(A), u, format = "ysym")
 #' v(Ryacas::ysym(A), u, R = TRUE)
 #'
 #' # Assigning values to symbols
@@ -95,28 +106,38 @@ v.default <- function(A,
 #' alpha <- 0
 #' beta <- 1
 #' mux <- 0.50
+#'
 #' v(Ryacas::ysym(A), u)
+#' v(Ryacas::ysym(A), u, format = "str")
 #' v(Ryacas::ysym(A), u, format = "tex")
-#' v(Ryacas::ysym(A), u, format = "ysym")
 #' v(Ryacas::ysym(A), u, R = TRUE)
 #' eval(v(Ryacas::ysym(A), u, R = TRUE))
 #' @export
 v.yac_symbol <- function(A,
                          u,
+                         check = TRUE,
                          exe = TRUE,
                          R = FALSE,
                          format = "ysym",
                          simplify = FALSE,
                          ...) {
-  Eysym <- E(
+  if (check) {
+    u <- CheckRAMMatrices(
+      A = A,
+      u = u
+    )$u
+  } else {
+    u <- yacR::as.ysym.mat(u)
+  }
+  E <- E(
     A = A,
+    check = FALSE,
     exe = FALSE
   )
-  uysym <- yacR::as.ysym.mat(u)
   expr <- paste0(
-    Eysym,
+    E,
     "*",
-    uysym
+    u
   )
   if (exe) {
     return(

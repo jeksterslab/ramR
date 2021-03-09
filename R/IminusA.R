@@ -21,12 +21,14 @@
 #' @keywords ram
 #'
 #' @inherit ramR references
-#' @param A `t by t` matrix \eqn{\mathbf{A}}.
-#'   Asymmetric paths (single-headed arrows),
-#'   such as regression coefficients and factor loadings.
+#' @inheritParams CheckRAMMatrices
+#' @param check Logical.
+#'   If `check = TRUE` do some preprocessing
+#'   with input matrices using [CheckRAMMatrices()].
 #' @param ... ...
 #' @export
 IminusA <- function(A,
+                    check = TRUE,
                     ...) {
   UseMethod("IminusA")
 }
@@ -38,6 +40,7 @@ IminusA <- function(A,
 #' # This is a numerical example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
+#' #--------------------------------------------------------------------
 #'
 #' A <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, 1, 1)
@@ -45,13 +48,11 @@ IminusA <- function(A,
 #' IminusA(A)
 #' @export
 IminusA.default <- function(A,
+                            check = TRUE,
                             ...) {
-  stopifnot(is.numeric(A))
-  stopifnot(
-    matrixR::IsNilpotent(
-      A
-    )
-  )
+  if (check) {
+    A <- CheckRAMMatrices(A = A)$A
+  }
   return(matrixR::IdentityFrom(A) - A)
 }
 
@@ -70,39 +71,43 @@ IminusA.default <- function(A,
 #' # This is a symbolic example for the model
 #' # y = alpha + beta * x + e
 #' # y = 0 + 1 * x + e
+#' #--------------------------------------------------------------------
 #'
 #' A <- matrixR::ZeroMatrix(3)
 #' A[1, ] <- c(0, "beta", 1)
-#' IminusA(Ryacas::ysym(A), R = FALSE, format = "ysym")
-#' IminusA(Ryacas::ysym(A), R = FALSE, format = "str")
-#' IminusA(Ryacas::ysym(A), R = FALSE, format = "tex")
+#' IminusA(Ryacas::ysym(A))
+#' IminusA(Ryacas::ysym(A), format = "str")
+#' IminusA(Ryacas::ysym(A), format = "tex")
 #' IminusA(Ryacas::ysym(A), R = TRUE)
 #'
 #' # Assigning values to symbols
 #'
 #' beta <- 1
-#' IminusA(Ryacas::ysym(A), R = FALSE, format = "ysym")
-#' IminusA(Ryacas::ysym(A), R = FALSE, format = "str")
-#' IminusA(Ryacas::ysym(A), R = FALSE, format = "tex")
+#'
+#' IminusA(Ryacas::ysym(A))
+#' IminusA(Ryacas::ysym(A), format = "str")
+#' IminusA(Ryacas::ysym(A), format = "tex")
 #' IminusA(Ryacas::ysym(A), R = TRUE)
 #' eval(IminusA(Ryacas::ysym(A), R = TRUE))
 #' @export
 IminusA.yac_symbol <- function(A,
+                               check = TRUE,
                                exe = TRUE,
                                R = FALSE,
                                format = "ysym",
                                simplify = FALSE,
                                ...) {
-  Aysym <- matrixR::MatrixCheck(
-    A = A,
-    IsSquareMatrix = TRUE
-  )
+  if (check) {
+    A <- CheckRAMMatrices(A = A)$A
+  }
   expr <- paste0(
-    "Identity(Length(",
-    Aysym,
-    "))",
+    "Identity(",
+    "Length(",
+    A,
+    ")",
+    ")",
     "-",
-    Aysym
+    A
   )
   if (exe) {
     return(
